@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased font-sans">
+
+  <div class="max-w-md mx-auto min-h-screen bg-white shadow-lg overflow-hidden flex flex-col">
+    
+    <header class="bg-blue-600 text-white p-6 rounded-b-2xl shadow-md">
+      <h1 class="text-xl font-bold">กองทุนสำรองเลี้ยงชีพ</h1>
+      <h2 class="text-sm text-blue-200">Internal Provident Fund</h2>
+    </header>
+
+    <main class="flex-1 p-6">
+      
+      <div id="loadingState" class="flex flex-col items-center justify-center py-10">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+        <p class="text-gray-900 font-medium">กำลังโหลดข้อมูลผู้ใช้งาน...</p>
+        <p class="text-gray-500 text-sm">Loading user profile...</p>
+      </div>
+
+      <div id="profileDashboard" class="hidden space-y-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
+        <div>
+          <p class="text-gray-900 font-semibold text-lg">ชื่อ-นามสกุล <span class="block text-xs font-normal text-gray-500">Employee Name</span></p>
+          <p id="userName" class="text-gray-800 font-medium mt-1">-</p>
+        </div>
+
+        <div>
+          <p class="text-gray-900 font-semibold text-lg">ตำแหน่ง <span class="block text-xs font-normal text-gray-500">Position</span></p>
+          <p id="userTitle" class="text-gray-800 font-medium mt-1">-</p>
+        </div>
+
+        <div>
+          <p class="text-gray-900 font-semibold text-lg">วันที่เริ่มงาน <span class="block text-xs font-normal text-gray-500">Hire Date</span></p>
+          <p id="userHireDate" class="text-gray-800 font-medium mt-1">-</p>
+        </div>
+      </div>
+      
+      <div id="errorState" class="hidden mt-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700">
+        <p class="font-bold text-lg">เกิดข้อผิดพลาด <span class="text-sm font-normal text-red-500">/ Error</span></p>
+        <p id="errorDetails" class="text-sm mt-1">Error loading data.</p>
+        
+        <div id="reportSection" class="mt-4">
+          <button id="reportBtn" onclick="sendReport()" class="bg-red-600 text-white px-4 py-2 rounded shadow text-sm font-semibold hover:bg-red-700 transition duration-150 w-full sm:w-auto">
+            Click here to report to Admin
+          </button>
+        </div>
+
+        <div id="reportSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-800 rounded border border-green-300 text-sm">
+          <p class="font-bold">✓ Submitted</p>
+          <p>Issue has been notified to the admin. Please wait until they get back to you.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // Initial load
+    document.addEventListener("DOMContentLoaded", () => {
+      google.script.run
+        .withSuccessHandler(populateUI)
+        .withFailureHandler((err) => showError("System Error: " + err))
+        .getUserProfile();
+    });
+
+    function populateUI(response) {
+      // 1. Hide loading
+      document.getElementById('loadingState').classList.add('hidden');
+      
+      if (response && response.success) {
+        // 2. Map data to UI
+        document.getElementById('userName').textContent = response.name 
+        document.getElementById('userTitle').textContent = response.title
+
+        // Convert the string back to a Date and format it
+        const d = new Date(response.hireDate);
+        document.getElementById('userHireDate').textContent = d.toLocaleDateString('en-GB', { 
+          day: 'numeric', 
+          month: 'long', 
+          year: 'numeric' 
+        });
+        
+        // 3. Show Dashboard
+        document.getElementById('profileDashboard').classList.remove('hidden');
+      } else {
+        showError(response.msg || "User record not found.");
+      }
+    }
+
+    function showError(message) {
+      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('profileDashboard').classList.add('hidden');
+      
+      const errorBox = document.getElementById('errorState');
+      document.getElementById('errorDetails').textContent = message;
+      errorBox.classList.remove('hidden');
+    }
+
+    // 4. Handles the Report to Admin button click
+    function sendReport() {
+      const btn = document.getElementById('reportBtn');
+      btn.textContent = "Sending...";
+      btn.disabled = true; // Prevent double-clicking
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+      google.script.run
+        .withSuccessHandler((response) => {
+          if (response && response.success) {
+            // Hide the button and show the success message
+            document.getElementById('reportSection').classList.add('hidden');
+            document.getElementById('reportSuccess').classList.remove('hidden');
+          } else {
+            // If the email failed to send
+            btn.textContent = "Failed. Try again.";
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            alert("Error sending report: " + response.msg);
+          }
+        })
+        .withFailureHandler((err) => {
+          btn.textContent = "Failed. Try again.";
+          btn.disabled = false;
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+          alert("System Error: " + err);
+        })
+        .reportIssueToAdmin(); // Calls the new backend function
+    }
+  </script>
+</body>
+</html>
