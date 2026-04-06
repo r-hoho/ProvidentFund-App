@@ -8,19 +8,17 @@
 
   <style>
     html, body {
-      /* Prevents 'pull-to-refresh' which drags the Google iframe */
       overscroll-behavior-y: none; 
-      
-      /* Tells the browser: ONLY allow vertical scrolling. Ignore weird swipe gestures. */
       touch-action: pan-y; 
-      
-      /* Removes the sticky gray box that appears when you tap things on mobile */
       -webkit-tap-highlight-color: transparent; 
     }
   </style>
 
 </head>
 <body>
+
+  <div id="successToast" style="visibility: hidden; min-width: 250px; background-color: #2e7d32; color: white; text-align: center; border-radius: var(--pico-border-radius); padding: 16px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); box-shadow: 0px 4px 12px rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.4s, bottom 0.4s;">
+  </div>
   
   <main class="container">
     
@@ -33,54 +31,74 @@
       กำลังโหลดข้อมูลผู้ใช้งาน... <br><small>Loading user profile...</small>
     </div>
 
-    <article id="profileDashboard" style="display: none;">
-      <header><strong>ข้อมูลพนักงาน / Employee Data</strong></header>
+    <div id="dashboardContent" style="display: none;">
       
-      <div style="margin-bottom: 1rem;">
-        <strong style="display: block; color: var(--pico-h1-color);">ชื่อ-นามสกุล (Name)</strong>
-        <span id="userName" style="font-size: 1.1rem;">-</span>
-      </div>
-
-      <div style="margin-bottom: 1rem;">
-        <strong style="display: block; color: var(--pico-h1-color);">ตำแหน่ง (Position)</strong>
-        <span id="userTitle" style="font-size: 1.1rem;">-</span>
-      </div>
-
-      <div style="margin-bottom: 0;">
-        <strong style="display: block; color: var(--pico-h1-color);">วันที่เริ่มงาน (Hire Date)</strong>
-        <span id="userHireDate" style="font-size: 1.1rem;">-</span>
-      </div>
-    </article>
-
-    <article id="statusCard" style="display: none;">
-      <header><strong>สถานะ / Status</strong></header>
-      
-      <p>
-        <mark id="statusPill" style="padding: 0.5rem; border-radius: 6px; font-weight: bold; display: inline-block;">-</mark>
-      </p>
-      <div id="cooldownContainer"></div>
-      
-      <div id="actionButtons" style="display: none; margin-top: 1rem;">
+      <article>
+        <header><strong>ข้อมูลพนักงาน / Employee Data</strong></header>
         
-        <div id="enrolledActions" style="display: none;">
-          <blockquote>
-            <strong>อัตราเงินสะสม / Plan:</strong> <span id="uiCurrentPlan" style="color: var(--pico-primary);">-</span><br>
-            <strong>อายุสมาชิก / Member Since:</strong> <span id="uiMemberSince">-</span><br>
-            <strong>สมทบบริษัท / Employer Match:</strong> <span id="uiEmployerMatch" style="color: var(--pico-ins-color);">-</span>
-          </blockquote>
-          
-          <button onclick="openChangePlan()">เปลี่ยนอัตราเงินสะสม / Change Plan</button>
-          <button class="outline" onclick="openWithdraw()" style="color: var(--pico-del-color); border-color: var(--pico-del-color);">ลาออก / Withdraw Fund</button>
+        <div class="grid">
+          <div>
+            <small style="color: var(--pico-muted-color);">รหัสพนักงาน / ID</small><br>
+            <strong id="empId">...</strong> </div>
+          <div>
+            <small style="color: var(--pico-muted-color);">ชื่อ-สกุล / Name</small><br>
+            <strong id="empName">...</strong> </div>
+        </div>
+        
+        <div style="margin-top: 1rem;">
+          <small style="color: var(--pico-muted-color);">วันที่เริ่มงาน / Hire Date</small><br>
+          <strong id="empHireDate">...</strong>
+        </div>
+      </article>
+
+      <article>
+        <header><strong>สถานะกองทุน / Fund Status</strong></header>
+        
+        <div style="margin-bottom: 1rem;">
+          <small style="color: var(--pico-muted-color); text-transform: uppercase; letter-spacing: 0.05rem;">
+            สถานะปัจจุบัน / Current Status
+          </small><br>
+          <strong id="statusPill" style="font-size: 1rem;">
+            กำลังโหลด... / Loading...
+          </strong>
         </div>
 
-        <div id="notEnrolledActions" style="display: none;">
-          <button class="contrast" onclick="openEnroll()">สมัครสมาชิก / Enroll Now</button>
+        <div id="enrolledInfoGroup">
+          <div style="margin-bottom: 0.25rem;">
+            <small style="color: var(--pico-muted-color);">อัตราเงินสะสม / Your Plan:</small>
+            <strong id="infoPlan" style="margin-left: 0.5rem;">-</strong>
+          </div>
+          <div style="margin-bottom: 0.25rem;">
+            <small style="color: var(--pico-muted-color);">บริษัทสมทบ / Employer Match:</small>
+            <strong id="infoMatch" style="margin-left: 0.5rem;">-</strong>
+          </div>
+          <div>
+            <small style="color: var(--pico-muted-color);">อายุสมาชิก / Member Since:</small>
+            <strong id="infoSince" style="margin-left: 0.5rem;">-</strong>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <header><strong>การจัดการ / Actions</strong></header>
+        
+        <button id="mainEnrollBtn" onclick="openEnroll()" style="display: none; width: 100%; margin-bottom: 1rem;">
+          สมัครสมาชิก / Enroll
+        </button>
+
+        <button id="mainChangePlanBtn" onclick="openChangePlan()" style="display: none; width: 100%; margin-bottom: 0.5rem;">
+          เปลี่ยนอัตราเงินสะสม / Change Plan
+        </button>
+        
+        <div id="cooldownMessage" style="color: var(--pico-del-color); font-size: 0.85rem; text-align: center; margin-bottom: 1rem; display: none;">
         </div>
 
-      </div>
-    </article>
+        <button id="mainWithdrawBtn" class="secondary outline" onclick="openWithdraw()" style="display: none; width: 100%; color: var(--pico-del-color); border-color: var(--pico-del-color);">
+          ลาออก / Withdraw
+        </button>
+      </article>
 
-    <article id="errorState" style="display: none; border: 2px solid var(--pico-del-color);">
+    </div> <article id="errorState" style="display: none; border: 2px solid var(--pico-del-color);">
       <header style="background-color: var(--pico-del-color); color: white;">
         <strong>เกิดข้อผิดพลาด / Error</strong>
       </header>
@@ -104,9 +122,7 @@
           <button aria-label="Close" rel="prev" onclick="closeEnroll()"></button>
           <strong>สมัครสมาชิก / Enroll</strong>
         </header>
-        
-        <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสม <br><small style="color: var(--pico-muted-color);">(Select your contribution plan):</small>
-        </p>
+        <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสม <br><small style="color: var(--pico-muted-color);">(Select your contribution plan):</small></p>
         
         <select id="enrollPlan" required>
           <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
@@ -130,11 +146,7 @@
           <button aria-label="Close" rel="prev" onclick="closeChangePlan()"></button>
           <strong>เปลี่ยนอัตราเงินสะสม / Change Plan</strong>
         </header>
-        
-        <p style="margin-bottom: 1rem;">
-          กรุณาเลือกอัตราเงินสะสมใหม่ <br>
-          <small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small>
-        </p>
+        <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสมใหม่ <br><small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small></p>
         
         <select id="newPlan" required>
           <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
@@ -154,60 +166,117 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // Load Profile
       google.script.run
         .withSuccessHandler(populateUI)
         .withFailureHandler((err) => showError("System Error: " + err))
         .getUserProfile();
+      
+      // Load Plan Check
+      google.script.run
+        .withSuccessHandler(applyCooldownUI)
+        .checkPlanChangeEligibility();
     });
+
+    // Helper to apply lock UI
+    function applyCooldownUI(status) {
+      const changeBtn = document.getElementById('mainChangePlanBtn');
+      const messageDiv = document.getElementById('cooldownMessage');
+      if (status.locked) {
+        changeBtn.disabled = true;
+        changeBtn.className = "secondary"; 
+        messageDiv.innerHTML = `🔒 ไม่สามารถเปลี่ยนอัตราได้ (Locked).<br>เปลี่ยนได้อีกครั้งวันที่: <strong>${status.nextDate}</strong>`;
+        messageDiv.style.display = "block";
+      } else {
+        changeBtn.disabled = false;
+        changeBtn.className = ""; 
+        messageDiv.style.display = "none";
+      }
+    }
+
+    // --- UI HELPER: AUTO-REFRESH TOAST ---
+    function showSuccessToast(message) {
+      const toast = document.getElementById("successToast");
+      toast.innerHTML = `<strong>✅ ${message}</strong>`;
+      
+      toast.style.visibility = "visible";
+      toast.style.opacity = "1";
+      toast.style.bottom = "50px";
+      
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.bottom = "30px";
+        
+        setTimeout(() => {
+          toast.style.visibility = "hidden";
+          
+          // --- THE SOFT REFRESH ---
+          document.getElementById('dashboardContent').style.display = 'none';
+          document.getElementById('loadingState').style.display = 'block'; 
+
+          // 1. Fetch fresh user data
+          google.script.run
+            .withSuccessHandler(populateUI)
+            .withFailureHandler((err) => showError("Refresh Error: " + err))
+            .getUserProfile();
+
+          // 2. Fetch fresh cooldown lock status
+          google.script.run
+            .withSuccessHandler(applyCooldownUI)
+            .checkPlanChangeEligibility();
+
+        }, 400); 
+      }, 1000); 
+    }
 
     function populateUI(response) {
       document.getElementById('loadingState').style.display = 'none';
       
       if (response && response.success) {
-        document.getElementById('userName').textContent = response.name;
-        document.getElementById('userTitle').textContent = response.title;
+        // Show the wrapper containing the 3 boxes
+        document.getElementById('dashboardContent').style.display = 'block';
+
+        // BOX 1
+        document.getElementById('empName').textContent = response.name || "-";
+        document.getElementById('empId').textContent = response.allstarsId || response.title || "-"; 
         
         const d = new Date(response.hireDate);
-        document.getElementById('userHireDate').textContent = d.toLocaleDateString('en-GB', { 
+        document.getElementById('empHireDate').textContent = isNaN(d) ? "-" : d.toLocaleDateString('en-GB', { 
           day: 'numeric', month: 'long', year: 'numeric' 
         });
         
+        // BOX 2 & 3 RESETS
         const statusPill = document.getElementById('statusPill');
-        const actionButtons = document.getElementById('actionButtons'); 
-        
-        // Reset view
-        actionButtons.style.display = 'none';
-        document.getElementById('enrolledActions').style.display = 'none';
-        document.getElementById('notEnrolledActions').style.display = 'none';
-        document.getElementById('cooldownContainer').innerHTML = '';
+        const enrolledInfoGroup = document.getElementById('enrolledInfoGroup');
+        const enrollBtn = document.getElementById('mainEnrollBtn');
+        const changePlanBtn = document.getElementById('mainChangePlanBtn');
+        const withdrawBtn = document.getElementById('mainWithdrawBtn');
 
-        // Priority 1: Locked permanently
+        enrollBtn.style.display = 'none';
+        changePlanBtn.style.display = 'none';
+        withdrawBtn.style.display = 'none';
+        enrolledInfoGroup.style.display = 'none'; 
+
+        // 7 STATES LOGIC
         if (response.enrollment.withdrawalCount >= 2) {
-          statusPill.textContent = "หมดสิทธิ์ถาวร (Locked)";
-          statusPill.style.backgroundColor = "var(--pico-del-color)";
-          statusPill.style.color = "white";
-        } 
-        // Priority 2: On Probation
-        else if (response.isOnProbation) {
-          statusPill.textContent = "ทดลองงาน (Probation)";
-          statusPill.style.backgroundColor = "#ffb74d"; 
-          statusPill.style.color = "black";
-        } 
-        // Priority 3: Cooldown period
-        else if (response.isCoolingDown) {
-          statusPill.textContent = "ระงับสิทธิ์ชั่วคราว (12-Month Cooldown)";
-          statusPill.style.backgroundColor = "#ba68c8"; 
-          statusPill.style.color = "white";
+          statusPill.innerHTML = "หมดสิทธิ์ถาวร / Locked";
+          statusPill.style.color = "var(--pico-del-color)";
+        } else if (response.isOnProbation) {
+          statusPill.innerHTML = "ทดลองงาน / Probation";
+          statusPill.style.color = "#ffb74d"; 
+        } else if (response.isCoolingDown) {
+          statusPill.innerHTML = "ระงับสิทธิ์ชั่วคราว / Cooldown";
+          statusPill.style.color = "#ba68c8"; 
           
           const unlockDate = new Date(response.cooldownEndDate);
           const dateString = unlockDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-          document.getElementById('cooldownContainer').innerHTML = `<p><small>* คุณจะสามารถสมัครใหม่ได้ในวันที่ / Eligible to re-enroll on: ${dateString}</small></p>`;
-        }
-        // Priority 4: Actively Enrolled
-        else if (response.enrollment.isEnrolled) {
-          statusPill.textContent = "เข้าร่วมแล้ว (Enrolled)";
-          statusPill.style.backgroundColor = "var(--pico-ins-color)";
-          statusPill.style.color = "white";
+          document.getElementById('cooldownMessage').innerHTML = `* สามารถสมัครใหม่ได้ในวันที่ / Eligible to re-enroll on:<br><strong>${dateString}</strong>`;
+          document.getElementById('cooldownMessage').style.display = 'block';
+        } else if (response.enrollment.isEnrolled) {
+          statusPill.innerHTML = `เป็นสมาชิก / Enrolled`;
+          statusPill.style.color = "#2e7d32"; 
+          
+          enrolledInfoGroup.style.display = 'block'; 
           
           let memberSinceStr = "-";
           if (response.enrollment.enrolledDate) {
@@ -215,170 +284,112 @@
             memberSinceStr = enrollDateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
           }
 
-          document.getElementById('uiCurrentPlan').textContent = `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
-          document.getElementById('uiMemberSince').textContent = memberSinceStr;
-          document.getElementById('uiEmployerMatch').textContent = response.matchPercent;
+          document.getElementById('infoPlan').textContent = `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
+          document.getElementById('infoMatch').textContent = response.matchPercent || "-";
+          document.getElementById('infoSince').textContent = memberSinceStr;
           
-          actionButtons.style.display = 'block';
-          document.getElementById('enrolledActions').style.display = 'block';
-        } 
-        // Priority 5: Clean slate / Ready to enroll
-        else {
-          statusPill.textContent = "ยังไม่เข้าร่วม (Not Enrolled)";
-          statusPill.style.backgroundColor = "var(--pico-secondary-background)";
-          statusPill.style.color = "var(--pico-secondary-inverse)";
-          
-          actionButtons.style.display = 'block';
-          document.getElementById('notEnrolledActions').style.display = 'block';
+          changePlanBtn.style.display = 'block';
+          withdrawBtn.style.display = 'block';
+        } else {
+          statusPill.innerHTML = "ยังไม่เข้าร่วม / Not Enrolled";
+          statusPill.style.color = "var(--pico-color)";
+          enrollBtn.style.display = 'block';
         }
 
-        document.getElementById('profileDashboard').style.display = 'block';
-        document.getElementById('statusCard').style.display = 'block';
-
       } else {
-        showError(response ? response.msg : "Data transfer error. Please contact Admin.");
+        showError(response ? response.msg : "Data transfer error.");
       }
     }
 
     function showError(message) {
       document.getElementById('loadingState').style.display = 'none';
-      document.getElementById('profileDashboard').style.display = 'none';
-      document.getElementById('statusCard').style.display = 'none';
+      document.getElementById('dashboardContent').style.display = 'none'; 
       
       const errorBox = document.getElementById('errorState');
       document.getElementById('errorDetails').textContent = message;
       errorBox.style.display = 'block';
     }
 
-    // --- UI Action Functions ---
     // --- ENROLLMENT FLOW ---
-    
-    function openEnroll() {
-      // Native HTML way to open a modal with a dark backdrop!
-      document.getElementById('enrollModal').showModal();
-    }
-
+    function openEnroll() { document.getElementById('enrollModal').showModal(); }
     function closeEnroll() {
-      // Reset the dropdown just in case they open it again later
       document.getElementById('enrollPlan').value = "";
       document.getElementById('enrollModal').close();
     }
-
     function submitEnroll() {
       const planSelect = document.getElementById('enrollPlan');
       const selectedPlan = planSelect.value;
+      if (!selectedPlan) { alert("กรุณาเลือกอัตราเงินสะสม / Please select a plan."); return; }
 
-      // 1. Check if they actually picked a plan
-      if (!selectedPlan) {
-        alert("กรุณาเลือกอัตราเงินสะสม / Please select a plan.");
-        return;
-      }
-
-      // 2. Put the button in a loading state using Pico's aria-busy
       const btn = document.getElementById('submitEnrollBtn');
       btn.setAttribute('aria-busy', 'true');
       btn.textContent = " กำลังบันทึก...";
-      btn.disabled = true;
-      
-      // Prevent them from changing the dropdown while saving
-      planSelect.disabled = true; 
-
-      // ---------------------------------------------------------
-      // NEW: Gather User Metadata
-      // ---------------------------------------------------------
-      const deviceData = navigator.userAgent; // Grabs OS and Browser info
-      // ---------------------------------------------------------
-
-      // 3. Send to Google Apps Script
-      google.script.run
-        .withSuccessHandler((response) => {
-          // Reset button
-          btn.removeAttribute('aria-busy');
-          btn.textContent = "ยืนยัน / Confirm";
-          btn.disabled = false;
-          planSelect.disabled = false;
-
-          if (response && response.success) {
-            closeEnroll();
-            alert("สมัครสมาชิกสำเร็จ! / Enrollment Successful!");
-            location.reload(); 
-          } else {
-            alert("Error: " + (response ? response.msg : "Unknown error"));
-          }
-        })
-        .withFailureHandler((err) => {
-          btn.removeAttribute('aria-busy');
-          btn.textContent = "ยืนยัน / Confirm";
-          btn.disabled = false;
-          planSelect.disabled = false;
-          alert("System Error: " + err);
-        })
-        .processEnrollment(parseFloat(selectedPlan), deviceData); // <-- WE PASS THE METADATA HERE!
-    }
-
-    
-    // ---------- CHANGE PLAN FLOW -------------------------------------------------------------
-    
-    function openChangePlan() {
-      document.getElementById('changePlanModal').showModal();
-    }
-
-    function closeChangePlan() {
-      document.getElementById('newPlan').value = "";
-      document.getElementById('changePlanModal').close();
-    }
-
-    function submitChangePlan() {
-      const planSelect = document.getElementById('newPlan');
-      const selectedPlan = planSelect.value;
-
-      if (!selectedPlan) {
-        alert("กรุณาเลือกอัตราเงินสะสมใหม่ / Please select a new plan.");
-        return;
-      }
-
-      const btn = document.getElementById('submitChangeBtn');
-      btn.setAttribute('aria-busy', 'true');
-      btn.textContent = " กำลังบันทึก...";
-      btn.disabled = true;
-      planSelect.disabled = true;
+      btn.disabled = true; planSelect.disabled = true; 
 
       const deviceData = navigator.userAgent;
 
       google.script.run
         .withSuccessHandler((response) => {
-          btn.removeAttribute('aria-busy');
-          btn.textContent = "ยืนยัน / Confirm";
-          btn.disabled = false;
-          planSelect.disabled = false;
-
+          btn.removeAttribute('aria-busy'); btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false; planSelect.disabled = false;
           if (response && response.success) {
-            closeChangePlan();
-            alert("เปลี่ยนอัตราสำเร็จ! / Plan Changed Successfully!");
-            location.reload(); 
+            closeEnroll();
+            showSuccessToast("สมัครสมาชิกสำเร็จ! / Enrollment Successful!");
           } else {
             alert("Error: " + (response ? response.msg : "Unknown error"));
           }
         })
         .withFailureHandler((err) => {
-          btn.removeAttribute('aria-busy');
-          btn.textContent = "ยืนยัน / Confirm";
-          btn.disabled = false;
-          planSelect.disabled = false;
+          btn.removeAttribute('aria-busy'); btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false; planSelect.disabled = false;
+          alert("System Error: " + err);
+        })
+        .processEnrollment(parseFloat(selectedPlan), deviceData);
+    }
+    
+    // --- CHANGE PLAN FLOW ---
+    function openChangePlan() { document.getElementById('changePlanModal').showModal(); }
+    function closeChangePlan() {
+      document.getElementById('newPlan').value = "";
+      document.getElementById('changePlanModal').close();
+    }
+    function submitChangePlan() {
+      const planSelect = document.getElementById('newPlan');
+      const selectedPlan = planSelect.value;
+      if (!selectedPlan) { alert("กรุณาเลือกอัตราเงินสะสมใหม่ / Please select a new plan."); return; }
+
+      const btn = document.getElementById('submitChangeBtn');
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = " กำลังบันทึก...";
+      btn.disabled = true; planSelect.disabled = true;
+
+      const deviceData = navigator.userAgent;
+
+      google.script.run
+        .withSuccessHandler((response) => {
+          btn.removeAttribute('aria-busy'); btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false; planSelect.disabled = false;
+          if (response && response.success) {
+            closeChangePlan();
+            // REPLACED THE ALERT WITH THE TOAST:
+            showSuccessToast("เปลี่ยนอัตราสำเร็จ! / Plan Changed Successfully!");
+          } else {
+            alert("Error: " + (response ? response.msg : "Unknown error"));
+          }
+        })
+        .withFailureHandler((err) => {
+          btn.removeAttribute('aria-busy'); btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false; planSelect.disabled = false;
           alert("System Error: " + err);
         })
         .processChangePlan(parseFloat(selectedPlan), deviceData);
     }
 
-
-  // ---------- WITHDRAW FLOW -------------------------------------------------------------
-    function openWithdraw() {
-      alert("Withdraw flow coming soon!");
-    }
+    // --- WITHDRAW FLOW (Coming Soon) ---
+    function openWithdraw() { alert("Withdraw flow coming soon!"); }
 
     function sendReport() {
       const btn = document.getElementById('reportBtn');
-      // Pico trick: aria-busy automatically adds a loading spinner to the button!
       btn.setAttribute('aria-busy', 'true');
       btn.textContent = " กำลังส่ง...";
       btn.disabled = true;
@@ -389,26 +400,17 @@
             document.getElementById('reportSection').style.display = 'none';
             document.getElementById('reportSuccess').style.display = 'block';
           } else {
-            btn.removeAttribute('aria-busy');
-            btn.textContent = "Failed. Try again.";
-            btn.disabled = false;
-            alert("Error sending report: " + response.msg);
+            btn.removeAttribute('aria-busy'); btn.textContent = "Failed. Try again.";
+            btn.disabled = false; alert("Error sending report: " + response.msg);
           }
         })
         .withFailureHandler((err) => {
-          btn.removeAttribute('aria-busy');
-          btn.textContent = "Failed. Try again.";
-          btn.disabled = false;
-          alert("System Error: " + err);
+          btn.removeAttribute('aria-busy'); btn.textContent = "Failed. Try again.";
+          btn.disabled = false; alert("System Error: " + err);
         })
         .reportIssueToAdmin();
     }
   </script>
-
 <script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
-<script>
-  var vConsole = new window.VConsole();
-
-</script>
 </body>
 </html>

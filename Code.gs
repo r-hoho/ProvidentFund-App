@@ -288,7 +288,66 @@ function processEnrollment(selectedPlan, deviceData) {
 }
 
 // ==========================================
-// 6.ACTION: CHANGE PLAN
+// CHECK UI STATUS: PLAN CHANGE COOLDOWN
+// ==========================================
+function checkPlanChangeEligibility() {
+  try {
+    const email = Session.getActiveUser().getEmail();
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const today = new Date();
+
+    const usersData = ss.getSheetByName("Users").getDataRange().getValues();
+    const emailCol = usersData[0].indexOf("Work_Email");
+    const idCol = usersData[0].indexOf("Allstars_ID");
+
+    let allstarsId = null;
+    for (let i = 1; i < usersData.length; i++) {
+      if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
+        allstarsId = usersData[i][idCol];
+        break;
+      }
+    }
+
+    if (!allstarsId) return { locked: false };
+
+    const enrollData = ss.getSheetByName("Enrollments").getDataRange().getValues();
+    const enrIdCol = enrollData[0].indexOf("Allstars_ID");
+    const lastChangeCol = enrollData[0].indexOf("Last_Plan_Change_Date");
+    const enrollDateCol = enrollData[0].indexOf("Current_Enrolled_Date");
+
+    for (let i = 1; i < enrollData.length; i++) {
+      if (enrollData[i][enrIdCol] == allstarsId) {
+        const lastChangeDate = enrollData[i][lastChangeCol] instanceof Date ? enrollData[i][lastChangeCol] : new Date(0);
+        const enrollDate = enrollData[i][enrollDateCol] instanceof Date ? enrollData[i][enrollDateCol] : new Date(0);
+        
+        // Find the most recent action date
+        const mostRecentAction = new Date(Math.max(lastChangeDate.getTime(), enrollDate.getTime()));
+        
+        if (mostRecentAction.getTime() > 0) {
+          const timeDifference = today.getTime() - mostRecentAction.getTime();
+          const daysSinceAction = timeDifference / (1000 * 3600 * 24);
+
+          if (daysSinceAction < 365) {
+            let nextEligibleDate = new Date(mostRecentAction);
+            nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
+            return { 
+              locked: true, 
+              nextDate: nextEligibleDate.toLocaleDateString('en-GB') 
+            };
+          }
+        }
+        break;
+      }
+    }
+    return { locked: false };
+  } catch (e) {
+    return { locked: false };
+  }
+}
+
+
+// ==========================================
+// ACTION: CHANGE PLAN (With Dual 12-Month Rule)
 // ==========================================
 function processChangePlan(newPlan, deviceData) {
   try {
@@ -298,9 +357,7 @@ function processChangePlan(newPlan, deviceData) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const today = new Date();
 
-    // 1. Get Allstars_ID from 'Users' Sheet
-    const usersSheet = ss.getSheetByName("Users");
-    const usersData = usersSheet.getDataRange().getValues();
+    const usersData = ss.getSheetByName("Users").getDataRange().getValues();
     const emailCol = usersData[0].indexOf("Work_Email");
     const idCol = usersData[0].indexOf("Allstars_ID");
 
@@ -314,40 +371,53 @@ function processChangePlan(newPlan, deviceData) {
 
     if (!allstarsId) return { success: false, msg: `ไม่พบข้อมูลผู้ใช้งาน (User not found): ${email}` };
 
-    // 2. Update 'Enrollments' Sheet
     const enrollSheet = ss.getSheetByName("Enrollments");
     const enrollData = enrollSheet.getDataRange().getValues();
     const enrIdCol = enrollData[0].indexOf("Allstars_ID");
     const planCol = enrollData[0].indexOf("Current_Plan");
+    const lastChangeCol = enrollData[0].indexOf("Last_Plan_Change_Date");
+    const enrollDateCol = enrollData[0].indexOf("Current_Enrolled_Date");
 
     let enrollRowIdx = -1;
+    let mostRecentAction = new Date(0);
+
     for (let i = 1; i < enrollData.length; i++) {
       if (enrollData[i][enrIdCol] == allstarsId) {
         enrollRowIdx = i + 1;
+        const lastChangeDate = enrollData[i][lastChangeCol] instanceof Date ? enrollData[i][lastChangeCol] : new Date(0);
+        const enrollDate = enrollData[i][enrollDateCol] instanceof Date ? enrollData[i][enrollDateCol] : new Date(0);
+        mostRecentAction = new Date(Math.max(lastChangeDate.getTime(), enrollDate.getTime()));
         break;
       }
     }
 
-    // Safety check: They must be enrolled to change their plan
-    if (enrollRowIdx === -1) {
-      return { success: false, msg: "You are not currently enrolled in the fund." };
+    if (enrollRowIdx === -1) return { success: false, msg: "You are not currently enrolled in the fund." };
+
+    // --- DUAL COOLDOWN CHECK ---
+    if (mostRecentAction.getTime() > 0) {
+      const timeDifference = today.getTime() - mostRecentAction.getTime();
+      const daysSinceAction = timeDifference / (1000 * 3600 * 24);
+
+      if (daysSinceAction < 365) {
+        let nextEligibleDate = new Date(mostRecentAction);
+        nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
+        let dateString = nextEligibleDate.toLocaleDateString('en-GB'); 
+
+        return { 
+          success: false, 
+          msg: `ไม่สามารถเปลี่ยนอัตราได้ (Cannot change plan). คุณสามารถเปลี่ยนได้อีกครั้งในวันที่ / You can change your plan again on: ${dateString}` 
+        };
+      }
     }
 
-    // Just update their plan (Dates stay exactly the same!)
     enrollSheet.getRange(enrollRowIdx, planCol + 1).setValue(newPlan);
+    enrollSheet.getRange(enrollRowIdx, lastChangeCol + 1).setValue(today);
 
-    // 3. Append to 'Audit_Log' Sheet
     const auditSheet = ss.getSheetByName("Audit_Log");
     const formattedPlan = (parseFloat(newPlan) * 100).toFixed(0) + "%";
     
-    // Schema: Timestamp | Allstars_ID | Email | Action | Selected_Plan | Metadata
     auditSheet.appendRow([
-      today, 
-      allstarsId, 
-      email, 
-      "Change Plan", 
-      formattedPlan, 
-      deviceData || "Unknown Device"
+      today, allstarsId, email, "Change Plan", formattedPlan, deviceData || "Unknown Device"
     ]);
 
     return { success: true };
