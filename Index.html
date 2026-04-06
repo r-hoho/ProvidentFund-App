@@ -1,69 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="light">
 <head>
-  <base target="_top">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <title>Provident Fund App</title>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased font-sans">
-
-  <div class="max-w-md mx-auto min-h-screen bg-white shadow-lg overflow-hidden flex flex-col">
+<body>
+  
+  <main class="container">
     
-    <header class="bg-blue-600 text-white p-6 rounded-b-2xl shadow-md">
-      <h1 class="text-xl font-bold">กองทุนสำรองเลี้ยงชีพ</h1>
-      <h2 class="text-sm text-blue-200">Internal Provident Fund</h2>
-    </header>
+    <hgroup>
+      <h1>กองทุนสำรองเลี้ยงชีพ</h1>
+      <p>Internal Provident Fund</p>
+    </hgroup>
 
-    <main class="flex-1 p-6">
+    <div id="loadingState" aria-busy="true" style="text-align: center; padding: 2rem;">
+      กำลังโหลดข้อมูลผู้ใช้งาน... <br><small>Loading user profile...</small>
+    </div>
+
+    <article id="profileDashboard" style="display: none;">
+      <header><strong>ข้อมูลพนักงาน / Employee Data</strong></header>
       
-      <div id="loadingState" class="flex flex-col items-center justify-center py-10">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
-        <p class="text-gray-900 font-medium">กำลังโหลดข้อมูลผู้ใช้งาน...</p>
-        <p class="text-gray-500 text-sm">Loading user profile...</p>
+      <div style="margin-bottom: 1rem;">
+        <strong style="display: block; color: var(--pico-h1-color);">ชื่อ-นามสกุล (Name)</strong>
+        <span id="userName" style="font-size: 1.1rem;">-</span>
       </div>
 
-      <div id="profileDashboard" class="hidden space-y-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
-        <div>
-          <p class="text-gray-900 font-semibold text-lg">ชื่อ-นามสกุล <span class="block text-xs font-normal text-gray-500">Employee Name</span></p>
-          <p id="userName" class="text-gray-800 font-medium mt-1">-</p>
-        </div>
-
-        <div>
-          <p class="text-gray-900 font-semibold text-lg">ตำแหน่ง <span class="block text-xs font-normal text-gray-500">Position</span></p>
-          <p id="userTitle" class="text-gray-800 font-medium mt-1">-</p>
-        </div>
-
-        <div>
-          <p class="text-gray-900 font-semibold text-lg">วันที่เริ่มงาน <span class="block text-xs font-normal text-gray-500">Hire Date</span></p>
-          <p id="userHireDate" class="text-gray-800 font-medium mt-1">-</p>
-        </div>
+      <div style="margin-bottom: 1rem;">
+        <strong style="display: block; color: var(--pico-h1-color);">ตำแหน่ง (Position)</strong>
+        <span id="userTitle" style="font-size: 1.1rem;">-</span>
       </div>
 
-      <div id="statusCard" class="hidden mt-4 p-5 bg-white rounded-xl border-2 border-gray-200 shadow-sm">
-        <p class="text-gray-900 font-semibold text-base mb-3">สถานะ <span class="text-xs font-normal text-gray-500 ml-1">Status</span></p>
-        <div id="statusPill" class="inline-block px-4 py-2 rounded-lg font-bold text-sm tracking-wide">-</div>
+      <div style="margin-bottom: 0;">
+        <strong style="display: block; color: var(--pico-h1-color);">วันที่เริ่มงาน (Hire Date)</strong>
+        <span id="userHireDate" style="font-size: 1.1rem;">-</span>
       </div>
+    </article>
+
+    <article id="statusCard" style="display: none;">
+      <header><strong>สถานะ / Status</strong></header>
       
-      <div id="errorState" class="hidden mt-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700">
-        <p class="font-bold text-lg">เกิดข้อผิดพลาด <span class="text-sm font-normal text-red-500">/ Error</span></p>
-        <p id="errorDetails" class="text-sm mt-1">Error loading data.</p>
+      <p>
+        <mark id="statusPill" style="padding: 0.5rem; border-radius: 6px; font-weight: bold; display: inline-block;">-</mark>
+      </p>
+      <div id="cooldownContainer"></div>
+      
+      <div id="actionButtons" style="display: none; margin-top: 1rem;">
         
-        <div id="reportSection" class="mt-4">
-          <button id="reportBtn" onclick="sendReport()" class="bg-red-600 text-white px-4 py-2 rounded shadow text-sm font-semibold hover:bg-red-700 transition duration-150 w-full sm:w-auto">
-            แจ้งปัญหาการใช้งาน
-          </button>
+        <div id="enrolledActions" style="display: none;">
+          <blockquote>
+            <strong>อัตราเงินสะสม / Plan:</strong> <span id="uiCurrentPlan" style="color: var(--pico-primary);">-</span><br>
+            <strong>อายุสมาชิก / Member Since:</strong> <span id="uiMemberSince">-</span><br>
+            <strong>สมทบบริษัท / Employer Match:</strong> <span id="uiEmployerMatch" style="color: var(--pico-ins-color);">-</span>
+          </blockquote>
+          
+          <button onclick="openChangePlan()">เปลี่ยนอัตราเงินสะสม / Change Plan</button>
+          <button class="outline" onclick="openWithdraw()" style="color: var(--pico-del-color); border-color: var(--pico-del-color);">ลาออก / Withdraw Fund</button>
         </div>
 
-        <div id="reportSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-800 rounded border border-green-300 text-sm">
-          <p class="font-bold">✓ ส่งเรื่องเรียบร้อย</p>
-          <p>ปัญหานี้ได้ถูกแจ้งไปยังผู้ดูแลระบบแล้ว กรุณารอการติดต่อกลับทางอีเมลของคุณ</p>
+        <div id="notEnrolledActions" style="display: none;">
+          <button class="contrast" onclick="openEnroll()">สมัครสมาชิก / Enroll Now</button>
         </div>
+
       </div>
+    </article>
 
-    </main>
-  </div>
+    <article id="errorState" style="display: none; border: 2px solid var(--pico-del-color);">
+      <header style="background-color: var(--pico-del-color); color: white;">
+        <strong>เกิดข้อผิดพลาด / Error</strong>
+      </header>
+      <p id="errorDetails" style="margin-top: 1rem;">Error loading data.</p>
+      
+      <div id="reportSection">
+        <button id="reportBtn" onclick="sendReport()" style="background-color: #C52F21; border-color: #C52F21; color: white;">แจ้งปัญหาการใช้งาน</button>
+      </div>
+      
+      <div id="reportSuccess" style="display: none; color: var(--pico-ins-color);">
+        <p><strong>✓ ส่งเรื่องเรียบร้อย</strong></p>
+        <p><small>ปัญหานี้ได้ถูกแจ้งไปยังผู้ดูแลระบบแล้ว กรุณารอการติดต่อกลับทางอีเมลของคุณ</small></p>
+      </div>
+    </article>
 
+  </main>
+
+  <dialog id="enrollModal">
+      <article>
+        <header>
+          <button aria-label="Close" rel="prev" onclick="closeEnroll()"></button>
+          <strong>สมัครสมาชิก / Enroll</strong>
+        </header>
+        
+        <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสม <br><small style="color: var(--pico-muted-color);">(Select your contribution plan):</small>
+        </p>
+        
+        <select id="enrollPlan" required>
+          <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
+          <option value="0.03">3%</option>
+          <option value="0.05">5%</option>
+          <option value="0.07">7%</option>
+          <option value="0.10">10%</option>
+          <option value="0.15">15%</option>
+        </select>
+        
+        <footer>
+          <button class="secondary outline" onclick="closeEnroll()">ยกเลิก / Cancel</button>
+          <button id="submitEnrollBtn" onclick="submitEnroll()">ยืนยัน / Confirm</button>
+        </footer>
+      </article>
+    </dialog>
+  
   <script>
-    // Initial load
     document.addEventListener("DOMContentLoaded", () => {
       google.script.run
         .withSuccessHandler(populateUI)
@@ -72,10 +119,9 @@
     });
 
     function populateUI(response) {
-      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('loadingState').style.display = 'none';
       
       if (response && response.success) {
-        // Fill Profile Details
         document.getElementById('userName').textContent = response.name;
         document.getElementById('userTitle').textContent = response.title;
         
@@ -84,90 +130,176 @@
           day: 'numeric', month: 'long', year: 'numeric' 
         });
         
-        // --- Fill Status Footer Card ---
         const statusPill = document.getElementById('statusPill');
-        const statusCard = document.getElementById('statusCard'); 
+        const actionButtons = document.getElementById('actionButtons'); 
         
-        // Remove any old cooldown messages if they exist
-        const oldMsg = document.getElementById('cooldownMsg');
-        if(oldMsg) oldMsg.remove();
+        // Reset view
+        actionButtons.style.display = 'none';
+        document.getElementById('enrolledActions').style.display = 'none';
+        document.getElementById('notEnrolledActions').style.display = 'none';
+        document.getElementById('cooldownContainer').innerHTML = '';
 
         // Priority 1: Locked permanently
         if (response.enrollment.withdrawalCount >= 2) {
           statusPill.textContent = "หมดสิทธิ์ถาวร (Locked)";
-          statusPill.className = "inline-block px-4 py-2 rounded-lg font-bold text-sm tracking-wide bg-red-100 text-red-700 border border-red-200";
+          statusPill.style.backgroundColor = "var(--pico-del-color)";
+          statusPill.style.color = "white";
         } 
-        // Priority 2: Cooldown period
-        else if (response.isCoolingDown) {
-          statusPill.textContent = "ระงับสิทธิ์ชั่วคราว (12-Month Cooldown)";
-          statusPill.className = "inline-block px-4 py-2 rounded-lg font-bold text-sm tracking-wide bg-purple-100 text-purple-700 border border-purple-200";
-          
-          // Add a helpful note showing when they can rejoin
-          const unlockDate = new Date(response.cooldownEndDate);
-          const dateString = unlockDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-          
-          const msg = document.createElement('p');
-          msg.id = 'cooldownMsg';
-          msg.className = "text-sm text-purple-600 mt-2 font-medium";
-          msg.textContent = `* คุณจะสามารถสมัครใหม่ได้ในวันที่ / Eligible to re-enroll on: ${dateString}`;
-          statusCard.appendChild(msg);
-        }
-        // Priority 3: On Probation
+        // Priority 2: On Probation
         else if (response.isOnProbation) {
           statusPill.textContent = "ทดลองงาน (Probation)";
-          statusPill.className = "inline-block px-4 py-2 rounded-lg font-bold text-sm tracking-wide bg-orange-100 text-orange-700 border border-orange-200";
+          statusPill.style.backgroundColor = "#ffb74d"; 
+          statusPill.style.color = "black";
         } 
+        // Priority 3: Cooldown period
+        else if (response.isCoolingDown) {
+          statusPill.textContent = "ระงับสิทธิ์ชั่วคราว (12-Month Cooldown)";
+          statusPill.style.backgroundColor = "#ba68c8"; 
+          statusPill.style.color = "white";
+          
+          const unlockDate = new Date(response.cooldownEndDate);
+          const dateString = unlockDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+          document.getElementById('cooldownContainer').innerHTML = `<p><small>* คุณจะสามารถสมัครใหม่ได้ในวันที่ / Eligible to re-enroll on: ${dateString}</small></p>`;
+        }
         // Priority 4: Actively Enrolled
         else if (response.enrollment.isEnrolled) {
           statusPill.textContent = "เข้าร่วมแล้ว (Enrolled)";
-          statusPill.className = "inline-block px-4 py-2 rounded-lg font-bold text-sm tracking-wide bg-green-100 text-green-700 border border-green-200";
+          statusPill.style.backgroundColor = "var(--pico-ins-color)";
+          statusPill.style.color = "white";
+          
+          let memberSinceStr = "-";
+          if (response.enrollment.enrolledDate) {
+            const enrollDateObj = new Date(response.enrollment.enrolledDate);
+            memberSinceStr = enrollDateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+          }
+
+          document.getElementById('uiCurrentPlan').textContent = `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
+          document.getElementById('uiMemberSince').textContent = memberSinceStr;
+          document.getElementById('uiEmployerMatch').textContent = response.matchPercent;
+          
+          actionButtons.style.display = 'block';
+          document.getElementById('enrolledActions').style.display = 'block';
         } 
         // Priority 5: Clean slate / Ready to enroll
         else {
           statusPill.textContent = "ยังไม่เข้าร่วม (Not Enrolled)";
-          statusPill.className = "inline-block px-4 py-2 rounded-lg font-bold text-sm tracking-wide bg-gray-200 text-gray-700 border border-gray-300";
+          statusPill.style.backgroundColor = "var(--pico-secondary-background)";
+          statusPill.style.color = "var(--pico-secondary-inverse)";
+          
+          actionButtons.style.display = 'block';
+          document.getElementById('notEnrolledActions').style.display = 'block';
         }
 
-        // Show both the dashboard and the new status card
-        document.getElementById('profileDashboard').classList.remove('hidden');
-        document.getElementById('statusCard').classList.remove('hidden');
+        document.getElementById('profileDashboard').style.display = 'block';
+        document.getElementById('statusCard').style.display = 'block';
 
       } else {
-        showError(response.msg);
+        showError(response ? response.msg : "Data transfer error. Please contact Admin.");
       }
     }
 
     function showError(message) {
-      document.getElementById('loadingState').classList.add('hidden');
-      document.getElementById('profileDashboard').classList.add('hidden');
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('profileDashboard').style.display = 'none';
+      document.getElementById('statusCard').style.display = 'none';
       
       const errorBox = document.getElementById('errorState');
       document.getElementById('errorDetails').textContent = message;
-      errorBox.classList.remove('hidden');
+      errorBox.style.display = 'block';
+    }
+
+    // --- UI Action Functions ---
+    // --- ENROLLMENT FLOW ---
+    
+    function openEnroll() {
+      // Native HTML way to open a modal with a dark backdrop!
+      document.getElementById('enrollModal').showModal();
+    }
+
+    function closeEnroll() {
+      // Reset the dropdown just in case they open it again later
+      document.getElementById('enrollPlan').value = "";
+      document.getElementById('enrollModal').close();
+    }
+
+    function submitEnroll() {
+      const planSelect = document.getElementById('enrollPlan');
+      const selectedPlan = planSelect.value;
+
+      // 1. Check if they actually picked a plan
+      if (!selectedPlan) {
+        alert("กรุณาเลือกอัตราเงินสะสม / Please select a plan.");
+        return;
+      }
+
+      // 2. Put the button in a loading state using Pico's aria-busy
+      const btn = document.getElementById('submitEnrollBtn');
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = " กำลังบันทึก...";
+      btn.disabled = true;
+      
+      // Prevent them from changing the dropdown while saving
+      planSelect.disabled = true; 
+
+      // 3. Send to Google Apps Script (We will build the backend for this next!)
+      google.script.run
+        .withSuccessHandler((response) => {
+          // Reset button
+          btn.removeAttribute('aria-busy');
+          btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false;
+          planSelect.disabled = false;
+
+          if (response && response.success) {
+            closeEnroll();
+            alert("สมัครสมาชิกสำเร็จ! / Enrollment Successful!");
+            // Refresh the page to show their new "Enrolled" status
+            location.reload(); 
+          } else {
+            alert("Error: " + (response ? response.msg : "Unknown error"));
+          }
+        })
+        .withFailureHandler((err) => {
+          btn.removeAttribute('aria-busy');
+          btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false;
+          planSelect.disabled = false;
+          alert("System Error: " + err);
+        })
+        .processEnrollment(parseFloat(selectedPlan)); // <-- We will write this in Code.gs next
+    }
+
+    
+    function openChangePlan() {
+      alert("Change Plan flow coming soon!");
+    }
+    function openWithdraw() {
+      alert("Withdraw flow coming soon!");
     }
 
     function sendReport() {
       const btn = document.getElementById('reportBtn');
-      btn.textContent = "กำลังส่ง...";
+      // Pico trick: aria-busy automatically adds a loading spinner to the button!
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = " กำลังส่ง...";
       btn.disabled = true;
-      btn.classList.add('opacity-50', 'cursor-not-allowed');
 
       google.script.run
         .withSuccessHandler((response) => {
           if (response && response.success) {
-            document.getElementById('reportSection').classList.add('hidden');
-            document.getElementById('reportSuccess').classList.remove('hidden');
+            document.getElementById('reportSection').style.display = 'none';
+            document.getElementById('reportSuccess').style.display = 'block';
           } else {
+            btn.removeAttribute('aria-busy');
             btn.textContent = "Failed. Try again.";
             btn.disabled = false;
-            btn.classList.remove('opacity-50', 'cursor-not-allowed');
             alert("Error sending report: " + response.msg);
           }
         })
         .withFailureHandler((err) => {
+          btn.removeAttribute('aria-busy');
           btn.textContent = "Failed. Try again.";
           btn.disabled = false;
-          btn.classList.remove('opacity-50', 'cursor-not-allowed');
           alert("System Error: " + err);
         })
         .reportIssueToAdmin();

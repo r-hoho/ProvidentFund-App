@@ -126,7 +126,8 @@ function getUserProfile() {
           enrollment: {
             isEnrolled: enrollmentData.isEnrolled,
             withdrawalCount: enrollmentData.withdrawalCount,
-            currentPlan: enrollmentData.currentPlan
+            currentPlan: enrollmentData.currentPlan,
+            enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null // <-- NEW: Safely passing the date!
           },
           
           isOnProbation: isOnProbation,
@@ -137,7 +138,7 @@ function getUserProfile() {
         };
       }
     }
-    return { success: false, msg: "User not found" };
+    return { success: false, msg: `ไม่พบข้อมูลผู้ใช้งาน (User not found): ${userEmail}` };
   } catch (e) {
     return { success: false, msg: e.toString() };
   }
