@@ -2,9 +2,23 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <title>Provident Fund App</title>
+
+  <style>
+    html, body {
+      /* Prevents 'pull-to-refresh' which drags the Google iframe */
+      overscroll-behavior-y: none; 
+      
+      /* Tells the browser: ONLY allow vertical scrolling. Ignore weird swipe gestures. */
+      touch-action: pan-y; 
+      
+      /* Removes the sticky gray box that appears when you tap things on mobile */
+      -webkit-tap-highlight-color: transparent; 
+    }
+  </style>
+
 </head>
 <body>
   
@@ -84,7 +98,7 @@
 
   </main>
 
-  <dialog id="enrollModal">
+    <dialog id="enrollModal">
       <article>
         <header>
           <button aria-label="Close" rel="prev" onclick="closeEnroll()"></button>
@@ -106,6 +120,34 @@
         <footer>
           <button class="secondary outline" onclick="closeEnroll()">ยกเลิก / Cancel</button>
           <button id="submitEnrollBtn" onclick="submitEnroll()">ยืนยัน / Confirm</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="changePlanModal">
+      <article>
+        <header>
+          <button aria-label="Close" rel="prev" onclick="closeChangePlan()"></button>
+          <strong>เปลี่ยนอัตราเงินสะสม / Change Plan</strong>
+        </header>
+        
+        <p style="margin-bottom: 1rem;">
+          กรุณาเลือกอัตราเงินสะสมใหม่ <br>
+          <small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small>
+        </p>
+        
+        <select id="newPlan" required>
+          <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
+          <option value="0.03">3%</option>
+          <option value="0.05">5%</option>
+          <option value="0.07">7%</option>
+          <option value="0.10">10%</option>
+          <option value="0.15">15%</option>
+        </select>
+        
+        <footer>
+          <button class="secondary outline" onclick="closeChangePlan()">ยกเลิก / Cancel</button>
+          <button id="submitChangeBtn" onclick="submitChangePlan()">ยืนยัน / Confirm</button>
         </footer>
       </article>
     </dialog>
@@ -241,7 +283,13 @@
       // Prevent them from changing the dropdown while saving
       planSelect.disabled = true; 
 
-      // 3. Send to Google Apps Script (We will build the backend for this next!)
+      // ---------------------------------------------------------
+      // NEW: Gather User Metadata
+      // ---------------------------------------------------------
+      const deviceData = navigator.userAgent; // Grabs OS and Browser info
+      // ---------------------------------------------------------
+
+      // 3. Send to Google Apps Script
       google.script.run
         .withSuccessHandler((response) => {
           // Reset button
@@ -253,7 +301,6 @@
           if (response && response.success) {
             closeEnroll();
             alert("สมัครสมาชิกสำเร็จ! / Enrollment Successful!");
-            // Refresh the page to show their new "Enrolled" status
             location.reload(); 
           } else {
             alert("Error: " + (response ? response.msg : "Unknown error"));
@@ -266,13 +313,65 @@
           planSelect.disabled = false;
           alert("System Error: " + err);
         })
-        .processEnrollment(parseFloat(selectedPlan)); // <-- We will write this in Code.gs next
+        .processEnrollment(parseFloat(selectedPlan), deviceData); // <-- WE PASS THE METADATA HERE!
     }
 
     
+    // ---------- CHANGE PLAN FLOW -------------------------------------------------------------
+    
     function openChangePlan() {
-      alert("Change Plan flow coming soon!");
+      document.getElementById('changePlanModal').showModal();
     }
+
+    function closeChangePlan() {
+      document.getElementById('newPlan').value = "";
+      document.getElementById('changePlanModal').close();
+    }
+
+    function submitChangePlan() {
+      const planSelect = document.getElementById('newPlan');
+      const selectedPlan = planSelect.value;
+
+      if (!selectedPlan) {
+        alert("กรุณาเลือกอัตราเงินสะสมใหม่ / Please select a new plan.");
+        return;
+      }
+
+      const btn = document.getElementById('submitChangeBtn');
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = " กำลังบันทึก...";
+      btn.disabled = true;
+      planSelect.disabled = true;
+
+      const deviceData = navigator.userAgent;
+
+      google.script.run
+        .withSuccessHandler((response) => {
+          btn.removeAttribute('aria-busy');
+          btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false;
+          planSelect.disabled = false;
+
+          if (response && response.success) {
+            closeChangePlan();
+            alert("เปลี่ยนอัตราสำเร็จ! / Plan Changed Successfully!");
+            location.reload(); 
+          } else {
+            alert("Error: " + (response ? response.msg : "Unknown error"));
+          }
+        })
+        .withFailureHandler((err) => {
+          btn.removeAttribute('aria-busy');
+          btn.textContent = "ยืนยัน / Confirm";
+          btn.disabled = false;
+          planSelect.disabled = false;
+          alert("System Error: " + err);
+        })
+        .processChangePlan(parseFloat(selectedPlan), deviceData);
+    }
+
+
+  // ---------- WITHDRAW FLOW -------------------------------------------------------------
     function openWithdraw() {
       alert("Withdraw flow coming soon!");
     }
@@ -305,5 +404,11 @@
         .reportIssueToAdmin();
     }
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/vconsole@latest/dist/vconsole.min.js"></script>
+<script>
+  var vConsole = new window.VConsole();
+
+</script>
 </body>
 </html>

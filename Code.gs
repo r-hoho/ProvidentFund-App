@@ -181,3 +181,178 @@ function reportIssueToAdmin() {
     return { success: false, msg: e.toString() };
   }
 }
+
+// ==========================================
+// 5.ACTION: PROCESS ENROLLMENT
+// ==========================================
+function processEnrollment(selectedPlan, deviceData) {
+  try {
+    const email = Session.getActiveUser().getEmail();
+    if (!email) {
+      return { success: false, msg: "ไม่พบอีเมลผู้ใช้งาน (Email not detected)" };
+    }
+
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const today = new Date();
+
+    // ----------------------------------------------------
+    // STEP 1: Find Allstars_ID from 'Users' Sheet
+    // ----------------------------------------------------
+    const usersSheet = ss.getSheetByName("Users");
+    const usersData = usersSheet.getDataRange().getValues();
+    const usersHeaders = usersData[0];
+    
+    const emailCol = usersHeaders.indexOf("Work_Email");
+    const idCol = usersHeaders.indexOf("Allstars_ID");
+
+    let allstarsId = null;
+    for (let i = 1; i < usersData.length; i++) {
+      if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
+        allstarsId = usersData[i][idCol];
+        break;
+      }
+    }
+
+    if (!allstarsId) {
+      return { success: false, msg: `ไม่พบข้อมูลผู้ใช้งาน (User not found): ${email}` };
+    }
+
+    // ----------------------------------------------------
+    // STEP 2: Update 'Enrollments' Sheet
+    // ----------------------------------------------------
+    const enrollSheet = ss.getSheetByName("Enrollments");
+    const enrollData = enrollSheet.getDataRange().getValues();
+    const enrollHeaders = enrollData[0];
+
+    const enrIdCol = enrollHeaders.indexOf("Allstars_ID");
+    const firstDateCol = enrollHeaders.indexOf("First_Enrolled_Date");
+    const currentDateCol = enrollHeaders.indexOf("Current_Enrolled_Date");
+    const planCol = enrollHeaders.indexOf("Current_Plan");
+    const wdCountCol = enrollHeaders.indexOf("Withdrawal_Count");
+
+    let enrollRowIdx = -1;
+    for (let i = 1; i < enrollData.length; i++) {
+      if (enrollData[i][enrIdCol] == allstarsId) {
+        enrollRowIdx = i + 1; // +1 for 1-based indexing in Apps Script ranges
+        break;
+      }
+    }
+
+    if (enrollRowIdx !== -1) {
+      // User exists in Enrollments, update their record
+      const currentFirstDate = enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).getValue();
+      
+      // Rule: Set First_Enrolled_Date only if it's currently empty
+      if (!currentFirstDate || currentFirstDate === "") {
+        enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).setValue(today);
+      }
+      
+      // Rule: Always set Current_Enrolled_Date on enrollment
+      enrollSheet.getRange(enrollRowIdx, currentDateCol + 1).setValue(today);
+      
+      // Update their plan
+      enrollSheet.getRange(enrollRowIdx, planCol + 1).setValue(selectedPlan);
+
+    } else {
+      // Failsafe: If they somehow exist in Users but not in Enrollments, create their row
+      const newRow = new Array(enrollHeaders.length).fill("");
+      newRow[enrIdCol] = allstarsId;
+      newRow[firstDateCol] = today;
+      newRow[currentDateCol] = today;
+      newRow[planCol] = selectedPlan;
+      newRow[wdCountCol] = 0;
+      enrollSheet.appendRow(newRow);
+    }
+
+    // ----------------------------------------------------
+    // STEP 3: Append to 'Audit_Log' Sheet
+    // ----------------------------------------------------
+    const auditSheet = ss.getSheetByName("Audit_Log");
+    const formattedPlan = (parseFloat(selectedPlan) * 100).toFixed(0) + "%";
+    
+    // Schema: Timestamp | Allstars_ID | Email | Action | Selected_Plan | Metadata
+    auditSheet.appendRow([
+      today, 
+      allstarsId, 
+      email,           
+      "Enroll", 
+      formattedPlan,   
+      deviceData || "Unknown Device"
+    ]);
+
+    return { success: true };
+
+  } catch (error) {
+    return { success: false, msg: error.toString() };
+  }
+}
+
+// ==========================================
+// 6.ACTION: CHANGE PLAN
+// ==========================================
+function processChangePlan(newPlan, deviceData) {
+  try {
+    const email = Session.getActiveUser().getEmail();
+    if (!email) return { success: false, msg: "ไม่พบอีเมลผู้ใช้งาน (Email not detected)" };
+
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const today = new Date();
+
+    // 1. Get Allstars_ID from 'Users' Sheet
+    const usersSheet = ss.getSheetByName("Users");
+    const usersData = usersSheet.getDataRange().getValues();
+    const emailCol = usersData[0].indexOf("Work_Email");
+    const idCol = usersData[0].indexOf("Allstars_ID");
+
+    let allstarsId = null;
+    for (let i = 1; i < usersData.length; i++) {
+      if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
+        allstarsId = usersData[i][idCol];
+        break;
+      }
+    }
+
+    if (!allstarsId) return { success: false, msg: `ไม่พบข้อมูลผู้ใช้งาน (User not found): ${email}` };
+
+    // 2. Update 'Enrollments' Sheet
+    const enrollSheet = ss.getSheetByName("Enrollments");
+    const enrollData = enrollSheet.getDataRange().getValues();
+    const enrIdCol = enrollData[0].indexOf("Allstars_ID");
+    const planCol = enrollData[0].indexOf("Current_Plan");
+
+    let enrollRowIdx = -1;
+    for (let i = 1; i < enrollData.length; i++) {
+      if (enrollData[i][enrIdCol] == allstarsId) {
+        enrollRowIdx = i + 1;
+        break;
+      }
+    }
+
+    // Safety check: They must be enrolled to change their plan
+    if (enrollRowIdx === -1) {
+      return { success: false, msg: "You are not currently enrolled in the fund." };
+    }
+
+    // Just update their plan (Dates stay exactly the same!)
+    enrollSheet.getRange(enrollRowIdx, planCol + 1).setValue(newPlan);
+
+    // 3. Append to 'Audit_Log' Sheet
+    const auditSheet = ss.getSheetByName("Audit_Log");
+    const formattedPlan = (parseFloat(newPlan) * 100).toFixed(0) + "%";
+    
+    // Schema: Timestamp | Allstars_ID | Email | Action | Selected_Plan | Metadata
+    auditSheet.appendRow([
+      today, 
+      allstarsId, 
+      email, 
+      "Change Plan", 
+      formattedPlan, 
+      deviceData || "Unknown Device"
+    ]);
+
+    return { success: true };
+
+  } catch (error) {
+    return { success: false, msg: error.toString() };
+  }
+}
