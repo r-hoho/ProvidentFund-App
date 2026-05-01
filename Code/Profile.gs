@@ -57,8 +57,11 @@ function getUserProfile() {
         const today = new Date();
         
         let isOnProbation = false;
+        let probationEndDateStr = null;
+
         if (rawProbationDate instanceof Date && rawProbationDate > today) {
           isOnProbation = true;
+          probationEndDateStr = String(rawProbationDate);
         }
 
         // Cooldown Logic (12 Months)
@@ -99,6 +102,7 @@ function getUserProfile() {
             enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null
           },
           isOnProbation: isOnProbation,
+          probationEndDate: probationEndDateStr,
           isCoolingDown: isCoolingDown,
           cooldownEndDate: cooldownEndDate, 
           matchPercent: matchPercent,
