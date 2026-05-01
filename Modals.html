@@ -1,0 +1,54 @@
+<!-- ========================================== -->
+<!-- ENROLLMENT MODAL                           -->
+<!-- ========================================== -->
+<dialog id="enrollModal">
+    <article>
+      <header>
+        <button aria-label="Close" rel="prev" onclick="closeEnroll()"></button>
+        <strong>สมัครสมาชิก / Enroll</strong>
+      </header>
+      <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสม <br><small style="color: var(--pico-muted-color);">(Select your contribution plan):</small></p>
+      
+      <select id="enrollPlan" required>
+        <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
+        <option value="0.03">3%</option>
+        <option value="0.05">5%</option>
+        <option value="0.07">7%</option>
+        <option value="0.10">10%</option>
+        <option value="0.15">15%</option>
+      </select>
+      
+      <footer>
+        <button class="secondary outline" onclick="closeEnroll()">ยกเลิก / Cancel</button>
+        <button id="submitEnrollBtn" onclick="submitEnroll()">ยืนยัน / Confirm</button>
+      </footer>
+    </article>
+  </dialog>
+  
+  <!-- ========================================== -->
+  <!-- CHANGE PLAN MODAL                          -->
+  <!-- ========================================== -->
+  <dialog id="changePlanModal">
+    <article>
+      <header>
+        <button aria-label="Close" rel="prev" onclick="closeChangePlan()"></button>
+        <strong>เปลี่ยนอัตราเงินสะสม / Change Plan</strong>
+      </header>
+      <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสมใหม่ <br><small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small></p>
+      
+      <select id="newPlan" required>
+        <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
+        <option value="0.03">3%</option>
+        <option value="0.05">5%</option>
+        <option value="0.07">7%</option>
+        <option value="0.10">10%</option>
+        <option value="0.15">15%</option>
+      </select>
+      
+      <footer>
+        <button class="secondary outline" onclick="closeChangePlan()">ยกเลิก / Cancel</button>
+        <button id="submitChangeBtn" onclick="submitChangePlan()">ยืนยัน / Confirm</button>
+      </footer>
+    </article>
+  </dialog>
+  

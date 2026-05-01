@@ -1,0 +1,129 @@
+<style>
+    /* Import standard Thai UI Font (Prompt) from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+  
+    /* Target data-theme="light" to override Pico v2 */
+    [data-theme="light"],
+    :root:not([data-theme="dark"]) {
+      /* Base Overrides */
+      --pico-font-family: 'Prompt', sans-serif;
+      
+      /* Background & Core Colors */
+      --pico-background-color: #f0f2f5; 
+      --pico-color: #20265b; 
+      --pico-h1-color: #20265b;
+      --pico-h2-color: #20265b;
+      --pico-h3-color: #20265b;
+      --pico-h4-color: #20265b;
+      --pico-h5-color: #20265b;
+      --pico-h6-color: #20265b;
+      --pico-muted-color: #718096;
+      
+      /* Primary Button Colors (Forces Navy Blue) */
+      --pico-primary: #344293; 
+      --pico-primary-background: #344293;
+      --pico-primary-border: #344293;
+      --pico-primary-hover: #263170;
+      --pico-primary-hover-background: #263170;
+      --pico-primary-hover-border: #263170;
+      
+      /* Global Border Radius */
+      --pico-border-radius: 24px; 
+    }
+  
+    html, body {
+      overscroll-behavior-y: none; 
+      touch-action: pan-y; 
+      -webkit-tap-highlight-color: transparent; 
+      background-color: var(--pico-background-color) !important;
+      color: var(--pico-color);
+    }
+    
+    /* Prevent Pico from overriding the background on main */
+    body > main {
+      background-color: transparent !important;
+    }
+  
+    /* ========================================== */
+    /* TYPOGRAPHY REFINEMENTS                     */
+    /* ========================================== */
+    
+    /* Soften the bold text so it looks elegant. 
+       Removed the strict color override so JS can change it! */
+    strong, b, th {
+      font-weight: 600 !important;
+    }
+  
+    /* Subtitle Fix */
+    hgroup p {
+      color: var(--pico-muted-color) !important;
+      font-weight: 400 !important;
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+  
+    hgroup h1 {
+      font-weight: 700 !important;
+      font-size: 1.6rem !important;
+      margin-bottom: 0 !important;
+      color: var(--pico-color) !important;
+    }
+  
+    /* Small label text */
+    small {
+      color: var(--pico-muted-color) !important;
+      font-size: 0.8rem !important;
+    }
+  
+    /* ========================================== */
+    /* CUSTOM CARD STYLING                        */
+    /* ========================================== */
+    article {
+      background-color: #ffffff !important;
+      box-shadow: 0 4px 20px rgba(32, 38, 91, 0.05) !important; 
+      border-radius: 20px !important;
+      border: none !important;
+      margin-bottom: 1.25rem !important;
+      padding: 1.25rem 1.25rem !important;
+    }
+  
+    article header {
+      background-color: transparent !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+      color: var(--pico-color) !important;
+      padding-bottom: 0.75rem !important;
+      margin-bottom: 1rem !important;
+      font-weight: 600 !important;
+      font-size: 1.05rem !important;
+    }
+  
+    /* ========================================== */
+    /* BUTTON STYLING                             */
+    /* ========================================== */
+    button {
+      border-radius: 50px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    }
+  
+    /* Locked secondary button */
+    button.secondary {
+      background-color: #e2e8f0 !important;
+      border-color: #e2e8f0 !important;
+      color: #64748b !important;
+      box-shadow: none !important;
+    }
+  
+    /* Outline Withdraw button */
+    button.outline.secondary {
+      background-color: transparent !important;
+      border: 1px solid var(--pico-del-color) !important;
+      color: var(--pico-del-color) !important;
+    }
+  
+    /* Modal match */
+    dialog article {
+      border-radius: 24px !important;
+    }
+  </style>
