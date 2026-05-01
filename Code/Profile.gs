@@ -9,6 +9,7 @@ function getUserProfile() {
     
     const userSheet = ss.getSheetByName(SHEET_USERS);
     const enrollSheet = ss.getSheetByName(SHEET_ENROLLMENTS); 
+    const benSheet = ss.getSheetByName(SHEET_BENEFICIARIES); // NEW
     
     const data = userSheet.getDataRange().getValues(); 
     const headers = data[0].map(h => String(h).trim());
@@ -33,13 +34,16 @@ function getUserProfile() {
           withdrawalCount: 0,
           enrolledDate: null,
           lastWithdrawalDate: null, 
-          currentPlan: null
+          currentPlan: null,
+          investmentPlan: null,   // NEW
+          beneficiariesJSON: null // NEW
         };
         
         if (enrollSheet) {
           const enrollData = enrollSheet.getDataRange().getValues();
           const enHeaders = enrollData[0].map(h => String(h).trim());
           const enIdCol = enHeaders.indexOf('Allstars_ID');
+          const invCol = enHeaders.indexOf('Investment_Plan'); // NEW
           
           for (let j = 1; j < enrollData.length; j++) {
             if (String(enrollData[j][enIdCol]).trim() === String(allstarsId).trim()) {
@@ -47,8 +51,31 @@ function getUserProfile() {
               enrollmentData.enrolledDate = enrollData[j][enHeaders.indexOf('Current_Enrolled_Date')] || null;
               enrollmentData.lastWithdrawalDate = enrollData[j][enHeaders.indexOf('Last_Withdrawal_Date')] || null; 
               enrollmentData.currentPlan = enrollData[j][enHeaders.indexOf('Current_Plan')] || null;
+              
+              if (invCol !== -1) {
+                enrollmentData.investmentPlan = enrollData[j][invCol] || null;
+              }
+
               enrollmentData.isEnrolled = enrollmentData.currentPlan ? true : false; 
               break; 
+            }
+          }
+        }
+
+        // --- 1.5 FETCH BENEFICIARY DATA (Ledger Style) ---
+        if (benSheet) {
+          const benData = benSheet.getDataRange().getValues();
+          const benHeaders = benData[0].map(h => String(h).trim());
+          const bIdCol = benHeaders.indexOf('Allstars_ID');
+          const bDataCol = benHeaders.indexOf('Beneficiary_Data');
+          
+          // Loop BACKWARDS to find the most recent entry (bottom-up)
+          if (bIdCol !== -1 && bDataCol !== -1) {
+            for (let k = benData.length - 1; k >= 1; k--) {
+              if (String(benData[k][bIdCol]).trim() === String(allstarsId).trim()) {
+                enrollmentData.beneficiariesJSON = benData[k][bDataCol];
+                break; // Stop at the newest record
+              }
             }
           }
         }
@@ -57,11 +84,11 @@ function getUserProfile() {
         const today = new Date();
         
         let isOnProbation = false;
-        let probationEndDateStr = null;
-
+        let probationEndDateStr = null; 
+        
         if (rawProbationDate instanceof Date && rawProbationDate > today) {
           isOnProbation = true;
-          probationEndDateStr = String(rawProbationDate);
+          probationEndDateStr = String(rawProbationDate); 
         }
 
         // Cooldown Logic (12 Months)
@@ -99,10 +126,12 @@ function getUserProfile() {
             isEnrolled: enrollmentData.isEnrolled,
             withdrawalCount: enrollmentData.withdrawalCount,
             currentPlan: enrollmentData.currentPlan,
+            investmentPlan: enrollmentData.investmentPlan,
+            beneficiariesJSON: enrollmentData.beneficiariesJSON,
             enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null
           },
           isOnProbation: isOnProbation,
-          probationEndDate: probationEndDateStr,
+          probationEndDate: probationEndDateStr, 
           isCoolingDown: isCoolingDown,
           cooldownEndDate: cooldownEndDate, 
           matchPercent: matchPercent,

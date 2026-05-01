@@ -1,54 +1,124 @@
-<!-- ========================================== -->
-<!-- ENROLLMENT MODAL                           -->
-<!-- ========================================== -->
-<dialog id="enrollModal">
-    <article>
-      <header>
-        <button aria-label="Close" rel="prev" onclick="closeEnroll()"></button>
-        <strong>สมัครสมาชิก / Enroll</strong>
-      </header>
-      <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสม <br><small style="color: var(--pico-muted-color);">(Select your contribution plan):</small></p>
-      
-      <select id="enrollPlan" required>
-        <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
-        <option value="0.03">3%</option>
-        <option value="0.05">5%</option>
-        <option value="0.07">7%</option>
-        <option value="0.10">10%</option>
-        <option value="0.15">15%</option>
-      </select>
-      
-      <footer>
-        <button class="secondary outline" onclick="closeEnroll()">ยกเลิก / Cancel</button>
-        <button id="submitEnrollBtn" onclick="submitEnroll()">ยืนยัน / Confirm</button>
-      </footer>
-    </article>
-  </dialog>
+<!-- FULL SCREEN ENROLLMENT WIZARD -->
+<div id="enrollWizard" class="wizard-overlay" style="display: none;">
   
-  <!-- ========================================== -->
-  <!-- CHANGE PLAN MODAL                          -->
-  <!-- ========================================== -->
-  <dialog id="changePlanModal">
-    <article>
-      <header>
-        <button aria-label="Close" rel="prev" onclick="closeChangePlan()"></button>
-        <strong>เปลี่ยนอัตราเงินสะสม / Change Plan</strong>
-      </header>
-      <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสมใหม่ <br><small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small></p>
+  <header class="wizard-header">
+    <button class="wizard-close" onclick="closeWizard()">ยกเลิก / Cancel</button>
+    <strong id="wizardStepTitle">Step 1 of 4</strong>
+  </header>
+
+  <div class="wizard-content container">
+
+    <!-- STEP 1: Contribution -->
+    <div id="wizStep1" class="wizard-step">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">อัตราเงินสะสม<br><small>Contribution Plan</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1.5rem; font-size: 0.9rem;">เลือกระดับเงินสะสมที่คุณต้องการหักจากเงินเดือน</p>
+
+      <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+        <div class="option-card" onclick="selectContribution('0.03')" id="card-c-0.03" style="text-align: center; margin-bottom: 0;">
+           <strong style="margin-bottom: 0; font-size: 1.25rem;">3%</strong>
+        </div>
+        <div class="option-card" onclick="selectContribution('0.05')" id="card-c-0.05" style="text-align: center; margin-bottom: 0;">
+           <strong style="margin-bottom: 0; font-size: 1.25rem;">5%</strong>
+        </div>
+        <div class="option-card" onclick="selectContribution('0.07')" id="card-c-0.07" style="text-align: center; margin-bottom: 0;">
+           <strong style="margin-bottom: 0; font-size: 1.25rem;">7%</strong>
+        </div>
+        <div class="option-card" onclick="selectContribution('0.10')" id="card-c-0.10" style="text-align: center; margin-bottom: 0;">
+           <strong style="margin-bottom: 0; font-size: 1.25rem;">10%</strong>
+        </div>
+        <div class="option-card" onclick="selectContribution('0.15')" id="card-c-0.15" style="text-align: center; margin-bottom: 0;">
+           <strong style="margin-bottom: 0; font-size: 1.25rem;">15%</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Investment Plan -->
+    <div id="wizStep2" class="wizard-step" style="display: none;">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">นโยบายการลงทุน<br><small>Investment Plan</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1.5rem; font-size: 0.9rem;">เลือกนโยบายการลงทุนที่เหมาะสมกับความเสี่ยงของคุณ</p>
+
+      <div class="option-card" onclick="selectInvestment('Plan 1')" id="card-i-Plan 1">
+         <strong>แผน 1: กองทุนตราสารหนี้</strong><small>ความเสี่ยงต่ำ / Conservative (Low Risk)</small>
+      </div>
+      <div class="option-card" onclick="selectInvestment('Plan 2')" id="card-i-Plan 2">
+         <strong>แผน 2: กองทุนผสมความเสี่ยงปานกลาง</strong><small>ความเสี่ยงปานกลาง / Moderate (Medium Risk)</small>
+      </div>
+      <div class="option-card" onclick="selectInvestment('Plan 3')" id="card-i-Plan 3">
+         <strong>แผน 3: กองทุนตราสารทุน</strong><small>ความเสี่ยงสูง / Growth (High Risk)</small>
+      </div>
+      <div class="option-card" onclick="selectInvestment('Plan 4')" id="card-i-Plan 4">
+         <strong>แผน 4: กองทุนหุ้นเน้นการเติบโต</strong><small>ความเสี่ยงสูงมาก / Aggressive (Very High Risk)</small>
+      </div>
+    </div>
+
+    <!-- STEP 3: Beneficiaries -->
+    <div id="wizStep3" class="wizard-step" style="display: none;">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">ผู้รับผลประโยชน์<br><small>Beneficiaries</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1rem; font-size: 0.9rem;">ระบุผู้รับผลประโยชน์ (สูงสุด 4 ท่าน รวมกันต้องได้ 100%)</p>
       
-      <select id="newPlan" required>
-        <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
-        <option value="0.03">3%</option>
-        <option value="0.05">5%</option>
-        <option value="0.07">7%</option>
-        <option value="0.10">10%</option>
-        <option value="0.15">15%</option>
-      </select>
+      <div id="beneficiaryList"></div>
       
-      <footer>
-        <button class="secondary outline" onclick="closeChangePlan()">ยกเลิก / Cancel</button>
-        <button id="submitChangeBtn" onclick="submitChangePlan()">ยืนยัน / Confirm</button>
-      </footer>
-    </article>
-  </dialog>
-  
+      <!-- Replaced inline styles with class="btn-dashed" -->
+      <button id="addBenBtn" class="btn-dashed" onclick="addBeneficiary()" style="width: 100%; margin-top: 0.5rem;">
+        + เพิ่มผู้รับผลประโยชน์ / Add
+      </button>
+      
+      <div id="benTotalMsg" style="text-align: center; margin-top: 1.5rem; font-weight: 600; font-size: 1.1rem;">
+        ยอดรวม / Total: <span id="benTotalText" style="color: var(--pico-del-color);">0%</span>
+      </div>
+      <div id="benHelperText" style="color: var(--pico-del-color); font-size: 0.85rem; text-align: center; margin-top: 0.25rem; display: none;">
+        กรุณาระบุสัดส่วนให้ครบ 100%
+      </div>
+    </div>
+
+    <!-- STEP 4: Summary -->
+    <div id="wizStep4" class="wizard-step" style="display: none;">
+       <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">ตรวจสอบข้อมูล<br><small>Summary</small></h2>
+       <p style="color: var(--pico-muted-color); margin-bottom: 1.5rem; font-size: 0.9rem;">กรุณาตรวจสอบข้อมูลก่อนกดยืนยัน</p>
+       
+       <article style="box-shadow: none !important; border: 1px solid #e2e8f0 !important; border-radius: 16px !important;">
+         <header style="margin-bottom: 0.75rem !important; padding-bottom: 0.75rem !important; border-bottom: 1px dashed #cbd5e1 !important;"><strong>ข้อมูลการสมัคร / Details</strong></header>
+         
+         <small style="color: var(--pico-muted-color);">อัตราเงินสะสม / Contribution:</small>
+         <div style="font-weight: 600; margin-bottom: 1rem; font-size: 1.1rem; color: var(--pico-primary);" id="sumContrib">-</div>
+         
+         <small style="color: var(--pico-muted-color);">นโยบายการลงทุน / Investment:</small>
+         <div style="font-weight: 600; margin-bottom: 1rem; font-size: 1.1rem; color: var(--pico-primary);" id="sumInvest">-</div>
+         
+         <small style="color: var(--pico-muted-color);">ผู้รับผลประโยชน์ / Beneficiaries:</small>
+         <div style="font-weight: 500; font-size: 1rem;" id="sumBens">-</div>
+       </article>
+    </div>
+
+  </div>
+
+  <footer class="wizard-footer">
+    <button id="wizBackBtn" class="secondary" onclick="wizardBack()" style="visibility: hidden;">ย้อนกลับ / Back</button>
+    <button id="wizNextBtn" onclick="wizardNext()" disabled>ถัดไป / Next</button>
+  </footer>
+</div>
+
+<!-- CHANGE PLAN MODAL (For Percentage Only) -->
+<dialog id="changePlanModal">
+  <article>
+    <header>
+      <button aria-label="Close" rel="prev" onclick="closeChangePlan()"></button>
+      <strong>เปลี่ยนอัตราเงินสะสม / Change Plan</strong>
+    </header>
+    <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสมใหม่ <br><small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small></p>
+    
+    <select id="newPlan" required>
+      <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
+      <option value="0.03">3%</option>
+      <option value="0.05">5%</option>
+      <option value="0.07">7%</option>
+      <option value="0.10">10%</option>
+      <option value="0.15">15%</option>
+    </select>
+    
+    <footer>
+      <button class="secondary outline" onclick="closeChangePlan()">ยกเลิก / Cancel</button>
+      <button id="submitChangeBtn" onclick="submitChangePlan()">ยืนยัน / Confirm</button>
+    </footer>
+  </article>
+</dialog>

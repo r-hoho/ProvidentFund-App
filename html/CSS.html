@@ -1,129 +1,136 @@
 <style>
-    /* Import standard Thai UI Font (Prompt) from Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
-  
-    /* Target data-theme="light" to override Pico v2 */
-    [data-theme="light"],
-    :root:not([data-theme="dark"]) {
-      /* Base Overrides */
-      --pico-font-family: 'Prompt', sans-serif;
-      
-      /* Background & Core Colors */
-      --pico-background-color: #f0f2f5; 
-      --pico-color: #20265b; 
-      --pico-h1-color: #20265b;
-      --pico-h2-color: #20265b;
-      --pico-h3-color: #20265b;
-      --pico-h4-color: #20265b;
-      --pico-h5-color: #20265b;
-      --pico-h6-color: #20265b;
-      --pico-muted-color: #718096;
-      
-      /* Primary Button Colors (Forces Navy Blue) */
-      --pico-primary: #344293; 
-      --pico-primary-background: #344293;
-      --pico-primary-border: #344293;
-      --pico-primary-hover: #263170;
-      --pico-primary-hover-background: #263170;
-      --pico-primary-hover-border: #263170;
-      
-      /* Global Border Radius */
-      --pico-border-radius: 24px; 
-    }
-  
-    html, body {
-      overscroll-behavior-y: none; 
-      touch-action: pan-y; 
-      -webkit-tap-highlight-color: transparent; 
-      background-color: var(--pico-background-color) !important;
-      color: var(--pico-color);
-    }
+  @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
+  [data-theme="light"],
+  :root:not([data-theme="dark"]) {
+    --pico-font-family: 'Prompt', sans-serif;
+    --pico-background-color: #f0f2f5; 
+    --pico-color: #20265b; 
+    --pico-h1-color: #20265b;
+    --pico-h2-color: #20265b;
+    --pico-h3-color: #20265b;
+    --pico-h4-color: #20265b;
+    --pico-h5-color: #20265b;
+    --pico-h6-color: #20265b;
+    --pico-muted-color: #718096;
     
-    /* Prevent Pico from overriding the background on main */
-    body > main {
-      background-color: transparent !important;
-    }
-  
-    /* ========================================== */
-    /* TYPOGRAPHY REFINEMENTS                     */
-    /* ========================================== */
+    --pico-primary: #344293; 
+    --pico-primary-background: #344293;
+    --pico-primary-border: #344293;
+    --pico-primary-hover: #263170;
+    --pico-primary-hover-background: #263170;
+    --pico-primary-hover-border: #263170;
     
-    /* Soften the bold text so it looks elegant. 
-       Removed the strict color override so JS can change it! */
-    strong, b, th {
-      font-weight: 600 !important;
-    }
+    --pico-border-radius: 24px; 
+  }
+
+  html, body {
+    overscroll-behavior-y: none; 
+    touch-action: pan-y; 
+    -webkit-tap-highlight-color: transparent; 
+    background-color: var(--pico-background-color) !important;
+    color: var(--pico-color);
+  }
   
-    /* Subtitle Fix */
-    hgroup p {
-      color: var(--pico-muted-color) !important;
-      font-weight: 400 !important;
-      font-size: 0.95rem;
-      margin-top: 0.25rem;
-    }
+  body > main { background-color: transparent !important; }
+
+  strong, b, th { font-weight: 600 !important; color: var(--pico-color) !important; }
+
+  hgroup p { color: var(--pico-muted-color) !important; font-weight: 400 !important; font-size: 0.95rem; margin-top: 0.25rem; }
+  hgroup h1 { font-weight: 700 !important; font-size: 1.6rem !important; margin-bottom: 0 !important; color: var(--pico-color) !important; }
+  small { color: var(--pico-muted-color) !important; font-size: 0.8rem !important; }
+
+  article {
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(32, 38, 91, 0.05) !important; 
+    border-radius: 20px !important; border: none !important; margin-bottom: 1.25rem !important; padding: 1.25rem 1.25rem !important;
+  }
+
+  article header {
+    background-color: transparent !important; border-bottom: 1px solid #f1f5f9 !important;
+    color: var(--pico-color) !important; padding-bottom: 0.75rem !important;
+    margin-bottom: 1rem !important; font-weight: 600 !important; font-size: 1.05rem !important;
+  }
+
+  button { border-radius: 50px !important; font-weight: 500 !important; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; }
+  button.secondary { background-color: #e2e8f0 !important; border-color: #e2e8f0 !important; color: #64748b !important; box-shadow: none !important; }
+  button.outline.secondary { background-color: transparent !important; border: 1px solid var(--pico-del-color) !important; color: var(--pico-del-color) !important; }
+  dialog article { border-radius: 24px !important; }
+
+  /* ========================================== */
+  /* FULL-SCREEN WIZARD STYLING                 */
+  /* ========================================== */
+  .wizard-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--pico-background-color); z-index: 9999;
+    display: flex; flex-direction: column;
+  }
+
+  .wizard-header {
+    background-color: #ffffff; padding: 1.25rem 1rem;
+    display: flex; justify-content: center; align-items: center;
+    border-bottom: 1px solid #e2e8f0; position: relative;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  }
+
+  .wizard-close {
+    position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+    background: none !important; border: none !important; color: var(--pico-muted-color) !important;
+    padding: 0; margin: 0; font-size: 0.9rem; width: auto; box-shadow: none !important;
+  }
+
+  .wizard-content { flex: 1; overflow-y: auto; padding: 1.5rem; }
+
+  .wizard-footer {
+    background-color: #ffffff; padding: 1rem 1.5rem; border-top: 1px solid #e2e8f0; 
+    display: flex; gap: 1rem; padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .wizard-footer button { margin: 0; flex: 1; }
+
+  /* Tappable Selection Cards */
+  .option-card {
+    background: #ffffff; border: 2px solid #e2e8f0; border-radius: 20px;
+    padding: 1.25rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.2s;
+  }
+  .option-card:active { transform: scale(0.98); }
   
-    hgroup h1 {
-      font-weight: 700 !important;
-      font-size: 1.6rem !important;
-      margin-bottom: 0 !important;
-      color: var(--pico-color) !important;
-    }
-  
-    /* Small label text */
-    small {
-      color: var(--pico-muted-color) !important;
-      font-size: 0.8rem !important;
-    }
-  
-    /* ========================================== */
-    /* CUSTOM CARD STYLING                        */
-    /* ========================================== */
-    article {
-      background-color: #ffffff !important;
-      box-shadow: 0 4px 20px rgba(32, 38, 91, 0.05) !important; 
-      border-radius: 20px !important;
-      border: none !important;
-      margin-bottom: 1.25rem !important;
-      padding: 1.25rem 1.25rem !important;
-    }
-  
-    article header {
-      background-color: transparent !important;
-      border-bottom: 1px solid #f1f5f9 !important;
-      color: var(--pico-color) !important;
-      padding-bottom: 0.75rem !important;
-      margin-bottom: 1rem !important;
-      font-weight: 600 !important;
-      font-size: 1.05rem !important;
-    }
-  
-    /* ========================================== */
-    /* BUTTON STYLING                             */
-    /* ========================================== */
-    button {
-      border-radius: 50px !important;
-      font-weight: 500 !important;
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-    }
-  
-    /* Locked secondary button */
-    button.secondary {
-      background-color: #e2e8f0 !important;
-      border-color: #e2e8f0 !important;
-      color: #64748b !important;
-      box-shadow: none !important;
-    }
-  
-    /* Outline Withdraw button */
-    button.outline.secondary {
-      background-color: transparent !important;
-      border: 1px solid var(--pico-del-color) !important;
-      color: var(--pico-del-color) !important;
-    }
-  
-    /* Modal match */
-    dialog article {
-      border-radius: 24px !important;
-    }
-  </style>
+  .option-card.selected { 
+    border-color: var(--pico-primary); 
+    background-color: var(--pico-primary); 
+    box-shadow: 0 4px 12px rgba(52, 66, 147, 0.2); 
+  }
+  .option-card.selected strong { 
+    color: #ffffff !important; 
+  }
+  .option-card.selected small { 
+    color: #e0e7ff !important; 
+  }
+
+  .option-card strong { font-size: 1.1rem; display: block; margin-bottom: 0.25rem; }
+  .option-card small { color: var(--pico-muted-color); font-size: 0.85rem; }
+
+  /* Beneficiary Cards */
+  .ben-card {
+    background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;
+    padding: 1.25rem; margin-bottom: 1rem; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .ben-remove {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: none !important; border: none !important; color: var(--pico-del-color) !important;
+    font-size: 0.85rem; padding: 0.25rem; width: auto; box-shadow: none !important;
+  }
+
+  /* Dashed Add Button - Forces Dark Text */
+  .btn-dashed {
+    background-color: #f8fafc !important;
+    border: 2px dashed #cbd5e1 !important;
+    color: #20265b !important; /* Hardcoded Navy Blue so Pico cannot override */
+    box-shadow: none !important;
+    border-radius: 12px !important;
+  }
+  .btn-dashed:active, .btn-dashed:focus {
+    background-color: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+    color: #20265b !important;
+  }
+</style>

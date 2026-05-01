@@ -1,22 +1,20 @@
 // ==========================================
-// ACTION: PROCESS ENROLLMENT
+// ACTION: PROCESS ENROLLMENT (WIZARD VERSION)
 // ==========================================
-function processEnrollment(selectedPlan, deviceData) {
+function processEnrollment(payload, deviceData) {
   try {
     const email = Session.getActiveUser().getEmail();
-    if (!email) {
-      return { success: false, msg: "ไม่พบอีเมลผู้ใช้งาน (Email not detected)" };
-    }
+    if (!email) return { success: false, msg: "ไม่พบอีเมลผู้ใช้งาน (Email not detected)" };
+
+    const { contributionPlan, investmentPlan, beneficiariesJSON } = payload;
 
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const today = new Date();
 
-    const usersSheet = ss.getSheetByName("Users");
-    const usersData = usersSheet.getDataRange().getValues();
-    const usersHeaders = usersData[0];
-    
-    const emailCol = usersHeaders.indexOf("Work_Email");
-    const idCol = usersHeaders.indexOf("Allstars_ID");
+    // 1. Find User ID
+    const usersData = ss.getSheetByName("Users").getDataRange().getValues();
+    const emailCol = usersData[0].indexOf("Work_Email");
+    const idCol = usersData[0].indexOf("Allstars_ID");
 
     let allstarsId = null;
     for (let i = 1; i < usersData.length; i++) {
@@ -26,19 +24,21 @@ function processEnrollment(selectedPlan, deviceData) {
       }
     }
 
-    if (!allstarsId) {
-      return { success: false, msg: `ไม่พบข้อมูลผู้ใช้งาน (User not found): ${email}` };
-    }
+    if (!allstarsId) return { success: false, msg: `User not found: ${email}` };
 
+    // 2. Update 'Enrollments' Sheet
     const enrollSheet = ss.getSheetByName("Enrollments");
     const enrollData = enrollSheet.getDataRange().getValues();
-    const enrollHeaders = enrollData[0];
+    const enHeaders = enrollData[0];
 
-    const enrIdCol = enrollHeaders.indexOf("Allstars_ID");
-    const firstDateCol = enrollHeaders.indexOf("First_Enrolled_Date");
-    const currentDateCol = enrollHeaders.indexOf("Current_Enrolled_Date");
-    const planCol = enrollHeaders.indexOf("Current_Plan");
-    const wdCountCol = enrollHeaders.indexOf("Withdrawal_Count");
+    const enrIdCol = enHeaders.indexOf("Allstars_ID");
+    const firstDateCol = enHeaders.indexOf("First_Enrolled_Date");
+    const currentDateCol = enHeaders.indexOf("Current_Enrolled_Date");
+    const planCol = enHeaders.indexOf("Current_Plan");
+    const invCol = enHeaders.indexOf("Investment_Plan"); // NEW
+    const wdCountCol = enHeaders.indexOf("Withdrawal_Count");
+
+    if (invCol === -1) return { success: false, msg: "Admin Error: Missing 'Investment_Plan' column in Enrollments sheet." };
 
     let enrollRowIdx = -1;
     for (let i = 1; i < enrollData.length; i++) {
@@ -50,34 +50,35 @@ function processEnrollment(selectedPlan, deviceData) {
 
     if (enrollRowIdx !== -1) {
       const currentFirstDate = enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).getValue();
-      
-      if (!currentFirstDate || currentFirstDate === "") {
-        enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).setValue(today);
-      }
+      if (!currentFirstDate || currentFirstDate === "") enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).setValue(today);
       
       enrollSheet.getRange(enrollRowIdx, currentDateCol + 1).setValue(today);
-      enrollSheet.getRange(enrollRowIdx, planCol + 1).setValue(selectedPlan);
-
+      enrollSheet.getRange(enrollRowIdx, planCol + 1).setValue(contributionPlan);
+      enrollSheet.getRange(enrollRowIdx, invCol + 1).setValue(investmentPlan);
     } else {
-      const newRow = new Array(enrollHeaders.length).fill("");
+      const newRow = new Array(enHeaders.length).fill("");
       newRow[enrIdCol] = allstarsId;
       newRow[firstDateCol] = today;
       newRow[currentDateCol] = today;
-      newRow[planCol] = selectedPlan;
+      newRow[planCol] = contributionPlan;
+      newRow[invCol] = investmentPlan;
       newRow[wdCountCol] = 0;
       enrollSheet.appendRow(newRow);
     }
 
+    // 3. Append to 'Beneficiaries' Ledger
+    const benSheet = ss.getSheetByName("Beneficiaries");
+    if (!benSheet) return { success: false, msg: "Admin Error: Missing 'Beneficiaries' sheet." };
+    
+    // Schema: Timestamp | Allstars_ID | Work_Email | Beneficiary_Data
+    benSheet.appendRow([today, allstarsId, email, beneficiariesJSON]);
+
+    // 4. Append to 'Audit_Log'
     const auditSheet = ss.getSheetByName("Audit_Log");
-    const formattedPlan = (parseFloat(selectedPlan) * 100).toFixed(0) + "%";
+    const formattedPlan = (parseFloat(contributionPlan) * 100).toFixed(0) + "%";
     
     auditSheet.appendRow([
-      today, 
-      allstarsId, 
-      email,          
-      "Enroll", 
-      formattedPlan,   
-      deviceData || "Unknown Device"
+      today, allstarsId, email, "Enroll", formattedPlan, investmentPlan, beneficiariesJSON, deviceData || "Unknown Device"
     ]);
 
     return { success: true };
@@ -88,7 +89,7 @@ function processEnrollment(selectedPlan, deviceData) {
 }
 
 // ==========================================
-// CHECK UI STATUS: PLAN CHANGE COOLDOWN
+// CHECK UI STATUS & CHANGE PLAN
 // ==========================================
 function checkPlanChangeEligibility() {
   try {
@@ -129,10 +130,7 @@ function checkPlanChangeEligibility() {
           if (daysSinceAction < 365) {
             let nextEligibleDate = new Date(mostRecentAction);
             nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
-            return { 
-              locked: true, 
-              nextDate: nextEligibleDate.toLocaleDateString('en-GB') 
-            };
+            return { locked: true, nextDate: nextEligibleDate.toLocaleDateString('en-GB') };
           }
         }
         break;
@@ -144,9 +142,6 @@ function checkPlanChangeEligibility() {
   }
 }
 
-// ==========================================
-// ACTION: CHANGE PLAN (With Dual 12-Month Rule)
-// ==========================================
 function processChangePlan(newPlan, deviceData) {
   try {
     const email = Session.getActiveUser().getEmail();
@@ -167,7 +162,7 @@ function processChangePlan(newPlan, deviceData) {
       }
     }
 
-    if (!allstarsId) return { success: false, msg: `ไม่พบข้อมูลผู้ใช้งาน (User not found): ${email}` };
+    if (!allstarsId) return { success: false, msg: `User not found: ${email}` };
 
     const enrollSheet = ss.getSheetByName("Enrollments");
     const enrollData = enrollSheet.getDataRange().getValues();
@@ -198,12 +193,7 @@ function processChangePlan(newPlan, deviceData) {
       if (daysSinceAction < 365) {
         let nextEligibleDate = new Date(mostRecentAction);
         nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
-        let dateString = nextEligibleDate.toLocaleDateString('en-GB'); 
-
-        return { 
-          success: false, 
-          msg: `ไม่สามารถเปลี่ยนอัตราได้ (Cannot change plan). คุณสามารถเปลี่ยนได้อีกครั้งในวันที่ / You can change your plan again on: ${dateString}` 
-        };
+        return { success: false, msg: `ไม่สามารถเปลี่ยนอัตราได้ (Cannot change plan). คุณสามารถเปลี่ยนได้อีกครั้งในวันที่ / You can change your plan again on: ${nextEligibleDate.toLocaleDateString('en-GB')}` };
       }
     }
 
@@ -213,9 +203,7 @@ function processChangePlan(newPlan, deviceData) {
     const auditSheet = ss.getSheetByName("Audit_Log");
     const formattedPlan = (parseFloat(newPlan) * 100).toFixed(0) + "%";
     
-    auditSheet.appendRow([
-      today, allstarsId, email, "Change Plan", formattedPlan, deviceData || "Unknown Device"
-    ]);
+    auditSheet.appendRow([today, allstarsId, email, "Change Plan", formattedPlan, "", "", deviceData || "Unknown Device"]);
 
     return { success: true };
 
