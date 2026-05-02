@@ -1,0 +1,168 @@
+<script>
+  // ==========================================
+  // BENEFICIARY MANAGER LOGIC
+  // ==========================================
+
+  let editBenData = []; // Store temporary edits
+
+  function openManageBen() {
+    if (!globalEnrollmentData || !globalEnrollmentData.beneficiariesJSON) return;
+    switchBenView('A');
+    document.getElementById('beneficiaryManager').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeManageBen() {
+    document.getElementById('beneficiaryManager').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function switchBenView(view) {
+    document.getElementById('benViewA').style.display = (view === 'A') ? 'block' : 'none';
+    document.getElementById('benViewB').style.display = (view === 'B') ? 'block' : 'none';
+    document.getElementById('benViewC').style.display = (view === 'C') ? 'block' : 'none';
+    
+    document.getElementById('benFooterA').style.display = (view === 'A') ? 'flex' : 'none';
+    document.getElementById('benFooterB').style.display = (view === 'B') ? 'flex' : 'none';
+    document.getElementById('benFooterC').style.display = (view === 'C') ? 'flex' : 'none';
+
+    document.getElementById('benManagerTitle').textContent = 
+      (view === 'A') ? "จัดการผู้รับผลประโยชน์" : 
+      (view === 'B') ? "แก้ไขข้อมูล / Edit" : "ประวัติ / History";
+
+    document.getElementById('benManagerCloseBtn').style.display = (view === 'A') ? 'block' : 'none';
+
+    if (view === 'A') renderCurrentBeneficiaries();
+    if (view === 'B') initUpdateBeneficiaries();
+    if (view === 'C') renderHistoryBeneficiaries();
+  }
+
+  // --- VIEW A: CURRENT ---
+  function renderCurrentBeneficiaries() {
+    const list = document.getElementById('currentBenList'); let html = "";
+    try {
+      const bens = JSON.parse(globalEnrollmentData.beneficiariesJSON);
+      bens.forEach(b => {
+        html += `<div class="option-card" style="cursor:default; margin-bottom: 0.5rem; padding: 1rem;">
+          <strong style="margin-bottom:0.25rem;">${b.name}</strong>
+          <small>${b.rel} - <span style="color:var(--pico-primary); font-weight:600;">${b.pct}%</span></small>
+        </div>`;
+      });
+    } catch(e) { html = "<p>Error loading data.</p>"; }
+    list.innerHTML = html;
+  }
+
+  // --- VIEW C: HISTORY TIMELINE ---
+  function renderHistoryBeneficiaries() {
+    const list = document.getElementById('historyBenList'); let html = "";
+    try {
+      const history = globalEnrollmentData.beneficiaryHistory || [];
+      if(history.length === 0) {
+         html = "<p style='text-align:center; color:var(--pico-muted-color);'>ไม่มีประวัติการแก้ไข / No history</p>";
+      } else {
+         history.forEach((h, i) => {
+           const d = new Date(h.timestamp);
+           const dateStr = isNaN(d) ? h.timestamp : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' });
+           const bens = JSON.parse(h.data);
+           let benStr = bens.map(b => `${b.name} (${b.pct}%)`).join(", ");
+           let badge = i === 0 ? `<span style="background:var(--pico-primary); color:white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; margin-left: 0.5rem;">ล่าสุด / Latest</span>` : "";
+
+           html += `<div style="border-left: 2px solid #cbd5e1; padding-left: 1rem; margin-bottom: 1.5rem; position: relative;">
+             <div style="position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: ${i === 0 ? 'var(--pico-primary)' : '#cbd5e1'};"></div>
+             <strong style="font-size:0.9rem;">${dateStr} ${badge}</strong>
+             <p style="margin-bottom:0; font-size:0.85rem; color:var(--pico-muted-color); margin-top:0.25rem;">${benStr}</p>
+           </div>`;
+         });
+      }
+    } catch(e) { html = "<p>Error loading history.</p>"; }
+    list.innerHTML = html;
+  }
+
+  // --- VIEW B: UPDATE (Reused Form Logic) ---
+  function initUpdateBeneficiaries() {
+    try { editBenData = JSON.parse(globalEnrollmentData.beneficiariesJSON); } 
+    catch(e) { editBenData = [{ name: '', rel: '', pct: 100 }]; }
+    renderUpdateBeneficiaries();
+  }
+
+  function addUpdateBeneficiary() {
+    if (editBenData.length < 4) { editBenData.push({ name: '', rel: '', pct: 0 }); renderUpdateBeneficiaries(); }
+  }
+
+  function removeUpdateBeneficiary(index) {
+    editBenData.splice(index, 1); renderUpdateBeneficiaries();
+  }
+
+  function changeUpdateBenData(index, field, value) {
+    editBenData[index][field] = value; validateUpdateBen();
+  }
+
+  function renderUpdateBeneficiaries() {
+    const list = document.getElementById('updateBeneficiaryList'); list.innerHTML = '';
+    editBenData.forEach((ben, index) => {
+      const card = document.createElement('div'); card.className = 'ben-card';
+      let removeBtn = index > 0 ? `<button class="ben-remove" onclick="removeUpdateBeneficiary(${index})">❌ ลบ</button>` : '';
+      card.innerHTML = `
+        ${removeBtn}
+        <label style="font-size:0.85rem; color:var(--pico-muted-color);">ชื่อ-สกุล (Name)</label>
+        <input type="text" value="${ben.name}" oninput="changeUpdateBenData(${index}, 'name', this.value)" style="margin-bottom:0.75rem;" required>
+        <div class="grid" style="grid-template-columns: 2fr 1fr; gap:0.5rem;">
+          <div>
+            <label style="font-size:0.85rem; color:var(--pico-muted-color);">ความสัมพันธ์ (Rel.)</label>
+            <select onchange="changeUpdateBenData(${index}, 'rel', this.value)" style="margin-bottom:0;" required>
+              ${relOptions.replace(`value="${ben.rel}"`, `value="${ben.rel}" selected`)}
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.85rem; color:var(--pico-muted-color);">สัดส่วน (%)</label>
+            <input type="number" min="1" max="100" value="${ben.pct}" oninput="changeUpdateBenData(${index}, 'pct', this.value)" style="margin-bottom:0;" required>
+          </div>
+        </div>
+      `;
+      list.appendChild(card);
+    });
+    document.getElementById('addUpdateBenBtn').style.display = editBenData.length >= 4 ? 'none' : 'block';
+    validateUpdateBen();
+  }
+
+  function validateUpdateBen() {
+    let totalPct = 0; let allFilled = true;
+    editBenData.forEach(b => { totalPct += parseInt(b.pct) || 0; if (!b.name.trim() || !b.rel) allFilled = false; });
+    const totalMsg = document.getElementById('updateBenTotalText'); const helperMsg = document.getElementById('updateBenHelperText'); const btn = document.getElementById('submitUpdateBenBtn');
+    totalMsg.textContent = `${totalPct}%`;
+    
+    if (totalPct === 100) { 
+      totalMsg.style.color = "#2e7d32"; if (helperMsg) helperMsg.style.display = 'none'; btn.disabled = !allFilled;
+    } else { 
+      totalMsg.style.color = "var(--pico-del-color)"; btn.disabled = true;
+      if (helperMsg) { helperMsg.style.display = 'block'; helperMsg.textContent = totalPct > 100 ? "สัดส่วนเกิน 100% (Total exceeds 100%)" : "กรุณาระบุสัดส่วนให้ครบ 100% (Must equal exactly 100%)"; }
+    }
+  }
+  
+  function submitUpdateBeneficiaries() {
+    const btn = document.getElementById('submitUpdateBenBtn');
+    btn.setAttribute('aria-busy', 'true'); btn.textContent = " กำลังบันทึก..."; btn.disabled = true; 
+    
+    google.script.run
+      .withSuccessHandler((response) => {
+        btn.removeAttribute('aria-busy'); 
+        btn.textContent = "บันทึก / Save"; 
+        btn.disabled = false;
+
+        if (response && response.success) { 
+          closeManageBen(); 
+          showSuccessToast("อัปเดตข้อมูลสำเร็จ! / Update Successful!"); 
+        } 
+        else { 
+          alert("Error: " + (response ? response.msg : "Unknown error")); 
+        }
+      })
+      .withFailureHandler((err) => { 
+        btn.removeAttribute('aria-busy'); 
+        btn.textContent = "บันทึก / Save"; 
+        btn.disabled = false; 
+        alert("System Error: " + err); 
+      })
+      .processUpdateBeneficiaries(JSON.stringify(editBenData), navigator.userAgent);
+  }
+</script>

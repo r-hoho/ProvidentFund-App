@@ -1,4 +1,7 @@
 <script>
+
+  let globalEnrollmentData = null; // Store data for modals
+
   document.addEventListener("DOMContentLoaded", () => {
     google.script.run.withSuccessHandler(populateUI).withFailureHandler((err) => showError("System Error: " + err)).getUserProfile();
     google.script.run.withSuccessHandler(applyCooldownUI).checkPlanChangeEligibility();
@@ -38,6 +41,7 @@
   function populateUI(response) {
     document.getElementById('loadingState').style.display = 'none';
     if (response && response.success) {
+      globalEnrollmentData = response.enrollment;
       document.getElementById('dashboardContent').style.display = 'block';
 
       document.getElementById('empName').textContent = response.name || "-";
@@ -293,5 +297,5 @@
   function openWithdraw() { alert("Withdraw flow coming soon!"); }
   function sendReport() { /* Unchanged */ }
   function openChangeInvest() { alert("Change Investment flow coming soon!"); }
-  function openManageBen() { alert("Manage Beneficiaries flow coming soon!"); }
+
 </script>

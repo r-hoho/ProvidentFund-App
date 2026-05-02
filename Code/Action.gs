@@ -211,3 +211,50 @@ function processChangePlan(newPlan, deviceData) {
     return { success: false, msg: error.toString() };
   }
 }
+
+// ==========================================
+// ACTION: UPDATE BENEFICIARIES
+// ==========================================
+function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
+  try {
+    const email = Session.getActiveUser().getEmail();
+    if (!email) return { success: false, msg: "ไม่พบอีเมลผู้ใช้งาน (Email not detected)" };
+
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const today = new Date();
+
+    // 1. Find User ID
+    const usersData = ss.getSheetByName("Users").getDataRange().getValues();
+    const emailCol = usersData[0].indexOf("Work_Email");
+    const idCol = usersData[0].indexOf("Allstars_ID");
+
+    let allstarsId = null;
+    for (let i = 1; i < usersData.length; i++) {
+      if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
+        allstarsId = usersData[i][idCol];
+        break;
+      }
+    }
+
+    if (!allstarsId) return { success: false, msg: `User not found: ${email}` };
+
+    // 2. Append to 'Beneficiaries' Ledger Sheet
+    const benSheet = ss.getSheetByName("Beneficiaries");
+    if (!benSheet) return { success: false, msg: "Admin Error: Missing 'Beneficiaries' sheet." };
+    
+    // Schema: Timestamp | Allstars_ID | Work_Email | Beneficiary_Data
+    benSheet.appendRow([today, allstarsId, email, beneficiariesJSON]);
+
+    // 3. Append to 'Audit_Log'
+    const auditSheet = ss.getSheetByName("Audit_Log");
+    // Action is "Update Beneficiaries", current plan & investment are blanked out here as they didn't change
+    auditSheet.appendRow([
+      today, allstarsId, email, "Update Beneficiaries", "", "", beneficiariesJSON, deviceData || "Unknown Device"
+    ]);
+
+    return { success: true };
+
+  } catch (error) {
+    return { success: false, msg: error.toString() };
+  }
+}

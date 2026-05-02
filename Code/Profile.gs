@@ -62,19 +62,32 @@ function getUserProfile() {
           }
         }
 
-        // --- 1.5 FETCH BENEFICIARY DATA (Ledger Style) ---
+        // --- 1.5 FETCH BENEFICIARY DATA (Ledger Style & History) ---
+        enrollmentData.beneficiaryHistory = []; // Array to store all past updates
+        
         if (benSheet) {
           const benData = benSheet.getDataRange().getValues();
           const benHeaders = benData[0].map(h => String(h).trim());
           const bIdCol = benHeaders.indexOf('Allstars_ID');
           const bDataCol = benHeaders.indexOf('Beneficiary_Data');
+          const bTimeCol = benHeaders.indexOf('Timestamp'); // Attempt to find Timestamp column
           
-          // Loop BACKWARDS to find the most recent entry (bottom-up)
           if (bIdCol !== -1 && bDataCol !== -1) {
+            // Loop BACKWARDS to read from newest to oldest
             for (let k = benData.length - 1; k >= 1; k--) {
               if (String(benData[k][bIdCol]).trim() === String(allstarsId).trim()) {
-                enrollmentData.beneficiariesJSON = benData[k][bDataCol];
-                break; // Stop at the newest record
+                
+                // The FIRST match we hit (bottom-up) is the current active one
+                if (!enrollmentData.beneficiariesJSON) {
+                  enrollmentData.beneficiariesJSON = benData[k][bDataCol];
+                }
+                
+                // Push every match into the history array
+                let tStamp = bTimeCol !== -1 ? benData[k][bTimeCol] : benData[k][0]; // Fallback to col 0
+                enrollmentData.beneficiaryHistory.push({
+                  timestamp: tStamp instanceof Date ? String(tStamp) : String(new Date(tStamp)),
+                  data: benData[k][bDataCol]
+                });
               }
             }
           }
@@ -128,6 +141,7 @@ function getUserProfile() {
             currentPlan: enrollmentData.currentPlan,
             investmentPlan: enrollmentData.investmentPlan,
             beneficiariesJSON: enrollmentData.beneficiariesJSON,
+            beneficiaryHistory: enrollmentData.beneficiaryHistory, // <-- ADD THIS LINE
             enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null
           },
           isOnProbation: isOnProbation,

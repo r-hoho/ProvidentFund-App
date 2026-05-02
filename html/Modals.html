@@ -122,3 +122,62 @@
     </footer>
   </article>
 </dialog>
+
+
+
+<div id="beneficiaryManager" class="wizard-overlay" style="display: none;">
+  
+  <header class="wizard-header">
+    <button class="wizard-close" id="benManagerCloseBtn" onclick="closeManageBen()">ปิด / Close</button>
+    <strong id="benManagerTitle">จัดการผู้รับผลประโยชน์</strong>
+  </header>
+
+  <div class="wizard-content container">
+
+    <div id="benViewA">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">ข้อมูลปัจจุบัน<br><small>Current Beneficiaries</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1.5rem; font-size: 0.9rem;">รายชื่อผู้รับผลประโยชน์ล่าสุดของคุณ</p>
+      <div id="currentBenList"></div>
+    </div>
+
+    <div id="benViewB" style="display: none;">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">อัปเดตข้อมูล<br><small>Update Beneficiaries</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1rem; font-size: 0.9rem;">ระบุผู้รับผลประโยชน์ (สูงสุด 4 ท่าน รวมกันต้องได้ 100%)</p>
+      
+      <div id="updateBeneficiaryList"></div>
+      
+      <button id="addUpdateBenBtn" class="btn-dashed" onclick="addUpdateBeneficiary()" style="width: 100%; margin-top: 0.5rem;">
+        + เพิ่มผู้รับผลประโยชน์ / Add
+      </button>
+      
+      <div style="text-align: center; margin-top: 1.5rem; font-weight: 600; font-size: 1.1rem;">
+        ยอดรวม / Total: <span id="updateBenTotalText" style="color: var(--pico-del-color);">0%</span>
+      </div>
+      <div id="updateBenHelperText" style="color: var(--pico-del-color); font-size: 0.85rem; text-align: center; margin-top: 0.25rem; display: none;">
+        กรุณาระบุสัดส่วนให้ครบ 100%
+      </div>
+    </div>
+
+    <div id="benViewC" style="display: none;">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">ประวัติการแก้ไข<br><small>History</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1.5rem; font-size: 0.9rem;">ประวัติผู้รับผลประโยชน์ของคุณ</p>
+      <div id="historyBenList" style="padding-left: 0.5rem;"></div>
+    </div>
+
+  </div>
+
+  <footer class="wizard-footer" id="benFooterA">
+    <button class="outline" onclick="switchBenView('C')" style="border-color: var(--pico-primary); color: var(--pico-primary);">ประวัติ / History</button>
+    <button onclick="switchBenView('B')">แก้ไข / Update</button>
+  </footer>
+
+  <footer class="wizard-footer" id="benFooterB" style="display: none;">
+    <button class="secondary outline" onclick="switchBenView('A')">ยกเลิก / Cancel</button>
+    <button id="submitUpdateBenBtn" onclick="submitUpdateBeneficiaries()" disabled>บันทึก / Save</button>
+  </footer>
+
+  <footer class="wizard-footer" id="benFooterC" style="display: none;">
+    <button class="secondary outline" onclick="switchBenView('A')" style="flex: none; width: 100%;">ย้อนกลับ / Back</button>
+  </footer>
+
+</div>
