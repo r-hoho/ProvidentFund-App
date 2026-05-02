@@ -52,25 +52,30 @@
       const withdrawBtn = document.getElementById('mainWithdrawBtn');
       const messageDiv = document.getElementById('cooldownMessage'); 
 
-      enrollBtn.style.display = 'none'; changePlanBtn.style.display = 'none'; withdrawBtn.style.display = 'none';
-      enrolledInfoGroup.style.display = 'none'; messageDiv.style.display = 'none'; messageDiv.innerHTML = '';
+      enrollBtn.style.display = 'none'; 
+      enrolledActionsGroup.style.display = 'none'; // <-- NEW
+      enrolledInfoGroup.style.display = 'none'; 
+      messageDiv.style.display = 'none'; messageDiv.innerHTML = '';
 
       if (response.enrollment.withdrawalCount >= 2) {
-        statusPill.innerHTML = "หมดสิทธิ์ถาวร / Locked"; statusPill.style.color = "var(--pico-del-color)";
+        statusPill.innerHTML = "หมดสิทธิ์ถาวร / Locked"; statusPill.style.setProperty('color', 'var(--pico-del-color)', 'important');
       } else if (response.isOnProbation) {
-        statusPill.innerHTML = "ทดลองงาน / Probation"; statusPill.style.color = "#ffb74d"; 
+        statusPill.innerHTML = "ทดลองงาน / Probation"; statusPill.style.setProperty('color', '#ffb74d', 'important');
         if (response.probationEndDate) {
           const probDate = new Date(response.probationEndDate);
           messageDiv.innerHTML = `* สามารถสมัครได้เมื่อผ่านทดลองงาน / Eligible to enroll after:<br><strong>${probDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</strong>`;
           messageDiv.style.display = 'block';
         }
       } else if (response.isCoolingDown) {
-        statusPill.innerHTML = "ระงับสิทธิ์ชั่วคราว / Cooldown"; statusPill.style.color = "#ba68c8"; 
+        statusPill.innerHTML = "ระงับสิทธิ์ชั่วคราว / Cooldown"; statusPill.style.setProperty('color', '#ba68c8', 'important');
         const unlockDate = new Date(response.cooldownEndDate);
         messageDiv.innerHTML = `* สามารถสมัครใหม่ได้ในวันที่ / Eligible to re-enroll on:<br><strong>${unlockDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</strong>`;
         messageDiv.style.display = 'block';
-      } else if (response.enrollment.isEnrolled) {
-        statusPill.innerHTML = `เป็นสมาชิก / Enrolled`; statusPill.style.color = "#2e7d32"; 
+      } 
+      
+      
+      else if (response.enrollment.isEnrolled) {
+        statusPill.innerHTML = `เป็นสมาชิก / Enrolled`; statusPill.style.setProperty('color', '#2e7d32', 'important');
         enrolledInfoGroup.style.display = 'block'; 
         let memberSinceStr = "-";
         if (response.enrollment.enrolledDate) {
@@ -80,9 +85,9 @@
         document.getElementById('infoPlan').textContent = `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
         document.getElementById('infoMatch').textContent = response.matchPercent || "-";
         document.getElementById('infoSince').textContent = memberSinceStr;
-        changePlanBtn.style.display = 'block'; withdrawBtn.style.display = 'block';
+        enrolledActionsGroup.style.display = 'block'; // <-- Show the new 2x2 grid
       } else {
-        statusPill.innerHTML = "ยังไม่เข้าร่วม / Not Enrolled"; statusPill.style.color = "var(--pico-color)";
+        statusPill.innerHTML = "ยังไม่เข้าร่วม / Not Enrolled"; statusPill.style.setProperty('color', 'var(--pico-color)', 'important');
         enrollBtn.style.display = 'block';
       }
     } else {
@@ -287,4 +292,6 @@
 
   function openWithdraw() { alert("Withdraw flow coming soon!"); }
   function sendReport() { /* Unchanged */ }
+  function openChangeInvest() { alert("Change Investment flow coming soon!"); }
+  function openManageBen() { alert("Manage Beneficiaries flow coming soon!"); }
 </script>

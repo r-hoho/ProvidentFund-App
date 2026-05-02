@@ -83,22 +83,37 @@
 
       <!-- BOX 3: ACTIONS -->
       <article>
-        <header><strong>การจัดการ / Actions</strong></header>
-        
-        <button id="mainEnrollBtn" onclick="openEnroll()" style="display: none; width: 100%; margin-bottom: 1rem;">
-          สมัครสมาชิก / Enroll
-        </button>
+  <header><strong>การจัดการ / Actions</strong></header>
+  
+  <button id="mainEnrollBtn" onclick="openEnroll()" style="display: none; width: 100%; margin-bottom: 1rem;">
+    สมัครสมาชิก / Enroll
+  </button>
 
-        <button id="mainChangePlanBtn" onclick="openChangePlan()" style="display: none; width: 100%; margin-bottom: 0.5rem;">
-          เปลี่ยนอัตราเงินสะสม / Change Plan
-        </button>
-        
-        <div id="cooldownMessage" style="color: var(--pico-del-color); font-size: 0.85rem; text-align: center; margin-bottom: 1rem; display: none;"></div>
+  <div id="enrolledActionsGroup" style="display: none;">
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
+      
+      <button id="btnChangeContrib" class="outline" onclick="openChangePlan()" style="margin-bottom: 0; font-size: 0.9rem; line-height: 1.2; padding: 0.75rem 0.25rem; border-color: var(--pico-primary); color: var(--pico-primary);">
+        เงินสะสม<br><small style="color: var(--pico-muted-color) !important;">Contribution %</small>
+      </button>
+      
+      <button id="btnChangeInvest" class="outline" onclick="openChangeInvest()" style="margin-bottom: 0; font-size: 0.9rem; line-height: 1.2; padding: 0.75rem 0.25rem; border-color: var(--pico-primary); color: var(--pico-primary);">
+        นโยบายลงทุน<br><small style="color: var(--pico-muted-color) !important;">Investment Plan</small>
+      </button>
 
-        <button id="mainWithdrawBtn" class="secondary outline" onclick="openWithdraw()" style="display: none; width: 100%; color: var(--pico-del-color); border-color: var(--pico-del-color);">
-          ลาออก / Withdraw
-        </button>
-      </article>
+      <button id="btnManageBen" class="outline" onclick="openManageBen()" style="margin-bottom: 0; font-size: 0.9rem; line-height: 1.2; padding: 0.75rem 0.25rem; border-color: var(--pico-primary); color: var(--pico-primary);">
+        ผู้รับผลประโยชน์<br><small style="color: var(--pico-muted-color) !important;">Beneficiaries</small>
+      </button>
+
+      <button id="btnWithdraw" class="secondary outline" onclick="openWithdraw()" style="margin-bottom: 0; font-size: 0.9rem; line-height: 1.2; padding: 0.75rem 0.25rem; color: var(--pico-del-color); border-color: var(--pico-del-color);">
+        ลาออก<br><small style="color: var(--pico-del-color) !important;">Withdraw</small>
+      </button>
+
+    </div>
+
+    <div id="cooldownMessage" style="color: var(--pico-del-color); font-size: 0.85rem; text-align: center; margin-top: 0.5rem; display: none;"></div>
+  </div>
+</article>
 
     </div>
 
