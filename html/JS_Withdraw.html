@@ -1,0 +1,73 @@
+<script>
+  // ==========================================
+  // WITHDRAWAL LOGIC
+  // ==========================================
+
+  function openWithdraw() {
+    if (!globalUserProfile) return;
+
+    const tenureY = globalUserProfile.tenureY || 0;
+    const tenureM = globalUserProfile.tenureM || 0;
+    
+    document.getElementById('withdrawTenureText').textContent = `${tenureY} ปี (Years) ${tenureM} เดือน (Months)`;
+    
+    const benefitBox = document.getElementById('withdrawBenefitBox');
+    const matchStatus = document.getElementById('withdrawMatchStatus');
+
+    // 5-Year Vesting Logic Check
+    if (tenureY < 5) {
+      benefitBox.style.backgroundColor = '#fef2f2';
+      benefitBox.style.borderColor = '#f87171';
+      matchStatus.style.color = '#dc2626';
+      matchStatus.innerHTML = '❌ ไม่ได้รับเงินสมทบจากบริษัท<br><small>(Not eligible for employer match)</small>';
+    } else {
+      benefitBox.style.backgroundColor = '#f0fdf4';
+      benefitBox.style.borderColor = '#4ade80';
+      matchStatus.style.color = '#16a34a';
+      matchStatus.innerHTML = '✅ คุณมีสิทธิได้รับเงินสมทบจากบริษัท<br><small>(Eligible for employer match)</small>';
+    }
+
+    // Reset safety checkbox and disable button
+    document.getElementById('withdrawConfirmCheck').checked = false;
+    document.getElementById('submitWithdrawBtn').disabled = true;
+
+    document.getElementById('withdrawModal').showModal();
+  }
+
+  function closeWithdraw() {
+    document.getElementById('withdrawModal').close();
+  }
+
+  function toggleWithdrawSubmit() {
+    const isChecked = document.getElementById('withdrawConfirmCheck').checked;
+    document.getElementById('submitWithdrawBtn').disabled = !isChecked;
+  }
+
+  function submitWithdrawal() {
+    const btn = document.getElementById('submitWithdrawBtn');
+    btn.setAttribute('aria-busy', 'true'); 
+    btn.textContent = " กำลังดำเนินการ..."; 
+    btn.disabled = true; 
+    
+    google.script.run
+      .withSuccessHandler((response) => {
+        btn.removeAttribute('aria-busy'); 
+        btn.textContent = "ยืนยัน / Confirm"; 
+
+        if (response && response.success) { 
+          closeWithdraw(); 
+          showSuccessToast("ลาออกสำเร็จ! / Withdrawal Successful!"); 
+        } else { 
+          btn.disabled = false;
+          alert("Error: " + (response ? response.msg : "Unknown error")); 
+        }
+      })
+      .withFailureHandler((err) => { 
+        btn.removeAttribute('aria-busy'); 
+        btn.textContent = "ยืนยัน / Confirm"; 
+        btn.disabled = false; 
+        alert("System Error: " + err); 
+      })
+      .processWithdrawal(navigator.userAgent);
+  }
+</script>

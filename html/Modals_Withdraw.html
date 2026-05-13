@@ -1,0 +1,35 @@
+<dialog id="withdrawModal">
+  <article>
+    <header>
+      <button aria-label="Close" rel="prev" onclick="closeWithdraw()"></button>
+      <strong style="color: var(--pico-del-color);">ยืนยันการลาออก / Confirm Withdrawal</strong>
+    </header>
+
+    <div id="withdrawBenefitBox" style="margin-bottom: 1.5rem; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+      <strong style="font-size: 1.05rem;">สิทธิประโยชน์ของคุณ / Your Benefits</strong><br>
+      <div style="margin-top: 0.5rem; font-size: 0.95rem;">
+        อายุสมาชิก (Membership): <strong id="withdrawTenureText">-</strong><br>
+        <div id="withdrawMatchStatus" style="margin-top: 0.5rem; font-weight: 500;">-</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+      <strong style="color: var(--pico-color);">ผลกระทบ (Penalties):</strong>
+      <ul style="margin-top: 0.5rem; padding-left: 1.2rem; color: var(--pico-muted-color);">
+        <li>การลาออกจากกองทุนจะมีผลทันที (Takes effect immediately)</li>
+        <li>คุณจะไม่สามารถสมัครใหม่ได้เป็นเวลา 1 ปี (1-year lockout)</li>
+        <li>หากเป็นการลาออกครั้งที่ 2 คุณจะหมดสิทธิ์ถาวร (Permanent lockout on 2nd withdrawal)</li>
+      </ul>
+    </div>
+
+    <label style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.9rem; cursor: pointer;">
+      <input type="checkbox" id="withdrawConfirmCheck" onchange="toggleWithdrawSubmit()" style="margin-top: 0.2rem;">
+      <span>ฉันรับทราบและยอมรับเงื่อนไข<br><small style="color: var(--pico-muted-color);">I acknowledge and accept the conditions</small></span>
+    </label>
+
+    <footer>
+      <button class="secondary outline" onclick="closeWithdraw()">ยกเลิก / Cancel</button>
+      <button id="submitWithdrawBtn" onclick="submitWithdrawal()" style="background-color: var(--pico-del-color); border-color: var(--pico-del-color);" disabled>ยืนยัน / Confirm</button>
+    </footer>
+  </article>
+</dialog>

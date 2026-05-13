@@ -1,6 +1,7 @@
 <script>
 
   let globalEnrollmentData = null; // Store data for modals
+  let globalUserProfile = null; // <-- ADD THIS NEW VARIABLE
 
   document.addEventListener("DOMContentLoaded", () => {
     google.script.run.withSuccessHandler(populateUI).withFailureHandler((err) => showError("System Error: " + err)).getUserProfile();
@@ -42,6 +43,7 @@
     document.getElementById('loadingState').style.display = 'none';
     if (response && response.success) {
       globalEnrollmentData = response.enrollment;
+      globalUserProfile = response; // <-- ADD THIS LINE
       document.getElementById('dashboardContent').style.display = 'block';
 
       document.getElementById('empName').textContent = response.name || "-";
@@ -294,7 +296,6 @@
       .processChangePlan(parseFloat(selectedPlan), deviceData);
   }
 
-  function openWithdraw() { alert("Withdraw flow coming soon!"); }
   function sendReport() { /* Unchanged */ }
   function openChangeInvest() { alert("Change Investment flow coming soon!"); }
 

@@ -106,7 +106,7 @@
       </button>
 
       <button id="btnWithdraw" class="secondary outline" onclick="openWithdraw()" style="margin-bottom: 0; font-size: 0.9rem; line-height: 1.2; padding: 0.75rem 0.25rem; color: var(--pico-del-color); border-color: var(--pico-del-color);">
-        ลาออก<br><small style="color: var(--pico-del-color) !important;">Withdraw</small>
+        การลาออก... &#10140;<br><small style="color: var(--pico-del-color) !important;">Withdraw</small>
       </button>
 
     </div>
@@ -137,9 +137,10 @@
   </main>
 
   <?!= include('Modals'); ?>
-
+  <?!= include('Modals_Withdraw'); ?> 
   <?!= include('JS'); ?>
   <?!= include('JS_Beneficiary'); ?>
+  <?!= include('JS_Withdraw'); ?>
 
 </body>
 </html>

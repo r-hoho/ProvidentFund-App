@@ -124,8 +124,19 @@ function getUserProfile() {
         }
 
         let tenureYears = 0;
+        let tenureY = 0; // Exact Years
+        let tenureM = 0; // Exact Months
+        
         if (startDateForMath instanceof Date) {
           tenureYears = (today - startDateForMath) / (1000 * 60 * 60 * 24 * 365.25);
+          
+          // Exact Year/Month math
+          let mDiff = (today.getFullYear() - startDateForMath.getFullYear()) * 12 + (today.getMonth() - startDateForMath.getMonth());
+          if (today.getDate() < startDateForMath.getDate()) { mDiff--; } // Adjust if day hasn't passed yet
+          if (mDiff < 0) mDiff = 0;
+          
+          tenureY = Math.floor(mDiff / 12);
+          tenureM = mDiff % 12;
         }
         let matchPercent = calculateMatchTier(tenureYears);
 
@@ -141,7 +152,7 @@ function getUserProfile() {
             currentPlan: enrollmentData.currentPlan,
             investmentPlan: enrollmentData.investmentPlan,
             beneficiariesJSON: enrollmentData.beneficiariesJSON,
-            beneficiaryHistory: enrollmentData.beneficiaryHistory, // <-- ADD THIS LINE
+            beneficiaryHistory: enrollmentData.beneficiaryHistory, 
             enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null
           },
           isOnProbation: isOnProbation,
@@ -149,7 +160,9 @@ function getUserProfile() {
           isCoolingDown: isCoolingDown,
           cooldownEndDate: cooldownEndDate, 
           matchPercent: matchPercent,
-          tenureYears: tenureYears.toFixed(2)
+          tenureYears: tenureYears.toFixed(2),
+          tenureY: tenureY, // NEW: Exact Years
+          tenureM: tenureM  // NEW: Exact Months
         };
       }
     }
