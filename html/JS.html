@@ -86,7 +86,20 @@
         let memberSinceStr = "-";
         if (response.enrollment.enrolledDate) {
           const enrollDateObj = new Date(response.enrollment.enrolledDate);
-          memberSinceStr = enrollDateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+          const day = String(enrollDateObj.getDate()).padStart(2, '0');
+          const mon = enrollDateObj.toLocaleDateString('en-GB', { month: 'short' });
+          const yr2 = String(enrollDateObj.getFullYear()).slice(-2);
+          const dateStr = `${day}-${mon}-${yr2}`;
+          const today = new Date();
+          let mDiff = (today.getFullYear() - enrollDateObj.getFullYear()) * 12 + (today.getMonth() - enrollDateObj.getMonth());
+          if (today.getDate() < enrollDateObj.getDate()) mDiff--;
+          if (mDiff < 0) mDiff = 0;
+          const durY = Math.floor(mDiff / 12);
+          const durM = mDiff % 12;
+          const durParts = [];
+          if (durY > 0) durParts.push(`${durY}y`);
+          if (durM > 0 || durY === 0) durParts.push(`${durM}m`);
+          memberSinceStr = `${dateStr}  ·  ${durParts.join(' ')}`;
         }
         document.getElementById('infoPlan').textContent = `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
         document.getElementById('infoMatch').textContent = response.matchPercent || "-";
