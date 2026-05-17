@@ -2,6 +2,8 @@
 
 ## Features
 - [x] **Payroll cut-off notice** — for enrollment, contribution plan change, and withdrawal: compute and display the effective date at the point of submission. Rule: submitted on or before the 15th → effective end of this month; submitted on the 16th or later → effective end of next month. A shared helper function `getEffectiveDate()` should handle the logic and be reused across all three flows.
+- [ ] **Email confirmation** — send a confirmation email to the user upon completing any transaction (enrollment, plan change, beneficiary update, withdrawal), including relevant details as proof (e.g. selected plan %, effective date, beneficiary list, timestamp)
+- [ ] **Withdrawal modal — dual eligibility display** — currently only shows employer match eligibility; also show eligibility for the user's own investment return, with clear labels distinguishing the two
 - [ ] Implement Investment Plan change flow — `openChangeInvest()` in `JS.html` is currently a stub (`alert("coming soon")`); needs a modal like the contribution change, with same 1-year lock rule
 - [ ] Display current investment plan on dashboard — `investmentPlan` is already fetched by the backend and in `globalEnrollmentData` but never rendered in the Fund Status box
 
