@@ -160,9 +160,10 @@ function getUserProfile() {
           isCoolingDown: isCoolingDown,
           cooldownEndDate: cooldownEndDate, 
           matchPercent: matchPercent,
+          memberSinceDate: startDateForMath instanceof Date ? String(startDateForMath) : null,
           tenureYears: tenureYears.toFixed(2),
-          tenureY: tenureY, // NEW: Exact Years
-          tenureM: tenureM  // NEW: Exact Months
+          tenureY: tenureY,
+          tenureM: tenureM
         };
       }
     }

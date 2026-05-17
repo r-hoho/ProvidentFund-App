@@ -84,21 +84,15 @@
         statusPill.innerHTML = `เป็นสมาชิก / Enrolled`; statusPill.style.setProperty('color', '#2e7d32', 'important');
         enrolledInfoGroup.style.display = 'block'; 
         let memberSinceStr = "-";
-        if (response.enrollment.enrolledDate) {
-          const enrollDateObj = new Date(response.enrollment.enrolledDate);
-          const day = String(enrollDateObj.getDate()).padStart(2, '0');
-          const mon = enrollDateObj.toLocaleDateString('en-GB', { month: 'short' });
-          const yr2 = String(enrollDateObj.getFullYear()).slice(-2);
+        if (response.memberSinceDate) {
+          const sinceDate = new Date(response.memberSinceDate);
+          const day = String(sinceDate.getDate()).padStart(2, '0');
+          const mon = sinceDate.toLocaleDateString('en-GB', { month: 'short' });
+          const yr2 = String(sinceDate.getFullYear()).slice(-2);
           const dateStr = `${day}-${mon}-${yr2}`;
-          const today = new Date();
-          let mDiff = (today.getFullYear() - enrollDateObj.getFullYear()) * 12 + (today.getMonth() - enrollDateObj.getMonth());
-          if (today.getDate() < enrollDateObj.getDate()) mDiff--;
-          if (mDiff < 0) mDiff = 0;
-          const durY = Math.floor(mDiff / 12);
-          const durM = mDiff % 12;
           const durParts = [];
-          if (durY > 0) durParts.push(`${durY}y`);
-          if (durM > 0 || durY === 0) durParts.push(`${durM}m`);
+          if (response.tenureY > 0) durParts.push(`${response.tenureY}y`);
+          if (response.tenureM > 0 || response.tenureY === 0) durParts.push(`${response.tenureM}m`);
           memberSinceStr = `${dateStr}  ·  ${durParts.join(' ')}`;
         }
         document.getElementById('infoPlan').textContent = `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
