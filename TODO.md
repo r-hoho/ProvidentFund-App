@@ -1,0 +1,19 @@
+# Project TODO
+
+## Features
+- [ ] Implement Investment Plan change flow — `openChangeInvest()` in `JS.html` is currently a stub (`alert("coming soon")`); needs a modal like the contribution change, with same 1-year lock rule
+- [ ] Display current investment plan on dashboard — `investmentPlan` is already fetched by the backend and in `globalEnrollmentData` but never rendered in the Fund Status box
+
+## Test Cases
+- [ ] Enrollment: submit with beneficiary % that doesn't add up to 100% — wizard Next button should stay disabled
+- [ ] Enrollment: user still on probation — Enroll button should not appear
+- [ ] Plan change: attempt to change within 12 months — locked modal should appear with correct eligible date
+- [ ] Plan change: select the same % as current — Confirm button should be disabled
+- [ ] Withdrawal: user with < 5 years tenure — modal should show "not eligible for employer match" in red
+- [ ] Withdrawal: complete a 2nd withdrawal — status should permanently show "หมดสิทธิ์ถาวร / Locked" with no action buttons
+- [ ] Member since: user who has withdrawn once and re-enrolled — "Member Since" date and duration should reflect 2nd enrollment date, not hire date
+
+## Polish
+- [ ] `sendReport()` in `JS.html` is an empty function (`/* Unchanged */`) — wire it up to `reportIssueToAdmin()` on the backend or remove the dead stub
+- [ ] Stale variable declarations in `populateUI()` — `changePlanBtn` and `withdrawBtn` reference element IDs (`mainChangePlanBtn`, `mainWithdrawBtn`) that no longer exist in the HTML; clean them up
+- [ ] `Monthly_Reporting` sheet is defined in `Config.gs` but never read or written anywhere — either implement reporting logic or remove the constant
