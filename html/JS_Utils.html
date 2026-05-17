@@ -1,0 +1,41 @@
+<script>
+  // ==========================================
+  // SHARED UTILITIES
+  // ==========================================
+
+  // Returns cut-off status and effective month-end date.
+  // on/before 15th → this month's end; 16th+ → next month's end.
+  function getEffectiveDateInfo() {
+    const today = new Date();
+    const withinCutoff = today.getDate() <= 15;
+    let year  = today.getFullYear();
+    let month = today.getMonth(); // 0-indexed
+
+    if (!withinCutoff) {
+      month += 1;
+      if (month > 11) { month = 0; year += 1; }
+    }
+
+    const lastDay = new Date(year, month + 1, 0);
+    const dateStr = lastDay.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, '-');
+
+    return { withinCutoff, date: dateStr };
+  }
+
+  // Returns an HTML string for the effective date notice banner.
+  function effectiveDateBannerHTML() {
+    const info = getEffectiveDateInfo();
+    const label = info.withinCutoff
+      ? 'วันนี้อยู่ในรอบตัด / Within cut-off (on or before 15th)'
+      : 'วันนี้เลยรอบตัดแล้ว / Past cut-off (16th or later)';
+    const effectiveLabel = info.withinCutoff
+      ? 'มีผลบังคับ / Effective'
+      : 'มีผลบังคับในรอบถัดไป / Effective next cycle';
+    return `
+      <div style="margin-top:1rem; padding:0.75rem 1rem; border-radius:var(--pico-border-radius); background:#f8fafc; border:1px solid #cbd5e1; font-size:0.85rem; color:#475569;">
+        <strong>${label}</strong><br>
+        ${effectiveLabel}:<br>
+        <strong style="color:#1e293b; font-size:0.95rem;">${info.date}</strong>    
+      </div>`;
+  }
+</script>

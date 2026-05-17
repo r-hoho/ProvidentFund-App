@@ -1,6 +1,7 @@
 # Project TODO
 
 ## Features
+- [x] **Payroll cut-off notice** — for enrollment, contribution plan change, and withdrawal: compute and display the effective date at the point of submission. Rule: submitted on or before the 15th → effective end of this month; submitted on the 16th or later → effective end of next month. A shared helper function `getEffectiveDate()` should handle the logic and be reused across all three flows.
 - [ ] Implement Investment Plan change flow — `openChangeInvest()` in `JS.html` is currently a stub (`alert("coming soon")`); needs a modal like the contribution change, with same 1-year lock rule
 - [ ] Display current investment plan on dashboard — `investmentPlan` is already fetched by the backend and in `globalEnrollmentData` but never rendered in the Fund Status box
 
@@ -17,3 +18,4 @@
 - [ ] `sendReport()` in `JS.html` is an empty function (`/* Unchanged */`) — wire it up to `reportIssueToAdmin()` on the backend or remove the dead stub
 - [ ] Stale variable declarations in `populateUI()` — `changePlanBtn` and `withdrawBtn` reference element IDs (`mainChangePlanBtn`, `mainWithdrawBtn`) that no longer exist in the HTML; clean them up
 - [ ] `Monthly_Reporting` sheet is defined in `Config.gs` but never read or written anywhere — either implement reporting logic or remove the constant
+- [ ] Effective date banner — polish styling and spacing across all three flows (enrollment, plan change, withdrawal)

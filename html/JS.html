@@ -252,6 +252,7 @@
     wizData.beneficiaries.forEach(b => { benHtml += `<li style="font-weight:normal;">${b.name} (${b.rel}) - <strong style="color:var(--pico-primary);">${b.pct}%</strong></li>`; });
     benHtml += `</ul>`;
     document.getElementById('sumBens').innerHTML = benHtml;
+    document.getElementById('sumEffectiveBanner').innerHTML = effectiveDateBannerHTML();
   }
 
   function submitEnrollWizard() {
@@ -297,6 +298,7 @@
         submitBtn.disabled = currentPlan !== null && parseFloat(this.value) === currentPlan;
       };
     }
+    if (!isLocked) document.getElementById('changePlanEffectiveBanner').innerHTML = effectiveDateBannerHTML();
     document.getElementById('changePlanModal').showModal();
   }
   function closeChangePlan() { document.getElementById('newPlan').value = ""; document.getElementById('changePlanModal').close(); }

@@ -48,6 +48,7 @@ There is no local build/run/test toolchain. All code must be deployed to Google 
 
 ## Key Business Rules
 
+- **Payroll cut-off / effective date**: The payroll cut-off is the **15th of each month**. Any transaction submitted on or before the 15th takes effect at that month's end. Any transaction submitted on the 16th or later is queued and takes effect at the end of the *following* month. Applies only to payroll-deduction actions: **enrollment, contribution plan change, and withdrawal**. Beneficiary updates and investment plan changes are not payroll-related and do not follow this rule. Users must be shown their calculated effective date at the point of each applicable submission.
 - **Membership start date**: 1st enrollment → hire date is the membership start; 2nd enrollment (after one withdrawal) → the new `Current_Enrolled_Date` is the start. The backend computes this as `startDateForMath` and exposes it as `memberSinceDate` in the profile response. `tenureY`/`tenureM` are derived from the same date, so always use those fields (not `enrolledDate`) for membership duration display.
 - **Employer match tiers** (`Utils.gs:calculateMatchTier`): <5 yrs → 3%, 5–7 → 5%, 7–10 → 7%, 10+ → 10%
 - **Plan change lock**: can only change contribution % once per 12 months (checked against `max(Current_Enrolled_Date, Last_Plan_Change_Date)`)
