@@ -1,7 +1,8 @@
 <script>
 
-  let globalEnrollmentData = null; // Store data for modals
-  let globalUserProfile = null; // <-- ADD THIS NEW VARIABLE
+  let globalEnrollmentData = null;
+  let globalUserProfile = null;
+  let planChangeStatus = { locked: false };
 
   document.addEventListener("DOMContentLoaded", () => {
     google.script.run.withSuccessHandler(populateUI).withFailureHandler((err) => showError("System Error: " + err)).getUserProfile();
@@ -9,17 +10,7 @@
   });
 
   function applyCooldownUI(status) {
-    const changeBtn = document.getElementById('mainChangePlanBtn');
-    const messageDiv = document.getElementById('cooldownMessage');
-    
-    if (status.locked) {
-      changeBtn.disabled = true; changeBtn.className = "secondary"; 
-      messageDiv.innerHTML = `🔒 ไม่สามารถเปลี่ยนอัตราได้ (Locked).<br>เปลี่ยนได้อีกครั้งวันที่: <strong>${status.nextDate}</strong>`;
-      messageDiv.style.display = "block";
-    } else {
-      changeBtn.disabled = false; changeBtn.className = ""; 
-      if (messageDiv.innerHTML.includes("Locked")) messageDiv.style.display = "none";
-    }
+    planChangeStatus = status || { locked: false };
   }
 
   function showSuccessToast(message) {
@@ -284,7 +275,30 @@
   }
 
   // --- CHANGE PLAN FLOW ---
-  function openChangePlan() { document.getElementById('changePlanModal').showModal(); }
+  function openChangePlan() {
+    const isLocked = planChangeStatus.locked;
+    document.getElementById('changePlanLocked').style.display   = isLocked ? 'block' : 'none';
+    document.getElementById('changePlanSelector').style.display = isLocked ? 'none'  : 'block';
+    document.getElementById('changePlanFooterLocked').style.display   = isLocked ? 'flex' : 'none';
+    document.getElementById('changePlanFooterSelector').style.display = isLocked ? 'none' : 'flex';
+    if (isLocked) {
+      document.getElementById('changePlanNextDate').textContent = planChangeStatus.nextDate || '-';
+    } else {
+      const currentPlan = globalEnrollmentData ? parseFloat(globalEnrollmentData.currentPlan) : null;
+      const currentPct = currentPlan ? `${(currentPlan * 100).toFixed(0)}%` : '-';
+      document.getElementById('changePlanCurrentVal').textContent = currentPct;
+      document.querySelectorAll('#newPlan option[value]:not([value=""])').forEach(opt => {
+        const pct = `${(parseFloat(opt.value) * 100).toFixed(0)}%`;
+        opt.textContent = parseFloat(opt.value) === currentPlan ? `${pct}  ·  ปัจจุบัน / Current` : pct;
+      });
+      const submitBtn = document.getElementById('submitChangeBtn');
+      submitBtn.disabled = false;
+      document.getElementById('newPlan').onchange = function() {
+        submitBtn.disabled = currentPlan !== null && parseFloat(this.value) === currentPlan;
+      };
+    }
+    document.getElementById('changePlanModal').showModal();
+  }
   function closeChangePlan() { document.getElementById('newPlan').value = ""; document.getElementById('changePlanModal').close(); }
   function submitChangePlan() {
     const planSelect = document.getElementById('newPlan'); const selectedPlan = planSelect.value;

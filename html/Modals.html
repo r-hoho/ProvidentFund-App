@@ -105,18 +105,47 @@
       <button aria-label="Close" rel="prev" onclick="closeChangePlan()"></button>
       <strong>เปลี่ยนอัตราเงินสะสม / Change Plan</strong>
     </header>
-    <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสมใหม่ <br><small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small></p>
-    
-    <select id="newPlan" required>
-      <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
-      <option value="0.03">3%</option>
-      <option value="0.05">5%</option>
-      <option value="0.07">7%</option>
-      <option value="0.10">10%</option>
-      <option value="0.15">15%</option>
-    </select>
-    
-    <footer>
+
+    <!-- LOCKED VIEW -->
+    <div id="changePlanLocked" style="display: none; text-align: center; padding: 0.5rem 0 1rem;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🔒</div>
+      <strong style="font-size: 1.05rem;">ยังไม่สามารถเปลี่ยนอัตราได้<br><small>Not yet eligible to change plan</small></strong>
+      <p style="margin-top: 1rem; color: var(--pico-muted-color); font-size: 0.875rem; margin-bottom: 0.5rem;">
+        อัตราเงินสะสมสามารถเปลี่ยนได้ปีละ 1 ครั้ง<br>
+        <small>(Plan changes are allowed once per year)</small>
+      </p>
+      <p style="margin-bottom: 0;">
+        สามารถเปลี่ยนได้อีกครั้งในวันที่<br>
+        <small style="color: var(--pico-muted-color);">Eligible again on</small><br>
+        <strong id="changePlanNextDate" style="color: var(--pico-primary); font-size: 1.15rem;">-</strong>
+      </p>
+    </div>
+
+    <!-- SELECTOR VIEW -->
+    <div id="changePlanSelector">
+      <div style="background: var(--pico-code-background); border-radius: var(--pico-border-radius); padding: 0.6rem 1rem; margin-bottom: 1rem; font-size: 0.9rem;">
+        อัตราปัจจุบัน / Current plan: <strong id="changePlanCurrentVal" style="color: var(--pico-primary);">-</strong>
+      </div>
+      <p style="margin-bottom: 1rem;">กรุณาเลือกอัตราเงินสะสมใหม่<br><small style="color: var(--pico-muted-color);">(Select your new contribution plan):</small></p>
+      <select id="newPlan" required>
+        <option value="" selected disabled>เลือกอัตราเงินสะสม / Select Plan...</option>
+        <option value="0.03">3%</option>
+        <option value="0.05">5%</option>
+        <option value="0.07">7%</option>
+        <option value="0.10">10%</option>
+        <option value="0.15">15%</option>
+      </select>
+      <div style="margin-top: 1rem; padding: 0.75rem 1rem; border-radius: var(--pico-border-radius); background: #fffbeb; border: 1px solid #f59e0b; font-size: 0.85rem; color: #92400e;">
+        ⚠️ <strong>โปรดทราบ / Please note:</strong><br>
+        หลังจากยืนยัน คุณจะไม่สามารถเปลี่ยนอัตราเงินสะสมได้อีกเป็นเวลา <strong>1 ปี</strong><br>
+        <span style="color: #78350f;">After confirming, you will not be able to change your contribution plan for <strong>1 year</strong>.</span>
+      </div>
+    </div>
+
+    <footer id="changePlanFooterLocked" style="display: none;">
+      <button style="width: 100%;" onclick="closeChangePlan()">ปิด / Close</button>
+    </footer>
+    <footer id="changePlanFooterSelector">
       <button class="secondary outline" onclick="closeChangePlan()">ยกเลิก / Cancel</button>
       <button id="submitChangeBtn" onclick="submitChangePlan()">ยืนยัน / Confirm</button>
     </footer>

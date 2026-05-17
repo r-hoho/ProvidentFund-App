@@ -130,7 +130,7 @@ function checkPlanChangeEligibility() {
           if (daysSinceAction < 365) {
             let nextEligibleDate = new Date(mostRecentAction);
             nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
-            return { locked: true, nextDate: nextEligibleDate.toLocaleDateString('en-GB') };
+            return { locked: true, nextDate: Utilities.formatDate(nextEligibleDate, Session.getScriptTimeZone(), "dd-MMM-yyyy") };
           }
         }
         break;
