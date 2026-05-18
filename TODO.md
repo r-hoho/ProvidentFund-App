@@ -2,10 +2,18 @@
 
 ## Features
 - [x] **Payroll cut-off notice** — for enrollment, contribution plan change, and withdrawal: compute and display the effective date at the point of submission. Rule: submitted on or before the 15th → effective end of this month; submitted on the 16th or later → effective end of next month. A shared helper function `getEffectiveDate()` should handle the logic and be reused across all three flows.
-- [ ] **Email confirmation** — send a confirmation email to the user upon completing any transaction (enrollment, plan change, beneficiary update, withdrawal), including relevant details as proof (e.g. selected plan %, effective date, beneficiary list, timestamp)
+- [ ] **"In Progress" pending transactions box** — dashboard element showing the user's submitted-but-not-yet-effective enrollment / plan change / withdrawal, with Edit and Cancel buttons available until the next 15th 23:59 BKK cut-off. Cancel reverts with no penalty (no 12-month plan-change lock, no withdrawal-count increment). See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
+- [ ] **Email confirmation** — send a bilingual (Thai + English) plain-text confirmation email to the user for every audit event (submit, edit, cancel) across all actions. Single helper `sendActionConfirmation()`, non-blocking on failure. See [Proposal - Email Confirmations](./Proposal%20-%20Email%20Confirmations.md).
 - [ ] **Withdrawal modal — dual eligibility display** — currently only shows employer match eligibility; also show eligibility for the user's own investment return, with clear labels distinguishing the two
-- [ ] Implement Investment Plan change flow — `openChangeInvest()` in `JS.html` is currently a stub (`alert("coming soon")`); needs a modal like the contribution change, with same 1-year lock rule
-- [ ] Display current investment plan on dashboard — `investmentPlan` is already fetched by the backend and in `globalEnrollmentData` but never rendered in the Fund Status box
+- [ ] **Change Investment Plan info modal** — `openChangeInvest()` in `JS.html` is currently a stub (`alert("coming soon")`); replace with a small bilingual info modal explaining that investment plan changes are done in the bank's app, with a button linking out. Bank name and link are placeholders until provided. No backend write, no audit event, no lock rule — bank app is the source of truth post-enrollment.
+- [ ] **Help / FAQ section** — bilingual static content explaining the plan basics: employer match tiers (3/5/7/10% by tenure), 5-year vesting rule for employer match on withdrawal, the 15th cut-off, the bank-app split for investment plan changes, the 12-month plan-change lock, withdrawal cooldown / lifetime limit. Accessible from the dashboard (e.g. a "?" or "ช่วยเหลือ / Help" link).
+- [ ] **Help / issue report FAB** — round floating action button with `?` symbol, `position: fixed` bottom-right, always visible **except** when a wizard/modal is open (hide via a `.wizard-open` class on the wizard root). Click opens a bilingual modal with a single textarea (~1000 char limit), Submit + Cancel. Submit calls the existing backend `reportIssueToAdmin()` in `Utils.gs` and shows a success toast. Email auto-attaches as much context as possible: `Allstars_ID`, `Name_English`, `Work_Email`, current state pill (Locked / Probation / Cooldown / Enrolled / Not Enrolled), `Current_Plan` %, initial `Investment_Plan`, `Withdrawal_Count`, `Hire_Date`, `Probation_End`, Member Since date, `Last_Withdrawal_Date`, `Last_Plan_Change_Date`, browser user agent, viewport size, timestamp (Asia/Bangkok). Strip/escape HTML from user input before embedding. Reuse the same modal from the existing error-state "แจ้งปัญหา" button so there is one unified report flow. Supersedes the polish item for the `sendReport()` stub.
+
+## Good to have (look into later)
+- [ ] **State-transition notification emails** — e.g. "your probation ends today, you can now enroll" or "your withdrawal cooldown ends today". Hooks into the email helper from [Proposal - Email Confirmations](./Proposal%20-%20Email%20Confirmations.md) once that ships. Needs a scheduled trigger (daily) to scan for users crossing a threshold.
+- [ ] **PDPA consent / legal terms** display during first enrollment — Thai PDPA expects an explicit notice for personal data collection (including beneficiary names + relationships). Confirm whether HR onboarding paperwork already covers this; if not, add an acceptance step.
+- [ ] **User-downloadable enrollment summary** (PDF or printable view) — for users who want their own record beyond the email confirmation. Includes current plan %, investment plan (initial selection), beneficiaries, member-since date, employer match tier.
+- [ ] **HR / admin read-only view** — in-app dashboard for HR (gated by email allowlist) to view all employees' status without querying the sheet directly. Could be paired with implementing the unused `Monthly_Reporting` sheet.
 
 ## Test Cases
 - [ ] Enrollment: submit with beneficiary % that doesn't add up to 100% — wizard Next button should stay disabled
@@ -17,7 +25,6 @@
 - [ ] Member since: user who has withdrawn once and re-enrolled — "Member Since" date and duration should reflect 2nd enrollment date, not hire date
 
 ## Polish
-- [ ] `sendReport()` in `JS.html` is an empty function (`/* Unchanged */`) — wire it up to `reportIssueToAdmin()` on the backend or remove the dead stub
 - [ ] Stale variable declarations in `populateUI()` — `changePlanBtn` and `withdrawBtn` reference element IDs (`mainChangePlanBtn`, `mainWithdrawBtn`) that no longer exist in the HTML; clean them up
 - [ ] `Monthly_Reporting` sheet is defined in `Config.gs` but never read or written anywhere — either implement reporting logic or remove the constant
 - [ ] Effective date banner — polish styling and spacing across all three flows (enrollment, plan change, withdrawal)

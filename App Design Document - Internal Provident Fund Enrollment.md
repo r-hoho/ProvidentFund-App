@@ -53,7 +53,7 @@
 * `First_Enrolled_Date` — set on the very first enrollment, never overwritten.
 * `Current_Enrolled_Date` — overwritten on each new enrollment (i.e. re-enrollment after a withdrawal).
 * `Current_Plan` (stored as decimal: `0.03`, `0.05`, `0.07`, `0.10`, `0.15`; displayed as %)
-* `Investment_Plan` (`Plan 1` Conservative / `Plan 2` Moderate / `Plan 3` Growth / `Plan 4` Aggressive)
+* `Investment_Plan` (`Plan 1` Conservative / `Plan 2` Moderate / `Plan 3` Growth / `Plan 4` Aggressive) — **captured at initial enrollment only.** Users change their investment plan via the bank's app afterward, so this field may not reflect the current truth and is intentionally not displayed on the dashboard. Treated as a historical record of the initial selection.
 * `Withdrawal_Count` (Integer: 0, 1, or 2)
 * `Last_Withdrawal_Date`
 * `Last_Plan_Change_Date` — set on contribution % change; drives the 12-month plan-change lock.
@@ -66,6 +66,7 @@
 ### Sheet 4: `Audit_Log` (append-only)
 * `Timestamp | Allstars_ID | Work_Email | Action | Plan | Investment | Beneficiaries | Device`
 * `Action` values currently emitted: `Enroll`, `Change Plan`, `Update Beneficiaries`, `Withdraw`.
+* **Planned additions** (see [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md)): `Transaction_ID`, `Event_Type` (`SUBMITTED` / `EDITED` / `CANCELLED`), `Event_Data` (JSON snapshot of prior + new values, used by Cancel to revert). Existing rows remain valid; new columns are blank for historical entries. Rows are strictly append-only and never modified or deleted.
 
 ### Sheet 5: `Monthly_Reporting`
 * Constant `SHEET_REPORTING` declared in `Config.gs` but **not currently read or written** by any GAS code. Reserved for the planned n8n integration (see §7).
@@ -151,6 +152,8 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 
 **8. Not Enrolled (Default):** Pill "ยังไม่เข้าร่วม / Not Enrolled". Action: **[สมัครสมาชิก / Enroll]**.
 
+**9. In Progress (planned, all states):** A dashboard element appears when the user has a submitted-but-not-yet-effective enrollment / plan change / withdrawal. Shows action summary, effective date, editable-until deadline, and Edit / Cancel buttons. Cancel reverts with no penalty side-effects. See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
+
 ### Action Modals / Overlays
 
 * **Enrollment Wizard** (full-screen overlay, 4 steps):
@@ -159,7 +162,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
   3. Add beneficiaries (max 4, must sum to 100%)
   4. Summary + effective-date banner → `processEnrollment()`
 * **Change Contribution Plan** (`<dialog>`): shows current %, lets user pick a new %, includes 1-year-lock warning + effective-date banner → `processChangePlan()`. Locked variant shown if within 12-month window.
-* **Change Investment Plan:** **Stub** — `openChangeInvest()` currently `alert("coming soon")`. Planned to mirror Change Contribution flow with the same 1-year lock rule (§8).
+* **Change Investment Plan:** Opens a bilingual informational modal explaining that investment plan changes are managed in the bank's app, with a button linking out (bank name + URL are placeholders until provided). No backend write, no audit event, no 12-month lock — the bank app is the source of truth for investment plan post-enrollment. Initial selection still happens in step 2 of the enrollment wizard.
 * **Beneficiary Manager** (full-screen overlay, 3 views): Current → Edit (same 4-max / 100% rules) → History timeline (from the append-only ledger) → `processUpdateBeneficiaries()`.
 * **Withdraw** (`<dialog>`): shows tenure, employer-match eligibility based on 5-year vesting, penalty list, effective-date banner, mandatory acknowledgement checkbox → `processWithdrawal()`.
 
@@ -169,7 +172,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 
 | Feature | Status |
 |---|---|
-| **Transactional Emails** (GAS `MailApp`) on Enrollment / Plan Change / Beneficiary Update / Withdrawal | **Not implemented.** Tracked in `TODO.md`. |
+| **Transactional Emails** (GAS `MailApp`) on every audit event (submit / edit / cancel) across all actions | **Not implemented.** Design finalized — see [Proposal - Email Confirmations](./Proposal%20-%20Email%20Confirmations.md). |
 | **Admin Error Reporting** via `reportIssueToAdmin()` | **Backend exists** in `Utils.gs`. Frontend `sendReport()` button handler is a stub — needs wiring (§8). |
 | **Monthly Reporting (n8n)** scheduled pull from `Monthly_Reporting` sheet | **Not implemented.** Sheet constant declared in `Config.gs` but never read or written. |
 
@@ -186,6 +189,5 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 * **Effective date** computed client-side only and not persisted — if payroll keys off this, it needs to be stored on `Enrollments` and/or `Audit_Log`.
 * **Re-enrollment** does not clear `Last_Plan_Change_Date` from the prior enrollment — may incorrectly block the first plan change of a new enrollment.
 * **Transactional confirmation emails** for all four user actions.
-* **Investment Plan change** flow (currently a stub).
-* **Display current Investment Plan** on the dashboard (data already fetched in `globalEnrollmentData`, not rendered).
+* **Change Investment Plan info modal** — `openChangeInvest()` is a stub; replace with an info modal pointing users to the bank's app. See `TODO.md`.
 * **Dead / stale code:** `sendReport()` stub, stale `mainChangePlanBtn` / `mainWithdrawBtn` lookups in `populateUI`, unused `SHEET_REPORTING` constant.
