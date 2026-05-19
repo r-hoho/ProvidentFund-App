@@ -320,6 +320,7 @@
   }
 
   function sendReport() { /* Unchanged */ }
-  function openChangeInvest() { alert("Change Investment flow coming soon!"); }
+  function openChangeInvest() { document.getElementById('changeInvestModal').showModal(); }
+  function closeChangeInvest() { document.getElementById('changeInvestModal').close(); }
 
 </script>

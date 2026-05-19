@@ -99,6 +99,31 @@
   </footer>
 </div>
 
+<!-- CHANGE INVESTMENT PLAN INFO MODAL (Bank-app redirect) -->
+<dialog id="changeInvestModal">
+  <article>
+    <header>
+      <button aria-label="Close" rel="prev" onclick="closeChangeInvest()"></button>
+      <strong>เปลี่ยนนโยบายการลงทุน / Change Investment Plan</strong>
+    </header>
+
+    <div style="text-align: center; padding: 0.25rem 0 0.5rem;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏦</div>
+      <strong style="font-size: 1.05rem;">การเปลี่ยนนโยบายการลงทุนทำผ่านแอปธนาคาร<br><small>Investment plan changes are managed in the bank app</small></strong>
+    </div>
+
+    <p style="margin-top: 1rem; color: var(--pico-muted-color); font-size: 0.9rem;">
+      หลังจากสมัครเข้ากองทุนแล้ว การเปลี่ยนนโยบายการลงทุนของคุณจะต้องดำเนินการผ่านแอปของธนาคาร <strong>BBL Bank</strong> ชื่อแอป <strong>PVD Connext</strong> โดยตรง<br>
+      <small style="color: var(--pico-muted-color);">After enrollment, investment plan changes must be made directly in the <strong>BBL Bank</strong> app called <strong>PVD Connext</strong>.</small>
+    </p>
+
+    <footer>
+      <button class="secondary outline" onclick="closeChangeInvest()">ปิด / Close</button>
+      <button onclick="alert('Coming soon!')">PVD Connext <i class="bi bi-box-arrow-up-right" style="margin-left: 0.25rem;"></i></button>
+    </footer>
+  </article>
+</dialog>
+
 <!-- CHANGE PLAN MODAL (For Percentage Only) -->
 <dialog id="changePlanModal">
   <article>
