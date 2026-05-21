@@ -66,7 +66,7 @@
 ### Sheet 4: `Audit_Log` (append-only)
 * `Timestamp | Allstars_ID | Work_Email | Action | Plan | Investment | Beneficiaries | Device`
 * `Action` values currently emitted: `Enroll`, `Change Plan`, `Update Beneficiaries`, `Withdraw`.
-* **Planned additions** (see [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md)): `Transaction_ID`, `Event_Type` (`SUBMITTED` / `EDITED` / `CANCELLED`), `Event_Data` (JSON snapshot of prior + new values, used by Cancel to revert). Existing rows remain valid; new columns are blank for historical entries. Rows are strictly append-only and never modified or deleted.
+* **Implemented additions** (see [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md)): `Transaction_ID`, `Event_Type` (`SUBMITTED` / `EDITED` / `CANCELLED`), `Event_Data` (JSON snapshot of prior + new values, used by Cancel to revert). Existing rows remain valid; new columns are blank for historical entries. Rows are strictly append-only and never modified or deleted.
 
 ### Sheet 5: `Monthly_Reporting`
 * Constant `SHEET_REPORTING` declared in `Config.gs` but **not currently read or written** by any GAS code. Reserved for the planned n8n integration (see §7).
@@ -152,7 +152,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 
 **8. Not Enrolled (Default):** Pill "ยังไม่เข้าร่วม / Not Enrolled". Action: **[สมัครสมาชิก / Enroll]**.
 
-**9. In Progress (planned, all states):** A dashboard element appears when the user has a submitted-but-not-yet-effective enrollment / plan change / withdrawal. Shows action summary, effective date, editable-until deadline, and Edit / Cancel buttons. Cancel reverts with no penalty side-effects. See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
+**9. In Progress (Implemented - Read-only):** A dashboard element appears when the user has a submitted-but-not-yet-effective enrollment / plan change / withdrawal. It shows a summary of the action and the deadline for changes. The Edit/Cancel buttons are not yet active in this phase. See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
 
 ### Action Modals / Overlays
 

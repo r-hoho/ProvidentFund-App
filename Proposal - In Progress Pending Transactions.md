@@ -1,6 +1,6 @@
 # Proposal: "In Progress" Pending Transactions
 
-Status: **Draft** — awaiting confirmation of `Audit_Log` schema before implementation.
+Status: **Phase 1 Complete**
 
 Related: [Proposal - Email Confirmations](./Proposal%20-%20Email%20Confirmations.md) — every audit event written by this proposal also triggers a confirmation email.
 
@@ -133,13 +133,13 @@ A single `EDITED` event per edit, capturing both old and new values in `Event_Da
 
 | Phase | Scope | Risk |
 |---|---|---|
-| **1. Read-only** | Add `Transaction_ID`, `Event_Type`, `Event_Data` columns to `Audit_Log`. Modify submit handlers to write them. Add `getPendingTransactions` and the In Progress box (no action buttons). | Low — schema-additive, no behavior change. Shippable on its own and already valuable (visible confirmation). |
+| **1. Read-only** | ✅ **Done.** Add `Transaction_ID`, `Event_Type`, `Event_Data` columns to `Audit_Log`. Modify submit handlers to write them. Add `getPendingTransactions` and the In Progress box (no action buttons). | Low — schema-additive, no behavior change. Shippable on its own and already valuable (visible confirmation). |
 | **2. Cancel** | Implement `cancelTransaction` and the Cancel button. Revert logic per action type. | Medium — revert logic must be exhaustive per action. Test all three action types. |
 | **3. Edit** | Implement `editTransaction` and the Edit button. Re-open original wizard/modal with current pending values pre-filled. | Low–medium — mostly UI wiring on top of phase 2. |
 
 ## 9. Open items
 
-1. **`Audit_Log` current schema** — confirm existing columns before adding new ones. (User to provide.)
+1. **`Audit_Log` current schema** — ✅ **Done.** Schema confirmed and new columns added.
 2. **HR payroll lock date** — does HR have a hard lock distinct from the 15th cut-off (e.g. payroll team locks the file 2 days before EOM)? If so, the editable window may need to end earlier than 15th 23:59 BKK for some transactions. Currently assumed: no separate HR lock; cut-off boundary is the only relevant deadline.
 
 ## 10. Decisions made
