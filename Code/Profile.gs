@@ -92,6 +92,9 @@ function getUserProfile() {
             }
           }
         }
+        
+        // --- 1.6 FETCH PENDING TRANSACTIONS ---
+        const pendingTransactions = getPendingTransactions(allstarsId);
 
         // --- 2. CALCULATE ELIGIBILITY ---
         const today = new Date();
@@ -155,6 +158,7 @@ function getUserProfile() {
             beneficiaryHistory: enrollmentData.beneficiaryHistory, 
             enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null
           },
+          pendingTransactions: pendingTransactions,
           isOnProbation: isOnProbation,
           probationEndDate: probationEndDateStr, 
           isCoolingDown: isCoolingDown,
@@ -171,4 +175,69 @@ function getUserProfile() {
   } catch (e) {
     return { success: false, msg: e.toString() };
   }
+}
+
+// ==========================================
+// PENDING TRANSACTION LOOKUP
+// ==========================================
+function getPendingTransactions(allstarsId) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const auditSheet = ss.getSheetByName("Audit_Log");
+  const auditData = auditSheet.getDataRange().getValues();
+  const headers = auditData[0];
+
+  const idCol = headers.indexOf("Allstars_ID");
+  const txIdCol = headers.indexOf("Transaction_ID");
+  const eventTypeCol = headers.indexOf("Event_Type");
+  const eventDataCol = headers.indexOf("Event_Data");
+  const timestampCol = headers.indexOf("Timestamp");
+  const actionCol = headers.indexOf("Action");
+
+  const userTransactions = {};
+
+  // Find the latest event for each transaction ID for the given user
+  for (let i = 1; i < auditData.length; i++) {
+    const row = auditData[i];
+    if (row[idCol] == allstarsId && row[txIdCol]) {
+      const txId = row[txIdCol];
+      
+      // Store the most recent row for this transaction
+      if (!userTransactions[txId] || new Date(row[timestampCol]) > new Date(userTransactions[txId][timestampCol])) {
+          userTransactions[txId] = row;
+      }
+    }
+  }
+
+  const pending = [];
+  for (const txId in userTransactions) {
+    const latestEvent = userTransactions[txId];
+    const eventType = latestEvent[eventTypeCol];
+    const submittedAt = new Date(latestEvent[timestampCol]);
+
+    // If it's submitted/edited and the window is still open, it's pending.
+    if ((eventType === "SUBMITTED" || eventType === "EDITED") && isWithinEditableWindow(submittedAt)) {
+      const eventData = JSON.parse(latestEvent[eventDataCol] || '{}');
+      const actionType = latestEvent[actionCol]; // "Enroll", "Change Plan", "Withdraw"
+
+      let description = `Unknown Transaction: ${txId}`;
+      if (actionType === "Enroll") {
+         description = `Enrollment to ${eventData.newValues.Current_Plan * 100}% plan`;
+      } else if (actionType === "Change Plan") {
+        description = `Plan change to ${eventData.newValues.Current_Plan * 100}%`;
+      } else if (actionType === "Withdraw") {
+        description = "Withdrawal from fund";
+      }
+
+      pending.push({
+        transactionId: txId,
+        type: actionType,
+        description: description,
+        submittedAt: submittedAt.toISOString(),
+        editableUntil: getEditableUntil(submittedAt).toISOString(),
+        currentValues: eventData.newValues
+      });
+    }
+  }
+  
+  return pending;
 }

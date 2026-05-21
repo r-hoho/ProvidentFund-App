@@ -49,13 +49,29 @@ function processEnrollment(payload, deviceData) {
     }
 
     if (enrollRowIdx !== -1) {
+      const enrollRow = enrollSheet.getRange(enrollRowIdx, 1, 1, enrollSheet.getLastColumn()).getValues()[0];
+      const priorValues = {
+        "First_Enrolled_Date": enrollRow[firstDateCol],
+        "Current_Enrolled_Date": enrollRow[currentDateCol],
+        "Current_Plan": enrollRow[planCol],
+        "Investment_Plan": enrollRow[invCol]
+      };
+      
       const currentFirstDate = enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).getValue();
       if (!currentFirstDate || currentFirstDate === "") enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).setValue(today);
       
       enrollSheet.getRange(enrollRowIdx, currentDateCol + 1).setValue(today);
       enrollSheet.getRange(enrollRowIdx, planCol + 1).setValue(contributionPlan);
       enrollSheet.getRange(enrollRowIdx, invCol + 1).setValue(investmentPlan);
+
+      writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues);
     } else {
+       const priorValues = {
+        "First_Enrolled_Date": "",
+        "Current_Enrolled_Date": "",
+        "Current_Plan": "",
+        "Investment_Plan": ""
+      };
       const newRow = new Array(enHeaders.length).fill("");
       newRow[enrIdCol] = allstarsId;
       newRow[firstDateCol] = today;
@@ -64,6 +80,7 @@ function processEnrollment(payload, deviceData) {
       newRow[invCol] = investmentPlan;
       newRow[wdCountCol] = 0;
       enrollSheet.appendRow(newRow);
+      writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues);
     }
 
     // 3. Append to 'Beneficiaries' Ledger
@@ -73,20 +90,46 @@ function processEnrollment(payload, deviceData) {
     // Schema: Timestamp | Allstars_ID | Work_Email | Beneficiary_Data
     benSheet.appendRow([today, allstarsId, email, beneficiariesJSON]);
 
-    // 4. Append to 'Audit_Log'
-    const auditSheet = ss.getSheetByName("Audit_Log");
-    const formattedPlan = (parseFloat(contributionPlan) * 100).toFixed(0) + "%";
-    
-    auditSheet.appendRow([
-      today, allstarsId, email, "Enroll", formattedPlan, investmentPlan, beneficiariesJSON, deviceData || "Unknown Device"
-    ]);
-
     return { success: true };
 
   } catch (error) {
     return { success: false, msg: error.toString() };
   }
 }
+
+function writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues){
+    const today = new Date();
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const auditSheet = ss.getSheetByName("Audit_Log");
+    const formattedPlan = (parseFloat(contributionPlan) * 100).toFixed(0) + "%";
+    const transactionId = generateTransactionId("EN");
+    const eventData = {
+      "priorValues": priorValues,
+      "newValues": {
+        "Current_Enrolled_Date": today,
+        "Current_Plan": contributionPlan,
+        "Investment_Plan": investmentPlan,
+        "Beneficiaries": JSON.parse(beneficiariesJSON)
+      }
+    };
+
+    const auditRowData = {
+      "Timestamp": today,
+      "Allstars_ID": allstarsId,
+      "Email": email,
+      "Action": "Enroll",
+      "Selected_Plan": formattedPlan,
+      "Investment_Plan": investmentPlan,
+      "Beneficiary_Data": beneficiariesJSON,
+      "Metadata": deviceData || "Unknown Device",
+      "Transaction_ID": transactionId,
+      "Event_Type": "SUBMITTED",
+      "Event_Data": JSON.stringify(eventData)
+    };
+    
+    appendRowToSheet(auditSheet, auditRowData);
+}
+
 
 // ==========================================
 // CHECK UI STATUS & CHANGE PLAN
@@ -186,6 +229,10 @@ function processChangePlan(newPlan, deviceData) {
 
     if (enrollRowIdx === -1) return { success: false, msg: "You are not currently enrolled in the fund." };
 
+    const enrollRow = enrollSheet.getRange(enrollRowIdx, 1, 1, enrollSheet.getLastColumn()).getValues()[0];
+    const priorPlan = enrollRow[planCol];
+    const priorLastChangeDate = enrollRow[lastChangeCol];
+
     if (mostRecentAction.getTime() > 0) {
       const timeDifference = today.getTime() - mostRecentAction.getTime();
       const daysSinceAction = timeDifference / (1000 * 3600 * 24);
@@ -202,8 +249,30 @@ function processChangePlan(newPlan, deviceData) {
 
     const auditSheet = ss.getSheetByName("Audit_Log");
     const formattedPlan = (parseFloat(newPlan) * 100).toFixed(0) + "%";
+    const transactionId = generateTransactionId("PC");
+    const eventData = {
+      "priorValues": {
+        "Current_Plan": priorPlan,
+        "Last_Plan_Change_Date": priorLastChangeDate
+      },
+      "newValues": {
+        "Current_Plan": newPlan,
+        "Last_Plan_Change_Date": today
+      }
+    };
     
-    auditSheet.appendRow([today, allstarsId, email, "Change Plan", formattedPlan, "", "", deviceData || "Unknown Device"]);
+    const auditRowData = {
+      "Timestamp": today,
+      "Allstars_ID": allstarsId,
+      "Email": email,
+      "Action": "Change Plan",
+      "Selected_Plan": formattedPlan,
+      "Metadata": deviceData || "Unknown Device",
+      "Transaction_ID": transactionId,
+      "Event_Type": "SUBMITTED",
+      "Event_Data": JSON.stringify(eventData)
+    };
+    appendRowToSheet(auditSheet, auditRowData);
 
     return { success: true };
 

@@ -28,6 +28,7 @@ function processWithdrawal(deviceData) {
     const enrIdCol = enHeaders.indexOf("Allstars_ID");
     const planCol = enHeaders.indexOf("Current_Plan");
     const invCol = enHeaders.indexOf("Investment_Plan");
+    const enrDateCol = enHeaders.indexOf("Current_Enrolled_Date");
     const lastWdCol = enHeaders.indexOf("Last_Withdrawal_Date");
     const wdCountCol = enHeaders.indexOf("Withdrawal_Count");
 
@@ -36,6 +37,10 @@ function processWithdrawal(deviceData) {
       if (enrollData[i][enrIdCol] == allstarsId) { enrollRowIdx = i + 1; break; }
     }
     if (enrollRowIdx === -1) return { success: false, msg: "You are not currently enrolled." };
+    
+    const enrollRow = enrollSheet.getRange(enrollRowIdx, 1, 1, enrollSheet.getLastColumn()).getValues()[0];
+    const priorWdCount = enrollRow[wdCountCol] || 0;
+    const priorEnrDate = enrollRow[enrDateCol];
 
     let currentWdCount = parseInt(enrollSheet.getRange(enrollRowIdx, wdCountCol + 1).getValue()) || 0;
 
@@ -49,7 +54,31 @@ function processWithdrawal(deviceData) {
 
     // Add to Audit Log
     const auditSheet = ss.getSheetByName("Audit_Log");
-    auditSheet.appendRow([today, allstarsId, email, "Withdraw", "", "", "", deviceData || "Unknown Device"]);
+    const transactionId = generateTransactionId("WD");
+    const eventData = {
+      "priorValues": {
+        "Withdrawal_Count": priorWdCount,
+        "Current_Enrolled_Date": priorEnrDate
+      },
+      "newValues": {
+         "Last_Withdrawal_Date": today,
+         "Withdrawal_Count": currentWdCount + 1,
+         "Current_Plan": "",
+         "Investment_Plan": ""
+      }
+    };
+
+    const auditRowData = {
+      "Timestamp": today,
+      "Allstars_ID": allstarsId,
+      "Email": email,
+      "Action": "Withdraw",
+      "Metadata": deviceData || "Unknown Device",
+      "Transaction_ID": transactionId,
+      "Event_Type": "SUBMITTED",
+      "Event_Data": JSON.stringify(eventData)
+    };
+    appendRowToSheet(auditSheet, auditRowData);
 
     return { success: true };
   } catch (error) { return { success: false, msg: error.toString() }; }

@@ -34,8 +34,53 @@
     document.getElementById('loadingState').style.display = 'none';
     if (response && response.success) {
       globalEnrollmentData = response.enrollment;
-      globalUserProfile = response; // <-- ADD THIS LINE
+      globalUserProfile = response; 
       document.getElementById('dashboardContent').style.display = 'block';
+
+      // NEW: Render Pending Transactions
+      const pendingBox = document.getElementById('pendingTxBox');
+      const pendingList = document.getElementById('pendingTxList');
+      pendingList.innerHTML = '';
+      if (response.pendingTransactions && response.pendingTransactions.length > 0) {
+        response.pendingTransactions.forEach(tx => {
+          const submitted = new Date(tx.submittedAt);
+          const editable = new Date(tx.editableUntil);
+
+          const submittedStr = submitted.toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+          const editableStr = editable.toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+          // Dynamically build bilingual description
+          let description = "";
+          if (tx.type === "Enroll") {
+            const planPct = (tx.currentValues.Current_Plan * 100).toFixed(0);
+            description = `สมัครสมาชิกแผน ${planPct}% <span class="muted">/ Enrollment to ${planPct}% plan</span>`;
+          } else if (tx.type === "Change Plan") {
+            const planPct = (tx.currentValues.Current_Plan * 100).toFixed(0);
+            description = `เปลี่ยนแผนเป็น ${planPct}% <span class="muted">/ Plan change to ${planPct}%</span>`;
+          } else if (tx.type === "Withdraw") {
+            description = `ลาออกจากกองทุน <span class="muted">/ Withdrawal from fund</span>`;
+          }
+
+          const item = document.createElement('div');
+          item.style = "border-bottom: 1px solid var(--pico-muted-border-color); padding-bottom: 1rem; margin-bottom: 1rem;";
+          item.innerHTML = `
+            <h6 style="margin-bottom: 0.5rem;"><strong>${description}</strong></h6>
+            <div style="font-size: 0.85rem; color: var(--pico-muted-color);">
+              <div><span class="muted">ส่งเมื่อ / </span>Submitted: ${submittedStr}</div>
+              <div><span class="muted">แก้ไขได้ถึง / </span>Editable until: ${editableStr} (BKK)</div>
+            </div>
+          `;
+          pendingList.appendChild(item);
+        });
+        // Remove border from last item
+        if (pendingList.lastChild) {
+          pendingList.lastChild.style.borderBottom = 'none';
+          pendingList.lastChild.style.marginBottom = '0';
+        }
+        pendingBox.style.display = 'block';
+      } else {
+        pendingBox.style.display = 'none';
+      }
 
       document.getElementById('empName').textContent = response.name || "-";
       document.getElementById('empId').textContent = response.allstarsId || response.title || "-"; 
