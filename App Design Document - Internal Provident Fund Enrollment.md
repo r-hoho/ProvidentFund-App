@@ -66,7 +66,7 @@
 ### Sheet 4: `Audit_Log` (append-only)
 * `Timestamp | Allstars_ID | Work_Email | Action | Plan | Investment | Beneficiaries | Device`
 * `Action` values currently emitted: `Enroll`, `Change Plan`, `Update Beneficiaries`, `Withdraw`.
-* **Implemented additions** (see [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md)): `Transaction_ID`, `Event_Type` (`SUBMITTED` / `EDITED` / `CANCELLED`), `Event_Data` (JSON snapshot of prior + new values, used by Cancel to revert). Existing rows remain valid; new columns are blank for historical entries. Rows are strictly append-only and never modified or deleted.
+* **Implemented additions** (see [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md)): `Transaction_ID`, `Event_Type` (`SUBMITTED` / `CANCELLED`), `Event_Data` (JSON snapshot of prior + new values, used by Cancel to revert). Existing rows remain valid; new columns are blank for historical entries. Rows are strictly append-only and never modified or deleted.
 
 ### Sheet 5: `Monthly_Reporting`
 * Constant `SHEET_REPORTING` declared in `Config.gs` but **not currently read or written** by any GAS code. Reserved for the planned n8n integration (see §7).
@@ -152,7 +152,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 
 **8. Not Enrolled (Default):** Pill "ยังไม่เข้าร่วม / Not Enrolled". Action: **[สมัครสมาชิก / Enroll]**.
 
-**9. In Progress (Implemented - Read-only):** A dashboard element appears when the user has a submitted-but-not-yet-effective enrollment / plan change / withdrawal. It shows a summary of the action and the deadline for changes. The Edit/Cancel buttons are not yet active in this phase. See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
+**9. In Progress (Implemented - Read-only):** A dashboard element appears when the user has a submitted-but-not-yet-effective enrollment / plan change / withdrawal. It shows a summary of the action and the deadline for changes. The Cancel button is not yet active in this phase (Phase 2). See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
 
 ### Action Modals / Overlays
 
@@ -172,7 +172,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 
 | Feature | Status |
 |---|---|
-| **Transactional Emails** (GAS `MailApp`) on every audit event (submit / edit / cancel) across all actions | **Not implemented.** Design finalized — see [Proposal - Email Confirmations](./Proposal%20-%20Email%20Confirmations.md). |
+| **Transactional Emails** (GAS `MailApp`) on every audit event (submit / cancel) across all actions, plus **signed PDF letter** attached for Enrollment and Beneficiary changes | **Not implemented.** Design finalized — see [Proposal - Email Confirmations and Signed Letters](./Proposal%20-%20Email%20Confirmations%20and%20Signed%20Letters.md). |
 | **Admin Error Reporting** via `reportIssueToAdmin()` | **Backend exists** in `Utils.gs`. Frontend `sendReport()` button handler is a stub — needs wiring (§8). |
 | **Monthly Reporting (n8n)** scheduled pull from `Monthly_Reporting` sheet | **Not implemented.** Sheet constant declared in `Config.gs` but never read or written. |
 
