@@ -52,27 +52,24 @@ function generateTransactionId(prefix) {
 /**
  * Gets the editable-until deadline for a given submission date.
  * Rule: Next upcoming 15th of the month at 23:59:59 Asia/Bangkok time.
+ * Constructs the deadline explicitly in Bangkok time so it is correct
+ * regardless of the GAS project's default script timezone.
  */
 function getEditableUntil(submittedAt) {
-  const bangkokTz = "Asia/Bangkok";
+  const tz = "Asia/Bangkok";
+  const dateStr = Utilities.formatDate(new Date(submittedAt), tz, "yyyy-MM-dd");
+  const parts = dateStr.split("-").map(Number);
+  let year = parts[0];
+  let month = parts[1];
+  const day = parts[2];
 
-  // Start with the submission date in Bangkok time
-  let deadline = new Date(submittedAt);
-
-  // Set the time to the deadline time
-  deadline.setHours(23, 59, 59, 999);
-
-  const dayOfMonth = deadline.getDate();
-
-  // If submitted after the 15th, deadline is next month's 15th.
-  if (dayOfMonth > 15) {
-    deadline.setMonth(deadline.getMonth() + 1);
+  if (day > 15) {
+    month += 1;
+    if (month > 12) { month = 1; year += 1; }
   }
 
-  // Set the day to the 15th
-  deadline.setDate(15);
-
-  return deadline;
+  const deadlineStr = year + "-" + String(month).padStart(2, "0") + "-15 23:59:59";
+  return Utilities.parseDate(deadlineStr, tz, "yyyy-MM-dd HH:mm:ss");
 }
 
 /**
@@ -82,6 +79,25 @@ function isWithinEditableWindow(submittedAt) {
   const now = new Date();
   const deadline = getEditableUntil(submittedAt);
   return now < deadline;
+}
+
+// ==========================================
+// ENROLLMENT ROW LOOKUP
+// ==========================================
+/**
+ * Finds the 1-indexed row number in the Enrollments sheet for a given Allstars_ID.
+ * Returns -1 if not found.
+ * @param {Array<Array>} enrollData The full Enrollments sheet values (from getDataRange().getValues()).
+ * @param {string|number} allstarsId The user's Allstars_ID to match.
+ */
+function findEnrollmentRowIdx(enrollData, allstarsId) {
+  const enrIdCol = enrollData[0].indexOf("Allstars_ID");
+  for (let i = 1; i < enrollData.length; i++) {
+    if (enrollData[i][enrIdCol] == allstarsId) {
+      return i + 1;
+    }
+  }
+  return -1;
 }
 
 // ==========================================

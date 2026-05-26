@@ -179,6 +179,34 @@
   </article>
 </dialog>
 
+<!-- CANCEL PENDING TRANSACTION MODAL -->
+<dialog id="cancelTxModal">
+  <article>
+    <header>
+      <button aria-label="Close" rel="prev" onclick="closeCancelTx()"></button>
+      <strong>ยืนยันการยกเลิกรายการ / Confirm Cancellation</strong>
+    </header>
+
+    <input type="hidden" id="cancelTxId" value="">
+
+    <p style="margin-bottom: 0.75rem;">
+      คุณต้องการยกเลิก<strong id="cancelTxTypeLabel" style="color: var(--pico-primary);">-</strong>ใช่หรือไม่?<br>
+      <small style="color: var(--pico-muted-color);">Do you want to cancel this transaction?</small>
+    </p>
+
+    <div style="background: var(--pico-code-background); border-radius: var(--pico-border-radius); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.9rem;">
+      <strong style="display:block; margin-bottom: 0.4rem;">หลังการยกเลิก / After cancellation:</strong>
+      <ul id="cancelTxReassurance" style="margin: 0; padding-left: 1.1rem;"></ul>
+    </div>
+
+    <div id="cancelTxError" role="alert" style="display:none; background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; border-radius: var(--pico-border-radius); padding: 0.6rem 0.9rem; margin-bottom: 1rem; font-size: 0.85rem;"></div>
+
+    <footer>
+      <button class="secondary outline" onclick="closeCancelTx()">ปิด / Close</button>
+      <button id="confirmCancelTxBtn" onclick="confirmCancelTx()">ยืนยันการยกเลิก / Confirm Cancel</button>
+    </footer>
+  </article>
+</dialog>
 
 
 <div id="beneficiaryManager" class="wizard-overlay" style="display: none;">

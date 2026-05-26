@@ -152,7 +152,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 
 **8. Not Enrolled (Default):** Pill "ยังไม่เข้าร่วม / Not Enrolled". Action: **[สมัครสมาชิก / Enroll]**.
 
-**9. In Progress (Implemented - Read-only):** A dashboard element appears when the user has a submitted-but-not-yet-effective enrollment / plan change / withdrawal. It shows a summary of the action and the deadline for changes. The Cancel button is not yet active in this phase (Phase 2). See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
+**9. In Progress (Implemented):** A dashboard element appears when the user has a submitted-but-not-yet-effective enrollment / plan change / withdrawal. It shows a summary of the action, the cancellation deadline, and a Cancel button that reverts the affected `Enrollments` fields and appends a `CANCELLED` audit row. While a transaction is pending, `Your Plan` shows `—`; the status pill also shows `—` if the pending transaction is an Enroll. See [Proposal - In Progress Pending Transactions](./Proposal%20-%20In%20Progress%20Pending%20Transactions.md).
 
 ### Action Modals / Overlays
 

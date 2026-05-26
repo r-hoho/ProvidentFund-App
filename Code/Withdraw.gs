@@ -32,15 +32,14 @@ function processWithdrawal(deviceData) {
     const lastWdCol = enHeaders.indexOf("Last_Withdrawal_Date");
     const wdCountCol = enHeaders.indexOf("Withdrawal_Count");
 
-    let enrollRowIdx = -1;
-    for (let i = 1; i < enrollData.length; i++) {
-      if (enrollData[i][enrIdCol] == allstarsId) { enrollRowIdx = i + 1; break; }
-    }
+    const enrollRowIdx = findEnrollmentRowIdx(enrollData, allstarsId);
     if (enrollRowIdx === -1) return { success: false, msg: "You are not currently enrolled." };
-    
+
     const enrollRow = enrollSheet.getRange(enrollRowIdx, 1, 1, enrollSheet.getLastColumn()).getValues()[0];
     const priorWdCount = enrollRow[wdCountCol] || 0;
     const priorEnrDate = enrollRow[enrDateCol];
+    const priorPlan = enrollRow[planCol];
+    const priorInvestment = invCol !== -1 ? enrollRow[invCol] : "";
 
     let currentWdCount = parseInt(enrollSheet.getRange(enrollRowIdx, wdCountCol + 1).getValue()) || 0;
 
@@ -58,7 +57,9 @@ function processWithdrawal(deviceData) {
     const eventData = {
       "priorValues": {
         "Withdrawal_Count": priorWdCount,
-        "Current_Enrolled_Date": priorEnrDate
+        "Current_Enrolled_Date": priorEnrDate,
+        "Current_Plan": priorPlan,
+        "Investment_Plan": priorInvestment
       },
       "newValues": {
          "Last_Withdrawal_Date": today,

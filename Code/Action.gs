@@ -40,13 +40,7 @@ function processEnrollment(payload, deviceData) {
 
     if (invCol === -1) return { success: false, msg: "Admin Error: Missing 'Investment_Plan' column in Enrollments sheet." };
 
-    let enrollRowIdx = -1;
-    for (let i = 1; i < enrollData.length; i++) {
-      if (enrollData[i][enrIdCol] == allstarsId) {
-        enrollRowIdx = i + 1; 
-        break;
-      }
-    }
+    const enrollRowIdx = findEnrollmentRowIdx(enrollData, allstarsId);
 
     if (enrollRowIdx !== -1) {
       const enrollRow = enrollSheet.getRange(enrollRowIdx, 1, 1, enrollSheet.getLastColumn()).getValues()[0];
@@ -214,20 +208,13 @@ function processChangePlan(newPlan, deviceData) {
     const lastChangeCol = enrollData[0].indexOf("Last_Plan_Change_Date");
     const enrollDateCol = enrollData[0].indexOf("Current_Enrolled_Date");
 
-    let enrollRowIdx = -1;
-    let mostRecentAction = new Date(0);
-
-    for (let i = 1; i < enrollData.length; i++) {
-      if (enrollData[i][enrIdCol] == allstarsId) {
-        enrollRowIdx = i + 1;
-        const lastChangeDate = enrollData[i][lastChangeCol] instanceof Date ? enrollData[i][lastChangeCol] : new Date(0);
-        const enrollDate = enrollData[i][enrollDateCol] instanceof Date ? enrollData[i][enrollDateCol] : new Date(0);
-        mostRecentAction = new Date(Math.max(lastChangeDate.getTime(), enrollDate.getTime()));
-        break;
-      }
-    }
-
+    const enrollRowIdx = findEnrollmentRowIdx(enrollData, allstarsId);
     if (enrollRowIdx === -1) return { success: false, msg: "You are not currently enrolled in the fund." };
+
+    const rowForLockMath = enrollData[enrollRowIdx - 1];
+    const lastChangeDateForMath = rowForLockMath[lastChangeCol] instanceof Date ? rowForLockMath[lastChangeCol] : new Date(0);
+    const enrollDateForMath = rowForLockMath[enrollDateCol] instanceof Date ? rowForLockMath[enrollDateCol] : new Date(0);
+    const mostRecentAction = new Date(Math.max(lastChangeDateForMath.getTime(), enrollDateForMath.getTime()));
 
     const enrollRow = enrollSheet.getRange(enrollRowIdx, 1, 1, enrollSheet.getLastColumn()).getValues()[0];
     const priorPlan = enrollRow[planCol];
@@ -323,6 +310,131 @@ function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
 
     return { success: true };
 
+  } catch (error) {
+    return { success: false, msg: error.toString() };
+  }
+}
+
+// ==========================================
+// ACTION: CANCEL PENDING TRANSACTION
+// ==========================================
+/**
+ * Cancels a pending transaction within the cancellable window.
+ * Reverts the affected Enrollments fields using priorValues captured at SUBMITTED
+ * time and appends a CANCELLED row to Audit_Log with the same Transaction_ID.
+ * No penalty side-effects: plan-change lock, withdrawal count, and re-enrollment
+ * cooldown are all rolled back.
+ */
+function cancelTransaction(transactionId, deviceData) {
+  try {
+    const email = Session.getActiveUser().getEmail();
+    if (!email) return { success: false, msg: "ไม่พบอีเมลผู้ใช้งาน (Email not detected)" };
+
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const auditSheet = ss.getSheetByName(SHEET_AUDIT);
+    const auditData = auditSheet.getDataRange().getValues();
+    const headers = auditData[0];
+
+    const tsCol = headers.indexOf("Timestamp");
+    const idCol = headers.indexOf("Allstars_ID");
+    const emailColIdx = headers.indexOf("Email");
+    const actionCol = headers.indexOf("Action");
+    const txIdCol = headers.indexOf("Transaction_ID");
+    const eventTypeCol = headers.indexOf("Event_Type");
+    const eventDataCol = headers.indexOf("Event_Data");
+
+    if (txIdCol === -1 || eventTypeCol === -1 || eventDataCol === -1) {
+      return { success: false, msg: "Admin Error: Audit_Log is missing Phase 1 columns." };
+    }
+
+    let submittedRow = null;
+    let alreadyCancelled = false;
+    for (let i = 1; i < auditData.length; i++) {
+      if (auditData[i][txIdCol] !== transactionId) continue;
+      const evt = auditData[i][eventTypeCol];
+      if (evt === "SUBMITTED" && !submittedRow) submittedRow = auditData[i];
+      if (evt === "CANCELLED") alreadyCancelled = true;
+    }
+
+    if (!submittedRow) return { success: false, msg: "ไม่พบรายการ / Transaction not found." };
+    if (alreadyCancelled) return { success: false, msg: "รายการถูกยกเลิกแล้ว / Transaction already cancelled." };
+
+    if (submittedRow[emailColIdx].toString().trim().toLowerCase() !== email.toLowerCase()) {
+      return { success: false, msg: "ไม่มีสิทธิ์ยกเลิกรายการนี้ / Not authorized to cancel this transaction." };
+    }
+
+    const submittedAt = submittedRow[tsCol];
+    if (!isWithinEditableWindow(submittedAt)) {
+      return { success: false, msg: "เลยกำหนดเวลายกเลิก / The cancellation window has closed." };
+    }
+
+    const action = submittedRow[actionCol];
+    const allstarsId = submittedRow[idCol];
+    let priorValues = {};
+    try {
+      const parsed = JSON.parse(submittedRow[eventDataCol]);
+      priorValues = parsed.priorValues || {};
+    } catch (e) {
+      return { success: false, msg: "Admin Error: Cannot parse Event_Data for this transaction." };
+    }
+
+    const enrollSheet = ss.getSheetByName(SHEET_ENROLLMENTS);
+    const enrollData = enrollSheet.getDataRange().getValues();
+    const enHeaders = enrollData[0];
+    const rowIdx = findEnrollmentRowIdx(enrollData, allstarsId);
+    if (rowIdx === -1) return { success: false, msg: "Admin Error: Enrollment row not found for user." };
+
+    const restoredValues = {};
+
+    const writeField = function(fieldName, value) {
+      const col = enHeaders.indexOf(fieldName);
+      if (col === -1) return;
+      enrollSheet.getRange(rowIdx, col + 1).setValue(value);
+      restoredValues[fieldName] = value;
+    };
+
+    const prior = function(fieldName, fallback) {
+      return (priorValues[fieldName] !== undefined && priorValues[fieldName] !== null)
+        ? priorValues[fieldName]
+        : fallback;
+    };
+
+    if (action === "Enroll") {
+      writeField("First_Enrolled_Date", prior("First_Enrolled_Date", ""));
+      writeField("Current_Enrolled_Date", prior("Current_Enrolled_Date", ""));
+      writeField("Current_Plan", prior("Current_Plan", ""));
+      writeField("Investment_Plan", prior("Investment_Plan", ""));
+    } else if (action === "Change Plan") {
+      writeField("Current_Plan", prior("Current_Plan", ""));
+      writeField("Last_Plan_Change_Date", prior("Last_Plan_Change_Date", ""));
+    } else if (action === "Withdraw") {
+      writeField("Withdrawal_Count", prior("Withdrawal_Count", 0));
+      writeField("Last_Withdrawal_Date", "");
+      writeField("Current_Plan", prior("Current_Plan", ""));
+      writeField("Investment_Plan", prior("Investment_Plan", ""));
+    } else {
+      return { success: false, msg: "ประเภทรายการไม่รองรับการยกเลิก / Action type does not support cancellation." };
+    }
+
+    const today = new Date();
+    const cancelEventData = {
+      cancelledAt: today,
+      originalTransactionId: transactionId,
+      restoredValues: restoredValues
+    };
+
+    appendRowToSheet(auditSheet, {
+      "Timestamp": today,
+      "Allstars_ID": allstarsId,
+      "Email": email,
+      "Action": action,
+      "Metadata": deviceData || "Cancelled via dashboard",
+      "Transaction_ID": transactionId,
+      "Event_Type": "CANCELLED",
+      "Event_Data": JSON.stringify(cancelEventData)
+    });
+
+    return { success: true, msg: "ยกเลิกรายการสำเร็จ / Transaction cancelled." };
   } catch (error) {
     return { success: false, msg: error.toString() };
   }

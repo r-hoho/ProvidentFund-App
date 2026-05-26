@@ -64,10 +64,17 @@
           const item = document.createElement('div');
           item.style = "border-bottom: 1px solid var(--pico-muted-border-color); padding-bottom: 1rem; margin-bottom: 1rem;";
           item.innerHTML = `
-            <h6 style="margin-bottom: 0.5rem;"><strong>${description}</strong></h6>
-            <div style="font-size: 0.85rem; color: var(--pico-muted-color);">
-              <div><span class="muted">ส่งเมื่อ / </span>Submitted: ${submittedStr}</div>
-              <div><span class="muted">แก้ไขได้ถึง / </span>Editable until: ${editableStr} (BKK)</div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+              <div style="flex:1; min-width:0;">
+                <h6 style="margin-bottom: 0.5rem;"><strong>${description}</strong></h6>
+                <div style="font-size: 0.85rem; color: var(--pico-muted-color);">
+                  <div><span class="muted">ส่งเมื่อ / </span>Submitted: ${submittedStr}</div>
+                  <div><span class="muted">ยกเลิกได้ถึง / </span>Cancellable until: ${editableStr} (BKK)</div>
+                </div>
+              </div>
+              <button class="outline secondary" style="margin:0; padding:0.4rem 0.9rem; font-size:0.85rem; white-space:nowrap; line-height:1.15;" onclick="openCancelTx('${tx.transactionId}', '${tx.type}')">
+                ยกเลิก<br>Cancel
+              </button>
             </div>
           `;
           pendingList.appendChild(item);
@@ -117,8 +124,15 @@
       
       
       else if (response.enrollment.isEnrolled) {
-        statusPill.innerHTML = `เป็นสมาชิก / Enrolled`; statusPill.style.setProperty('color', '#2e7d32', 'important');
-        enrolledInfoGroup.style.display = 'block'; 
+        const pendingEnroll = response.pendingTransactions && response.pendingTransactions.some(tx => tx.type === 'Enroll');
+        if (pendingEnroll) {
+          statusPill.innerHTML = '—';
+          statusPill.style.setProperty('color', 'var(--pico-muted-color)', 'important');
+        } else {
+          statusPill.innerHTML = `เป็นสมาชิก / Enrolled`;
+          statusPill.style.setProperty('color', '#2e7d32', 'important');
+        }
+        enrolledInfoGroup.style.display = 'block';
         let memberSinceStr = "-";
         if (response.memberSinceDate) {
           const sinceDate = new Date(response.memberSinceDate);
@@ -131,7 +145,8 @@
           if (response.tenureM > 0 || response.tenureY === 0) durParts.push(`${response.tenureM}m`);
           memberSinceStr = `${dateStr}  ·  ${durParts.join(' ')}`;
         }
-        document.getElementById('infoPlan').textContent = `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
+        const hasPending = response.pendingTransactions && response.pendingTransactions.length > 0;
+        document.getElementById('infoPlan').textContent = hasPending ? '—' : `${(response.enrollment.currentPlan * 100).toFixed(0)}%`;
         document.getElementById('infoMatch').textContent = response.matchPercent || "-";
         document.getElementById('infoSince').textContent = memberSinceStr;
         enrolledActionsGroup.style.display = 'block'; // <-- Show the new 2x2 grid
@@ -367,5 +382,76 @@
   function sendReport() { /* Unchanged */ }
   function openChangeInvest() { document.getElementById('changeInvestModal').showModal(); }
   function closeChangeInvest() { document.getElementById('changeInvestModal').close(); }
+
+  // ==========================================
+  // CANCEL PENDING TRANSACTION
+  // ==========================================
+  function openCancelTx(txId, type) {
+    document.getElementById('cancelTxId').value = txId;
+    document.getElementById('cancelTxError').style.display = 'none';
+    document.getElementById('cancelTxError').textContent = '';
+
+    let typeLabel = '';
+    let reassurance = '';
+    if (type === 'Enroll') {
+      typeLabel = 'การสมัครสมาชิก / Enrollment';
+      reassurance = '<li>คุณจะกลับเป็นสถานะยังไม่เข้าร่วมกองทุน<br><small>You will return to Not Enrolled state</small></li>';
+    } else if (type === 'Change Plan') {
+      typeLabel = 'การเปลี่ยนแผน / Plan Change';
+      reassurance = '<li>อัตราเงินสะสมเดิมจะถูกคืน<br><small>Your previous contribution % will be restored</small></li>'
+                  + '<li>จะไม่ถูกล็อก 12 เดือน<br><small>No 12-month plan-change lock will be applied</small></li>';
+    } else if (type === 'Withdraw') {
+      typeLabel = 'การลาออกจากกองทุน / Withdrawal';
+      reassurance = '<li>การลาออกจะไม่ถูกนับ<br><small>Withdrawal count will not be incremented</small></li>'
+                  + '<li>ข้อมูลการเป็นสมาชิกจะถูกคืน<br><small>Your membership will be restored</small></li>';
+    }
+    document.getElementById('cancelTxTypeLabel').textContent = typeLabel;
+    document.getElementById('cancelTxReassurance').innerHTML = reassurance;
+
+    const confirmBtn = document.getElementById('confirmCancelTxBtn');
+    confirmBtn.disabled = false;
+    confirmBtn.removeAttribute('aria-busy');
+    confirmBtn.innerHTML = 'ยืนยันการยกเลิก / Confirm Cancel';
+
+    document.getElementById('cancelTxModal').showModal();
+  }
+
+  function closeCancelTx() { document.getElementById('cancelTxModal').close(); }
+
+  function confirmCancelTx() {
+    const txId = document.getElementById('cancelTxId').value;
+    if (!txId) { closeCancelTx(); return; }
+
+    const confirmBtn = document.getElementById('confirmCancelTxBtn');
+    const errorBox = document.getElementById('cancelTxError');
+    confirmBtn.disabled = true;
+    confirmBtn.setAttribute('aria-busy', 'true');
+    confirmBtn.innerHTML = 'กำลังยกเลิก... / Cancelling...';
+    errorBox.style.display = 'none';
+
+    const deviceInfo = (navigator.userAgent || '') + ' | ' + screen.width + 'x' + screen.height;
+
+    google.script.run
+      .withSuccessHandler((response) => {
+        if (response && response.success) {
+          closeCancelTx();
+          showSuccessToast(response.msg || 'ยกเลิกรายการสำเร็จ / Transaction cancelled.');
+        } else {
+          confirmBtn.disabled = false;
+          confirmBtn.removeAttribute('aria-busy');
+          confirmBtn.innerHTML = 'ยืนยันการยกเลิก / Confirm Cancel';
+          errorBox.textContent = (response && response.msg) ? response.msg : 'ไม่สามารถยกเลิกได้ / Unable to cancel.';
+          errorBox.style.display = 'block';
+        }
+      })
+      .withFailureHandler((err) => {
+        confirmBtn.disabled = false;
+        confirmBtn.removeAttribute('aria-busy');
+        confirmBtn.innerHTML = 'ยืนยันการยกเลิก / Confirm Cancel';
+        errorBox.textContent = 'System Error: ' + err;
+        errorBox.style.display = 'block';
+      })
+      .cancelTransaction(txId, deviceInfo);
+  }
 
 </script>

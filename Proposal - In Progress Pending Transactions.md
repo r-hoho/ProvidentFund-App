@@ -1,6 +1,6 @@
 # Proposal: "In Progress" Pending Transactions
 
-Status: **Phase 1 Complete**
+Status: **Phase 1 + Phase 2 Complete**
 
 Related: [Proposal - Email Confirmations and Signed Letters](./Proposal%20-%20Email%20Confirmations%20and%20Signed%20Letters.md) — every audit event written by this proposal also triggers a confirmation email.
 
@@ -129,7 +129,7 @@ Implementation note: use `Utilities.formatDate(date, "Asia/Bangkok", ...)` and c
 | Phase | Scope | Risk |
 |---|---|---|
 | **1. Read-only** | ✅ **Done.** Add `Transaction_ID`, `Event_Type`, `Event_Data` columns to `Audit_Log`. Modify submit handlers to write them. Add `getPendingTransactions` and the In Progress box (no action buttons). | Low — schema-additive, no behavior change. Shippable on its own and already valuable (visible confirmation). |
-| **2. Cancel** | Implement `cancelTransaction` and the Cancel button. Revert logic per action type. | Medium — revert logic must be exhaustive per action. Test all three action types. |
+| **2. Cancel** | ✅ **Done.** Implemented `cancelTransaction` and the Cancel button. Revert logic per action type. While a transaction is pending, the Fund Status pill is shown as `—` for pending Enroll, and `Your Plan` shows `—` for any pending tx, so the dashboard does not visually confirm a not-yet-effective change. Withdraw's `priorValues` was extended to capture `Current_Plan` and `Investment_Plan` so withdrawal cancel fully restores membership state. Bangkok-timezone deadline math is now explicit. | Medium — revert logic must be exhaustive per action. Test all three action types. |
 
 ## 9. Open items
 
