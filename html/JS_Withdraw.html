@@ -10,21 +10,20 @@
     const tenureM = globalUserProfile.tenureM || 0;
     
     document.getElementById('withdrawTenureText').textContent = `${tenureY} ปี (Years) ${tenureM} เดือน (Months)`;
-    
-    const benefitBox = document.getElementById('withdrawBenefitBox');
-    const matchStatus = document.getElementById('withdrawMatchStatus');
 
-    // 5-Year Vesting Logic Check
+    // Own contributions are always fully eligible — static green row.
+    const ownStatus = document.getElementById('withdrawOwnStatus');
+    ownStatus.style.color = '#16a34a';
+
+    // 5-Year Vesting Logic Check (employer match only)
+    const matchStatus = document.getElementById('withdrawMatchStatus');
+    const matchVerdict = document.getElementById('withdrawMatchVerdict');
     if (tenureY < 5) {
-      benefitBox.style.backgroundColor = '#fef2f2';
-      benefitBox.style.borderColor = '#f87171';
       matchStatus.style.color = '#dc2626';
-      matchStatus.innerHTML = '❌ ไม่ได้รับเงินสมทบจากบริษัท<br><small>(Not eligible for employer match)</small>';
+      matchVerdict.innerHTML = '❌ ไม่ได้รับ — ต้องเป็นสมาชิกครบ 5 ปี<br><small>(Not eligible — requires 5 years membership)</small>';
     } else {
-      benefitBox.style.backgroundColor = '#f0fdf4';
-      benefitBox.style.borderColor = '#4ade80';
       matchStatus.style.color = '#16a34a';
-      matchStatus.innerHTML = '✅ คุณมีสิทธิได้รับเงินสมทบจากบริษัท<br><small>(Eligible for employer match)</small>';
+      matchVerdict.innerHTML = '✅ ได้รับเต็มจำนวน<br><small>(Fully eligible)</small>';
     }
 
     // Reset safety checkbox and disable button

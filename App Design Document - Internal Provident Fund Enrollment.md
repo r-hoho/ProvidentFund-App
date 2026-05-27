@@ -103,8 +103,8 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 | ≥ 10 | 10% |
 
 ### 5-Year Vesting (Withdrawal Modal)
-* Employer match is paid out on withdrawal **only if `tenureY >= 5`**.
-* The withdrawal modal renders a red "not eligible" banner for sub-5-year users and a green "eligible" banner otherwise. (This is a display rule — the actual payout calculation is handled outside the app.)
+* Employer match is paid out on withdrawal **only if `tenureY >= 5`**. Employee's own contributions + returns are always 100% vested regardless of tenure.
+* The withdrawal modal renders **two eligibility rows** inside the benefits box: (1) "Your contributions + returns" — always green/eligible; (2) "Employer match + returns" — green if `tenureY >= 5`, red otherwise. (This is a display rule — actual payout calculation is handled outside the app.)
 
 ### Payroll Cut-off / Effective Date (15th rule)
 * Applies to **enrollment**, **contribution % change**, and **withdrawal** (the three payroll-deduction actions). Does **not** apply to investment-plan changes or beneficiary updates.
@@ -164,7 +164,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 * **Change Contribution Plan** (`<dialog>`): shows current %, lets user pick a new %, includes 1-year-lock warning + effective-date banner → `processChangePlan()`. Locked variant shown if within 12-month window.
 * **Change Investment Plan:** Opens a bilingual informational modal explaining that investment plan changes are managed in the bank's app, with a button linking out (bank name + URL are placeholders until provided). No backend write, no audit event, no 12-month lock — the bank app is the source of truth for investment plan post-enrollment. Initial selection still happens in step 2 of the enrollment wizard.
 * **Beneficiary Manager** (full-screen overlay, 3 views): Current → Edit (same 4-max / 100% rules) → History timeline (from the append-only ledger) → `processUpdateBeneficiaries()`.
-* **Withdraw** (`<dialog>`): shows tenure, employer-match eligibility based on 5-year vesting, penalty list, effective-date banner, mandatory acknowledgement checkbox → `processWithdrawal()`.
+* **Withdraw** (`<dialog>`): shows tenure, dual eligibility rows (own contributions + returns — always eligible; employer match + returns — gated by 5-year vesting), penalty list, effective-date banner, mandatory acknowledgement checkbox → `processWithdrawal()`.
 
 ---
 

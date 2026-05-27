@@ -5,18 +5,31 @@
       <strong style="color: var(--pico-del-color);">ยืนยันการลาออก / Confirm Withdrawal</strong>
     </header>
 
-    <div id="withdrawBenefitBox" style="margin-bottom: 1.5rem; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-      <strong style="font-size: 1.05rem;">สิทธิประโยชน์ของคุณ / Your Benefits</strong><br>
+    <div id="withdrawBenefitBox" style="margin-bottom: 1.5rem; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc;">
+      <strong style="font-size: 1.05rem;">สิทธิประโยชน์ของคุณ / Your Benefits</strong>
       <div style="margin-top: 0.5rem; font-size: 0.95rem;">
-        อายุสมาชิก (Membership): <strong id="withdrawTenureText">-</strong><br>
-        <div id="withdrawMatchStatus" style="margin-top: 0.5rem; font-weight: 500;">-</div>
+        อายุสมาชิก (Membership): <strong id="withdrawTenureText">-</strong>
+      </div>
+
+      <div id="withdrawOwnStatus" class="eligibility-row" style="margin-top: 0.75rem;">
+        <div style="font-weight: 500;">เงินสะสมของคุณ + ผลตอบแทน</div>
+        <small style="color: var(--pico-muted-color);">Your contributions + returns</small>
+        <div style="margin-top: 0.25rem; font-weight: 500;">
+          ✅ ได้รับเต็มจำนวน<br><small>(Fully eligible)</small>
+        </div>
+      </div>
+
+      <div id="withdrawMatchStatus" class="eligibility-row" style="margin-top: 0.75rem;">
+        <div style="font-weight: 500;">เงินสมทบจากบริษัท + ผลตอบแทน</div>
+        <small style="color: var(--pico-muted-color);">Employer match + returns</small>
+        <div id="withdrawMatchVerdict" style="margin-top: 0.25rem; font-weight: 500;">-</div>
       </div>
     </div>
 
     <div style="margin-bottom: 1.5rem; font-size: 0.9rem;">
       <strong style="color: var(--pico-color);">ผลกระทบ (Penalties):</strong>
       <ul style="margin-top: 0.5rem; padding-left: 1.2rem; color: var(--pico-muted-color);">
-        <li>การลาออกจากกองทุนจะมีผลทันที (Takes effect immediately)</li>
+        <li>คุณจะถูกหักเงินสะสมอีก 1 ครั้งก่อนหยุดจริง ตามวันที่มีผลด้านล่าง (One final deduction still applies)</li>
         <li>คุณจะไม่สามารถสมัครใหม่ได้เป็นเวลา 1 ปี (1-year lockout)</li>
         <li>หากเป็นการลาออกครั้งที่ 2 คุณจะหมดสิทธิ์ถาวร (Permanent lockout on 2nd withdrawal)</li>
       </ul>
