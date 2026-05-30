@@ -12,11 +12,15 @@ function processWithdrawal(deviceData) {
     const usersData = ss.getSheetByName("Users").getDataRange().getValues();
     const emailCol = usersData[0].indexOf("Work_Email");
     const idCol = usersData[0].indexOf("Allstars_ID");
+    const nameCol = usersData[0].indexOf("Name_English");
 
     let allstarsId = null;
+    let userName = "";
     for (let i = 1; i < usersData.length; i++) {
       if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
-        allstarsId = usersData[i][idCol]; break;
+        allstarsId = usersData[i][idCol];
+        userName = usersData[i][nameCol];
+        break;
       }
     }
     if (!allstarsId) return { success: false, msg: `User not found: ${email}` };
@@ -80,6 +84,22 @@ function processWithdrawal(deviceData) {
       "Event_Data": JSON.stringify(eventData)
     };
     appendRowToSheet(auditSheet, auditRowData);
+
+    // Confirmation email — best-effort, must never block the action.
+    const emailResult = sendActionConfirmation({
+      userEmail: email,
+      userName: userName,
+      actionType: "Withdraw",
+      eventType: "SUBMITTED",
+      details: {
+        effectiveDate: getEffectiveDate(today),
+        transactionId: transactionId
+      }
+    });
+    patchAuditEventData(transactionId, "SUBMITTED", {
+      emailSent: emailResult.sent,
+      emailError: emailResult.error || null
+    });
 
     return { success: true };
   } catch (error) { return { success: false, msg: error.toString() }; }

@@ -38,6 +38,7 @@ function sendActionConfirmation(p) {
         `  รหัสรายการ: ${p.details.transactionId}`,
         `  เวลาที่ส่ง: ${submittedAt} น.`,
       ])
+      .concat(p.eventType === "SUBMITTED" ? [`  หากต้องการยกเลิกคำขอนี้ กรุณาเข้าสู่ระบบแอปพลิเคชัน`] : [])
       .join("\n");
 
     const en = [
@@ -51,6 +52,7 @@ function sendActionConfirmation(p) {
         `  Transaction ID: ${p.details.transactionId}`,
         `  Submitted at: ${submittedAt} (Bangkok)`,
       ])
+      .concat(p.eventType === "SUBMITTED" ? [`  To cancel this request, please visit the application.`] : [])
       .join("\n");
 
     const body = `${thai}\n\n---\n\n${en}\n\n— Allstars Provident Fund System`;
@@ -76,15 +78,41 @@ function sendActionConfirmation(p) {
 function buildEmailContent(actionType, eventType, details) {
   const pct = v => (parseFloat(v) * 100).toFixed(0) + "%";
 
+  // Bilingual labels for each action, reused across SUBMITTED and CANCELLED copy.
+  const ACTION_LABELS = {
+    "Enroll":      { th: "สมัครสมาชิกกองทุน",        en: "Enrollment" },
+    "Change Plan": { th: "เปลี่ยนอัตราเงินสะสม",       en: "Contribution rate change" },
+    "Withdraw":    { th: "ลาออกจากกองทุน (ถอนเงิน)",   en: "Withdrawal from fund" },
+  };
+
+  // ----- CANCELLED (any cancellable action) -----
+  // References the original transaction (the caller passes the original id) and
+  // states no changes were applied. Vesting/other detail intentionally omitted.
+  if (eventType === "CANCELLED") {
+    const label = ACTION_LABELS[actionType] || { th: actionType, en: actionType };
+    return {
+      subject: "ยืนยันการยกเลิกรายการ / Cancellation Confirmation",
+      thaiAction: "ยกเลิกรายการ",
+      thaiDetails: [
+        `รายการที่ยกเลิก: ${label.th}`,
+      ],
+      enAction: "Cancellation",
+      enDetails: [
+        `Cancelled action: ${label.en}`,
+      ],
+    };
+  }
+
+  // ----- Change Plan SUBMITTED -----
   if (actionType === "Change Plan" && eventType === "SUBMITTED") {
     return {
       subject: "ยืนยันการเปลี่ยนอัตราสะสม / Contribution Change Confirmation",
-      thaiAction: "เปลี่ยนอัตราเงินสะสม",
+      thaiAction: ACTION_LABELS["Change Plan"].th,
       thaiDetails: [
         `รายละเอียด: จาก ${pct(details.oldPct)} เป็น ${pct(details.newPct)}`,
         `วันที่มีผล: ${details.effectiveDate}`,
       ],
-      enAction: "Contribution rate change",
+      enAction: ACTION_LABELS["Change Plan"].en,
       enDetails: [
         `Details: from ${pct(details.oldPct)} to ${pct(details.newPct)}`,
         `Effective date: ${details.effectiveDate}`,
@@ -92,8 +120,25 @@ function buildEmailContent(actionType, eventType, details) {
     };
   }
 
-  // Fallback for actions not yet wired (Phase C onward) — generic acknowledgement
-  // so an unexpected call still sends something sensible rather than throwing.
+  // ----- Withdraw SUBMITTED -----
+  // No vesting line: vesting is acknowledged in the modal before submit, so the
+  // receipt does not repeat it.
+  if (actionType === "Withdraw" && eventType === "SUBMITTED") {
+    return {
+      subject: "ยืนยันการลาออกจากกองทุน / Withdrawal Confirmation",
+      thaiAction: ACTION_LABELS["Withdraw"].th,
+      thaiDetails: [
+        `วันที่มีผล: ${details.effectiveDate}`,
+      ],
+      enAction: ACTION_LABELS["Withdraw"].en,
+      enDetails: [
+        `Effective date: ${details.effectiveDate}`,
+      ],
+    };
+  }
+
+  // Fallback for actions not yet wired (enrollment/beneficiary land in E/F) —
+  // generic acknowledgement so an unexpected call still sends something sensible.
   return {
     subject: "ยืนยันรายการ / Action Confirmation",
     thaiAction: actionType,

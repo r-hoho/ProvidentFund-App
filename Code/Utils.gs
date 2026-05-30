@@ -50,6 +50,39 @@ function generateTransactionId(prefix) {
 }
 
 /**
+ * Best-effort: re-finds the audit row by Transaction_ID + Event_Type, merges
+ * extraFields into its Event_Data JSON, and writes it back. Used to stamp
+ * post-commit outcomes (emailSent, emailError, letterFileId, ...) onto a row
+ * the handler already appended. NEVER throws — a failed patch must not affect
+ * the user's action, which has already succeeded.
+ */
+function patchAuditEventData(transactionId, eventType, extraFields) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const auditSheet = ss.getSheetByName("Audit_Log");
+    const data = auditSheet.getDataRange().getValues();
+    const headers = data[0];
+    const txIdCol = headers.indexOf("Transaction_ID");
+    const evtCol = headers.indexOf("Event_Type");
+    const dataCol = headers.indexOf("Event_Data");
+    if (txIdCol === -1 || evtCol === -1 || dataCol === -1) return;
+
+    // Scan bottom-up: the row we just appended is near the end.
+    for (let i = data.length - 1; i >= 1; i--) {
+      if (data[i][txIdCol] === transactionId && data[i][evtCol] === eventType) {
+        let parsed = {};
+        try { parsed = JSON.parse(data[i][dataCol] || "{}"); } catch (e) { parsed = {}; }
+        for (const k in extraFields) parsed[k] = extraFields[k];
+        auditSheet.getRange(i + 1, dataCol + 1).setValue(JSON.stringify(parsed));
+        return;
+      }
+    }
+  } catch (e) {
+    // best-effort only — swallow
+  }
+}
+
+/**
  * Returns the payroll cut-off effective date for a submission, as a display
  * string like "30 Jun 2026". Rule: submitted on/before the 15th → end of this
  * month; on/after the 16th → end of next month. Computed in Asia/Bangkok time

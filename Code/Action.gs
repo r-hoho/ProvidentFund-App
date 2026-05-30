@@ -265,7 +265,7 @@ function processChangePlan(newPlan, deviceData) {
     appendRowToSheet(auditSheet, auditRowData);
 
     // Confirmation email — best-effort, must never block the action.
-    sendActionConfirmation({
+    const emailResult = sendActionConfirmation({
       userEmail: email,
       userName: userName,
       actionType: "Change Plan",
@@ -276,6 +276,10 @@ function processChangePlan(newPlan, deviceData) {
         effectiveDate: getEffectiveDate(today),
         transactionId: transactionId
       }
+    });
+    patchAuditEventData(transactionId, "SUBMITTED", {
+      emailSent: emailResult.sent,
+      emailError: emailResult.error || null
     });
 
     return { success: true };
@@ -468,6 +472,30 @@ function cancelTransaction(transactionId, deviceData) {
       "Transaction_ID": transactionId,
       "Event_Type": "CANCELLED",
       "Event_Data": JSON.stringify(cancelEventData)
+    });
+
+    // Confirmation email — best-effort, must never block the cancellation.
+    // Reuses the original Transaction_ID for continuity with the SUBMITTED email.
+    const usersData = ss.getSheetByName("Users").getDataRange().getValues();
+    const uEmailCol = usersData[0].indexOf("Work_Email");
+    const uNameCol = usersData[0].indexOf("Name_English");
+    let userName = "";
+    for (let i = 1; i < usersData.length; i++) {
+      if (usersData[i][uEmailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
+        userName = usersData[i][uNameCol];
+        break;
+      }
+    }
+    const emailResult = sendActionConfirmation({
+      userEmail: email,
+      userName: userName,
+      actionType: action,
+      eventType: "CANCELLED",
+      details: { transactionId: transactionId }
+    });
+    patchAuditEventData(transactionId, "CANCELLED", {
+      emailSent: emailResult.sent,
+      emailError: emailResult.error || null
     });
 
     return { success: true, msg: "ยกเลิกรายการสำเร็จ / Transaction cancelled." };
