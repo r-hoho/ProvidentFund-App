@@ -190,11 +190,14 @@ function processChangePlan(newPlan, deviceData) {
     const usersData = ss.getSheetByName("Users").getDataRange().getValues();
     const emailCol = usersData[0].indexOf("Work_Email");
     const idCol = usersData[0].indexOf("Allstars_ID");
+    const nameCol = usersData[0].indexOf("Name_English");
 
     let allstarsId = null;
+    let userName = "";
     for (let i = 1; i < usersData.length; i++) {
       if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
         allstarsId = usersData[i][idCol];
+        userName = usersData[i][nameCol];
         break;
       }
     }
@@ -260,6 +263,20 @@ function processChangePlan(newPlan, deviceData) {
       "Event_Data": JSON.stringify(eventData)
     };
     appendRowToSheet(auditSheet, auditRowData);
+
+    // Confirmation email — best-effort, must never block the action.
+    sendActionConfirmation({
+      userEmail: email,
+      userName: userName,
+      actionType: "Change Plan",
+      eventType: "SUBMITTED",
+      details: {
+        oldPct: priorPlan,
+        newPct: newPlan,
+        effectiveDate: getEffectiveDate(today),
+        transactionId: transactionId
+      }
+    });
 
     return { success: true };
 

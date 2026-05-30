@@ -50,6 +50,36 @@ function generateTransactionId(prefix) {
 }
 
 /**
+ * Returns the payroll cut-off effective date for a submission, as a display
+ * string like "30 Jun 2026". Rule: submitted on/before the 15th → end of this
+ * month; on/after the 16th → end of next month. Computed in Asia/Bangkok time
+ * so it is correct regardless of the script's default timezone.
+ * Mirrors the frontend getEffectiveDateInfo() in JS_Utils.html.
+ */
+function getEffectiveDate(submittedAt) {
+  const tz = "Asia/Bangkok";
+  const dateStr = Utilities.formatDate(new Date(submittedAt), tz, "yyyy-MM-dd");
+  const parts = dateStr.split("-").map(Number);
+  let year = parts[0];
+  let month = parts[1]; // 1-indexed
+  const day = parts[2];
+
+  if (day > 15) {
+    month += 1;
+    if (month > 12) { month = 1; year += 1; }
+  }
+
+  // Last day of the (1-indexed) effective month: day 0 of the following month — pure arithmetic, no tz.
+  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
+
+  // Build + format in the SAME tz so the day can't shift across a boundary.
+  const mm = String(month).padStart(2, "0");
+  const dd = String(lastDay).padStart(2, "0");
+  const effDate = Utilities.parseDate(`${year}-${mm}-${dd}`, tz, "yyyy-MM-dd");
+  return Utilities.formatDate(effDate, tz, "dd MMM yyyy");
+}
+
+/**
  * Gets the editable-until deadline for a given submission date.
  * Rule: Next upcoming 15th of the month at 23:59:59 Asia/Bangkok time.
  * Constructs the deadline explicitly in Bangkok time so it is correct
