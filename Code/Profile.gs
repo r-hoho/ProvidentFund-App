@@ -208,16 +208,23 @@ function getPendingTransactions(allstarsId) {
     }
   }
 
+  // Only these actions are subject to the payroll cut-off and therefore cancellable.
+  // Beneficiary and investment-plan changes are effective immediately (no cancel state),
+  // so they must never appear in the in-progress table even though they log a SUBMITTED row.
+  const CANCELLABLE_ACTIONS = ["Enroll", "Change Plan", "Withdraw"];
+
   const pending = [];
   for (const txId in userTransactions) {
     const latestEvent = userTransactions[txId];
     const eventType = latestEvent[eventTypeCol];
     const submittedAt = new Date(latestEvent[timestampCol]);
+    const actionType = latestEvent[actionCol]; // "Enroll", "Change Plan", "Withdraw", "Update Beneficiaries", ...
 
-    // If it's submitted/edited and the window is still open, it's pending.
-    if ((eventType === "SUBMITTED" || eventType === "EDITED") && isWithinEditableWindow(submittedAt)) {
+    // Pending = a cancellable action, still SUBMITTED/EDITED, with the cut-off window open.
+    if (CANCELLABLE_ACTIONS.indexOf(actionType) !== -1 &&
+        (eventType === "SUBMITTED" || eventType === "EDITED") &&
+        isWithinEditableWindow(submittedAt)) {
       const eventData = JSON.parse(latestEvent[eventDataCol] || '{}');
-      const actionType = latestEvent[actionCol]; // "Enroll", "Change Plan", "Withdraw"
 
       let description = `Unknown Transaction: ${txId}`;
       if (actionType === "Enroll") {

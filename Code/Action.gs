@@ -302,11 +302,30 @@ function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
     benSheet.appendRow([today, allstarsId, email, beneficiariesJSON]);
 
     // 3. Append to 'Audit_Log'
+    // Action is "Update Beneficiaries"; current plan & investment are blanked out here as they didn't change.
+    // No priorValues: the Beneficiaries sheet is an append-only ledger, so the prior state is already
+    // preserved as the previous row by Timestamp. Event_Data carries only the submitted (new) list.
     const auditSheet = ss.getSheetByName("Audit_Log");
-    // Action is "Update Beneficiaries", current plan & investment are blanked out here as they didn't change
-    auditSheet.appendRow([
-      today, allstarsId, email, "Update Beneficiaries", "", "", beneficiariesJSON, deviceData || "Unknown Device"
-    ]);
+    const transactionId = generateTransactionId("BN");
+    const eventData = {
+      "newValues": {
+        "Beneficiaries": JSON.parse(beneficiariesJSON)
+      }
+    };
+    const auditRowData = {
+      "Timestamp": today,
+      "Allstars_ID": allstarsId,
+      "Email": email,
+      "Action": "Update Beneficiaries",
+      "Selected_Plan": "",
+      "Investment_Plan": "",
+      "Beneficiary_Data": beneficiariesJSON,
+      "Metadata": deviceData || "Unknown Device",
+      "Transaction_ID": transactionId,
+      "Event_Type": "SUBMITTED",
+      "Event_Data": JSON.stringify(eventData)
+    };
+    appendRowToSheet(auditSheet, auditRowData);
 
     return { success: true };
 
