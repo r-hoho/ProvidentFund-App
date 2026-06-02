@@ -4,6 +4,7 @@
   // ==========================================
 
   let editBenData = []; // Store temporary edits
+  let benSigHandle = null; // signature pad instance for the edit view
 
   function openManageBen() {
     if (!globalEnrollmentData || !globalEnrollmentData.beneficiariesJSON) return;
@@ -13,28 +14,50 @@
   }
 
   function closeManageBen() {
+    if (benSigHandle) { PFSignature.destroy(benSigHandle); benSigHandle = null; }
     document.getElementById('beneficiaryManager').style.display = 'none';
     document.body.style.overflow = '';
   }
 
-  function switchBenView(view) {
+  // Fresh pad each time the Sign view opens; re-validates on each stroke so Save
+  // enables once a signature is drawn.
+  function mountBenSignature() {
+    const canvas = document.getElementById('benSigCanvas');
+    if (benSigHandle) PFSignature.destroy(benSigHandle);
+    benSigHandle = PFSignature.mount(canvas, validateBenSignature);
+    validateBenSignature();
+  }
+  function clearBenSignature() { PFSignature.clear(benSigHandle); validateBenSignature(); }
+
+  // Save button (Sign view) is gated purely on a signature being present.
+  function validateBenSignature() {
+    document.getElementById('submitUpdateBenBtn').disabled = PFSignature.isEmpty(benSigHandle);
+  }
+
+  // `preserve` (used by Back from the Sign view) re-renders the edit list
+  // without resetting editBenData, so in-progress edits survive B→D→B.
+  function switchBenView(view, preserve) {
     document.getElementById('benViewA').style.display = (view === 'A') ? 'block' : 'none';
     document.getElementById('benViewB').style.display = (view === 'B') ? 'block' : 'none';
     document.getElementById('benViewC').style.display = (view === 'C') ? 'block' : 'none';
-    
+    document.getElementById('benViewD').style.display = (view === 'D') ? 'block' : 'none';
+
     document.getElementById('benFooterA').style.display = (view === 'A') ? 'flex' : 'none';
     document.getElementById('benFooterB').style.display = (view === 'B') ? 'flex' : 'none';
     document.getElementById('benFooterC').style.display = (view === 'C') ? 'flex' : 'none';
+    document.getElementById('benFooterD').style.display = (view === 'D') ? 'flex' : 'none';
 
-    document.getElementById('benManagerTitle').textContent = 
-      (view === 'A') ? "จัดการผู้รับผลประโยชน์" : 
-      (view === 'B') ? "แก้ไขข้อมูล / Edit" : "ประวัติ / History";
+    document.getElementById('benManagerTitle').textContent =
+      (view === 'A') ? "จัดการผู้รับผลประโยชน์" :
+      (view === 'B') ? "แก้ไขข้อมูล / Edit" :
+      (view === 'D') ? "ลงลายมือชื่อ / Sign" : "ประวัติ / History";
 
     document.getElementById('benManagerCloseBtn').style.display = (view === 'A') ? 'block' : 'none';
 
     if (view === 'A') renderCurrentBeneficiaries();
-    if (view === 'B') initUpdateBeneficiaries();
+    if (view === 'B') { if (preserve) renderUpdateBeneficiaries(); else initUpdateBeneficiaries(); }
     if (view === 'C') renderHistoryBeneficiaries();
+    if (view === 'D') mountBenSignature();
   }
 
   // --- VIEW A: CURRENT ---
@@ -80,7 +103,7 @@
 
   // --- VIEW B: UPDATE (Reused Form Logic) ---
   function initUpdateBeneficiaries() {
-    try { editBenData = JSON.parse(globalEnrollmentData.beneficiariesJSON); } 
+    try { editBenData = JSON.parse(globalEnrollmentData.beneficiariesJSON); }
     catch(e) { editBenData = [{ name: '', rel: '', pct: 100 }]; }
     renderUpdateBeneficiaries();
   }
@@ -128,12 +151,12 @@
   function validateUpdateBen() {
     let totalPct = 0; let allFilled = true;
     editBenData.forEach(b => { totalPct += parseInt(b.pct) || 0; if (!b.name.trim() || !b.rel) allFilled = false; });
-    const totalMsg = document.getElementById('updateBenTotalText'); const helperMsg = document.getElementById('updateBenHelperText'); const btn = document.getElementById('submitUpdateBenBtn');
+    const totalMsg = document.getElementById('updateBenTotalText'); const helperMsg = document.getElementById('updateBenHelperText'); const btn = document.getElementById('benToSignBtn');
     totalMsg.textContent = `${totalPct}%`;
-    
-    if (totalPct === 100) { 
+
+    if (totalPct === 100) {
       totalMsg.style.color = "#2e7d32"; if (helperMsg) helperMsg.style.display = 'none'; btn.disabled = !allFilled;
-    } else { 
+    } else {
       totalMsg.style.color = "var(--pico-del-color)"; btn.disabled = true;
       if (helperMsg) { helperMsg.style.display = 'block'; helperMsg.textContent = totalPct > 100 ? "สัดส่วนเกิน 100% (Total exceeds 100%)" : "กรุณาระบุสัดส่วนให้ครบ 100% (Must equal exactly 100%)"; }
     }
@@ -163,6 +186,9 @@
         btn.disabled = false; 
         alert("System Error: " + err); 
       })
-      .processUpdateBeneficiaries(JSON.stringify(editBenData), navigator.userAgent);
+      .processUpdateBeneficiaries(
+        { beneficiariesJSON: JSON.stringify(editBenData), sigDataUrl: PFSignature.getDataUrl(benSigHandle) },
+        navigator.userAgent
+      );
   }
 </script>

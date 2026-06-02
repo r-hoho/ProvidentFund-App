@@ -412,9 +412,9 @@ New `html/JS_Signature.html` exposes `window.PFSignature` with `mount(canvasEl)`
 | B | `Code/Email.gs` + wire into `processChangePlan` only | No | ✅ Done |
 | C | Plain emails for `processWithdrawal` + `cancelTransaction`; `patchAuditEventData` everywhere | No | ✅ Done |
 | D | `Code/Letter.gs` + manual test harness (calls `generateLetter` with fake ctx + fake signature, eyeball the PDF) | **Yes — template ID lands here** | ✅ Done (tested) |
-| E | `JS_Signature.html` + wizard Step 5 + plumb `sigDataUrl` through `processEnrollment` | Yes | ◑ Backend done; front-end pad pending |
-| F | Signature pad inline in beneficiary edit + plumb through `processUpdateBeneficiaries` | Yes | ◑ Backend done; front-end pad pending |
-| G | Polish: bilingual soft-fail toast, CLAUDE.md notes | — | ☐ |
+| E | `JS_Signature.html` + wizard Step 5 + plumb `sigDataUrl` through `processEnrollment` | Yes | ✅ Done (verified) |
+| F | Signature pad in beneficiary edit + plumb through `processUpdateBeneficiaries` | Yes | ✅ Done (verified) |
+| G | Polish: bilingual soft-fail toast, CLAUDE.md notes, Script Properties | — | ☐ |
 
 **As-built notes (Phases A–C):**
 - Phase A dropped `priorValues` for beneficiaries — the `Beneficiaries` sheet is an append-only ledger, so prior state is already preserved as the previous row. Also fixed `getPendingTransactions` to whitelist cancellable actions (`Enroll`/`Change Plan`/`Withdraw`) so beneficiary updates don't surface in the in-progress box.
@@ -427,7 +427,14 @@ New `html/JS_Signature.html` exposes `window.PFSignature` with `mount(canvasEl)`
 - **Config: hard-coded, not Script Properties** — template/folder IDs live as `PF_ENROLLMENT_TEMPLATE_ID` / `PF_BENEFICIARY_TEMPLATE_ID` (`""` → falls back to enrollment) / `PF_LETTERS_FOLDER_ID` consts at the top of `Letter.gs`. `PF_LETTERS_FOLDER_ID=""` falls back to the template's parent folder. Move to Script Properties in Phase G before prod.
 - **`Letter.gs` flow** — copy template → `fillPlaceholders` → `fillBeneficiaryList` → `insertSignatureImage` (clears the `{{signature_image}}` marker paragraph and appends the PNG at 180×72; missing/blank sig just clears the marker) → export PDF → trash the intermediate Doc. PDF archived under `Enrollment/` (or `Beneficiary/`) subfolder.
 - **Phase E backend** — `processEnrollment` hoists the `EN-` transaction id (so it threads into audit + letter + email + patch), gathers Name/Title/Hire_Date from `Users`, computes match tier from tenure and member-since per the first-vs-re-enroll rule, then generates the letter + sends the email with the PDF attached (best-effort try/catch — never blocks enrollment), and patches `letterFileId`/`letterError`/`emailSent`/`signedAt` onto the audit row. **Verified live.** Signature is blank until the front-end pad (rest of E) lands.
-- **Phase F backend** — `processUpdateBeneficiaries` gathers Name/Title/Hire_Date, builds `ctx`, calls `generateLetter('BENEFICIARY', …)` + emails the PDF + patches the audit row (same best-effort pattern). **Verified live.** Beneficiary is effective immediately so `effective_date` = submission date (no payroll cut-off). Reuses the enrollment template until `PF_BENEFICIARY_TEMPLATE_ID` is supplied, so enrollment-only placeholders (rate/match/investment/member-since) render blank. Cancel-line gate in `Email.gs` refined to `CANCELLABLE = [Enroll, Change Plan, Withdraw]` so beneficiary SUBMITTED emails omit it. Signature blank until the front-end pad (rest of F) lands.
+- **Phase F backend** — `processUpdateBeneficiaries` gathers Name/Title/Hire_Date, builds `ctx`, calls `generateLetter('BENEFICIARY', …)` + emails the PDF + patches the audit row (same best-effort pattern). **Verified live.** Beneficiary is effective immediately so `effective_date` = submission date (no payroll cut-off). Reuses the enrollment template until `PF_BENEFICIARY_TEMPLATE_ID` is supplied, so enrollment-only placeholders (rate/match/investment/member-since) render blank. Cancel-line gate in `Email.gs` refined to `CANCELLABLE = [Enroll, Change Plan, Withdraw]` so beneficiary SUBMITTED emails omit it. `processUpdateBeneficiaries` now accepts `{ beneficiariesJSON, sigDataUrl }` (tolerates a bare string for back-compat).
+
+**As-built notes (Phases E + F front-end):**
+- **Shared pad** — `html/JS_Signature.html` exposes `window.PFSignature` (mount/isEmpty/getDataUrl/clear/destroy) over signature_pad@4.2.0 (CDN, loaded in `Index.html`). Dark-blue ink `#1e3a8a`, 2px, transparent bg, hi-DPI canvas resize. `destroy()` is called on overlay close to avoid handle/listener leaks.
+- **Pad sizing** — canvas is `height: 50vh` (min 200 / max 480px), not a fixed aspect. To avoid distortion `Letter.gs:insertSignatureImage` reads the PNG's natural size and scales to `PF_SIG_MAX_WIDTH` (220px) preserving aspect.
+- **Enrollment** — wizard is now **5 steps** (step 5 = "Sign & Submit"); Submit gated on a stroke; `sigDataUrl` added to the `processEnrollment` payload.
+- **Beneficiary** — manager gained a 4th view **D (Sign)**. Flow: Current → Update(B) → **Next** (gated on 100% + all fields) → **Sign(D)** → **Save** (gated on a stroke). Back from D re-renders B with `preserve=true` so edits survive. Signature moved off the edit page per user preference (dedicated page = full-height pad).
+- **Decision** — `screen.orientation.lock()` for forced landscape was rejected (unsupported on iOS Safari, requires fullscreen); instead the pad just fills 50vh.
 
 Phases A–C ship value with zero template dependency. Natural intermediate ship line at end of C: full confirmation-email coverage live, no PDF yet. Phase D gates E + F; D and the user's template authoring are the only gate.
 

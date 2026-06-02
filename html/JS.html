@@ -169,17 +169,33 @@
   // ==========================================
   let wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100 }] };
   let currentStep = 1;
+  let wizSigHandle = null; // signature pad instance for step 5
 
   function openEnroll() {
     wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100 }] };
     currentStep = 1;
+    if (wizSigHandle) { PFSignature.destroy(wizSigHandle); wizSigHandle = null; }
     document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
     document.getElementById('enrollWizard').style.display = 'flex';
-    document.body.style.overflow = 'hidden'; 
+    document.body.style.overflow = 'hidden';
     updateWizardUI();
   }
 
-  function closeWizard() { document.getElementById('enrollWizard').style.display = 'none'; document.body.style.overflow = ''; }
+  function closeWizard() {
+    if (wizSigHandle) { PFSignature.destroy(wizSigHandle); wizSigHandle = null; }
+    document.getElementById('enrollWizard').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Mounts a fresh signature pad on entering step 5; re-validates on each stroke
+  // so the Submit button enables as soon as anything is drawn.
+  function mountWizSignature() {
+    const canvas = document.getElementById('wizSigCanvas');
+    if (wizSigHandle) PFSignature.destroy(wizSigHandle);
+    wizSigHandle = PFSignature.mount(canvas, validateStep);
+    validateStep();
+  }
+  function clearWizSignature() { PFSignature.clear(wizSigHandle); validateStep(); }
 
   function selectContribution(val) {
     wizData.contribution = val;
@@ -250,16 +266,17 @@
   }
 
   function updateWizardUI() {
-    document.getElementById('wizardStepTitle').textContent = `Step ${currentStep} of 4`;
-    for (let i = 1; i <= 4; i++) { document.getElementById(`wizStep${i}`).style.display = (i === currentStep) ? 'block' : 'none'; }
+    document.getElementById('wizardStepTitle').textContent = `Step ${currentStep} of 5`;
+    for (let i = 1; i <= 5; i++) { document.getElementById(`wizStep${i}`).style.display = (i === currentStep) ? 'block' : 'none'; }
     document.getElementById('wizBackBtn').style.visibility = (currentStep === 1) ? 'hidden' : 'visible';
-    
+
     const nextBtn = document.getElementById('wizNextBtn');
-    if (currentStep === 4) { nextBtn.textContent = "ยืนยันการสมัคร / Submit"; nextBtn.classList.remove('secondary'); } 
-    else { nextBtn.textContent = "ถัดไป / Next"; nextBtn.classList.add('secondary'); } // Keep blue only on summary
+    if (currentStep === 5) { nextBtn.textContent = "ยืนยันการสมัคร / Submit"; nextBtn.classList.remove('secondary'); }
+    else { nextBtn.textContent = "ถัดไป / Next"; nextBtn.classList.add('secondary'); } // Keep blue only on submit
 
     if (currentStep === 3) renderBeneficiaries();
     if (currentStep === 4) renderSummary();
+    if (currentStep === 5) mountWizSignature();
     validateStep();
   }
 
@@ -297,12 +314,13 @@
       }
     } 
     else if (currentStep === 4) { isValid = true; }
+    else if (currentStep === 5) { isValid = !PFSignature.isEmpty(wizSigHandle); }
 
     nextBtn.disabled = !isValid;
     if(isValid) nextBtn.classList.remove('secondary'); else nextBtn.classList.add('secondary');
   }
 
-  function wizardNext() { if (currentStep < 4) { currentStep++; updateWizardUI(); } else { submitEnrollWizard(); } }
+  function wizardNext() { if (currentStep < 5) { currentStep++; updateWizardUI(); } else { submitEnrollWizard(); } }
   function wizardBack() { if (currentStep > 1) { currentStep--; updateWizardUI(); } }
 
   function renderSummary() {
@@ -321,7 +339,12 @@
     document.getElementById('wizBackBtn').disabled = true;
 
     const deviceData = navigator.userAgent;
-    const payload = { contributionPlan: parseFloat(wizData.contribution), investmentPlan: wizData.investment, beneficiariesJSON: JSON.stringify(wizData.beneficiaries) };
+    const payload = {
+      contributionPlan: parseFloat(wizData.contribution),
+      investmentPlan: wizData.investment,
+      beneficiariesJSON: JSON.stringify(wizData.beneficiaries),
+      sigDataUrl: PFSignature.getDataUrl(wizSigHandle)
+    };
 
     google.script.run
       .withSuccessHandler((response) => {

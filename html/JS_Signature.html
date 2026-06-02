@@ -1,0 +1,70 @@
+<script>
+  // ==========================================
+  // SHARED SIGNATURE PAD HELPER  (window.PFSignature)
+  // ==========================================
+  // Thin wrapper over signature_pad (loaded via CDN in Index.html). Used by the
+  // enrollment wizard (step 5) and the beneficiary edit view. Exposes a small
+  // handle-based API so each flow can own its own pad instance:
+  //
+  //   const handle = PFSignature.mount(canvasEl, onEnd?);
+  //   PFSignature.isEmpty(handle)  -> bool
+  //   PFSignature.getDataUrl(handle) -> "data:image/png;base64,..."
+  //   PFSignature.clear(handle)
+  //   PFSignature.destroy(handle)   // call on overlay close to avoid leaks
+  //
+  // Notes:
+  // - Dark-blue ink (#1e3a8a), 2px stroke, transparent background so only the
+  //   ink lands in the PDF (the letter page is white).
+  // - Hi-DPI aware: the canvas backing store is scaled to devicePixelRatio so
+  //   strokes are crisp on mobile (the primary platform). Resizing clears the
+  //   pad (a signature_pad requirement), so we mount fresh per open.
+  // - The canvas fills the available height (CSS); the letter embeds the export
+  //   at a max width while preserving its aspect ratio, so any pad shape is safe.
+  window.PFSignature = (function () {
+
+    function sizeCanvas(handle) {
+      const canvas = handle.canvas;
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d").scale(ratio, ratio);
+      handle.pad.clear(); // backing-store resize wipes the drawing
+    }
+
+    function mount(canvas, onEnd) {
+      if (typeof SignaturePad === "undefined") {
+        console.error("signature_pad library not loaded");
+        return null;
+      }
+      const pad = new SignaturePad(canvas, {
+        penColor: "#1e3a8a",
+        minWidth: 2,
+        maxWidth: 2.5,
+        backgroundColor: "rgba(0,0,0,0)"
+      });
+      const handle = { pad: pad, canvas: canvas, onEnd: onEnd || null, resize: null };
+
+      handle.resize = function () { sizeCanvas(handle); };
+      sizeCanvas(handle);
+      window.addEventListener("resize", handle.resize);
+
+      if (onEnd) pad.addEventListener("endStroke", onEnd);
+      return handle;
+    }
+
+    function isEmpty(handle) { return !handle || handle.pad.isEmpty(); }
+    function getDataUrl(handle) { return handle ? handle.pad.toDataURL("image/png") : null; }
+    function clear(handle) { if (handle) handle.pad.clear(); }
+
+    function destroy(handle) {
+      if (!handle) return;
+      try {
+        if (handle.onEnd) handle.pad.removeEventListener("endStroke", handle.onEnd);
+        handle.pad.off();
+        window.removeEventListener("resize", handle.resize);
+      } catch (e) { /* best-effort cleanup */ }
+    }
+
+    return { mount: mount, isEmpty: isEmpty, getDataUrl: getDataUrl, clear: clear, destroy: destroy };
+  })();
+</script>

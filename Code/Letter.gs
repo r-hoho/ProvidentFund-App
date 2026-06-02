@@ -19,8 +19,7 @@ const PF_ENROLLMENT_TEMPLATE_ID  = "1dJhbHiftXafuq7usbhjX-i6rkqBbxzJ1X10MiVpqBj8
 const PF_BENEFICIARY_TEMPLATE_ID = ""; // leave "" to reuse the enrollment template
 const PF_LETTERS_FOLDER_ID       = "1nBmGnxydfUtjFM9vEwA9hdM0_E7Iu1dX"; // "" → template's parent folder
 
-const PF_SIG_WIDTH = 180;   // px — signature image render width
-const PF_SIG_HEIGHT = 72;   // px — signature image render height
+const PF_SIG_MAX_WIDTH = 220; // px — signature image max render width (height scales to preserve aspect)
 
 // Thai month names for the bilingual {{date_today}} placeholder (Gregorian year).
 const PF_THAI_MONTHS = [
@@ -150,7 +149,7 @@ function fillBeneficiaryList(body, beneficiaries) {
 
 /**
  * Replaces the {{signature_image}} marker (which must sit alone on its own
- * paragraph) with the decoded signature PNG, sized to PF_SIG_WIDTH×HEIGHT.
+ * paragraph) with the decoded signature PNG, scaled to PF_SIG_MAX_WIDTH (aspect preserved).
  * Clearing then appending into the same paragraph preserves the paragraph's
  * position and alignment, so the image lands exactly where the marker was.
  */
@@ -164,7 +163,19 @@ function insertSignatureImage(body, sigDataUrl) {
   if (!sigDataUrl) return; // marker cleared, no image to insert
 
   const blob = decodeSignatureBlob(sigDataUrl);
-  sigPar.appendInlineImage(blob).setWidth(PF_SIG_WIDTH).setHeight(PF_SIG_HEIGHT);
+  const image = sigPar.appendInlineImage(blob);
+
+  // Scale to fit PF_SIG_MAX_WIDTH while preserving the drawn aspect ratio, so a
+  // taller/wider pad never gets squished. Falls back to width-only if the
+  // natural size can't be read.
+  const natW = image.getWidth();
+  const natH = image.getHeight();
+  if (natW > 0 && natH > 0) {
+    const scale = PF_SIG_MAX_WIDTH / natW;
+    image.setWidth(Math.round(natW * scale)).setHeight(Math.round(natH * scale));
+  } else {
+    image.setWidth(PF_SIG_MAX_WIDTH);
+  }
 }
 
 /** Decodes a base64 PNG data URL into an image Blob. */

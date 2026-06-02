@@ -360,8 +360,13 @@ function processChangePlan(newPlan, deviceData) {
 // ==========================================
 // ACTION: UPDATE BENEFICIARIES
 // ==========================================
-function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
+function processUpdateBeneficiaries(payload, deviceData) {
   try {
+    // Accepts either the new payload object { beneficiariesJSON, sigDataUrl } or,
+    // for backward tolerance, a bare beneficiariesJSON string.
+    const beneficiariesJSON = (typeof payload === "string") ? payload : payload.beneficiariesJSON;
+    const sigDataUrl = (typeof payload === "string") ? null : payload.sigDataUrl;
+
     const email = Session.getActiveUser().getEmail();
     if (!email) return { success: false, msg: "ไม่พบอีเมลผู้ใช้งาน (Email not detected)" };
 
@@ -449,8 +454,7 @@ function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
 
     let letterFileId = null, letterError = null;
     try {
-      // sigDataUrl is null until the beneficiary signature pad lands (Phase F front-end).
-      const r = generateLetter("BENEFICIARY", ctx, null);
+      const r = generateLetter("BENEFICIARY", ctx, sigDataUrl);
       letterFileId = r.fileId;
     } catch (e) {
       letterError = e.toString();
@@ -472,7 +476,8 @@ function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
       letterFileId: letterFileId,
       letterError: letterError,
       emailSent: emailResult.sent,
-      emailError: emailResult.error || null
+      emailError: emailResult.error || null,
+      signedAt: sigDataUrl ? today : null
     });
 
     return { success: true };

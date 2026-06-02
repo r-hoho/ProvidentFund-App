@@ -91,6 +91,16 @@
        <div id="sumEffectiveBanner"></div>
     </div>
 
+    <!-- STEP 5: Sign & Submit -->
+    <div id="wizStep5" class="wizard-step" style="display: none;">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">ลงลายมือชื่อ<br><small>Sign &amp; Submit</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1.5rem; font-size: 0.9rem;">กรุณาลงลายมือชื่อเพื่อยืนยันการสมัคร / Please sign below to confirm your enrollment.</p>
+
+      <span class="sig-label">ลายมือชื่อ / Signature</span>
+      <canvas id="wizSigCanvas" class="sig-canvas"></canvas>
+      <button type="button" class="sig-clear" onclick="clearWizSignature()">ล้าง / Clear</button>
+    </div>
+
   </div>
 
   <footer class="wizard-footer">
@@ -248,6 +258,14 @@
       <div id="historyBenList" style="padding-left: 0.5rem;"></div>
     </div>
 
+    <div id="benViewD" style="display: none;">
+      <h2 style="font-size: 1.25rem; margin-bottom:0.25rem;">ลงลายมือชื่อ<br><small>Sign &amp; Save</small></h2>
+      <p style="color: var(--pico-muted-color); margin-bottom: 1.5rem; font-size: 0.9rem;">กรุณาลงลายมือชื่อเพื่อยืนยันการเปลี่ยนแปลง / Please sign below to confirm your changes.</p>
+      <span class="sig-label">ลายมือชื่อ / Signature</span>
+      <canvas id="benSigCanvas" class="sig-canvas"></canvas>
+      <button type="button" class="sig-clear" onclick="clearBenSignature()">ล้าง / Clear</button>
+    </div>
+
   </div>
 
   <footer class="wizard-footer" id="benFooterA">
@@ -257,11 +275,16 @@
 
   <footer class="wizard-footer" id="benFooterB" style="display: none;">
     <button class="secondary outline" onclick="switchBenView('A')">ยกเลิก / Cancel</button>
-    <button id="submitUpdateBenBtn" onclick="submitUpdateBeneficiaries()" disabled>บันทึก / Save</button>
+    <button id="benToSignBtn" onclick="switchBenView('D')" disabled>ถัดไป / Next</button>
   </footer>
 
   <footer class="wizard-footer" id="benFooterC" style="display: none;">
     <button class="secondary outline" onclick="switchBenView('A')" style="flex: none; width: 100%;">ย้อนกลับ / Back</button>
+  </footer>
+
+  <footer class="wizard-footer" id="benFooterD" style="display: none;">
+    <button class="secondary outline" onclick="switchBenView('B', true)">ย้อนกลับ / Back</button>
+    <button id="submitUpdateBenBtn" onclick="submitUpdateBeneficiaries()" disabled>บันทึก / Save</button>
   </footer>
 
 </div>
