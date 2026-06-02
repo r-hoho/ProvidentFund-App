@@ -13,8 +13,8 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 | `Profile.gs` | `getUserProfile()` — main data fetch; calculates eligibility, tenure, match tier; `getPendingTransactions()` (in-progress box; cancellable actions only) |
 | `Action.gs` | `processEnrollment`, `processChangePlan`, `processUpdateBeneficiaries`, `checkPlanChangeEligibility`, `cancelTransaction` |
 | `Withdraw.gs` | `processWithdrawal` |
-| `Email.gs` | `sendActionConfirmation({...})` — bilingual (Thai-first) confirmation emails; never throws. Wired into enrollment, change-plan, withdrawal, and cancel. Beneficiary pending (Phase F) |
-| `Letter.gs` | `generateLetter(type, ctx, sigDataUrl)` — Google Doc template → PDF (placeholder fill, plain-text beneficiary list, embedded signature), archived in Drive. May throw — caller wraps in try/catch. Template/folder IDs hard-coded as top-of-file consts (`PF_*`); move to Script Properties before prod. Wired into enrollment; beneficiary pending (Phase F). `testGenerateLetter()` is an editor-run harness |
+| `Email.gs` | `sendActionConfirmation({...})` — bilingual (Thai-first) confirmation emails; never throws. Wired into enrollment, beneficiary, change-plan, withdrawal, and cancel. Cancel-line shown only for cancellable actions (`Enroll`/`Change Plan`/`Withdraw`) |
+| `Letter.gs` | `generateLetter(type, ctx, sigDataUrl)` — Google Doc template → PDF (placeholder fill, plain-text beneficiary list, embedded signature), archived in Drive. May throw — caller wraps in try/catch. Template/folder IDs hard-coded as top-of-file consts (`PF_*`); move to Script Properties before prod. Wired into enrollment + beneficiary (beneficiary reuses the enrollment template until `PF_BENEFICIARY_TEMPLATE_ID` is set). `testGenerateLetter()` is an editor-run harness |
 | `Utils.gs` | `calculateMatchTier(years)`, `reportIssueToAdmin()`, `generateTransactionId(prefix)`, `appendRowToSheet(sheet, rowObj)`, `getEffectiveDate(submittedAt)`, `patchAuditEventData(txId, eventType, fields)` |
 
 ### Frontend (`html/` — included via `<?!= include('filename') ?>`)

@@ -368,15 +368,22 @@ function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const today = new Date();
 
-    // 1. Find User ID
+    // 1. Find User ID (+ profile fields needed for the confirmation letter)
     const usersData = ss.getSheetByName("Users").getDataRange().getValues();
     const emailCol = usersData[0].indexOf("Work_Email");
     const idCol = usersData[0].indexOf("Allstars_ID");
+    const nameColU = usersData[0].indexOf("Name_English");
+    const titleColU = usersData[0].indexOf("Business_Title");
+    const hireColU = usersData[0].indexOf("Hire_Date");
 
     let allstarsId = null;
+    let userName = "", userTitle = "", userHireDate = "";
     for (let i = 1; i < usersData.length; i++) {
       if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
         allstarsId = usersData[i][idCol];
+        userName = usersData[i][nameColU];
+        userTitle = usersData[i][titleColU];
+        userHireDate = usersData[i][hireColU];
         break;
       }
     }
@@ -415,6 +422,58 @@ function processUpdateBeneficiaries(beneficiariesJSON, deviceData) {
       "Event_Data": JSON.stringify(eventData)
     };
     appendRowToSheet(auditSheet, auditRowData);
+
+    // 4. Signed PDF letter + confirmation email — best-effort, must NEVER block
+    //    the update. Beneficiary is effective immediately (no cancel state).
+    //    Reuses the enrollment template until a trimmed beneficiary template
+    //    is supplied (PF_BENEFICIARY_TEMPLATE_ID); enrollment-only placeholders
+    //    (rate/match/investment/member-since) render blank for now.
+    const tz = "Asia/Bangkok";
+    const fmtDate = d => (d instanceof Date) ? Utilities.formatDate(d, tz, "dd MMM yyyy") : (d || "").toString();
+
+    const ctx = {
+      nameEn: userName,
+      allstarsId: allstarsId,
+      businessTitle: userTitle,
+      workEmail: email,
+      hireDate: fmtDate(userHireDate),
+      memberSinceDate: "",
+      planPct: "",
+      employerMatchPct: "",
+      investmentPlan: "",
+      effectiveDate: fmtDate(today), // immediate — no payroll cut-off
+      transactionId: transactionId,
+      beneficiaries: []
+    };
+    try { ctx.beneficiaries = JSON.parse(beneficiariesJSON) || []; } catch (e) { /* keep [] */ }
+
+    let letterFileId = null, letterError = null;
+    try {
+      // sigDataUrl is null until the beneficiary signature pad lands (Phase F front-end).
+      const r = generateLetter("BENEFICIARY", ctx, null);
+      letterFileId = r.fileId;
+    } catch (e) {
+      letterError = e.toString();
+    }
+
+    const emailResult = sendActionConfirmation({
+      userEmail: email,
+      userName: userName,
+      actionType: "Update Beneficiaries",
+      eventType: "SUBMITTED",
+      details: {
+        beneficiaries: ctx.beneficiaries,
+        transactionId: transactionId
+      },
+      attachmentFileId: letterFileId
+    });
+
+    patchAuditEventData(transactionId, "SUBMITTED", {
+      letterFileId: letterFileId,
+      letterError: letterError,
+      emailSent: emailResult.sent,
+      emailError: emailResult.error || null
+    });
 
     return { success: true };
 

@@ -27,6 +27,12 @@ function sendActionConfirmation(p) {
     const content = buildEmailContent(p.actionType, p.eventType, p.details);
     const submittedAt = Utilities.formatDate(new Date(), "Asia/Bangkok", "dd MMM yyyy, HH:mm");
 
+    // The cancel-line is shown only for SUBMITTED events of CANCELLABLE actions.
+    // Beneficiary/investment updates are effective immediately and have no cancel
+    // state, so they must not promise a cancel option.
+    const CANCELLABLE = ["Enroll", "Change Plan", "Withdraw"];
+    const showCancelLine = p.eventType === "SUBMITTED" && CANCELLABLE.indexOf(p.actionType) !== -1;
+
     const thai = [
       `สวัสดีคุณ ${p.userName},`,
       ``,
@@ -38,7 +44,7 @@ function sendActionConfirmation(p) {
         `  รหัสรายการ: ${p.details.transactionId}`,
         `  เวลาที่ส่ง: ${submittedAt} น.`,
       ])
-      .concat(p.eventType === "SUBMITTED" ? [`  หากต้องการยกเลิกคำขอนี้ กรุณาเข้าสู่ระบบแอปพลิเคชัน`] : [])
+      .concat(showCancelLine ? [`  หากต้องการยกเลิกคำขอนี้ กรุณาเข้าสู่ระบบแอปพลิเคชัน`] : [])
       .join("\n");
 
     const en = [
@@ -52,7 +58,7 @@ function sendActionConfirmation(p) {
         `  Transaction ID: ${p.details.transactionId}`,
         `  Submitted at: ${submittedAt} (Bangkok)`,
       ])
-      .concat(p.eventType === "SUBMITTED" ? [`  To cancel this request, please visit the application.`] : [])
+      .concat(showCancelLine ? [`  To cancel this request, please visit the application.`] : [])
       .join("\n");
 
     const body = `${thai}\n\n---\n\n${en}\n\n— Allstars Provident Fund System`;
@@ -122,6 +128,24 @@ function buildEmailContent(actionType, eventType, details) {
       enDetails: [
         `Cancelled action: ${label.en}`,
       ],
+    };
+  }
+
+  // ----- Update Beneficiaries SUBMITTED -----
+  // Effective immediately (no cancel state). Lists the full new beneficiary set.
+  // PDF letter is attached by the caller (attachmentFileId); the body notes it.
+  if (actionType === "Update Beneficiaries" && eventType === "SUBMITTED") {
+    const benList = (details.beneficiaries || []).map(b => `- ${b.name} (${b.rel}) — ${b.pct}%`);
+    return {
+      subject: "ยืนยันการปรับปรุงผู้รับผลประโยชน์ / Beneficiary Update Confirmation",
+      thaiAction: "ปรับปรุงรายชื่อผู้รับผลประโยชน์",
+      thaiDetails: ["รายชื่อผู้รับผลประโยชน์:"]
+        .concat(benList)
+        .concat(["(แนบจดหมายยืนยันที่ลงนามแล้วในอีเมลฉบับนี้)"]),
+      enAction: "Beneficiary update",
+      enDetails: ["Beneficiaries:"]
+        .concat(benList)
+        .concat(["(A signed confirmation letter is attached to this email)"]),
     };
   }
 
