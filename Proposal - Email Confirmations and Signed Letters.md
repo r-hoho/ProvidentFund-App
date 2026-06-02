@@ -406,15 +406,27 @@ New `html/JS_Signature.html` exposes `window.PFSignature` with `mount(canvasEl)`
 
 ### 8. Phasing (so user can author template in parallel with backend work)
 
-| Phase | Deliverable | Template needed? |
-|---|---|---|
-| A | `processUpdateBeneficiaries` audit upgrade (Transaction_ID + structured Event_Data) | No |
-| B | `Code/Email.gs` + wire into `processChangePlan` only | No |
-| C | Plain emails for `processWithdrawal` + `cancelTransaction`; `patchAuditEventData` everywhere | No |
-| D | `Code/Letter.gs` + Script Properties + manual test harness (calls `generateLetter` with fake ctx + fake signature, eyeball the PDF) | **Yes — template ID lands here** |
-| E | `JS_Signature.html` + wizard Step 5 + plumb `sigDataUrl` through `processEnrollment` | Yes |
-| F | Signature pad inline in beneficiary edit + plumb through `processUpdateBeneficiaries` | Yes |
-| G | Polish: bilingual soft-fail toast, CLAUDE.md notes | — |
+| Phase | Deliverable | Template needed? | Status |
+|---|---|---|---|
+| A | `processUpdateBeneficiaries` audit upgrade (Transaction_ID + structured Event_Data) | No | ✅ Done |
+| B | `Code/Email.gs` + wire into `processChangePlan` only | No | ✅ Done |
+| C | Plain emails for `processWithdrawal` + `cancelTransaction`; `patchAuditEventData` everywhere | No | ✅ Done |
+| D | `Code/Letter.gs` + manual test harness (calls `generateLetter` with fake ctx + fake signature, eyeball the PDF) | **Yes — template ID lands here** | ✅ Done (tested) |
+| E | `JS_Signature.html` + wizard Step 5 + plumb `sigDataUrl` through `processEnrollment` | Yes | ◑ Backend done; front-end pad pending |
+| F | Signature pad inline in beneficiary edit + plumb through `processUpdateBeneficiaries` | Yes | ☐ |
+| G | Polish: bilingual soft-fail toast, CLAUDE.md notes | — | ☐ |
+
+**As-built notes (Phases A–C):**
+- Phase A dropped `priorValues` for beneficiaries — the `Beneficiaries` sheet is an append-only ledger, so prior state is already preserved as the previous row. Also fixed `getPendingTransactions` to whitelist cancellable actions (`Enroll`/`Change Plan`/`Withdraw`) so beneficiary updates don't surface in the in-progress box.
+- Withdrawal email omits the vesting line (vesting is acknowledged in the modal before submit; the receipt doesn't repeat it).
+- Cancellation email omits the "Status / no changes applied" line.
+- `SUBMITTED` emails carry a cancel-only line ("To cancel this request, please visit the application." — Edit is not a feature). Gate is `eventType === "SUBMITTED"`; exclude beneficiary/investment SUBMITTED when wired in F.
+
+**As-built notes (Phases D + E backend):**
+- **Beneficiary table dropped** — `{{beneficiary_table}}` is replaced with a plain-text list ("- Name (Rel) — 60%"), not a Docs table (user preference, leaner code). `fillBeneficiaryList` in `Letter.gs`.
+- **Config: hard-coded, not Script Properties** — template/folder IDs live as `PF_ENROLLMENT_TEMPLATE_ID` / `PF_BENEFICIARY_TEMPLATE_ID` (`""` → falls back to enrollment) / `PF_LETTERS_FOLDER_ID` consts at the top of `Letter.gs`. `PF_LETTERS_FOLDER_ID=""` falls back to the template's parent folder. Move to Script Properties in Phase G before prod.
+- **`Letter.gs` flow** — copy template → `fillPlaceholders` → `fillBeneficiaryList` → `insertSignatureImage` (clears the `{{signature_image}}` marker paragraph and appends the PNG at 180×72; missing/blank sig just clears the marker) → export PDF → trash the intermediate Doc. PDF archived under `Enrollment/` (or `Beneficiary/`) subfolder.
+- **Phase E backend** — `processEnrollment` hoists the `EN-` transaction id (so it threads into audit + letter + email + patch), gathers Name/Title/Hire_Date from `Users`, computes match tier from tenure and member-since per the first-vs-re-enroll rule, then generates the letter + sends the email with the PDF attached (best-effort try/catch — never blocks enrollment), and patches `letterFileId`/`letterError`/`emailSent`/`signedAt` onto the audit row. **Verified live.** Signature is blank until the front-end pad (rest of E) lands.
 
 Phases A–C ship value with zero template dependency. Natural intermediate ship line at end of C: full confirmation-email coverage live, no PDF yet. Phase D gates E + F; D and the user's template authoring are the only gate.
 

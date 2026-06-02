@@ -85,6 +85,28 @@ function buildEmailContent(actionType, eventType, details) {
     "Withdraw":    { th: "ลาออกจากกองทุน (ถอนเงิน)",   en: "Withdrawal from fund" },
   };
 
+  // ----- Enroll SUBMITTED -----
+  // PDF letter is attached by the caller (attachmentFileId); the body notes it.
+  if (actionType === "Enroll" && eventType === "SUBMITTED") {
+    return {
+      subject: "ยืนยันการสมัครสมาชิกกองทุน / Enrollment Confirmation",
+      thaiAction: ACTION_LABELS["Enroll"].th,
+      thaiDetails: [
+        `อัตราเงินสะสม: ${pct(details.planPct)}`,
+        `แผนการลงทุน: ${details.investmentPlan}`,
+        `วันที่มีผล: ${details.effectiveDate}`,
+        `(แนบจดหมายยืนยันที่ลงนามแล้วในอีเมลฉบับนี้)`,
+      ],
+      enAction: ACTION_LABELS["Enroll"].en,
+      enDetails: [
+        `Contribution rate: ${pct(details.planPct)}`,
+        `Investment plan: ${details.investmentPlan}`,
+        `Effective date: ${details.effectiveDate}`,
+        `(A signed confirmation letter is attached to this email)`,
+      ],
+    };
+  }
+
   // ----- CANCELLED (any cancellable action) -----
   // References the original transaction (the caller passes the original id) and
   // states no changes were applied. Vesting/other detail intentionally omitted.

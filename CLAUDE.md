@@ -10,10 +10,12 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 |------|----------------|
 | `Main.gs` | `doGet()` entry; `include()` helper for HTML templating |
 | `Config.gs` | Sheet-name constants (`SHEET_USERS`, etc.) |
-| `Profile.gs` | `getUserProfile()` — main data fetch; calculates eligibility, tenure, match tier |
-| `Action.gs` | `processEnrollment`, `processChangePlan`, `processUpdateBeneficiaries`, `checkPlanChangeEligibility` |
+| `Profile.gs` | `getUserProfile()` — main data fetch; calculates eligibility, tenure, match tier; `getPendingTransactions()` (in-progress box; cancellable actions only) |
+| `Action.gs` | `processEnrollment`, `processChangePlan`, `processUpdateBeneficiaries`, `checkPlanChangeEligibility`, `cancelTransaction` |
 | `Withdraw.gs` | `processWithdrawal` |
-| `Utils.gs` | `calculateMatchTier(years)`, `reportIssueToAdmin()` |
+| `Email.gs` | `sendActionConfirmation({...})` — bilingual (Thai-first) confirmation emails; never throws. Wired into enrollment, change-plan, withdrawal, and cancel. Beneficiary pending (Phase F) |
+| `Letter.gs` | `generateLetter(type, ctx, sigDataUrl)` — Google Doc template → PDF (placeholder fill, plain-text beneficiary list, embedded signature), archived in Drive. May throw — caller wraps in try/catch. Template/folder IDs hard-coded as top-of-file consts (`PF_*`); move to Script Properties before prod. Wired into enrollment; beneficiary pending (Phase F). `testGenerateLetter()` is an editor-run harness |
+| `Utils.gs` | `calculateMatchTier(years)`, `reportIssueToAdmin()`, `generateTransactionId(prefix)`, `appendRowToSheet(sheet, rowObj)`, `getEffectiveDate(submittedAt)`, `patchAuditEventData(txId, eventType, fields)` |
 
 ### Frontend (`html/` — included via `<?!= include('filename') ?>`)
 
@@ -48,10 +50,11 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 - **5-year vesting:** employer match only paid out on withdrawal if `tenureY >= 5` (shown in withdrawal modal).
 - **Probation block:** future `Probation_End` → cannot enroll.
 - **Beneficiaries:** stored as JSON in `Beneficiary_Data`; max 4; pct must sum to exactly 100.
+- **Confirmation emails:** every action handler calls `sendActionConfirmation(...)` *after* sheet writes succeed, then `patchAuditEventData(...)` to stamp `emailSent`/`emailError`. Email/letter failure must NEVER block or roll back the action — the handler still returns success. The cancel-line ("To cancel this request…") is added only for `SUBMITTED` events of cancellable actions; exclude beneficiary/investment SUBMITTED when those get wired.
 
 ## GAS-specific gotchas
 
-- **No local toolchain.** Edit → `clasp push` (or paste into GAS editor) → deploy as Web App → test in browser. No automated tests.
+- **No local toolchain.** Edit → paste/sync into the GAS editor → deploy as Web App → test in browser. No automated tests, no `clasp`.
 - **Frontend → backend:** only `google.script.run.withSuccessHandler(fn).withFailureHandler(fn).serverFunction(args)`. No fetch / REST.
 - **User identity:** `Session.getActiveUser().getEmail()` server-side.
 - **HTML templating:** entry point MUST use `HtmlService.createTemplateFromFile(...).evaluate()` — `createHtmlOutputFromFile` will silently fail to render `<?!= include() ?>` scriptlets.

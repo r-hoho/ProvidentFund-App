@@ -11,20 +11,31 @@ function processEnrollment(payload, deviceData) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const today = new Date();
 
-    // 1. Find User ID
+    // 1. Find User ID (+ profile fields needed for the confirmation letter)
     const usersData = ss.getSheetByName("Users").getDataRange().getValues();
     const emailCol = usersData[0].indexOf("Work_Email");
     const idCol = usersData[0].indexOf("Allstars_ID");
+    const nameColU = usersData[0].indexOf("Name_English");
+    const titleColU = usersData[0].indexOf("Business_Title");
+    const hireColU = usersData[0].indexOf("Hire_Date");
 
     let allstarsId = null;
+    let userName = "", userTitle = "", userHireDate = "";
     for (let i = 1; i < usersData.length; i++) {
       if (usersData[i][emailCol].toString().trim().toLowerCase() === email.toLowerCase()) {
         allstarsId = usersData[i][idCol];
+        userName = usersData[i][nameColU];
+        userTitle = usersData[i][titleColU];
+        userHireDate = usersData[i][hireColU];
         break;
       }
     }
 
     if (!allstarsId) return { success: false, msg: `User not found: ${email}` };
+
+    // Transaction id is owned by the handler so it threads into audit + letter + email + patch.
+    const transactionId = generateTransactionId("EN");
+    let wasFirstEnrollment = false;
 
     // 2. Update 'Enrollments' Sheet
     const enrollSheet = ss.getSheetByName("Enrollments");
@@ -52,13 +63,14 @@ function processEnrollment(payload, deviceData) {
       };
       
       const currentFirstDate = enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).getValue();
-      if (!currentFirstDate || currentFirstDate === "") enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).setValue(today);
-      
+      wasFirstEnrollment = (!currentFirstDate || currentFirstDate === "");
+      if (wasFirstEnrollment) enrollSheet.getRange(enrollRowIdx, firstDateCol + 1).setValue(today);
+
       enrollSheet.getRange(enrollRowIdx, currentDateCol + 1).setValue(today);
       enrollSheet.getRange(enrollRowIdx, planCol + 1).setValue(contributionPlan);
       enrollSheet.getRange(enrollRowIdx, invCol + 1).setValue(investmentPlan);
 
-      writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues);
+      writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues, transactionId);
     } else {
        const priorValues = {
         "First_Enrolled_Date": "",
@@ -74,7 +86,8 @@ function processEnrollment(payload, deviceData) {
       newRow[invCol] = investmentPlan;
       newRow[wdCountCol] = 0;
       enrollSheet.appendRow(newRow);
-      writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues);
+      wasFirstEnrollment = true;
+      writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues, transactionId);
     }
 
     // 3. Append to 'Beneficiaries' Ledger
@@ -84,6 +97,62 @@ function processEnrollment(payload, deviceData) {
     // Schema: Timestamp | Allstars_ID | Work_Email | Beneficiary_Data
     benSheet.appendRow([today, allstarsId, email, beneficiariesJSON]);
 
+    // 4. Signed PDF letter + confirmation email — best-effort, must NEVER block
+    //    the enrollment. Letter/email failures are logged to the audit row only.
+    const tz = "Asia/Bangkok";
+    const fmtDate = d => (d instanceof Date) ? Utilities.formatDate(d, tz, "dd MMM yyyy") : (d || "").toString();
+    let tenureYears = 0;
+    if (userHireDate instanceof Date) {
+      tenureYears = (today.getTime() - userHireDate.getTime()) / (1000 * 3600 * 24 * 365.25);
+    }
+
+    const ctx = {
+      nameEn: userName,
+      allstarsId: allstarsId,
+      businessTitle: userTitle,
+      workEmail: email,
+      hireDate: fmtDate(userHireDate),
+      // Membership start: hire date on first enrollment, else this re-enrollment date.
+      memberSinceDate: fmtDate(wasFirstEnrollment ? userHireDate : today),
+      planPct: (parseFloat(contributionPlan) * 100).toFixed(0) + "%",
+      employerMatchPct: calculateMatchTier(tenureYears),
+      investmentPlan: investmentPlan,
+      effectiveDate: getEffectiveDate(today),
+      transactionId: transactionId,
+      beneficiaries: []
+    };
+    try { ctx.beneficiaries = JSON.parse(beneficiariesJSON) || []; } catch (e) { /* keep [] */ }
+
+    let letterFileId = null, letterError = null;
+    try {
+      const r = generateLetter("ENROLLMENT", ctx, payload.sigDataUrl);
+      letterFileId = r.fileId;
+    } catch (e) {
+      letterError = e.toString();
+    }
+
+    const emailResult = sendActionConfirmation({
+      userEmail: email,
+      userName: userName,
+      actionType: "Enroll",
+      eventType: "SUBMITTED",
+      details: {
+        planPct: contributionPlan,
+        investmentPlan: investmentPlan,
+        effectiveDate: ctx.effectiveDate,
+        transactionId: transactionId
+      },
+      attachmentFileId: letterFileId
+    });
+
+    patchAuditEventData(transactionId, "SUBMITTED", {
+      letterFileId: letterFileId,
+      letterError: letterError,
+      emailSent: emailResult.sent,
+      emailError: emailResult.error || null,
+      signedAt: payload.sigDataUrl ? today : null
+    });
+
     return { success: true };
 
   } catch (error) {
@@ -91,12 +160,11 @@ function processEnrollment(payload, deviceData) {
   }
 }
 
-function writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues){
+function writeEnrollmentAudit(allstarsId, email, contributionPlan, investmentPlan, beneficiariesJSON, deviceData, priorValues, transactionId){
     const today = new Date();
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const auditSheet = ss.getSheetByName("Audit_Log");
     const formattedPlan = (parseFloat(contributionPlan) * 100).toFixed(0) + "%";
-    const transactionId = generateTransactionId("EN");
     const eventData = {
       "priorValues": priorValues,
       "newValues": {
