@@ -15,11 +15,15 @@
 //   PF_ENROLLMENT_TEMPLATE_ID   (required)
 //   PF_BENEFICIARY_TEMPLATE_ID  (optional — falls back to enrollment template)
 //   PF_LETTERS_FOLDER_ID        (required)
-const PF_ENROLLMENT_TEMPLATE_ID  = "1dJhbHiftXafuq7usbhjX-i6rkqBbxzJ1X10MiVpqBj8";
-const PF_BENEFICIARY_TEMPLATE_ID = ""; // leave "" to reuse the enrollment template
+const PF_ENROLLMENT_TEMPLATE_ID  = "1NCs39r4dP4gAfbuCmOfBK5v-BcmEug9Jx6E_mySekJI";
+const PF_BENEFICIARY_TEMPLATE_ID = "1qAb7baZu7PYurZIMcZq86TXGJfqNIEpitjYj8l2QRnA"; // page-2-only beneficiary letter
 const PF_LETTERS_FOLDER_ID       = "1nBmGnxydfUtjFM9vEwA9hdM0_E7Iu1dX"; // "" → template's parent folder
 
-const PF_SIG_MAX_WIDTH = 220; // px — signature image max render width (height scales to preserve aspect)
+// Signature render box (points). The image is scaled to FIT inside this box,
+// preserving aspect — capped on BOTH dimensions so a tall/portrait pad capture
+// can't balloon vertically. ~220×80 ≈ a normal signature footprint.
+const PF_SIG_MAX_WIDTH = 220;
+const PF_SIG_MAX_HEIGHT = 80;
 
 // Thai month names for the bilingual {{date_today}} placeholder (Gregorian year).
 const PF_THAI_MONTHS = [
@@ -140,41 +144,53 @@ function fillPlaceholders(body, values) {
 
 /**
  * Replaces the {{beneficiary_table}} marker with a plain-text list, one
- * beneficiary per line: "- Name (Relationship) — 60%".
+ * beneficiary per line: "- Name (Relationship) — 60%". If a beneficiary
+ * carries an optional `address`, it is shown on an indented second line.
+ * (Address is forward-compatible — older data without it just omits the line.)
  */
 function fillBeneficiaryList(body, beneficiaries) {
-  const lines = beneficiaries.map(b => `- ${b.name} (${b.rel}) — ${b.pct}%`).join("\n");
+  const lines = beneficiaries.map(b => {
+    let line = `- ${b.name} (${b.rel}) — ${b.pct}%`;
+    if (b.address) line += `\n    ที่อยู่ / Address: ${b.address}`;
+    return line;
+  }).join("\n");
   body.replaceText("\\{\\{beneficiary_table\\}\\}", lines || "-");
 }
 
 /**
- * Replaces the {{signature_image}} marker (which must sit alone on its own
- * paragraph) with the decoded signature PNG, scaled to PF_SIG_MAX_WIDTH (aspect preserved).
- * Clearing then appending into the same paragraph preserves the paragraph's
- * position and alignment, so the image lands exactly where the marker was.
+ * Replaces EVERY {{signature_image}} marker (each must sit alone on its own
+ * paragraph) with the decoded signature PNG, scaled to PF_SIG_MAX_WIDTH (aspect
+ * preserved). A template may contain more than one marker (e.g. a combined
+ * enrollment + beneficiary letter signs on each page), so we loop until none
+ * remain. Clearing then appending into the same paragraph preserves the
+ * paragraph's position and alignment, so each image lands where its marker was.
  */
 function insertSignatureImage(body, sigDataUrl) {
-  const found = body.findText("\\{\\{signature_image\\}\\}");
-  if (!found) return; // no marker — skip
+  let found = body.findText("\\{\\{signature_image\\}\\}");
+  while (found) {
+    const sigPar = found.getElement().getParent().asParagraph();
+    sigPar.clear(); // removes the marker text — so the next findText won't re-match this paragraph
 
-  const sigPar = found.getElement().getParent().asParagraph();
-  sigPar.clear();
+    if (sigDataUrl) {
+      const blob = decodeSignatureBlob(sigDataUrl);
+      const image = sigPar.appendInlineImage(blob);
 
-  if (!sigDataUrl) return; // marker cleared, no image to insert
+      // Scale to FIT inside the PF_SIG_MAX_WIDTH × PF_SIG_MAX_HEIGHT box while
+      // preserving the drawn aspect ratio. Using the smaller of the two scale
+      // factors caps both dimensions, so a tall/portrait pad capture can't
+      // balloon vertically. Never upscales (scale capped at 1). Falls back to
+      // width-only if the natural size can't be read.
+      const natW = image.getWidth();
+      const natH = image.getHeight();
+      if (natW > 0 && natH > 0) {
+        const scale = Math.min(PF_SIG_MAX_WIDTH / natW, PF_SIG_MAX_HEIGHT / natH, 1);
+        image.setWidth(Math.round(natW * scale)).setHeight(Math.round(natH * scale));
+      } else {
+        image.setWidth(PF_SIG_MAX_WIDTH);
+      }
+    }
 
-  const blob = decodeSignatureBlob(sigDataUrl);
-  const image = sigPar.appendInlineImage(blob);
-
-  // Scale to fit PF_SIG_MAX_WIDTH while preserving the drawn aspect ratio, so a
-  // taller/wider pad never gets squished. Falls back to width-only if the
-  // natural size can't be read.
-  const natW = image.getWidth();
-  const natH = image.getHeight();
-  if (natW > 0 && natH > 0) {
-    const scale = PF_SIG_MAX_WIDTH / natW;
-    image.setWidth(Math.round(natW * scale)).setHeight(Math.round(natH * scale));
-  } else {
-    image.setWidth(PF_SIG_MAX_WIDTH);
+    found = body.findText("\\{\\{signature_image\\}\\}"); // next marker, if any
   }
 }
 
@@ -223,12 +239,45 @@ function testGenerateLetter() {
     effectiveDate: "30 Jun 2026",
     transactionId: "EN-20260602-test",
     beneficiaries: [
-      { name: "Malee Testsubject", rel: "Spouse", pct: 60 },
-      { name: "Niran Testsubject", rel: "Child", pct: 40 }
+      { name: "มาลี ใจดี", rel: "Spouse", pct: 30, address: "99/1 หมู่ 4 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110" },
+      { name: "นิรันดร์ ใจดี", rel: "Child", pct: 25, address: "99/1 หมู่ 4 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110" },
+      { name: "สมศรี รักเรียน", rel: "Parent", pct: 20, address: "123 ถนนพหลโยธิน ตำบลในเมือง อำเภอเมือง จังหวัดเชียงใหม่ 50000" },
+      { name: "อาทิตย์ แสงทอง", rel: "Relative", pct: 15, address: "45/6 ซอยลาดพร้าว 15 แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900" },
+      { name: "John Smith", rel: "Friend", pct: 10, address: "200 Sukhumvit Rd, Khlong Toei, Bangkok 10110" }
     ]
   };
 
   const result = generateLetter("ENROLLMENT", ctx, sampleSig);
+  Logger.log("PDF created: " + result.fileName);
+  Logger.log("URL: " + result.fileUrl);
+  return result;
+}
+
+/**
+ * Beneficiary-letter variant of the harness — exercises PF_BENEFICIARY_TEMPLATE_ID
+ * (the page-2-only template). Reuses the same sample beneficiaries/signature.
+ */
+function testGenerateBeneficiaryLetter() {
+  const sampleSig =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABQCAIAAADTD63nAAAAqElEQVR42u3SMQ0AAAgEsVeCECSimgELjE2q4HKpHngXCTAWxsJYYCyMhbHAWBgLY4GxMBbGAmNhLIwFxsJYGAuMhbEwFhgLY2EsMBbGwlhgLIyFscBYGAtjgbEwFsYCY2EsjAXGwlgYC4yFsTAWGAtjYSwwFsbCWGAsjIWxwFgYC2OBsTAWxgJjYSyMBcbCWBgLjIWxMBYYC2NhLDAWxsJYYCyMhbHgLM5RMDqs0YcwAAAAAElFTkSuQmCC";
+
+  const ctx = {
+    nameEn: "Somchai Testsubject",
+    allstarsId: "TEST-001",
+    businessTitle: "Software Engineer",
+    workEmail: "somchai.test@example.com",
+    effectiveDate: "06 Jun 2026",
+    transactionId: "BN-20260606-test",
+    beneficiaries: [
+      { name: "มาลี ใจดี", rel: "Spouse", pct: 30, address: "99/1 หมู่ 4 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110" },
+      { name: "นิรันดร์ ใจดี", rel: "Child", pct: 25, address: "99/1 หมู่ 4 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110" },
+      { name: "สมศรี รักเรียน", rel: "Parent", pct: 20, address: "123 ถนนพหลโยธิน ตำบลในเมือง อำเภอเมือง จังหวัดเชียงใหม่ 50000" },
+      { name: "อาทิตย์ แสงทอง", rel: "Relative", pct: 15, address: "45/6 ซอยลาดพร้าว 15 แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900" },
+      { name: "John Smith", rel: "Friend", pct: 10, address: "200 Sukhumvit Rd, Khlong Toei, Bangkok 10110" }
+    ]
+  };
+
+  const result = generateLetter("BENEFICIARY", ctx, sampleSig);
   Logger.log("PDF created: " + result.fileName);
   Logger.log("URL: " + result.fileUrl);
   return result;
