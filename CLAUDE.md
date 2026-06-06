@@ -50,7 +50,7 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 - **Withdrawal limits:** 1st triggers 12-month re-enroll cooldown; 2nd is permanent lockout (`Withdrawal_Count >= 2`).
 - **5-year vesting:** employer match only paid out on withdrawal if `tenureY >= 5` (shown in withdrawal modal).
 - **Probation block:** future `Probation_End` → cannot enroll.
-- **Beneficiaries:** stored as JSON in `Beneficiary_Data`; max 4; pct must sum to exactly 100.
+- **Beneficiaries:** stored as JSON in `Beneficiary_Data`; max 5; pct must sum to exactly 100.
 - **Confirmation emails:** every action handler calls `sendActionConfirmation(...)` *after* sheet writes succeed, then `patchAuditEventData(...)` to stamp `emailSent`/`emailError`. Email/letter failure must NEVER block or roll back the action — the handler still returns success. The cancel-line ("To cancel this request…") is added only for `SUBMITTED` events of cancellable actions; exclude beneficiary/investment SUBMITTED when those get wired.
 
 ## GAS-specific gotchas

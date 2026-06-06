@@ -212,7 +212,7 @@
   }
 
   function addBeneficiary() {
-    if (wizData.beneficiaries.length < 4) {
+    if (wizData.beneficiaries.length < 5) {
       wizData.beneficiaries.push({ name: '', rel: '', pct: 0 });
       renderBeneficiaries(); validateStep();
     }
@@ -262,7 +262,7 @@
       `;
       list.appendChild(card);
     });
-    document.getElementById('addBenBtn').style.display = wizData.beneficiaries.length >= 4 ? 'none' : 'block';
+    document.getElementById('addBenBtn').style.display = wizData.beneficiaries.length >= 5 ? 'none' : 'block';
   }
 
   function updateWizardUI() {

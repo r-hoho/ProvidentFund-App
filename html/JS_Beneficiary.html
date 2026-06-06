@@ -109,7 +109,7 @@
   }
 
   function addUpdateBeneficiary() {
-    if (editBenData.length < 4) { editBenData.push({ name: '', rel: '', pct: 0 }); renderUpdateBeneficiaries(); }
+    if (editBenData.length < 5) { editBenData.push({ name: '', rel: '', pct: 0 }); renderUpdateBeneficiaries(); }
   }
 
   function removeUpdateBeneficiary(index) {
@@ -144,7 +144,7 @@
       `;
       list.appendChild(card);
     });
-    document.getElementById('addUpdateBenBtn').style.display = editBenData.length >= 4 ? 'none' : 'block';
+    document.getElementById('addUpdateBenBtn').style.display = editBenData.length >= 5 ? 'none' : 'block';
     validateUpdateBen();
   }
 

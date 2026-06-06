@@ -60,7 +60,7 @@
 
 ### Sheet 3: `Beneficiaries` (append-only ledger)
 * `Timestamp | Allstars_ID | Work_Email | Beneficiary_Data`
-* `Beneficiary_Data` is a JSON-stringified array (max 4 entries, each with `name`, `rel`, `pct`; pct values must sum to exactly 100).
+* `Beneficiary_Data` is a JSON-stringified array (max 5 entries, each with `name`, `rel`, `pct`; pct values must sum to exactly 100).
 * The newest matching row is the active record; the full set of matching rows forms the user-visible history timeline.
 
 ### Sheet 4: `Audit_Log` (append-only)
@@ -117,7 +117,7 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 * **Lifetime Withdrawal Limit:** 2 withdrawals per employee lifecycle. 2nd withdrawal puts the user into permanent lockout.
 * **Withdrawal Cooldown:** 12-month re-enrollment lockout after the first withdrawal.
 * **Probation Block:** Users with a future `Probation_End` cannot enroll.
-* **Beneficiaries:** Max 4 entries; percentages must sum to exactly 100.
+* **Beneficiaries:** Max 5 entries; percentages must sum to exactly 100.
 
 ---
 
@@ -159,11 +159,11 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 * **Enrollment Wizard** (full-screen overlay, 4 steps):
   1. Select contribution % (3 / 5 / 7 / 10 / 15)
   2. Select investment plan (1–4, conservative → aggressive)
-  3. Add beneficiaries (max 4, must sum to 100%)
+  3. Add beneficiaries (max 5, must sum to 100%)
   4. Summary + effective-date banner → `processEnrollment()`
 * **Change Contribution Plan** (`<dialog>`): shows current %, lets user pick a new %, includes 1-year-lock warning + effective-date banner → `processChangePlan()`. Locked variant shown if within 12-month window.
 * **Change Investment Plan:** Opens a bilingual informational modal explaining that investment plan changes are managed in the bank's app, with a button linking out (bank name + URL are placeholders until provided). No backend write, no audit event, no 12-month lock — the bank app is the source of truth for investment plan post-enrollment. Initial selection still happens in step 2 of the enrollment wizard.
-* **Beneficiary Manager** (full-screen overlay, 3 views): Current → Edit (same 4-max / 100% rules) → History timeline (from the append-only ledger) → `processUpdateBeneficiaries()`.
+* **Beneficiary Manager** (full-screen overlay, 3 views): Current → Edit (same 5-max / 100% rules) → History timeline (from the append-only ledger) → `processUpdateBeneficiaries()`.
 * **Withdraw** (`<dialog>`): shows tenure, dual eligibility rows (own contributions + returns — always eligible; employer match + returns — gated by 5-year vesting), penalty list, effective-date banner, mandatory acknowledgement checkbox → `processWithdrawal()`.
 
 ---
