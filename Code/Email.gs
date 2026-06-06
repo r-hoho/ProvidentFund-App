@@ -33,6 +33,11 @@ function sendActionConfirmation(p) {
     const CANCELLABLE = ["Enroll", "Change Plan", "Withdraw"];
     const showCancelLine = p.eventType === "SUBMITTED" && CANCELLABLE.indexOf(p.actionType) !== -1;
 
+    // Web-app URL for the "open application" button (best-effort; empty if the
+    // script isn't deployed as a web app or the URL can't be read).
+    let appUrl = "";
+    try { appUrl = ScriptApp.getService().getUrl() || ""; } catch (e) { appUrl = ""; }
+
     const thai = [
       `สวัสดีคุณ ${p.userName},`,
       ``,
@@ -64,7 +69,16 @@ function sendActionConfirmation(p) {
     const body = `${thai}\n\n---\n\n${en}\n\n— Allstars Provident Fund System`;
     const subject = `[กองทุนสำรองเลี้ยงชีพ / Provident Fund] ${content.subject}`;
 
-    const options = { name: "Allstars Provident Fund" };
+    const htmlBody = buildHtmlEmail({
+      userName: p.userName,
+      content: content,
+      txId: p.details.transactionId,
+      submittedAt: submittedAt,
+      showCancelLine: showCancelLine,
+      appUrl: appUrl,
+    });
+
+    const options = { name: "Allstars Provident Fund", htmlBody: htmlBody };
     if (p.attachmentFileId) {
       options.attachments = [DriveApp.getFileById(p.attachmentFileId).getBlob()];
     }
@@ -192,4 +206,91 @@ function buildEmailContent(actionType, eventType, details) {
     enAction: actionType,
     enDetails: [],
   };
+}
+
+// ==========================================
+// HTML EMAIL TEMPLATE
+// ==========================================
+// Minimal, single-accent (red) HTML body matching the plain-text content. Uses
+// table layout + inline styles only (email-client safe — no <style>, flexbox,
+// or external CSS). Thai block first, divider, then English, mirroring the
+// plain-text fallback. PF_EMAIL_ACCENT is the single colour to tweak.
+
+const PF_EMAIL_ACCENT = "#FF0000"; // primary red — Pantone 485C (R255 G0 B0)
+
+/** Escapes the 4 HTML-significant chars so dynamic values can't break layout. */
+function escapeHtml(s) {
+  return String(s === undefined || s === null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+/**
+ * Builds the bilingual HTML email body.
+ * @param {Object} o  { userName, content, txId, submittedAt, showCancelLine, appUrl }
+ * @return {string} full HTML document
+ */
+function buildHtmlEmail(o) {
+  const A = PF_EMAIL_ACCENT;
+
+  function block(isTh) {
+    const greeting = isTh ? `สวัสดีคุณ ${escapeHtml(o.userName)},` : `Hi ${escapeHtml(o.userName)},`;
+    const intro    = isTh ? "ระบบได้รับคำขอของคุณแล้ว" : "Your request has been received";
+    const actLabel = isTh ? "ประเภท" : "Action";
+    const action   = isTh ? o.content.thaiAction : o.content.enAction;
+    const details  = isTh ? o.content.thaiDetails : o.content.enDetails;
+    const idLabel  = isTh ? "รหัสรายการ" : "Transaction ID";
+    const timeLabel= isTh ? "เวลาที่ส่ง" : "Submitted at";
+    const timeVal  = isTh ? `${escapeHtml(o.submittedAt)} น.` : `${escapeHtml(o.submittedAt)} (Bangkok)`;
+    const cancelTxt= isTh ? "หากต้องการยกเลิกคำขอนี้ กรุณาเข้าสู่ระบบแอปพลิเคชัน"
+                          : "To cancel this request, please open the application.";
+    const btnTxt   = isTh ? "เปิดแอปพลิเคชัน" : "Open application";
+
+    const detailRows = (details || [])
+      .map(d => `<div style="margin:3px 0;">${escapeHtml(d)}</div>`).join("");
+
+    let cancel = "";
+    if (o.showCancelLine) {
+      cancel = `<div style="margin-top:16px;color:#555;">${cancelTxt}</div>`;
+      if (o.appUrl) {
+        cancel += `<div style="margin-top:12px;"><a href="${escapeHtml(o.appUrl)}" `
+          + `style="display:inline-block;background:${A};color:#ffffff;text-decoration:none;`
+          + `font-size:14px;padding:10px 22px;border-radius:6px;">${btnTxt}</a></div>`;
+      }
+    }
+
+    return `
+      <div style="font-weight:bold;margin-bottom:4px;">${greeting}</div>
+      <div style="margin-bottom:14px;color:#555;">${intro}</div>
+      <div style="background:#f7f7f7;border-radius:6px;padding:14px 16px;">
+        <div style="margin:3px 0;">${actLabel}: <strong>${escapeHtml(action)}</strong></div>
+        ${detailRows}
+        <div style="margin-top:12px;color:#888;font-size:12px;line-height:1.5;">
+          ${idLabel}: ${escapeHtml(o.txId)}<br>${timeLabel}: ${timeVal}
+        </div>
+      </div>
+      ${cancel}`;
+  }
+
+  return `<!doctype html><html><body style="margin:0;padding:0;background:#f4f4f4;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:24px 0;">
+      <tr><td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-top:4px solid ${A};font-family:Arial,Helvetica,sans-serif;color:#222;font-size:14px;line-height:1.6;">
+          <tr><td style="padding:22px 32px 4px;">
+            <div style="font-size:15px;font-weight:bold;color:${A};">กองทุนสำรองเลี้ยงชีพ / Provident Fund</div>
+          </td></tr>
+          <tr><td style="padding:12px 32px 24px;">
+            ${block(true)}
+            <hr style="border:none;border-top:1px solid #eee;margin:24px 0;">
+            ${block(false)}
+          </td></tr>
+          <tr><td style="padding:16px 32px;background:#fafafa;color:#999;font-size:12px;line-height:1.5;border-top:1px solid #eee;">
+            อีเมลนี้จัดทำโดยระบบอัตโนมัติ โปรดอย่าตอบกลับ<br>
+            This is an automated message — please do not reply.<br>
+            — Allstars Provident Fund System
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body></html>`;
 }
