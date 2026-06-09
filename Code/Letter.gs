@@ -10,14 +10,19 @@
 // throw — the caller (action handler) wraps generateLetter() in its own
 // try/catch so a letter failure logs letterError but never blocks the action.
 //
-// Template IDs + folder are hard-coded below for now (Phase D testing). Move to
-// Script Properties before production so the IDs aren't in source.
+// Template IDs + folder live in Script Properties so the IDs aren't in source.
+// Set them in the Apps Script editor: Project Settings ⚙ → Script Properties.
 //   PF_ENROLLMENT_TEMPLATE_ID   (required)
-//   PF_BENEFICIARY_TEMPLATE_ID  (optional — falls back to enrollment template)
-//   PF_LETTERS_FOLDER_ID        (required)
-const PF_ENROLLMENT_TEMPLATE_ID  = "1NCs39r4dP4gAfbuCmOfBK5v-BcmEug9Jx6E_mySekJI";
-const PF_BENEFICIARY_TEMPLATE_ID = "1qAb7baZu7PYurZIMcZq86TXGJfqNIEpitjYj8l2QRnA"; // page-2-only beneficiary letter
-const PF_LETTERS_FOLDER_ID       = "1nBmGnxydfUtjFM9vEwA9hdM0_E7Iu1dX"; // "" → template's parent folder
+//   PF_BENEFICIARY_TEMPLATE_ID  (optional — falls back to the enrollment template)
+//   PF_LETTERS_FOLDER_ID        (optional — "" / unset → the template's parent folder)
+function getLetterConfig_() {
+  const props = PropertiesService.getScriptProperties();
+  return {
+    enrollmentTemplateId:  props.getProperty("PF_ENROLLMENT_TEMPLATE_ID")  || "",
+    beneficiaryTemplateId: props.getProperty("PF_BENEFICIARY_TEMPLATE_ID") || "",
+    lettersFolderId:       props.getProperty("PF_LETTERS_FOLDER_ID")       || ""
+  };
+}
 
 // Signature render box (points). The image is scaled to FIT inside this box,
 // preserving aspect — capped on BOTH dimensions so a tall/portrait pad capture
@@ -42,18 +47,19 @@ const PF_THAI_MONTHS = [
  * @return {{fileId: string, fileUrl: string, fileName: string}}
  */
 function generateLetter(type, ctx, sigDataUrl) {
+  const cfg = getLetterConfig_();
   const isBeneficiary = (type === "BENEFICIARY");
   const templateId = isBeneficiary
-    ? (PF_BENEFICIARY_TEMPLATE_ID || PF_ENROLLMENT_TEMPLATE_ID)
-    : PF_ENROLLMENT_TEMPLATE_ID;
+    ? (cfg.beneficiaryTemplateId || cfg.enrollmentTemplateId)
+    : cfg.enrollmentTemplateId;
   if (!templateId) {
-    throw new Error("PF_ENROLLMENT_TEMPLATE_ID is not set in Letter.gs.");
+    throw new Error("PF_ENROLLMENT_TEMPLATE_ID is not set in Script Properties (Project Settings → Script Properties).");
   }
 
-  // Letters folder: hard-coded id when set, else fall back to the template's
+  // Letters folder: configured id when set, else fall back to the template's
   // own parent folder (handy for testing before a dedicated folder exists).
-  const lettersFolder = PF_LETTERS_FOLDER_ID
-    ? DriveApp.getFolderById(PF_LETTERS_FOLDER_ID)
+  const lettersFolder = cfg.lettersFolderId
+    ? DriveApp.getFolderById(cfg.lettersFolderId)
     : getFirstParentFolder(templateId);
 
   const subfolderName = isBeneficiary ? "Beneficiary" : "Enrollment";

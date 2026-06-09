@@ -13,8 +13,8 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 | `Profile.gs` | `getUserProfile()` — main data fetch; calculates eligibility, tenure, match tier; `getPendingTransactions()` (in-progress box; cancellable actions only) |
 | `Action.gs` | `processEnrollment`, `processChangePlan`, `processUpdateBeneficiaries`, `checkPlanChangeEligibility`, `cancelTransaction` |
 | `Withdraw.gs` | `processWithdrawal` |
-| `Email.gs` | `sendActionConfirmation({...})` — bilingual (Thai-first) confirmation emails; never throws. Wired into enrollment, beneficiary, change-plan, withdrawal, and cancel. Cancel-line shown only for cancellable actions (`Enroll`/`Change Plan`/`Withdraw`) |
-| `Letter.gs` | `generateLetter(type, ctx, sigDataUrl)` — Google Doc template → PDF (placeholder fill, plain-text beneficiary list, drawn signature embedded at `PF_SIG_MAX_WIDTH` preserving aspect), archived in Drive. May throw — caller wraps in try/catch. Template/folder IDs hard-coded as top-of-file consts (`PF_*`); move to Script Properties before prod. Wired into enrollment + beneficiary (beneficiary reuses the enrollment template until `PF_BENEFICIARY_TEMPLATE_ID` is set). `testGenerateLetter()` is an editor-run harness |
+| `Email.gs` | `sendActionConfirmation({...})` — bilingual (Thai-first) confirmation emails; never throws. Body is a styled responsive HTML table (`buildHtmlEmail()`); all user-supplied values run through `escapeHtml()`. Wired into enrollment, beneficiary, change-plan, withdrawal, and cancel. Cancel-line shown only for cancellable actions (`Enroll`/`Change Plan`/`Withdraw`) |
+| `Letter.gs` | `generateLetter(type, ctx, sigDataUrl)` — Google Doc template → PDF (placeholder fill, plain-text beneficiary list, drawn signature embedded scaled to fit `PF_SIG_MAX_WIDTH × PF_SIG_MAX_HEIGHT` preserving aspect), archived in Drive. May throw — caller wraps in try/catch. Template/folder IDs read from Script Properties via `getLetterConfig_()` (`PF_ENROLLMENT_TEMPLATE_ID`, `PF_BENEFICIARY_TEMPLATE_ID`, `PF_LETTERS_FOLDER_ID`); set them under Project Settings → Script Properties (not in source). Wired into enrollment + beneficiary — beneficiary uses its own page-2-only template (`PF_BENEFICIARY_TEMPLATE_ID`, set; falls back to the enrollment template only if unset). `testGenerateLetter()` / `testGenerateBeneficiaryLetter()` are editor-run harnesses |
 | `Utils.gs` | `calculateMatchTier(years)`, `reportIssueToAdmin()`, `generateTransactionId(prefix)`, `appendRowToSheet(sheet, rowObj)`, `getEffectiveDate(submittedAt)`, `patchAuditEventData(txId, eventType, fields)` |
 
 ### Frontend (`html/` — included via `<?!= include('filename') ?>`)
@@ -27,7 +27,7 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 | `JS_Beneficiary.html` | Beneficiary manager (4 views: current / edit / history / sign) |
 | `JS_Withdraw.html` | Withdrawal flow with 5-year vesting check |
 | `JS_Utils.html` | Shared helpers (`getEffectiveDateInfo`, effective-date banner) |
-| `JS_Signature.html` | Shared `window.PFSignature` helper over signature_pad (CDN): `mount/isEmpty/getDataUrl/clear/destroy`; hi-DPI, dark-blue ink. Used by enrollment step 5 + beneficiary sign view |
+| `JS_Signature.html` | Shared `window.PFSignature` helper over signature_pad (CDN): `mount/isEmpty/getDataUrl/clear/destroy`; hi-DPI, dark-blue ink. `getDataUrl()` auto-trims the export to the ink's bounding box (`trimToInk`, alpha-scan + 8px pad) so a small/corner signature exports tight. Used by enrollment step 5 + beneficiary sign view |
 | `Modals.html` | Enrollment wizard, change-plan dialog, beneficiary manager markup |
 | `Modals_Withdraw.html` | Withdrawal `<dialog>` markup |
 
