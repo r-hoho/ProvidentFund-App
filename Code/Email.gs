@@ -163,7 +163,7 @@ function sendLetterFailureAlert(p) {
 
 /**
  * Returns the bilingual subject + per-action detail lines for an action/event.
- * thaiDetails / enDetails are the middle lines (รายละเอียด, วันที่มีผล, ...) —
+ * thaiDetails / enDetails are the middle lines (รายละเอียด, payroll month, ...) —
  * the greeting, transaction id, and submitted-at lines are added by the caller.
  */
 function buildEmailContent(actionType, eventType, details) {
@@ -185,14 +185,14 @@ function buildEmailContent(actionType, eventType, details) {
       thaiDetails: [
         `อัตราเงินสะสม: ${pct(details.planPct)}`,
         `แผนการลงทุน: ${details.investmentPlan}`,
-        `วันที่มีผล: ${details.effectiveDate}`,
+        `เริ่มหัก/มีผลกับเงินเดือนรอบ: ${details.effectiveMonth.th}`,
         `(แนบจดหมายยืนยันที่ลงนามแล้วในอีเมลฉบับนี้)`,
       ],
       enAction: ACTION_LABELS["Enroll"].en,
       enDetails: [
         `Contribution rate: ${pct(details.planPct)}`,
         `Investment plan: ${details.investmentPlan}`,
-        `Effective date: ${details.effectiveDate}`,
+        `First applies to payroll for: ${details.effectiveMonth.en}`,
         `(A signed confirmation letter is attached to this email)`,
       ],
     };
@@ -241,12 +241,12 @@ function buildEmailContent(actionType, eventType, details) {
       thaiAction: ACTION_LABELS["Change Plan"].th,
       thaiDetails: [
         `รายละเอียด: จาก ${pct(details.oldPct)} เป็น ${pct(details.newPct)}`,
-        `วันที่มีผล: ${details.effectiveDate}`,
+        `เริ่มหัก/มีผลกับเงินเดือนรอบ: ${details.effectiveMonth.th}`,
       ],
       enAction: ACTION_LABELS["Change Plan"].en,
       enDetails: [
         `Details: from ${pct(details.oldPct)} to ${pct(details.newPct)}`,
-        `Effective date: ${details.effectiveDate}`,
+        `First applies to payroll for: ${details.effectiveMonth.en}`,
       ],
     };
   }
@@ -259,11 +259,11 @@ function buildEmailContent(actionType, eventType, details) {
       subject: "ยืนยันการลาออกจากกองทุน / Withdrawal Confirmation",
       thaiAction: ACTION_LABELS["Withdraw"].th,
       thaiDetails: [
-        `วันที่มีผล: ${details.effectiveDate}`,
+        `หักเงินสมทบครั้งสุดท้าย: ${details.effectiveMonth.th}`,
       ],
       enAction: ACTION_LABELS["Withdraw"].en,
       enDetails: [
-        `Effective date: ${details.effectiveDate}`,
+        `Final contribution deducted: ${details.effectiveMonth.en}`,
       ],
     };
   }

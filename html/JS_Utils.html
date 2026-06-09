@@ -3,8 +3,10 @@
   // SHARED UTILITIES
   // ==========================================
 
-  // Returns cut-off status and effective month-end date.
-  // on/before 15th → this month's end; 16th+ → next month's end.
+  // Returns cut-off status and the payroll month the action first applies to.
+  // on/before 15th → this month's payroll; 16th+ → next month's payroll.
+  // Framed as a salary month (not a month-end date) so users don't read it as a
+  // literal money-movement day. Mirrors the backend getEffectiveDate() cut-off rule.
   function getEffectiveDateInfo() {
     const today = new Date();
     const withinCutoff = today.getDate() <= 15;
@@ -16,26 +18,35 @@
       if (month > 11) { month = 0; year += 1; }
     }
 
-    const lastDay = new Date(year, month + 1, 0);
-    const dateStr = lastDay.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, '-');
+    const thaiMonths = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน',
+                        'กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+    const engMonths  = ['January','February','March','April','May','June',
+                        'July','August','September','October','November','December'];
 
-    return { withinCutoff, date: dateStr };
+    return {
+      withinCutoff,
+      monthTH: `${thaiMonths[month]} ${year}`,
+      monthEN: `${engMonths[month]} ${year}`
+    };
   }
 
   // Returns an HTML string for the effective date notice banner.
-  function effectiveDateBannerHTML() {
+  // context 'withdraw' flips the copy to the LAST contribution month (a withdrawal
+  // is deducted one final time that cycle); enroll/plan-change use the FIRST month.
+  function effectiveDateBannerHTML(context) {
     const info = getEffectiveDateInfo();
-    const label = info.withinCutoff
-      ? 'วันนี้อยู่ในรอบตัด / Within cut-off (on or before 15th)'
-      : 'วันนี้เลยรอบตัดแล้ว / Past cut-off (16th or later)';
-    const effectiveLabel = info.withinCutoff
-      ? 'มีผลบังคับ / Effective'
-      : 'มีผลบังคับในรอบถัดไป / Effective next cycle';
+    const statusTH = info.withinCutoff ? 'อยู่ในรอบตัดของเดือนนี้' : 'เลยรอบตัดของเดือนนี้แล้ว';
+    const statusEN = info.withinCutoff ? "Within this month's cut-off" : "Past this month's cut-off";
+    const isWithdraw = context === 'withdraw';
+    const labelTH = isWithdraw ? 'หักเงินสมทบครั้งสุดท้าย:' : 'เริ่มหัก/มีผลกับเงินเดือนรอบ:';
+    const labelEN = isWithdraw ? 'Final contribution deducted:' : 'First applies to payroll for:';
     return `
       <div style="margin-top:1rem; padding:0.75rem 1rem; border-radius:var(--pico-border-radius); background:#f8fafc; border:1px solid #cbd5e1; font-size:0.85rem; color:#475569;">
-        <strong>${label}</strong><br>
-        ${effectiveLabel}:<br>
-        <strong style="color:#1e293b; font-size:0.95rem;">${info.date}</strong>    
+        <strong>${statusTH}</strong><br>
+        ${statusEN}<br><br>
+        ${labelTH}<br>
+        ${labelEN}<br>
+        <strong style="color:#1e293b; font-size:0.95rem;">${info.monthTH} / ${info.monthEN}</strong>
       </div>`;
   }
 </script>

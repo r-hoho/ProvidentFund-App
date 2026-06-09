@@ -92,7 +92,7 @@ function processWithdrawal(deviceData) {
       actionType: "Withdraw",
       eventType: "SUBMITTED",
       details: {
-        effectiveDate: getEffectiveDate(today),
+        effectiveMonth: getEffectiveMonthLabel(today),
         transactionId: transactionId
       }
     });

@@ -117,7 +117,7 @@ function processEnrollment(payload, deviceData) {
       planPct: (parseFloat(contributionPlan) * 100).toFixed(0) + "%",
       employerMatchPct: calculateMatchTier(tenureYears),
       investmentPlan: investmentPlan,
-      effectiveDate: getEffectiveDate(today),
+      effectiveMonth: getEffectiveMonthLabel(today), // payroll month for the letter (matches banner/email)
       transactionId: transactionId,
       beneficiaries: []
     };
@@ -139,7 +139,7 @@ function processEnrollment(payload, deviceData) {
       details: {
         planPct: contributionPlan,
         investmentPlan: investmentPlan,
-        effectiveDate: ctx.effectiveDate,
+        effectiveMonth: getEffectiveMonthLabel(today),
         transactionId: transactionId
       },
       attachmentFileId: letterFileId
@@ -350,7 +350,7 @@ function processChangePlan(newPlan, deviceData) {
       details: {
         oldPct: priorPlan,
         newPct: newPlan,
-        effectiveDate: getEffectiveDate(today),
+        effectiveMonth: getEffectiveMonthLabel(today),
         transactionId: transactionId
       }
     });

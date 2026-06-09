@@ -119,6 +119,14 @@ function buildPlaceholderMap(ctx) {
   const enMonth = Utilities.formatDate(now, "Asia/Bangkok", "MMMM");
   const dateToday = `${day} ${PF_THAI_MONTHS[monthIdx]} ${year} / ${day} ${enMonth} ${year}`;
 
+  // Enrollment is framed as a payroll MONTH (matches the banner + email): the
+  // {{effective_date}} placeholder gets "มิถุนายน 2026 / June 2026". The
+  // beneficiary letter has no payroll cut-off, so it falls back to ctx.effectiveDate
+  // (a precise "immediate" date).
+  const effectiveText = ctx.effectiveMonth
+    ? `${ctx.effectiveMonth.th} / ${ctx.effectiveMonth.en}`
+    : ctx.effectiveDate;
+
   return {
     "date_today": dateToday,
     "name_en": ctx.nameEn,
@@ -130,7 +138,7 @@ function buildPlaceholderMap(ctx) {
     "plan_pct": ctx.planPct,
     "employer_match_pct": ctx.employerMatchPct,
     "investment_plan": ctx.investmentPlan,
-    "effective_date": ctx.effectiveDate,
+    "effective_date": effectiveText,
     "transaction_id": ctx.transactionId
   };
 }
@@ -242,7 +250,7 @@ function testGenerateLetter() {
     planPct: "5%",
     employerMatchPct: "5%",
     investmentPlan: "Balanced",
-    effectiveDate: "30 Jun 2026",
+    effectiveMonth: { th: "มิถุนายน 2026", en: "June 2026" },
     transactionId: "EN-20260602-test",
     beneficiaries: [
       { name: "มาลี ใจดี", rel: "Spouse", pct: 30, address: "99/1 หมู่ 4 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110" },

@@ -113,6 +113,36 @@ function getEffectiveDate(submittedAt) {
 }
 
 /**
+ * Returns the payroll cut-off month a submission applies to, as a bilingual
+ * { th, en } pair like { th: "มิถุนายน 2026", en: "June 2026" }. Same cut-off
+ * rule as getEffectiveDate (≤15th → this month; ≥16th → next month), but framed
+ * as a salary month rather than a month-end date so emails don't read the day as
+ * a literal money-movement date. Mirrors the frontend getEffectiveDateInfo().
+ * For enrollment/plan-change this is the FIRST applicable payroll; for withdrawal
+ * it is the LAST contribution month.
+ */
+function getEffectiveMonthLabel(submittedAt) {
+  const tz = "Asia/Bangkok";
+  const dateStr = Utilities.formatDate(new Date(submittedAt), tz, "yyyy-MM-dd");
+  const parts = dateStr.split("-").map(Number);
+  let year = parts[0];
+  let month = parts[1]; // 1-indexed
+  const day = parts[2];
+
+  if (day > 15) {
+    month += 1;
+    if (month > 12) { month = 1; year += 1; }
+  }
+
+  const thaiMonths = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
+                      "กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+  const engMonths  = ["January","February","March","April","May","June",
+                      "July","August","September","October","November","December"];
+
+  return { th: `${thaiMonths[month - 1]} ${year}`, en: `${engMonths[month - 1]} ${year}` };
+}
+
+/**
  * Gets the editable-until deadline for a given submission date.
  * Rule: Next upcoming 15th of the month at 23:59:59 Asia/Bangkok time.
  * Constructs the deadline explicitly in Bangkok time so it is correct
