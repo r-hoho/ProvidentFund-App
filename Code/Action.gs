@@ -153,6 +153,15 @@ function processEnrollment(payload, deviceData) {
       signedAt: payload.sigDataUrl ? today : null
     });
 
+    // Letter failed but the action succeeded: alert admin (CC user) so a
+    // document is followed up. Best-effort — never affects the result.
+    if (letterError) {
+      sendLetterFailureAlert({
+        userEmail: email, userName: userName, actionType: "Enroll",
+        transactionId: transactionId, error: letterError
+      });
+    }
+
     return { success: true };
 
   } catch (error) {
@@ -479,6 +488,15 @@ function processUpdateBeneficiaries(payload, deviceData) {
       emailError: emailResult.error || null,
       signedAt: sigDataUrl ? today : null
     });
+
+    // Letter failed but the action succeeded: alert admin (CC user) so a
+    // document is followed up. Best-effort — never affects the result.
+    if (letterError) {
+      sendLetterFailureAlert({
+        userEmail: email, userName: userName, actionType: "Update Beneficiaries",
+        transactionId: transactionId, error: letterError
+      });
+    }
 
     return { success: true };
 

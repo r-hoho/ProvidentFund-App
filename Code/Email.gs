@@ -91,6 +91,77 @@ function sendActionConfirmation(p) {
 }
 
 /**
+ * Sends a second email when the signed-PDF letter could not be generated, even
+ * though the user's action itself succeeded and was recorded. Goes to the admin
+ * and CCs the user so both sides know a document is owed. NEVER throws — this is
+ * best-effort notification and must not affect the action's result.
+ *
+ * @param {Object} p
+ * @param {string} p.userEmail      The acting user (CC'd).
+ * @param {string} p.userName       Name_English, for the greeting.
+ * @param {string} p.actionType     "Enroll" | "Update Beneficiaries"
+ * @param {string} p.transactionId  Audit transaction id.
+ * @param {string} p.error          Raw letterError string (for diagnostics).
+ * @return {{sent: boolean, error?: string}}
+ */
+function sendLetterFailureAlert(p) {
+  try {
+    const adminEmail = "navananyeamsiri@airasia.com";
+    const at = Utilities.formatDate(new Date(), "Asia/Bangkok", "dd MMM yyyy, HH:mm");
+    const ACTION_TH = {
+      "Enroll": "สมัครสมาชิกกองทุน",
+      "Update Beneficiaries": "ปรับปรุงรายชื่อผู้รับผลประโยชน์",
+    };
+    const actTh = ACTION_TH[p.actionType] || p.actionType;
+
+    const subject = `[กองทุนสำรองเลี้ยงชีพ / Provident Fund] สร้างเอกสารไม่สำเร็จ / Letter generation failed — ${p.transactionId}`;
+
+    const thai = [
+      `เรียน ผู้ดูแลระบบ,`,
+      ``,
+      `ระบบไม่สามารถสร้างเอกสารยืนยัน (PDF) สำหรับรายการต่อไปนี้ได้`,
+      `รายการของผู้ใช้ถูกบันทึกเรียบร้อยแล้ว — มีเพียงไฟล์ PDF เท่านั้นที่ยังสร้างไม่สำเร็จ`,
+      ``,
+      `  ผู้ใช้: ${p.userName} (${p.userEmail})`,
+      `  ประเภทรายการ: ${actTh}`,
+      `  รหัสรายการ: ${p.transactionId}`,
+      `  เวลา: ${at} น.`,
+      `  ข้อผิดพลาด: ${p.error}`,
+      ``,
+      `กรุณาตรวจสอบและจัดทำเอกสารให้ผู้ใช้อีกครั้ง`,
+    ].join("\n");
+
+    const en = [
+      `Dear Admin,`,
+      ``,
+      `A confirmation letter (PDF) could not be generated for the transaction below.`,
+      `The user's action was completed and recorded normally — only the PDF failed.`,
+      ``,
+      `  User: ${p.userName} (${p.userEmail})`,
+      `  Action: ${p.actionType}`,
+      `  Transaction ID: ${p.transactionId}`,
+      `  Time: ${at} (Bangkok)`,
+      `  Error: ${p.error}`,
+      ``,
+      `Please follow up and re-issue the document to the user.`,
+    ].join("\n");
+
+    const body = `${thai}\n\n---\n\n${en}\n\n— Allstars Provident Fund System`;
+
+    MailApp.sendEmail({
+      to: adminEmail,
+      cc: p.userEmail,
+      name: "Allstars Provident Fund",
+      subject: subject,
+      body: body,
+    });
+    return { sent: true };
+  } catch (e) {
+    return { sent: false, error: e.toString() };
+  }
+}
+
+/**
  * Returns the bilingual subject + per-action detail lines for an action/event.
  * thaiDetails / enDetails are the middle lines (รายละเอียด, วันที่มีผล, ...) —
  * the greeting, transaction id, and submitted-at lines are added by the caller.

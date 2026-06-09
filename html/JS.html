@@ -15,19 +15,19 @@
 
   function showSuccessToast(message) {
     const toast = document.getElementById("successToast");
-    toast.innerHTML = `<strong style="color: white !important;">${message}</strong>`; 
+    toast.innerHTML = `<strong style="color: white !important;">${message}</strong>`;
     toast.style.visibility = "visible"; toast.style.opacity = "1"; toast.style.bottom = "50px";
-    
+
     setTimeout(() => {
       toast.style.opacity = "0"; toast.style.bottom = "30px";
       setTimeout(() => {
         toast.style.visibility = "hidden";
         document.getElementById('dashboardContent').style.display = 'none';
-        document.getElementById('loadingState').style.display = 'block'; 
+        document.getElementById('loadingState').style.display = 'block';
         google.script.run.withSuccessHandler(populateUI).getUserProfile();
         google.script.run.withSuccessHandler(applyCooldownUI).checkPlanChangeEligibility();
-      }, 400); 
-    }, 1500); 
+      }, 400);
+    }, 1500);
   }
 
   function populateUI(response) {
@@ -349,7 +349,7 @@
     google.script.run
       .withSuccessHandler((response) => {
         btn.removeAttribute('aria-busy'); btn.disabled = false; document.getElementById('wizBackBtn').disabled = false;
-        if (response && response.success) { closeWizard(); showSuccessToast("สมัครสมาชิกสำเร็จ! / Enrollment Successful!"); } 
+        if (response && response.success) { closeWizard(); showSuccessToast("สมัครสมาชิกสำเร็จ! / Enrollment Successful!"); }
         else { alert("Error: " + (response ? response.msg : "Unknown error")); }
       })
       .withFailureHandler((err) => {
