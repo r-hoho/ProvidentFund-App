@@ -162,9 +162,11 @@ function processEnrollment(payload, deviceData) {
       });
     }
 
+    trackFeatureAction("enroll", "success");
     return { success: true };
 
   } catch (error) {
+    trackFeatureAction("enroll", "fail");
     return { success: false, msg: error.toString() };
   }
 }
@@ -359,9 +361,11 @@ function processChangePlan(newPlan, deviceData) {
       emailError: emailResult.error || null
     });
 
+    trackFeatureAction("change_plan", "success");
     return { success: true };
 
   } catch (error) {
+    trackFeatureAction("change_plan", "fail");
     return { success: false, msg: error.toString() };
   }
 }
@@ -498,9 +502,11 @@ function processUpdateBeneficiaries(payload, deviceData) {
       });
     }
 
+    trackFeatureAction("beneficiary", "success");
     return { success: true };
 
   } catch (error) {
+    trackFeatureAction("beneficiary", "fail");
     return { success: false, msg: error.toString() };
   }
 }
@@ -648,8 +654,10 @@ function cancelTransaction(transactionId, deviceData) {
       emailError: emailResult.error || null
     });
 
+    trackFeatureAction("cancel", "success");
     return { success: true, msg: "ยกเลิกรายการสำเร็จ / Transaction cancelled." };
   } catch (error) {
+    trackFeatureAction("cancel", "fail");
     return { success: false, msg: error.toString() };
   }
 }
