@@ -69,6 +69,7 @@
         html += `<div class="option-card" style="cursor:default; margin-bottom: 0.5rem; padding: 1rem;">
           <strong style="margin-bottom:0.25rem;">${b.name}</strong>
           <small>${relLabel(b.rel)} - <span style="color:var(--pico-primary); font-weight:600;">${b.pct}%</span></small>
+          ${b.address ? `<small style="color:var(--pico-muted-color); display:block; margin-top:0.25rem;">${b.address}</small>` : ''}
         </div>`;
       });
     } catch(e) { html = "<p>Error loading data.</p>"; }
@@ -104,16 +105,25 @@
   // --- VIEW B: UPDATE (Reused Form Logic) ---
   function initUpdateBeneficiaries() {
     try { editBenData = JSON.parse(globalEnrollmentData.beneficiariesJSON); }
-    catch(e) { editBenData = [{ name: '', rel: '', pct: 100 }]; }
+    catch(e) { editBenData = [{ name: '', rel: '', pct: 100, address: '' }]; }
     renderUpdateBeneficiaries();
   }
 
   function addUpdateBeneficiary() {
-    if (editBenData.length < 5) { editBenData.push({ name: '', rel: '', pct: 0 }); renderUpdateBeneficiaries(); }
+    if (editBenData.length < 5) { editBenData.push({ name: '', rel: '', pct: 0, address: '' }); renderUpdateBeneficiaries(); }
   }
 
   function removeUpdateBeneficiary(index) {
     editBenData.splice(index, 1); renderUpdateBeneficiaries();
+  }
+
+  function toggleUpdateSameAsAbove(index, checked) {
+    if (index < 1) return;
+    const val = checked ? (editBenData[index - 1].address || '') : '';
+    editBenData[index].address = val;
+    const ta = document.getElementById('benAddrU-' + index);
+    if (ta) ta.value = val;
+    validateUpdateBen();
   }
 
   function changeUpdateBenData(index, field, value) {
@@ -141,6 +151,9 @@
             <input type="number" min="1" max="100" value="${ben.pct}" oninput="changeUpdateBenData(${index}, 'pct', this.value)" style="margin-bottom:0;" required>
           </div>
         </div>
+        <label style="font-size:0.85rem; color:var(--pico-muted-color); margin-top:0.75rem; display:block;">ที่อยู่ (Address)</label>
+        ${index > 0 ? `<label style="font-size:0.8rem; color:var(--pico-muted-color); display:flex; align-items:center; gap:0.4rem; margin-bottom:0.4rem; font-weight:normal;"><input type="checkbox" onchange="toggleUpdateSameAsAbove(${index}, this.checked)" style="margin:0; width:1.15rem; height:1.15rem; flex-shrink:0;"> ที่อยู่เดียวกัน / Same as Above</label>` : ''}
+        <textarea id="benAddrU-${index}" oninput="changeUpdateBenData(${index}, 'address', this.value)" placeholder="บ้านเลขที่ ถนน แขวง/ตำบล เขต/อำเภอ จังหวัด รหัสไปรษณีย์" rows="2" style="margin-bottom:0;" required>${ben.address || ''}</textarea>
       `;
       list.appendChild(card);
     });
@@ -150,7 +163,7 @@
 
   function validateUpdateBen() {
     let totalPct = 0; let allFilled = true;
-    editBenData.forEach(b => { totalPct += parseInt(b.pct) || 0; if (!b.name.trim() || !b.rel) allFilled = false; });
+    editBenData.forEach(b => { totalPct += parseInt(b.pct) || 0; if (!b.name.trim() || !b.rel || !(b.address || '').trim()) allFilled = false; });
     const totalMsg = document.getElementById('updateBenTotalText'); const helperMsg = document.getElementById('updateBenHelperText'); const btn = document.getElementById('benToSignBtn');
     totalMsg.textContent = `${totalPct}%`;
 

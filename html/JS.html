@@ -165,12 +165,12 @@
   // ==========================================
   // NEW FULL-SCREEN WIZARD LOGIC
   // ==========================================
-  let wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100 }] };
+  let wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100, address: '' }] };
   let currentStep = 1;
   let wizSigHandle = null; // signature pad instance for step 5
 
   function openEnroll() {
-    wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100 }] };
+    wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100, address: '' }] };
     currentStep = 1;
     if (wizSigHandle) { PFSignature.destroy(wizSigHandle); wizSigHandle = null; }
     document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
@@ -211,9 +211,18 @@
 
   function addBeneficiary() {
     if (wizData.beneficiaries.length < 5) {
-      wizData.beneficiaries.push({ name: '', rel: '', pct: 0 });
+      wizData.beneficiaries.push({ name: '', rel: '', pct: 0, address: '' });
       renderBeneficiaries(); validateStep();
     }
+  }
+
+  function toggleSameAsAbove(index, checked) {
+    if (index < 1) return;
+    const val = checked ? (wizData.beneficiaries[index - 1].address || '') : '';
+    wizData.beneficiaries[index].address = val;
+    const ta = document.getElementById('benAddr-' + index);
+    if (ta) ta.value = val;
+    validateStep();
   }
 
   function removeBeneficiary(index) {
@@ -257,6 +266,9 @@
             <input type="number" min="1" max="100" value="${ben.pct}" oninput="updateBenData(${index}, 'pct', this.value)" style="margin-bottom:0;" required>
           </div>
         </div>
+        <label style="font-size:0.85rem; color:var(--pico-muted-color); margin-top:0.75rem; display:block;">ที่อยู่ (Address)</label>
+        ${index > 0 ? `<label style="font-size:0.8rem; color:var(--pico-muted-color); display:flex; align-items:center; gap:0.4rem; margin-bottom:0.4rem; font-weight:normal;"><input type="checkbox" onchange="toggleSameAsAbove(${index}, this.checked)" style="margin:0; width:1.15rem; height:1.15rem; flex-shrink:0;"> ที่อยู่เดียวกัน / Same as Above</label>` : ''}
+        <textarea id="benAddr-${index}" oninput="updateBenData(${index}, 'address', this.value)" placeholder="บ้านเลขที่ ถนน แขวง/ตำบล เขต/อำเภอ จังหวัด รหัสไปรษณีย์" rows="2" style="margin-bottom:0;" required>${ben.address || ''}</textarea>
       `;
       list.appendChild(card);
     });
@@ -288,7 +300,7 @@
       let totalPct = 0; let allFilled = true;
       wizData.beneficiaries.forEach(b => {
         totalPct += parseInt(b.pct) || 0;
-        if (!b.name.trim() || !b.rel) allFilled = false;
+        if (!b.name.trim() || !b.rel || !(b.address || '').trim()) allFilled = false;
       });
       const totalMsg = document.getElementById('benTotalText');
       const helperMsg = document.getElementById('benHelperText');
@@ -325,7 +337,7 @@
     document.getElementById('sumContrib').textContent = `${(parseFloat(wizData.contribution) * 100).toFixed(0)}%`;
     document.getElementById('sumInvest').textContent = wizData.investment;
     let benHtml = `<ul style="margin-top:0.5rem; padding-left:1.25rem;">`;
-    wizData.beneficiaries.forEach(b => { benHtml += `<li style="font-weight:normal;">${b.name} — ${relLabel(b.rel)} — <strong style="color:var(--pico-primary);">${b.pct}%</strong></li>`; });
+    wizData.beneficiaries.forEach(b => { benHtml += `<li style="font-weight:normal;">${b.name} — ${relLabel(b.rel)} — <strong style="color:var(--pico-primary);">${b.pct}%</strong>${b.address ? `<br><small style="color:var(--pico-muted-color);">${b.address}</small>` : ''}</li>`; });
     benHtml += `</ul>`;
     document.getElementById('sumBens').innerHTML = benHtml;
     document.getElementById('sumEffectiveBanner').innerHTML = effectiveDateBannerHTML();
