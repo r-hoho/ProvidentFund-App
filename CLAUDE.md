@@ -16,6 +16,7 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 | `Email.gs` | `sendActionConfirmation({...})` — bilingual (Thai-first) confirmation emails; never throws. Body is a styled responsive HTML table (`buildHtmlEmail()`); all user-supplied values run through `escapeHtml()`. Wired into enrollment, beneficiary, change-plan, withdrawal, and cancel. Cancel-line shown only for cancellable actions (`Enroll`/`Change Plan`/`Withdraw`) |
 | `Letter.gs` | `generateLetter(type, ctx, sigDataUrl)` — Google Doc template → PDF (placeholder fill, plain-text beneficiary list, drawn signature embedded scaled to fit `PF_SIG_MAX_WIDTH × PF_SIG_MAX_HEIGHT` preserving aspect), archived in Drive. May throw — caller wraps in try/catch. Template/folder IDs read from Script Properties via `getLetterConfig_()` (`PF_ENROLLMENT_TEMPLATE_ID`, `PF_BENEFICIARY_TEMPLATE_ID`, `PF_LETTERS_FOLDER_ID`); set them under Project Settings → Script Properties (not in source). Wired into enrollment + beneficiary — beneficiary uses its own page-2-only template (`PF_BENEFICIARY_TEMPLATE_ID`, set; falls back to the enrollment template only if unset). `testGenerateLetter()` / `testGenerateBeneficiaryLetter()` are editor-run harnesses |
 | `Utils.gs` | `calculateMatchTier(years)`, `reportIssueToAdmin()`, `generateTransactionId(prefix)`, `appendRowToSheet(sheet, rowObj)`, `getEffectiveDate(submittedAt)`, `patchAuditEventData(txId, eventType, fields)` |
+| `Feedback.gs` | `submitFeedback({action, rating, comment})` — appends a 1-5 star rating + optional comment to the `App_Feedback` sheet (must exist; no-ops best-effort if missing). Identity (Allstars_ID/email) resolved server-side. Best-effort; called after a successful main action |
 | `Analytics.gs` | GA4 server-side adoption metrics (Measurement Protocol). `trackEvent(name, params)` → POSTs to `/mp/collect`; `trackAppOpen()` (visits/returning, in `doGet()`) + `trackFeatureAction(feature, outcome)` (success/fail per action, in the 5 handlers). `user_id` is a **SHA-256 hash** of the email (pseudonymous, PDPA) via `hashUserId_()` + optional `GA4_USER_ID_SALT`. All best-effort — never throws, no-ops if unconfigured. Config in Script Properties (`GA4_MEASUREMENT_ID`, `GA4_API_SECRET`, `GA4_USER_ID_SALT`). `testTrackEvent()` is the editor-run harness (validates via `/debug/mp/collect`) |
 
 ### Frontend (`html/` — included via `<?!= include('filename') ?>`)
@@ -27,6 +28,7 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 | `JS.html` | Dashboard logic, enrollment wizard (5-step; step 5 = signature), change-plan modal |
 | `JS_Beneficiary.html` | Beneficiary manager (4 views: current / edit / history / sign) |
 | `JS_Withdraw.html` | Withdrawal flow with 5-year vesting check |
+| `JS_Feedback.html` | Post-action star-rating modal (`openFeedback`/`setFeedbackRating`/`submitFeedbackForm`). Triggered from `populateUI` via the `pendingFeedbackAction` flag (set in each main-action success handler) so it lands *after* the forced home-reload. Star required, comment optional, Skip always available |
 | `JS_Utils.html` | Shared helpers (`getEffectiveDateInfo`, effective-date banner) |
 | `JS_Signature.html` | Shared `window.PFSignature` helper over signature_pad (CDN): `mount/isEmpty/getDataUrl/clear/destroy`; hi-DPI, dark-blue ink. `getDataUrl()` auto-trims the export to the ink's bounding box (`trimToInk`, alpha-scan + 8px pad) so a small/corner signature exports tight. Used by enrollment step 5 + beneficiary sign view |
 | `Modals.html` | Enrollment wizard, change-plan dialog, beneficiary manager markup |
@@ -40,6 +42,7 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 | `Enrollments` | One row/employee — `First_Enrolled_Date`, `Current_Enrolled_Date`, `Current_Plan`, `Investment_Plan`, `Withdrawal_Count`, `Last_Withdrawal_Date`, `Last_Plan_Change_Date` |
 | `Beneficiaries` | Append-only ledger — `Timestamp`, `Allstars_ID`, `Work_Email`, `Beneficiary_Data` (JSON string) |
 | `Audit_Log` | Append-only audit trail of all user actions |
+| `App_Feedback` | Post-action star ratings — `Timestamp`, `Allstars_ID`, `Email`, `Action`, `Rating` (1-5), `Comment`. Create manually (headers in row 1) |
 | `Monthly_Reporting` | Declared in `Config.gs` but not yet used |
 
 ## Business rule invariants (don't violate)

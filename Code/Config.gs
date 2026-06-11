@@ -8,6 +8,7 @@ const SHEET_ENROLLMENTS = 'Enrollments';
 const SHEET_AUDIT = 'Audit_Log';
 const SHEET_REPORTING = 'Monthly_Reporting';
 const SHEET_BENEFICIARIES = 'Beneficiaries';
+const SHEET_FEEDBACK = 'App_Feedback';
 
 // Beneficiary relationship display labels (Thai primary, English in brackets).
 // The stored rel value stays the English key (used as the <select> option value);

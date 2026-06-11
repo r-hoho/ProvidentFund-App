@@ -55,8 +55,9 @@
         btn.textContent = "ยืนยัน / Confirm"; 
 
         if (response && response.success) { 
-          closeWithdraw(); 
-          showSuccessToast("ลาออกสำเร็จ! / Withdrawal Successful!"); 
+          closeWithdraw();
+          pendingFeedbackAction = 'Withdraw';
+          showSuccessToast("ลาออกสำเร็จ! / Withdrawal Successful!");
         } else { 
           btn.disabled = false;
           alert("Error: " + (response ? response.msg : "Unknown error")); 

@@ -13,6 +13,10 @@
     planChangeStatus = status || { locked: false };
   }
 
+  // Set by an action's success handler; consumed by populateUI after the forced
+  // home-reload so the post-action feedback prompt lands on the home screen.
+  let pendingFeedbackAction = null;
+
   function showSuccessToast(message) {
     const toast = document.getElementById("successToast");
     toast.innerHTML = `<strong style="color: white !important;">${message}</strong>`;
@@ -151,6 +155,12 @@
       } else {
         statusPill.innerHTML = "ยังไม่เข้าร่วม / Not Enrolled"; statusPill.style.setProperty('color', 'var(--pico-color)', 'important');
         enrollBtn.style.display = 'block';
+      }
+
+      // After a successful action + forced home reload, surface the rating prompt.
+      if (pendingFeedbackAction) {
+        const a = pendingFeedbackAction; pendingFeedbackAction = null;
+        setTimeout(() => openFeedback(a), 300);
       }
     } else {
       showError(response ? response.msg : "Data transfer error.");
@@ -360,7 +370,7 @@
     google.script.run
       .withSuccessHandler((response) => {
         btn.removeAttribute('aria-busy'); btn.disabled = false; document.getElementById('wizBackBtn').disabled = false;
-        if (response && response.success) { closeWizard(); showSuccessToast("สมัครสมาชิกสำเร็จ! / Enrollment Successful!"); }
+        if (response && response.success) { closeWizard(); pendingFeedbackAction = 'Enroll'; showSuccessToast("สมัครสมาชิกสำเร็จ! / Enrollment Successful!"); }
         else { alert("Error: " + (response ? response.msg : "Unknown error")); }
       })
       .withFailureHandler((err) => {
@@ -406,7 +416,7 @@
     google.script.run
       .withSuccessHandler((response) => {
         btn.removeAttribute('aria-busy'); btn.textContent = "ยืนยัน / Confirm"; btn.disabled = false; planSelect.disabled = false;
-        if (response && response.success) { closeChangePlan(); showSuccessToast("เปลี่ยนอัตราสำเร็จ! / Plan Changed Successfully!"); } 
+        if (response && response.success) { closeChangePlan(); pendingFeedbackAction = 'Change Plan'; showSuccessToast("เปลี่ยนอัตราสำเร็จ! / Plan Changed Successfully!"); }
         else { alert("Error: " + (response ? response.msg : "Unknown error")); }
       })
       .withFailureHandler((err) => { btn.removeAttribute('aria-busy'); btn.textContent = "ยืนยัน / Confirm"; btn.disabled = false; planSelect.disabled = false; alert("System Error: " + err); })

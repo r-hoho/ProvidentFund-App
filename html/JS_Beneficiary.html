@@ -187,6 +187,7 @@
 
         if (response && response.success) { 
           closeManageBen();
+          pendingFeedbackAction = 'Update Beneficiaries';
           showSuccessToast("อัปเดตข้อมูลสำเร็จ! / Update Successful!");
         } 
         else { 

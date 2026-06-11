@@ -288,3 +288,33 @@
   </footer>
 
 </div>
+
+<!-- FEEDBACK / RATING MODAL (pops after a successful action) -->
+<dialog id="feedbackModal">
+  <article>
+    <header>
+      <button aria-label="Close" rel="prev" onclick="closeFeedback()"></button>
+      <strong>ให้คะแนนการใช้งาน / Rate your experience</strong>
+    </header>
+
+    <p style="margin-bottom:0.75rem; color:var(--pico-muted-color); font-size:0.9rem;">
+      ความคิดเห็นของคุณช่วยให้เราพัฒนาแอปให้ดีขึ้น<br>
+      <small>Your feedback helps us improve the app.</small>
+    </p>
+
+    <div id="feedbackStars" style="display:flex; justify-content:center; gap:0.5rem; font-size:2.5rem; line-height:1; margin:0.5rem 0 1rem; cursor:pointer; user-select:none;">
+      <span class="fb-star" data-v="1" onclick="setFeedbackRating(1)" style="color:var(--pico-muted-color);">☆</span>
+      <span class="fb-star" data-v="2" onclick="setFeedbackRating(2)" style="color:var(--pico-muted-color);">☆</span>
+      <span class="fb-star" data-v="3" onclick="setFeedbackRating(3)" style="color:var(--pico-muted-color);">☆</span>
+      <span class="fb-star" data-v="4" onclick="setFeedbackRating(4)" style="color:var(--pico-muted-color);">☆</span>
+      <span class="fb-star" data-v="5" onclick="setFeedbackRating(5)" style="color:var(--pico-muted-color);">☆</span>
+    </div>
+
+    <textarea id="feedbackComment" rows="3" maxlength="1000" placeholder="ความคิดเห็นเพิ่มเติม (ไม่บังคับ) / Additional comments (optional)" style="margin-bottom:0;"></textarea>
+
+    <footer>
+      <button class="secondary outline" onclick="closeFeedback()">ข้าม / Skip</button>
+      <button id="feedbackSubmitBtn" onclick="submitFeedbackForm()" disabled>ส่ง / Submit</button>
+    </footer>
+  </article>
+</dialog>

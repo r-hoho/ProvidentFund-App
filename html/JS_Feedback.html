@@ -1,0 +1,66 @@
+<script>
+  // ==========================================
+  // POST-ACTION FEEDBACK (star rating)
+  // ==========================================
+  // openFeedback(action) is triggered from populateUI AFTER the forced
+  // home-reload that follows a successful action (see pendingFeedbackAction in
+  // JS.html), so the rating dialog lands cleanly on the home screen.
+
+  let feedbackRating = 0;
+  let feedbackAction = "";
+
+  function openFeedback(action) {
+    feedbackAction = action || "";
+    feedbackRating = 0;
+    renderFeedbackStars();
+    const c = document.getElementById('feedbackComment');
+    if (c) c.value = "";
+    document.getElementById('feedbackSubmitBtn').disabled = true;
+    document.getElementById('feedbackModal').showModal();
+  }
+
+  function closeFeedback() {
+    document.getElementById('feedbackModal').close();
+  }
+
+  function setFeedbackRating(v) {
+    feedbackRating = v;
+    renderFeedbackStars();
+    document.getElementById('feedbackSubmitBtn').disabled = (feedbackRating < 1);
+  }
+
+  function renderFeedbackStars() {
+    document.querySelectorAll('#feedbackStars .fb-star').forEach(el => {
+      const v = parseInt(el.getAttribute('data-v'), 10);
+      const on = v <= feedbackRating;
+      el.textContent = on ? '★' : '☆';
+      el.style.color = on ? '#f5b301' : 'var(--pico-muted-color)';
+    });
+  }
+
+  function submitFeedbackForm() {
+    if (feedbackRating < 1) return;
+    const btn = document.getElementById('feedbackSubmitBtn');
+    btn.setAttribute('aria-busy', 'true');
+    btn.disabled = true;
+
+    const payload = {
+      action: feedbackAction,
+      rating: feedbackRating,
+      comment: document.getElementById('feedbackComment').value || ""
+    };
+
+    // Best-effort: close either way; a failed write must not nag the user.
+    google.script.run
+      .withSuccessHandler(() => {
+        btn.removeAttribute('aria-busy');
+        closeFeedback();
+        showSuccessToast("ขอบคุณสำหรับความคิดเห็น / Thanks for your feedback!");
+      })
+      .withFailureHandler(() => {
+        btn.removeAttribute('aria-busy');
+        closeFeedback();
+      })
+      .submitFeedback(payload);
+  }
+</script>
