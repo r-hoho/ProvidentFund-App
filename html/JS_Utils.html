@@ -35,7 +35,7 @@
   // is deducted one final time that cycle); enroll/plan-change use the FIRST month.
   function effectiveDateBannerHTML(context) {
     const info = getEffectiveDateInfo();
-    const statusTH = info.withinCutoff ? 'อยู่ในรอบตัดของเดือนนี้' : 'เลยรอบตัดของเดือนนี้แล้ว';
+    const statusTH = info.withinCutoff ? 'อยู่ในรอบของเดือนนี้' : 'เลยวันตัดรอบของเดือนนี้แล้ว';
     const statusEN = info.withinCutoff ? "Within this month's cut-off" : "Past this month's cut-off";
     const isWithdraw = context === 'withdraw';
     const labelTH = isWithdraw ? 'หักเงินสมทบครั้งสุดท้าย:' : 'เริ่มหัก/มีผลกับเงินเดือนรอบ:';
