@@ -163,7 +163,7 @@
 
   function validateUpdateBen() {
     let totalPct = 0; let allFilled = true;
-    editBenData.forEach(b => { totalPct += parseInt(b.pct) || 0; if (!b.name.trim() || !b.rel || !(b.address || '').trim()) allFilled = false; });
+    editBenData.forEach(b => { const pct = parseInt(b.pct) || 0; totalPct += pct; if (!b.name.trim() || !b.rel || !(b.address || '').trim() || pct < 1) allFilled = false; });
     const totalMsg = document.getElementById('updateBenTotalText'); const helperMsg = document.getElementById('updateBenHelperText'); const btn = document.getElementById('benToSignBtn');
     totalMsg.textContent = `${totalPct}%`;
 

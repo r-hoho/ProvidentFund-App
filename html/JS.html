@@ -299,8 +299,9 @@
     else if (currentStep === 3) {
       let totalPct = 0; let allFilled = true;
       wizData.beneficiaries.forEach(b => {
-        totalPct += parseInt(b.pct) || 0;
-        if (!b.name.trim() || !b.rel || !(b.address || '').trim()) allFilled = false;
+        const pct = parseInt(b.pct) || 0;
+        totalPct += pct;
+        if (!b.name.trim() || !b.rel || !(b.address || '').trim() || pct < 1) allFilled = false;
       });
       const totalMsg = document.getElementById('benTotalText');
       const helperMsg = document.getElementById('benHelperText');
