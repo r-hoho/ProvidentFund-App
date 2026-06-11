@@ -164,7 +164,7 @@ function fillPlaceholders(body, values) {
  */
 function fillBeneficiaryList(body, beneficiaries) {
   const lines = beneficiaries.map(b => {
-    let line = `- ${b.name} (${b.rel}) — ${b.pct}%`;
+    let line = `- ${b.name} — ${relLabel(b.rel)} — ${b.pct}%`;
     if (b.address) line += `\n    ที่อยู่ / Address: ${b.address}`;
     return line;
   }).join("\n");

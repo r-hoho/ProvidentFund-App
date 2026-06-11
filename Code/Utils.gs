@@ -33,6 +33,14 @@ function calculateMatchTier(years) {
   return "10%";
 }
 
+/**
+ * Beneficiary relationship display label via REL_LABELS (Thai primary, English
+ * in brackets). Unknown/blank keys pass through unchanged.
+ */
+function relLabel(rel) {
+  return rel ? (REL_LABELS[rel] || rel) : rel;
+}
+
 // ==========================================
 // TRANSACTION HELPERS
 // ==========================================

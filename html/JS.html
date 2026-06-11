@@ -69,7 +69,7 @@
                 <h6 style="margin-bottom: 0.5rem;"><strong>${description}</strong></h6>
                 <div style="font-size: 0.85rem; color: var(--pico-muted-color);">
                   <div><span class="muted">ส่งเมื่อ / </span>Submitted: ${submittedStr}</div>
-                  <div><span class="muted">ยกเลิกได้ถึง / </span>Cancellable until: ${editableStr} (BKK)</div>
+                  <div><span class="muted">ยกเลิกได้ถึง / </span>Cancellable until: ${editableStr}</div>
                 </div>
               </div>
               <button class="outline secondary" style="margin:0; padding:0.4rem 0.9rem; font-size:0.85rem; white-space:nowrap; line-height:1.15;" onclick="openCancelTx('${tx.transactionId}', '${tx.type}')">
@@ -97,9 +97,7 @@
       const statusPill = document.getElementById('statusPill');
       const enrolledInfoGroup = document.getElementById('enrolledInfoGroup');
       const enrollBtn = document.getElementById('mainEnrollBtn');
-      const changePlanBtn = document.getElementById('mainChangePlanBtn');
-      const withdrawBtn = document.getElementById('mainWithdrawBtn');
-      const messageDiv = document.getElementById('cooldownMessage'); 
+      const messageDiv = document.getElementById('cooldownMessage');
 
       enrollBtn.style.display = 'none'; 
       enrolledActionsGroup.style.display = 'none'; // <-- NEW
@@ -327,7 +325,7 @@
     document.getElementById('sumContrib').textContent = `${(parseFloat(wizData.contribution) * 100).toFixed(0)}%`;
     document.getElementById('sumInvest').textContent = wizData.investment;
     let benHtml = `<ul style="margin-top:0.5rem; padding-left:1.25rem;">`;
-    wizData.beneficiaries.forEach(b => { benHtml += `<li style="font-weight:normal;">${b.name} (${b.rel}) - <strong style="color:var(--pico-primary);">${b.pct}%</strong></li>`; });
+    wizData.beneficiaries.forEach(b => { benHtml += `<li style="font-weight:normal;">${b.name} — ${relLabel(b.rel)} — <strong style="color:var(--pico-primary);">${b.pct}%</strong></li>`; });
     benHtml += `</ul>`;
     document.getElementById('sumBens').innerHTML = benHtml;
     document.getElementById('sumEffectiveBanner').innerHTML = effectiveDateBannerHTML();

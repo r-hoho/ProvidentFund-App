@@ -68,7 +68,7 @@
       bens.forEach(b => {
         html += `<div class="option-card" style="cursor:default; margin-bottom: 0.5rem; padding: 1rem;">
           <strong style="margin-bottom:0.25rem;">${b.name}</strong>
-          <small>${b.rel} - <span style="color:var(--pico-primary); font-weight:600;">${b.pct}%</span></small>
+          <small>${relLabel(b.rel)} - <span style="color:var(--pico-primary); font-weight:600;">${b.pct}%</span></small>
         </div>`;
       });
     } catch(e) { html = "<p>Error loading data.</p>"; }

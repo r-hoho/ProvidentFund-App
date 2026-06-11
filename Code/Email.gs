@@ -220,7 +220,7 @@ function buildEmailContent(actionType, eventType, details) {
   // Effective immediately (no cancel state). Lists the full new beneficiary set.
   // PDF letter is attached by the caller (attachmentFileId); the body notes it.
   if (actionType === "Update Beneficiaries" && eventType === "SUBMITTED") {
-    const benList = (details.beneficiaries || []).map(b => `- ${b.name} (${b.rel}) — ${b.pct}%`);
+    const benList = (details.beneficiaries || []).map(b => `- ${b.name} — ${relLabel(b.rel)} — ${b.pct}%`);
     return {
       subject: "ยืนยันการปรับปรุงผู้รับผลประโยชน์ / Beneficiary Update Confirmation",
       thaiAction: "ปรับปรุงรายชื่อผู้รับผลประโยชน์",

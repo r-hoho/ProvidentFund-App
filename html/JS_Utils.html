@@ -49,4 +49,22 @@
         <strong style="color:#1e293b; font-size:0.95rem;">${info.monthTH} / ${info.monthEN}</strong>
       </div>`;
   }
+
+  // Beneficiary relationship display labels (Thai primary, English in brackets).
+  // The stored rel value stays the English key (the <select> option value); only
+  // display is mapped. Mirror of REL_LABELS in Code/Config.gs — keep in sync.
+  const REL_LABELS = {
+    'Parent':   'บิดา/มารดา (Parent)',
+    'Spouse':   'คู่สมรส (Spouse)',
+    'Child':    'บุตร (Child)',
+    'Relative': 'ญาติ (Relative)',
+    'Friend':   'เพื่อน (Friend)',
+    'Other':    'อื่นๆ (Other)'
+  };
+
+  // Maps a stored relationship key to its Thai-first label. Unknown/blank keys
+  // pass through unchanged.
+  function relLabel(rel) {
+    return rel ? (REL_LABELS[rel] || rel) : rel;
+  }
 </script>
