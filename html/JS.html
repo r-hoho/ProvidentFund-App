@@ -109,9 +109,9 @@
       messageDiv.style.display = 'none'; messageDiv.innerHTML = '';
 
       if (response.enrollment.withdrawalCount >= 3) {
-        statusPill.innerHTML = "หมดสิทธิ์ถาวร / Locked"; statusPill.style.setProperty('color', 'var(--pico-del-color)', 'important');
+        statusPill.innerHTML = "หมดสิทธิ์ตามนโยบาย / Locked"; statusPill.style.setProperty('color', 'var(--pico-del-color)', 'important');
       } else if (response.isOnProbation) {
-        statusPill.innerHTML = "ทดลองงาน / Probation"; statusPill.style.setProperty('color', '#ffb74d', 'important');
+        statusPill.innerHTML = "ระหว่างทดลองงาน / Probation"; statusPill.style.setProperty('color', '#ffb74d', 'important');
         if (response.probationEndDate) {
           const probDate = new Date(response.probationEndDate);
           messageDiv.innerHTML = `* สามารถสมัครได้เมื่อผ่านทดลองงาน<br>Eligible to enroll after:<br><strong>${probDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</strong>`;
@@ -131,7 +131,8 @@
           statusPill.innerHTML = '—';
           statusPill.style.setProperty('color', 'var(--pico-muted-color)', 'important');
         } else {
-          statusPill.innerHTML = `เป็นสมาชิก / Enrolled`;
+          const enrolledAttempt = (response.enrollment.withdrawalCount || 0) + 1;
+          statusPill.innerHTML = `เป็นสมาชิก ครั้งที่ ${enrolledAttempt} / Enrolled #${enrolledAttempt}`;
           statusPill.style.setProperty('color', '#2e7d32', 'important');
         }
         enrolledInfoGroup.style.display = 'block';
@@ -153,7 +154,8 @@
         document.getElementById('infoSince').textContent = memberSinceStr;
         enrolledActionsGroup.style.display = 'block'; // <-- Show the new 2x2 grid
       } else {
-        statusPill.innerHTML = "ยังไม่เข้าร่วม / Not Enrolled"; statusPill.style.setProperty('color', 'var(--pico-color)', 'important');
+        const enrollAttempt = (response.enrollment.withdrawalCount || 0) + 1;
+        statusPill.innerHTML = `มีสิทธิ์สมัครได้ ครั้งที่ ${enrollAttempt} / Eligible #${enrollAttempt}`; statusPill.style.setProperty('color', 'var(--pico-color)', 'important');
         enrollBtn.style.display = 'block';
       }
 
