@@ -108,7 +108,7 @@
       enrolledInfoGroup.style.display = 'none'; 
       messageDiv.style.display = 'none'; messageDiv.innerHTML = '';
 
-      if (response.enrollment.withdrawalCount >= 2) {
+      if (response.enrollment.withdrawalCount >= 3) {
         statusPill.innerHTML = "หมดสิทธิ์ถาวร / Locked"; statusPill.style.setProperty('color', 'var(--pico-del-color)', 'important');
       } else if (response.isOnProbation) {
         statusPill.innerHTML = "ทดลองงาน / Probation"; statusPill.style.setProperty('color', '#ffb74d', 'important');
@@ -443,7 +443,7 @@
     } else if (type === 'Change Plan') {
       typeLabel = 'การเปลี่ยนแผน / Plan Change';
       reassurance = '<li>อัตราเงินสะสมเดิมจะถูกคืน<br><small>Your previous contribution % will be restored</small></li>'
-                  + '<li>จะไม่ถูกล็อก 12 เดือน<br><small>No 12-month plan-change lock will be applied</small></li>';
+                  + '<li>จะไม่ถูกล็อก 6 เดือน<br><small>No 6-month plan-change lock will be applied</small></li>';
     } else if (type === 'Withdraw') {
       typeLabel = 'การลาออกจากกองทุน / Withdrawal';
       reassurance = '<li>การลาออกจะไม่ถูกนับ<br><small>Withdrawal count will not be incremented</small></li>'

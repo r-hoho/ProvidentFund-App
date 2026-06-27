@@ -107,22 +107,25 @@ function getUserProfile() {
           probationEndDateStr = String(rawProbationDate); 
         }
 
-        // Cooldown Logic (12 Months)
+        // Cooldown Logic (6 Months) — applies after the 1st and 2nd withdrawals.
+        // The 3rd withdrawal (Withdrawal_Count >= 3) is a permanent lockout, no cooldown.
         let isCoolingDown = false;
         let cooldownEndDate = null;
-        
-        if (enrollmentData.withdrawalCount === 1 && enrollmentData.lastWithdrawalDate instanceof Date) {
+
+        if ((enrollmentData.withdrawalCount === 1 || enrollmentData.withdrawalCount === 2) && enrollmentData.lastWithdrawalDate instanceof Date) {
           let unlockDate = new Date(enrollmentData.lastWithdrawalDate);
-          unlockDate.setFullYear(unlockDate.getFullYear() + 1); 
-          
+          unlockDate.setMonth(unlockDate.getMonth() + 6);
+
           if (today < unlockDate) {
             isCoolingDown = true;
-            cooldownEndDate = String(unlockDate); 
+            cooldownEndDate = String(unlockDate);
           }
         }
 
+        // Membership start: hire date on first enrollment; any re-enrollment after a
+        // withdrawal (count >= 1) restarts tenure at Current_Enrolled_Date.
         let startDateForMath = rawHireDate;
-        if (enrollmentData.withdrawalCount === 1 && enrollmentData.enrolledDate instanceof Date) {
+        if (enrollmentData.withdrawalCount >= 1 && enrollmentData.enrolledDate instanceof Date) {
           startDateForMath = enrollmentData.enrolledDate;
         }
 

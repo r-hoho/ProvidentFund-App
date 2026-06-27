@@ -54,9 +54,9 @@
 * `Current_Enrolled_Date` — overwritten on each new enrollment (i.e. re-enrollment after a withdrawal).
 * `Current_Plan` (stored as decimal: `0.03`, `0.05`, `0.07`, `0.10`, `0.15`; displayed as %)
 * `Investment_Plan` (`Plan 1` Conservative / `Plan 2` Moderate / `Plan 3` Growth / `Plan 4` Aggressive) — **captured at initial enrollment only.** Users change their investment plan via the bank's app afterward, so this field may not reflect the current truth and is intentionally not displayed on the dashboard. Treated as a historical record of the initial selection.
-* `Withdrawal_Count` (Integer: 0, 1, or 2)
+* `Withdrawal_Count` (Integer: 0, 1, 2, or 3)
 * `Last_Withdrawal_Date`
-* `Last_Plan_Change_Date` — set on contribution % change; drives the 12-month plan-change lock.
+* `Last_Plan_Change_Date` — set on contribution % change; drives the 6-month plan-change lock.
 
 ### Sheet 3: `Beneficiaries` (append-only ledger)
 * `Timestamp | Allstars_ID | Work_Email | Beneficiary_Data`
@@ -81,17 +81,17 @@
 
 ### Priority State Evaluation (Crucial Logic)
 The frontend evaluates user state in this *exact* strict order (`JS.html:populateUI`):
-1. **Permanent Lockout:** If `Withdrawal_Count >= 2` → "หมดสิทธิ์ถาวร / Locked".
+1. **Permanent Lockout:** If `Withdrawal_Count >= 3` → "หมดสิทธิ์ถาวร / Locked".
 2. **Probation:** If `Today < Probation_End` → "ทดลองงาน / Probation".
-3. **Withdrawal Cooldown:** If user is within the 12-month penalty from `Last_Withdrawal_Date` → "ระงับสิทธิ์ชั่วคราว / Cooldown".
+3. **Withdrawal Cooldown:** If user is within the 6-month penalty from `Last_Withdrawal_Date` (after the 1st or 2nd withdrawal) → "ระงับสิทธิ์ชั่วคราว / Cooldown".
 4. **Enrolled:** If `Current_Plan` is non-empty → "เป็นสมาชิก / Enrolled".
 5. **Not Enrolled:** Default fallback → "ยังไม่เข้าร่วม / Not Enrolled".
 
-> **Note:** This evaluation currently happens client-side only. Server-side write functions do not re-check these gates (except `processChangePlan`, which does re-validate the 12-month plan-change lock). Hardening this is a production-readiness item (§8).
+> **Note:** This evaluation currently happens client-side only. Server-side write functions do not re-check these gates (except `processChangePlan`, which does re-validate the 6-month plan-change lock). Hardening this is a production-readiness item (§8).
 
 ### Membership-Start Math (Re-enrollment)
 * First enrollment: `memberSinceDate` = `Hire_Date`.
-* Re-enrollment (after one withdrawal): `memberSinceDate` = `Current_Enrolled_Date` of the new enrollment.
+* Re-enrollment (after any withdrawal): `memberSinceDate` = `Current_Enrolled_Date` of the new enrollment.
 * `tenureY` / `tenureM` are derived from this and used everywhere membership age is displayed.
 
 ### Employer Match Tiers (`Utils.gs:calculateMatchTier`)
@@ -113,9 +113,9 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
 * Calculated client-side by `getEffectiveDateInfo()` in `JS_Utils.html` and shown to the user in a banner at the point of submission. (Not yet persisted server-side — see §8.)
 
 ### Action Limitations
-* **Plan Change Cooldown:** Contribution % can only be changed once per 12 months, measured from `max(Current_Enrolled_Date, Last_Plan_Change_Date)`. `checkPlanChangeEligibility()` returns the locked state + next eligible date; the modal shows a locked variant when applicable.
-* **Lifetime Withdrawal Limit:** 2 withdrawals per employee lifecycle. 2nd withdrawal puts the user into permanent lockout.
-* **Withdrawal Cooldown:** 12-month re-enrollment lockout after the first withdrawal.
+* **Plan Change Cooldown:** Contribution % can only be changed once per 6 months, measured from `max(Current_Enrolled_Date, Last_Plan_Change_Date)`. `checkPlanChangeEligibility()` returns the locked state + next eligible date; the modal shows a locked variant when applicable.
+* **Lifetime Withdrawal Limit:** Up to 3 enrollments per employee lifecycle. The 3rd withdrawal (`Withdrawal_Count >= 3`) puts the user into permanent lockout.
+* **Withdrawal Cooldown:** 6-month re-enrollment lockout after the 1st and 2nd withdrawals.
 * **Probation Block:** Users with a future `Probation_End` cannot enroll.
 * **Beneficiaries:** Max 5 entries; percentages must sum to exactly 100.
 
@@ -161,8 +161,8 @@ The frontend evaluates user state in this *exact* strict order (`JS.html:populat
   2. Select investment plan (1–4, conservative → aggressive)
   3. Add beneficiaries (max 5, must sum to 100%)
   4. Summary + effective-date banner → `processEnrollment()`
-* **Change Contribution Plan** (`<dialog>`): shows current %, lets user pick a new %, includes 1-year-lock warning + effective-date banner → `processChangePlan()`. Locked variant shown if within 12-month window.
-* **Change Investment Plan:** Opens a bilingual informational modal explaining that investment plan changes are managed in the bank's app, with a button linking out (bank name + URL are placeholders until provided). No backend write, no audit event, no 12-month lock — the bank app is the source of truth for investment plan post-enrollment. Initial selection still happens in step 2 of the enrollment wizard.
+* **Change Contribution Plan** (`<dialog>`): shows current %, lets user pick a new %, includes 6-month-lock warning + effective-date banner → `processChangePlan()`. Locked variant shown if within 6-month window.
+* **Change Investment Plan:** Opens a bilingual informational modal explaining that investment plan changes are managed in the bank's app, with a button linking out (bank name + URL are placeholders until provided). No backend write, no audit event, no 6-month lock — the bank app is the source of truth for investment plan post-enrollment. Initial selection still happens in step 2 of the enrollment wizard.
 * **Beneficiary Manager** (full-screen overlay, 3 views): Current → Edit (same 5-max / 100% rules) → History timeline (from the append-only ledger) → `processUpdateBeneficiaries()`.
 * **Withdraw** (`<dialog>`): shows tenure, dual eligibility rows (own contributions + returns — always eligible; employer match + returns — gated by 5-year vesting), penalty list, effective-date banner, mandatory acknowledgement checkbox → `processWithdrawal()`.
 

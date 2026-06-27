@@ -238,14 +238,13 @@ function checkPlanChangeEligibility() {
         const enrollDate = enrollData[i][enrollDateCol] instanceof Date ? enrollData[i][enrollDateCol] : new Date(0);
         
         const mostRecentAction = new Date(Math.max(lastChangeDate.getTime(), enrollDate.getTime()));
-        
-        if (mostRecentAction.getTime() > 0) {
-          const timeDifference = today.getTime() - mostRecentAction.getTime();
-          const daysSinceAction = timeDifference / (1000 * 3600 * 24);
 
-          if (daysSinceAction < 365) {
-            let nextEligibleDate = new Date(mostRecentAction);
-            nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
+        if (mostRecentAction.getTime() > 0) {
+          // Plan % can be changed once per 6 months, measured from the most recent action.
+          let nextEligibleDate = new Date(mostRecentAction);
+          nextEligibleDate.setMonth(nextEligibleDate.getMonth() + 6);
+
+          if (today.getTime() < nextEligibleDate.getTime()) {
             return { locked: true, nextDate: Utilities.formatDate(nextEligibleDate, Session.getScriptTimeZone(), "dd-MMM-yyyy") };
           }
         }
@@ -303,12 +302,11 @@ function processChangePlan(newPlan, deviceData) {
     const priorLastChangeDate = enrollRow[lastChangeCol];
 
     if (mostRecentAction.getTime() > 0) {
-      const timeDifference = today.getTime() - mostRecentAction.getTime();
-      const daysSinceAction = timeDifference / (1000 * 3600 * 24);
+      // Plan % can be changed once per 6 months, measured from the most recent action.
+      let nextEligibleDate = new Date(mostRecentAction);
+      nextEligibleDate.setMonth(nextEligibleDate.getMonth() + 6);
 
-      if (daysSinceAction < 365) {
-        let nextEligibleDate = new Date(mostRecentAction);
-        nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
+      if (today.getTime() < nextEligibleDate.getTime()) {
         return { success: false, msg: `ไม่สามารถเปลี่ยนอัตราได้ (Cannot change plan). คุณสามารถเปลี่ยนได้อีกครั้งในวันที่ / You can change your plan again on: ${nextEligibleDate.toLocaleDateString('en-GB')}` };
       }
     }
