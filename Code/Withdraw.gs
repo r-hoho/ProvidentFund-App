@@ -101,7 +101,7 @@ function processWithdrawal(deviceData) {
       emailError: emailResult.error || null
     });
 
-    trackFeatureAction("withdraw", "success");
+    trackFeatureAction("withdraw", "success", deviceData);
     return { success: true };
-  } catch (error) { trackFeatureAction("withdraw", "fail"); return { success: false, msg: error.toString() }; }
+  } catch (error) { trackFeatureAction("withdraw", "fail", deviceData); return { success: false, msg: error.toString() }; }
 }

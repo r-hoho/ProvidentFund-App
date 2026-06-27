@@ -2,10 +2,9 @@
 // WEB APP SETUP
 // ===========================================
 function doGet() {
-  // GA4 adoption metric: "a user opened the app" (visits / who / when /
-  // returning-vs-new). Best-effort — trackAppOpen() never throws, so it can
-  // never block page render.
-  trackAppOpen();
+  // GA4 "app_open" is fired CLIENT-side (JS.html DOMContentLoaded → trackAppOpen)
+  // so it can carry device info — doGet() can't see the browser's User-Agent.
+  // Do NOT also call trackAppOpen() here, or every visit would double-count.
 
   // CRITICAL FIX: You MUST use createTemplateFromFile and .evaluate() here
   // If you use createHtmlOutputFromFile, the <?!= ?> tags will break!

@@ -68,6 +68,54 @@ function currentUserHash_() {
 }
 
 /**
+ * Parse a browser User-Agent string into LOW-CARDINALITY device buckets so the
+ * values are usable as GA4 custom dimensions (never send the raw UA — it's
+ * thousands of distinct strings, useless in reports). Returns {} for an empty
+ * UA so no device params are attached. Never throws.
+ *
+ * NOTE: native GA4 device detection is useless in this app — our hits are sent
+ * server-side via UrlFetchApp, so GA4 sees Google's datacenter UA/IP, not the
+ * user's. These explicit params are the only reliable device signal. Register
+ * device_category / device_os / device_browser as custom dimensions in GA4
+ * Admin to see them in reports.
+ * @param {string} ua  navigator.userAgent forwarded from the client (may carry
+ *                      a " | WxH" screen-size suffix, which is ignored here).
+ */
+function parseDevice_(ua) {
+  try {
+    if (!ua) return {};
+    const s = String(ua);
+
+    // device_category — iPad reports tablet; Android without "Mobile" is tablet
+    let category = "desktop";
+    if (/iPad|Tablet|(Android(?!.*Mobile))/i.test(s)) category = "tablet";
+    else if (/Mobi|iPhone|iPod|Android/i.test(s)) category = "mobile";
+
+    // os
+    let os = "Other";
+    if (/iPhone|iPad|iPod/i.test(s)) os = "iOS";
+    else if (/Android/i.test(s)) os = "Android";
+    else if (/Windows/i.test(s)) os = "Windows";
+    else if (/Mac OS X|Macintosh/i.test(s)) os = "macOS";
+    else if (/Linux/i.test(s)) os = "Linux";
+
+    // browser — order matters (Edge/Opera/Chrome-iOS UAs also contain "Chrome";
+    // Chrome's UA also contains "Safari", so Safari must be checked last)
+    let browser = "Other";
+    if (/Edg\//i.test(s)) browser = "Edge";
+    else if (/OPR\/|Opera/i.test(s)) browser = "Opera";
+    else if (/SamsungBrowser/i.test(s)) browser = "Samsung";
+    else if (/Firefox|FxiOS/i.test(s)) browser = "Firefox";
+    else if (/Chrome|CriOS/i.test(s)) browser = "Chrome";
+    else if (/Safari/i.test(s)) browser = "Safari";
+
+    return { device_category: category, device_os: os, device_browser: browser };
+  } catch (e) {
+    return {};
+  }
+}
+
+/**
  * Low-level: POST one event to the GA4 Measurement Protocol. Best-effort —
  * swallows everything. Adds engagement_time_msec + session_id so the hit
  * registers as an active session in GA4 (a common MP gotcha: without them,
@@ -110,21 +158,33 @@ function trackEvent(name, params) {
 }
 
 /**
- * "A user opened the app." Called from doGet(). Answers visits / who / when /
- * returning-vs-new.
+ * "A user opened the app." Called CLIENT-side (from JS.html DOMContentLoaded)
+ * rather than doGet() so it can carry device info — doGet() runs server-side and
+ * cannot see the browser's User-Agent. Answers visits / who / when /
+ * returning-vs-new, now splittable by device.
+ * @param {string} deviceData  navigator.userAgent (+ optional " | WxH") from
+ *                             the client; parsed into device_* buckets.
  */
-function trackAppOpen() {
-  trackEvent("app_open", {});
+function trackAppOpen(deviceData) {
+  trackEvent("app_open", parseDevice_(deviceData));
 }
 
 /**
  * "A user exercised a feature, with an outcome." Called from the action
- * handlers. Answers success rate / fail rate per feature.
- * @param {string} feature enroll | change_plan | withdraw | beneficiary | cancel
- * @param {string} outcome success | fail
+ * handlers. Answers success rate / fail rate per feature, splittable by device.
+ * @param {string} feature    enroll | change_plan | withdraw | beneficiary | cancel
+ * @param {string} outcome    success | fail
+ * @param {string} deviceData (optional) navigator.userAgent from the client —
+ *                            the handlers already receive it for the audit log,
+ *                            so device comes free here. Parsed into device_*
+ *                            buckets; omitted (no device params) if absent.
  */
-function trackFeatureAction(feature, outcome) {
-  trackEvent("feature_action", { feature: feature, outcome: outcome });
+function trackFeatureAction(feature, outcome, deviceData) {
+  const params = Object.assign(
+    { feature: feature, outcome: outcome },
+    parseDevice_(deviceData)
+  );
+  trackEvent("feature_action", params);
 }
 
 /**
@@ -165,4 +225,36 @@ function testTrackEvent() {
 
   trackFeatureAction("test", "success");
   Logger.log("Sent live feature_action(test, success) — check GA4 Realtime.");
+}
+
+/**
+ * Editor-run harness for the device dimensions. (1) Unit-checks parseDevice_
+ * against representative UA strings and logs the buckets so you can eyeball that
+ * category/os/browser are right. (2) Sends ONE real feature_action(test) tagged
+ * as a mobile device so you can confirm device_category/device_os/device_browser
+ * land in GA4 Realtime/DebugView. Best-effort — no-ops if GA4 isn't configured.
+ */
+function testDeviceTracking() {
+  const samples = {
+    "iPhone Safari":   "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1",
+    "Android Chrome":  "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
+    "iPad Safari":     "Mozilla/5.0 (iPad; CPU OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/604.1",
+    "Windows Chrome":  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mac Safari":      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+    "Android tablet":  "Mozilla/5.0 (Linux; Android 13; SM-X710) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "empty":           ""
+  };
+  Logger.log("=== parseDevice_ unit check ===");
+  Object.keys(samples).forEach(function (label) {
+    Logger.log(label + " → " + JSON.stringify(parseDevice_(samples[label])));
+  });
+
+  const cfg = getAnalyticsConfig_();
+  if (!cfg.measurementId || !cfg.apiSecret) {
+    Logger.log("→ GA4 not configured; live send skipped.");
+    return;
+  }
+  // Tag the live test event as a phone so you can verify device_* in GA4.
+  trackFeatureAction("test", "success", samples["Android Chrome"]);
+  Logger.log("Sent live feature_action(test, success) as Android/Chrome/mobile — check GA4 Realtime → click the event → confirm device_category=mobile, device_os=Android, device_browser=Chrome.");
 }

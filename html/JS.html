@@ -7,6 +7,11 @@
   document.addEventListener("DOMContentLoaded", () => {
     google.script.run.withSuccessHandler(populateUI).withFailureHandler((err) => showError("System Error: " + err)).getUserProfile();
     google.script.run.withSuccessHandler(applyCooldownUI).checkPlanChangeEligibility();
+    // GA4 "app_open" — fired here (not server-side in doGet) so it can carry the
+    // device. DOMContentLoaded fires once per real page load; the post-action
+    // home-reload is a soft re-render (see showSuccessToast), so this won't
+    // re-fire and inflate visit counts. Best-effort — no handlers needed.
+    google.script.run.trackAppOpen(navigator.userAgent + ' | ' + screen.width + 'x' + screen.height);
   });
 
   function applyCooldownUI(status) {

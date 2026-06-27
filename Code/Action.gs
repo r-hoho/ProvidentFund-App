@@ -162,11 +162,11 @@ function processEnrollment(payload, deviceData) {
       });
     }
 
-    trackFeatureAction("enroll", "success");
+    trackFeatureAction("enroll", "success", deviceData);
     return { success: true };
 
   } catch (error) {
-    trackFeatureAction("enroll", "fail");
+    trackFeatureAction("enroll", "fail", deviceData);
     return { success: false, msg: error.toString() };
   }
 }
@@ -359,11 +359,11 @@ function processChangePlan(newPlan, deviceData) {
       emailError: emailResult.error || null
     });
 
-    trackFeatureAction("change_plan", "success");
+    trackFeatureAction("change_plan", "success", deviceData);
     return { success: true };
 
   } catch (error) {
-    trackFeatureAction("change_plan", "fail");
+    trackFeatureAction("change_plan", "fail", deviceData);
     return { success: false, msg: error.toString() };
   }
 }
@@ -500,11 +500,11 @@ function processUpdateBeneficiaries(payload, deviceData) {
       });
     }
 
-    trackFeatureAction("beneficiary", "success");
+    trackFeatureAction("beneficiary", "success", deviceData);
     return { success: true };
 
   } catch (error) {
-    trackFeatureAction("beneficiary", "fail");
+    trackFeatureAction("beneficiary", "fail", deviceData);
     return { success: false, msg: error.toString() };
   }
 }
@@ -652,10 +652,10 @@ function cancelTransaction(transactionId, deviceData) {
       emailError: emailResult.error || null
     });
 
-    trackFeatureAction("cancel", "success");
+    trackFeatureAction("cancel", "success", deviceData);
     return { success: true, msg: "ยกเลิกรายการสำเร็จ / Transaction cancelled." };
   } catch (error) {
-    trackFeatureAction("cancel", "fail");
+    trackFeatureAction("cancel", "fail", deviceData);
     return { success: false, msg: error.toString() };
   }
 }
