@@ -60,7 +60,7 @@
 
 ### Sheet 3: `Beneficiaries` (append-only ledger)
 * `Timestamp | Allstars_ID | Work_Email | Beneficiary_Data`
-* `Beneficiary_Data` is a JSON-stringified array (max 5 entries, each with `name`, `rel`, `pct`; pct values must sum to exactly 100).
+* `Beneficiary_Data` is a JSON-stringified array (max 5 entries, each `{name, rel, pct, address}`; each `pct` ≥ 1 and all must sum to exactly 100). `name` embeds a required **title prefix** (นาย/นาง/นางสาว/ด.ช./ด.ญ. or Mr./Ms./Mrs.), merged in client-side at submit so the stored model is unchanged. `rel` is an English key: Parent/Spouse/Child/Sibling/Relative/Friend (`Other` retired from the picker but retained in `REL_LABELS` for legacy display).
 * The newest matching row is the active record; the full set of matching rows forms the user-visible history timeline.
 
 ### Sheet 4: `Audit_Log` (append-only)

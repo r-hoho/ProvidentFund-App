@@ -141,8 +141,9 @@ States 1 & 7 have **no row**. Legend: `D0` = original 1st-enroll date ·
 
 - Append order: `Timestamp | Allstars_ID | Work_Email | Beneficiary_Data`.
 - `Beneficiary_Data` is a **valid JSON string**:
-  `[{"name":"...","rel":"...","pct":50,"address":"..."}]`
-  - `rel` = English key (not the Thai label).
+  `[{"name":"นาย สมชาย ใจดี","rel":"Child","pct":50,"address":"..."}]`
+  - `name` includes a **title prefix** baked in at the front (นาย/นาง/นางสาว/ด.ช./ด.ญ. or Mr./Ms./Mrs.) — the app merges the prefix into `name` on save, so migrated rows should carry it the same way (`"<prefix> <full name>"`).
+  - `rel` = English key (not the Thai label): Parent/Spouse/Child/Sibling/Relative/Friend. (`Other` is no longer offered, but legacy `Other` rows still display fine.)
   - each `pct` ≥ 1 and all `pct` **sum to exactly 100**.
   - `name`, `rel`, `address` all non-empty.
 - App reads the **bottom-most** matching row as active; order history oldest→newest.
