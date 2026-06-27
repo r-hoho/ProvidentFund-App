@@ -177,12 +177,12 @@
   // ==========================================
   // NEW FULL-SCREEN WIZARD LOGIC
   // ==========================================
-  let wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100, address: '' }] };
+  let wizData = { contribution: null, investment: null, beneficiaries: [{ prefix: '', name: '', rel: '', pct: 100, address: '' }] };
   let currentStep = 1;
   let wizSigHandle = null; // signature pad instance for step 5
 
   function openEnroll() {
-    wizData = { contribution: null, investment: null, beneficiaries: [{ name: '', rel: '', pct: 100, address: '' }] };
+    wizData = { contribution: null, investment: null, beneficiaries: [{ prefix: '', name: '', rel: '', pct: 100, address: '' }] };
     currentStep = 1;
     if (wizSigHandle) { PFSignature.destroy(wizSigHandle); wizSigHandle = null; }
     document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
@@ -223,7 +223,7 @@
 
   function addBeneficiary() {
     if (wizData.beneficiaries.length < 5) {
-      wizData.beneficiaries.push({ name: '', rel: '', pct: 0, address: '' });
+      wizData.beneficiaries.push({ prefix: '', name: '', rel: '', pct: 0, address: '' });
       renderBeneficiaries(); validateStep();
     }
   }
@@ -252,10 +252,53 @@
     <option value="Parent">บิดา/มารดา (Parent)</option>
     <option value="Spouse">คู่สมรส (Spouse)</option>
     <option value="Child">บุตร (Child)</option>
+    <option value="Sibling">พี่น้อง (Sibling)</option>
     <option value="Relative">ญาติ (Relative)</option>
     <option value="Friend">เพื่อน (Friend)</option>
-    <option value="Other">อื่นๆ (Other)</option>
   `;
+
+  // Name-prefix (title) options. Bank requirement: every beneficiary name carries a
+  // title. The prefix is a transient UI-only field — it's merged into `name`
+  // (via mergePrefixes) right before submission, so the stored JSON model stays
+  // {name, rel, pct, address}. Shared by the wizard + the beneficiary manager.
+  const prefixOptions = `
+    <option value="" disabled selected>คำนำหน้า…</option>
+    <optgroup label="ไทย">
+      <option value="นาย">นาย</option>
+      <option value="นาง">นาง</option>
+      <option value="นางสาว">นางสาว</option>
+      <option value="ด.ช.">ด.ช.</option>
+      <option value="ด.ญ.">ด.ญ.</option>
+    </optgroup>
+    <optgroup label="English">
+      <option value="Mr.">Mr.</option>
+      <option value="Ms.">Ms.</option>
+      <option value="Mrs.">Mrs.</option>
+    </optgroup>
+  `;
+  const PREFIX_LIST = ['นาย', 'นาง', 'นางสาว', 'ด.ช.', 'ด.ญ.', 'Mr.', 'Ms.', 'Mrs.'];
+
+  // Merge the transient prefix into `name` for storage: {prefix, name, ...} -> {name: "prefix name", ...}.
+  function mergePrefixes(list) {
+    return (list || []).map(b => ({
+      name: ((b.prefix || '') + ' ' + (b.name || '')).trim(),
+      rel: b.rel,
+      pct: b.pct,
+      address: b.address
+    }));
+  }
+
+  // Inverse, used when re-editing a saved beneficiary: pull a known leading title
+  // back out of `name` so the prefix dropdown is populated and we don't double-prefix.
+  function splitPrefix(b) {
+    const full = (b.name || '').trim();
+    for (const p of PREFIX_LIST) {
+      if (full.indexOf(p + ' ') === 0) {
+        return Object.assign({}, b, { prefix: p, name: full.slice(p.length).trim() });
+      }
+    }
+    return Object.assign({}, b, { prefix: b.prefix || '' });
+  }
 
   function renderBeneficiaries() {
     const list = document.getElementById('beneficiaryList'); list.innerHTML = '';
@@ -264,8 +307,13 @@
       let removeBtn = index > 0 ? `<button class="ben-remove" onclick="removeBeneficiary(${index})">❌ ลบ</button>` : '';
       card.innerHTML = `
         ${removeBtn}
-        <label style="font-size:0.85rem; color:var(--pico-muted-color);">ชื่อ-สกุล (Name)</label>
-        <input type="text" value="${ben.name}" oninput="updateBenData(${index}, 'name', this.value)" placeholder="e.g., John Doe" style="margin-bottom:0.75rem;" required>
+        <label style="font-size:0.85rem; color:var(--pico-muted-color);">คำนำหน้า + ชื่อ-สกุล (Title + Name)</label>
+        <div class="grid" style="grid-template-columns: 7rem 1fr; gap:0.5rem; margin-bottom:0.75rem;">
+          <select onchange="updateBenData(${index}, 'prefix', this.value)" required>
+            ${prefixOptions.replace(`value="${ben.prefix}"`, `value="${ben.prefix}" selected`)}
+          </select>
+          <input type="text" value="${ben.name}" oninput="updateBenData(${index}, 'name', this.value)" placeholder="e.g., John Doe" required>
+        </div>
         <div class="grid" style="grid-template-columns: 2fr 1fr; gap:0.5rem;">
           <div>
             <label style="font-size:0.85rem; color:var(--pico-muted-color);">ความสัมพันธ์ (Rel.)</label>
@@ -313,7 +361,7 @@
       wizData.beneficiaries.forEach(b => {
         const pct = parseInt(b.pct) || 0;
         totalPct += pct;
-        if (!b.name.trim() || !b.rel || !(b.address || '').trim() || pct < 1) allFilled = false;
+        if (!b.prefix || !b.name.trim() || !b.rel || !(b.address || '').trim() || pct < 1) allFilled = false;
       });
       const totalMsg = document.getElementById('benTotalText');
       const helperMsg = document.getElementById('benHelperText');
@@ -350,7 +398,7 @@
     document.getElementById('sumContrib').textContent = `${(parseFloat(wizData.contribution) * 100).toFixed(0)}%`;
     document.getElementById('sumInvest').textContent = wizData.investment;
     let benHtml = `<ul style="margin-top:0.5rem; padding-left:1.25rem;">`;
-    wizData.beneficiaries.forEach(b => { benHtml += `<li style="font-weight:normal;">${b.name} — ${relLabel(b.rel)} — <strong style="color:var(--pico-primary);">${b.pct}%</strong>${b.address ? `<br><small style="color:var(--pico-muted-color);">${b.address}</small>` : ''}</li>`; });
+    wizData.beneficiaries.forEach(b => { benHtml += `<li style="font-weight:normal;">${b.prefix ? b.prefix + ' ' : ''}${b.name} — ${relLabel(b.rel)} — <strong style="color:var(--pico-primary);">${b.pct}%</strong>${b.address ? `<br><small style="color:var(--pico-muted-color);">${b.address}</small>` : ''}</li>`; });
     benHtml += `</ul>`;
     document.getElementById('sumBens').innerHTML = benHtml;
     document.getElementById('sumEffectiveBanner').innerHTML = effectiveDateBannerHTML();
@@ -365,7 +413,7 @@
     const payload = {
       contributionPlan: parseFloat(wizData.contribution),
       investmentPlan: wizData.investment,
-      beneficiariesJSON: JSON.stringify(wizData.beneficiaries),
+      beneficiariesJSON: JSON.stringify(mergePrefixes(wizData.beneficiaries)),
       sigDataUrl: PFSignature.getDataUrl(wizSigHandle)
     };
 

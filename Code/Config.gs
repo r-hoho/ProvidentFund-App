@@ -17,6 +17,7 @@ const REL_LABELS = {
   'Parent':   'บิดา/มารดา (Parent)',
   'Spouse':   'คู่สมรส (Spouse)',
   'Child':    'บุตร (Child)',
+  'Sibling':  'พี่น้อง (Sibling)',
   'Relative': 'ญาติ (Relative)',
   'Friend':   'เพื่อน (Friend)',
   'Other':    'อื่นๆ (Other)'

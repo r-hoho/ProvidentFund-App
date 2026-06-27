@@ -104,13 +104,15 @@
 
   // --- VIEW B: UPDATE (Reused Form Logic) ---
   function initUpdateBeneficiaries() {
-    try { editBenData = JSON.parse(globalEnrollmentData.beneficiariesJSON); }
-    catch(e) { editBenData = [{ name: '', rel: '', pct: 100, address: '' }]; }
+    // splitPrefix pulls a saved leading title back out of `name` into a transient
+    // `prefix` field so the dropdown is populated and a re-save won't double-prefix.
+    try { editBenData = JSON.parse(globalEnrollmentData.beneficiariesJSON).map(splitPrefix); }
+    catch(e) { editBenData = [{ prefix: '', name: '', rel: '', pct: 100, address: '' }]; }
     renderUpdateBeneficiaries();
   }
 
   function addUpdateBeneficiary() {
-    if (editBenData.length < 5) { editBenData.push({ name: '', rel: '', pct: 0, address: '' }); renderUpdateBeneficiaries(); }
+    if (editBenData.length < 5) { editBenData.push({ prefix: '', name: '', rel: '', pct: 0, address: '' }); renderUpdateBeneficiaries(); }
   }
 
   function removeUpdateBeneficiary(index) {
@@ -137,8 +139,13 @@
       let removeBtn = index > 0 ? `<button class="ben-remove" onclick="removeUpdateBeneficiary(${index})">❌ ลบ</button>` : '';
       card.innerHTML = `
         ${removeBtn}
-        <label style="font-size:0.85rem; color:var(--pico-muted-color);">ชื่อ-สกุล (Name)</label>
-        <input type="text" value="${ben.name}" oninput="changeUpdateBenData(${index}, 'name', this.value)" style="margin-bottom:0.75rem;" required>
+        <label style="font-size:0.85rem; color:var(--pico-muted-color);">คำนำหน้า + ชื่อ-สกุล (Title + Name)</label>
+        <div class="grid" style="grid-template-columns: 7rem 1fr; gap:0.5rem; margin-bottom:0.75rem;">
+          <select onchange="changeUpdateBenData(${index}, 'prefix', this.value)" required>
+            ${prefixOptions.replace(`value="${ben.prefix}"`, `value="${ben.prefix}" selected`)}
+          </select>
+          <input type="text" value="${ben.name}" oninput="changeUpdateBenData(${index}, 'name', this.value)" required>
+        </div>
         <div class="grid" style="grid-template-columns: 2fr 1fr; gap:0.5rem;">
           <div>
             <label style="font-size:0.85rem; color:var(--pico-muted-color);">ความสัมพันธ์ (Rel.)</label>
@@ -163,7 +170,7 @@
 
   function validateUpdateBen() {
     let totalPct = 0; let allFilled = true;
-    editBenData.forEach(b => { const pct = parseInt(b.pct) || 0; totalPct += pct; if (!b.name.trim() || !b.rel || !(b.address || '').trim() || pct < 1) allFilled = false; });
+    editBenData.forEach(b => { const pct = parseInt(b.pct) || 0; totalPct += pct; if (!b.prefix || !b.name.trim() || !b.rel || !(b.address || '').trim() || pct < 1) allFilled = false; });
     const totalMsg = document.getElementById('updateBenTotalText'); const helperMsg = document.getElementById('updateBenHelperText'); const btn = document.getElementById('benToSignBtn');
     totalMsg.textContent = `${totalPct}%`;
 
@@ -201,7 +208,7 @@
         alert("System Error: " + err); 
       })
       .processUpdateBeneficiaries(
-        { beneficiariesJSON: JSON.stringify(editBenData), sigDataUrl: PFSignature.getDataUrl(benSigHandle) },
+        { beneficiariesJSON: JSON.stringify(mergePrefixes(editBenData)), sigDataUrl: PFSignature.getDataUrl(benSigHandle) },
         navigator.userAgent
       );
   }
