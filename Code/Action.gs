@@ -240,9 +240,9 @@ function checkPlanChangeEligibility() {
         const mostRecentAction = new Date(Math.max(lastChangeDate.getTime(), enrollDate.getTime()));
 
         if (mostRecentAction.getTime() > 0) {
-          // Plan % can be changed once per 6 months, measured from the most recent action.
+          // Plan % can be changed once per year, measured from the most recent action.
           let nextEligibleDate = new Date(mostRecentAction);
-          nextEligibleDate.setMonth(nextEligibleDate.getMonth() + 6);
+          nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
 
           if (today.getTime() < nextEligibleDate.getTime()) {
             return { locked: true, nextDate: Utilities.formatDate(nextEligibleDate, Session.getScriptTimeZone(), "dd-MMM-yyyy") };
@@ -302,9 +302,9 @@ function processChangePlan(newPlan, deviceData) {
     const priorLastChangeDate = enrollRow[lastChangeCol];
 
     if (mostRecentAction.getTime() > 0) {
-      // Plan % can be changed once per 6 months, measured from the most recent action.
+      // Plan % can be changed once per year, measured from the most recent action.
       let nextEligibleDate = new Date(mostRecentAction);
-      nextEligibleDate.setMonth(nextEligibleDate.getMonth() + 6);
+      nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
 
       if (today.getTime() < nextEligibleDate.getTime()) {
         return { success: false, msg: `ไม่สามารถเปลี่ยนอัตราได้ (Cannot change plan). คุณสามารถเปลี่ยนได้อีกครั้งในวันที่ / You can change your plan again on: ${nextEligibleDate.toLocaleDateString('en-GB')}` };
