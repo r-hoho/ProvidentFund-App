@@ -7,7 +7,10 @@
   let benSigHandle = null; // signature pad instance for the edit view
 
   function openManageBen() {
-    if (!globalEnrollmentData || !globalEnrollmentData.beneficiariesJSON) return;
+    // Guard only on missing profile — NOT on a blank beneficiary list. Migrated/enrolled
+    // users may have no record yet; they still open the "current" view (which shows an
+    // empty state + "tap Update to add"), so the button is never a dead tap.
+    if (!globalEnrollmentData) return;
     switchBenView('A');
     document.getElementById('beneficiaryManager').style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -64,7 +67,11 @@
   function renderCurrentBeneficiaries() {
     const list = document.getElementById('currentBenList'); let html = "";
     try {
-      const bens = JSON.parse(globalEnrollmentData.beneficiariesJSON);
+      const bens = JSON.parse(globalEnrollmentData.beneficiariesJSON || '[]');
+      if (!Array.isArray(bens) || bens.length === 0) {
+        list.innerHTML = "<p style='text-align:center; color:var(--pico-muted-color);'>ยังไม่มีข้อมูลผู้รับผลประโยชน์<br><small>No beneficiaries yet — tap Update to add</small></p>";
+        return;
+      }
       bens.forEach(b => {
         html += `<div class="option-card" style="cursor:default; margin-bottom: 0.5rem; padding: 1rem;">
           <strong style="margin-bottom:0.25rem;">${b.name}</strong>
@@ -106,7 +113,10 @@
   function initUpdateBeneficiaries() {
     // splitPrefix pulls a saved leading title back out of `name` into a transient
     // `prefix` field so the dropdown is populated and a re-save won't double-prefix.
-    try { editBenData = JSON.parse(globalEnrollmentData.beneficiariesJSON).map(splitPrefix); }
+    try {
+      const parsed = JSON.parse(globalEnrollmentData.beneficiariesJSON || '[]').map(splitPrefix);
+      editBenData = parsed.length ? parsed : [{ prefix: '', name: '', rel: '', pct: 100, address: '' }];
+    }
     catch(e) { editBenData = [{ prefix: '', name: '', rel: '', pct: 100, address: '' }]; }
     renderUpdateBeneficiaries();
   }
