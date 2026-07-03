@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <title>Provident Fund - Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <?!= include('html/CSS'); ?>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="container-fluid">
+    <ul>
+      <li><strong>Admin Dashboard</strong></li>
+    </ul>
+    <ul>
+      <li><small id="last-refreshed" class="secondary" style="margin-right: 1rem;">Last refreshed: -</small></li>
+      <li><button class="outline secondary" onclick="refreshData()" style="padding: 0.25rem 0.5rem; margin-right: 1rem; border-width: 1px;">Refresh</button></li>
+      <li><a href="#" id="nav-summary" class="secondary" onclick="switchTab('summary')">Summary & Stats</a></li>
+      <li><a href="#" id="nav-details" class="secondary" onclick="switchTab('details')">Detailed Log</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    
+    <!-- Loading Indicator -->
+    <div id="loading-state" class="center-text">
+      <article aria-busy="true"></article>
+      <p>Loading data...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="hidden">
+      <article class="error-box">
+        <header><strong>Error loading data</strong></header>
+        <p id="error-message"></p>
+      </article>
+    </div>
+
+    <!-- Page 1: Summary Dashboard & Stats -->
+    <div id="page-summary" class="hidden tab-content">
+      
+      <section id="metrics-cards" class="grid">
+        <article>
+          <header>New Enrollments (This Month)</header>
+          <h2 id="metric-enroll">0</h2>
+        </article>
+        <article>
+          <header>Plan Changes (This Month)</header>
+          <h2 id="metric-change">0</h2>
+        </article>
+        <article>
+          <header>Withdrawals (This Month)</header>
+          <h2 id="metric-withdraw">0</h2>
+        </article>
+      </section>
+
+      <div class="grid">
+        <!-- Trend Chart -->
+        <article>
+          <header style="display: flex; justify-content: space-between; align-items: center;">
+            <span>Action Trend</span>
+            <select id="trendTimeframe" onchange="updateTrendChart()" style="width: auto; margin-bottom: 0;">
+              <option value="daily" selected>Daily</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </header>
+          <div class="chart-container-large">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </article>
+      </div>
+
+      <div class="grid">
+        <!-- Contribution % Breakdown -->
+        <article>
+          <header>Current Contribution %</header>
+          <div class="chart-container-small">
+            <canvas id="contributionChart"></canvas>
+          </div>
+        </article>
+
+        <!-- Investment Plan Breakdown -->
+        <article>
+          <header>Initial Investment Plans</header>
+          <div class="chart-container-small">
+            <canvas id="investmentChart"></canvas>
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <!-- Page 2: Detail Table & Search -->
+    <div id="page-details" class="hidden tab-content">
+      <section>
+        <form onsubmit="event.preventDefault();">
+          <fieldset role="group">
+            <input type="search" id="searchInput" name="search" placeholder="Search by Employee ID or Email..." oninput="handleSearch()">
+            <input type="button" value="Search" onclick="handleSearch()">
+          </fieldset>
+        </form>
+      </section>
+
+      <section class="overflow-auto">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Emp ID</th>
+              <th>Email</th>
+              <th>Action</th>
+              <th>Contribution %</th>
+              <th>Investment Plan</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Rows injected via JS -->
+          </tbody>
+        </table>
+        <p id="table-limit-indicator" class="hidden secondary center-text" style="font-size: 0.85em;"></p>
+      </section>
+    </div>
+
+  </main>
+
+  <?!= include('html/JS'); ?>
+</body>
+</html>

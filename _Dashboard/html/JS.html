@@ -1,0 +1,363 @@
+<script>
+  // Global state
+  let rawAuditData = [];
+  let chartInstances = {};
+
+  // Lifecycle
+  document.addEventListener('DOMContentLoaded', () => {
+    switchTab('summary'); // Default tab
+    fetchData();
+  });
+
+  // ==========================================
+  // UI & NAVIGATION
+  // ==========================================
+  function switchTab(tabId) {
+    // Update nav links
+    document.getElementById('nav-summary').classList.remove('active');
+    document.getElementById('nav-details').classList.remove('active');
+    document.getElementById('nav-' + tabId).classList.add('active');
+
+    // Update content visibility
+    document.getElementById('page-summary').classList.add('hidden');
+    document.getElementById('page-details').classList.add('hidden');
+    document.getElementById('page-' + tabId).classList.remove('hidden');
+
+    // If switching to summary and data is loaded, ensure charts resize properly
+    if (tabId === 'summary' && rawAuditData.length > 0) {
+      Object.values(chartInstances).forEach(chart => chart.update());
+    }
+  }
+
+  function showLoading(isLoading) {
+    document.getElementById('loading-state').classList.toggle('hidden', !isLoading);
+  }
+
+  function showError(message) {
+    showLoading(false);
+    document.getElementById('page-summary').classList.add('hidden');
+    document.getElementById('page-details').classList.add('hidden');
+    const errBox = document.getElementById('error-state');
+    errBox.classList.remove('hidden');
+    document.getElementById('error-message').innerText = message;
+  }
+
+  // ==========================================
+  // DATA FETCHING & DEDUPLICATION
+  // ==========================================
+  function refreshData() {
+    // Hide pages and show loading state
+    document.getElementById('page-summary').classList.add('hidden');
+    document.getElementById('page-details').classList.add('hidden');
+    document.getElementById('error-state').classList.add('hidden');
+    showLoading(true);
+    fetchData();
+  }
+
+  function fetchData() {
+    google.script.run
+      .withSuccessHandler(onDataLoaded)
+      .withFailureHandler((err) => showError(err.message || 'Failed to load data.'))
+      .getAuditData();
+  }
+
+  function onDataLoaded(data) {
+    try {
+      console.log('Raw data received from server:', data);
+      showLoading(false);
+      
+      if (!data || data.length === 0) {
+        showError('No records found in the Audit_Log sheet.');
+        return;
+      }
+
+      // Deduplicate requests by Transaction_ID
+      const transactionMap = {};
+      const uniqueData = [];
+
+      data.forEach(row => {
+        const tid = row.Transaction_ID;
+        
+        // Normalize status
+        let status = (row.Event_Type || 'SUBMITTED').toUpperCase();
+        if (status.includes('CANCEL')) status = 'CANCELLED';
+        row.Event_Type = status;
+
+        if (tid) {
+          if (!transactionMap[tid]) {
+            transactionMap[tid] = row;
+            uniqueData.push(row); // Keep the original submission row, but we'll update its status
+          } else {
+            // If we see a newer event for this transaction (like a cancellation), 
+            // update the original row's status so it shows as cancelled.
+            transactionMap[tid].Event_Type = status;
+          }
+        } else {
+          // Legacy rows without a Transaction ID
+          uniqueData.push(row);
+        }
+      });
+
+      // Update the "Last refreshed" timestamp
+      const timeStr = new Date().toLocaleTimeString('en-GB');
+      document.getElementById('last-refreshed').innerText = 'Last refreshed: ' + timeStr;
+
+      // Sort reverse chronological for the table (newest first)
+      uniqueData.sort((a, b) => new Date(b.Timestamp || 0) - new Date(a.Timestamp || 0));
+      rawAuditData = uniqueData;
+      
+      processSummaryMetrics(rawAuditData);
+      renderTable(rawAuditData);
+      
+      // Reshow the currently active tab
+      const isSummaryActive = document.getElementById('nav-summary').classList.contains('active');
+      document.getElementById(isSummaryActive ? 'page-summary' : 'page-details').classList.remove('hidden');
+      
+      // Ensure chart sizes apply properly if we are on summary
+      if (isSummaryActive) {
+        Object.values(chartInstances).forEach(chart => chart.update());
+      }
+
+    } catch (e) {
+      console.error('Error processing data:', e);
+      showError('Error processing data: ' + e.message);
+    }
+  }
+
+  // ==========================================
+  // DATA PROCESSING & CHARTS
+  // ==========================================
+  function processSummaryMetrics(data) {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    let monthEnroll = 0;
+    let monthChange = 0;
+    let monthWithdraw = 0;
+
+    // Event Sourcing State Trackers
+    const latestPlanByEmployee = {}; // ID -> latest Plan %
+    const initialInvestmentByEmployee = {}; // ID -> initial Investment Plan
+
+    // Note: 'data' is already newest-first
+    data.forEach(row => {
+      // Skip cancelled transactions from aggregated metrics
+      if (row.Event_Type === 'CANCELLED') return;
+
+      const date = new Date(row.Timestamp);
+      const action = row.Action;
+      const empId = row.Allstars_ID;
+      
+      // 1. Current Month Totals
+      if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+        if (action === 'Enroll') monthEnroll++;
+        if (action === 'Change Plan') monthChange++;
+        if (action === 'Withdraw') monthWithdraw++;
+      }
+
+      // 2. Track latest state (Data is newest-first, so the FIRST time we see an ID is their latest state)
+      if (!latestPlanByEmployee[empId]) {
+        if (action !== 'Withdraw' && row.Selected_Plan) {
+          latestPlanByEmployee[empId] = row.Selected_Plan;
+        } else if (action === 'Withdraw') {
+           latestPlanByEmployee[empId] = 'Withdrawn';
+        }
+      }
+
+      // 3. Track Initial Investment (we want the OLDEST enroll event)
+      if (action === 'Enroll' && row.Investment_Plan) {
+        initialInvestmentByEmployee[empId] = row.Investment_Plan;
+      }
+    });
+
+    // Update DOM Metrics
+    document.getElementById('metric-enroll').innerText = monthEnroll;
+    document.getElementById('metric-change').innerText = monthChange;
+    document.getElementById('metric-withdraw').innerText = monthWithdraw;
+
+    // Render Charts
+    updateTrendChart(); // Calls the new dynamic grouping function
+    renderContributionChart(latestPlanByEmployee);
+    renderInvestmentChart(initialInvestmentByEmployee);
+  }
+
+  function updateTrendChart() {
+    const timeframe = document.getElementById('trendTimeframe').value; // 'daily' or 'monthly'
+    const trendData = {}; 
+
+    rawAuditData.forEach(row => {
+      // Skip cancelled transactions from the trend chart
+      if (row.Event_Type === 'CANCELLED') return;
+
+      const date = new Date(row.Timestamp);
+      const action = row.Action;
+      if (!date || !action) return;
+
+      let key;
+      if (timeframe === 'monthly') {
+        key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      } else { // daily
+        key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      }
+
+      if (!trendData[key]) {
+        trendData[key] = { Enroll: 0, 'Change Plan': 0, Withdraw: 0 };
+      }
+      if (trendData[key][action] !== undefined) {
+        trendData[key][action]++;
+      }
+    });
+
+    renderTrendChart(trendData);
+  }
+
+  function renderTrendChart(trendData) {
+    const ctx = document.getElementById('trendChart');
+    
+    // Sort month keys chronologically
+    const labels = Object.keys(trendData).sort();
+    const enrollData = labels.map(lbl => trendData[lbl]['Enroll']);
+    const changeData = labels.map(lbl => trendData[lbl]['Change Plan']);
+    const withdrawData = labels.map(lbl => trendData[lbl]['Withdraw']);
+
+    if (chartInstances.trend) chartInstances.trend.destroy();
+    
+    chartInstances.trend = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Enrollments', data: enrollData, borderColor: '#1095c1', tension: 0.1 },
+          { label: 'Plan Changes', data: changeData, borderColor: '#f59f00', tension: 0.1 },
+          { label: 'Withdrawals', data: withdrawData, borderColor: '#d81b60', tension: 0.1 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    });
+  }
+
+  function renderContributionChart(latestPlans) {
+    const ctx = document.getElementById('contributionChart');
+    const counts = {};
+    
+    Object.values(latestPlans).forEach(plan => {
+      if (plan === 'Withdrawn') return; // Skip withdrawn users
+      // Handle formatting (e.g. 0.05 -> "5%")
+      let displayPlan = plan;
+      if (!isNaN(plan) && plan !== '') {
+          displayPlan = (parseFloat(plan) * 100).toFixed(0) + '%';
+      }
+      counts[displayPlan] = (counts[displayPlan] || 0) + 1;
+    });
+
+    if (chartInstances.contrib) chartInstances.contrib.destroy();
+
+    chartInstances.contrib = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(counts),
+        datasets: [{
+          data: Object.values(counts),
+          backgroundColor: ['#1095c1', '#f59f00', '#388e3c', '#8e24aa', '#e53935']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  }
+
+  function renderInvestmentChart(investments) {
+    const ctx = document.getElementById('investmentChart');
+    const counts = {};
+    
+    Object.values(investments).forEach(plan => {
+      if(!plan) return;
+      counts[plan] = (counts[plan] || 0) + 1;
+    });
+
+    if (chartInstances.invest) chartInstances.invest.destroy();
+
+    chartInstances.invest = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: Object.keys(counts),
+        datasets: [{
+          data: Object.values(counts),
+          backgroundColor: ['#1976d2', '#fbc02d', '#f57c00', '#d32f2f']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  }
+
+  // ==========================================
+  // TABLE & SEARCH
+  // ==========================================
+  function renderTable(data, limit = 50) {
+    const tbody = document.getElementById('table-body');
+    const indicator = document.getElementById('table-limit-indicator');
+    tbody.innerHTML = '';
+
+    let displayData = data;
+    let isTruncated = false;
+
+    if (limit && data.length > limit) {
+      displayData = data.slice(0, limit);
+      isTruncated = true;
+    }
+
+    displayData.forEach(row => {
+      const tr = document.createElement('tr');
+      const dateStr = new Date(row.Timestamp).toLocaleString('en-GB');
+      
+      let displayPlan = row.Selected_Plan;
+      if (!isNaN(row.Selected_Plan) && row.Selected_Plan !== '') {
+          displayPlan = (parseFloat(row.Selected_Plan) * 100).toFixed(0) + '%';
+      }
+
+      // Format Status text
+      const isCancelled = row.Event_Type === 'CANCELLED';
+      const statusColor = isCancelled ? '#d81b60' : 'inherit';
+
+      tr.innerHTML = `
+        <td>${dateStr}</td>
+        <td>${row.Allstars_ID || ''}</td>
+        <td>${row.Email || ''}</td>
+        <td>${row.Action || ''}</td>
+        <td>${displayPlan || '-'}</td>
+        <td>${row.Investment_Plan || '-'}</td>
+        <td style="color: ${statusColor}; font-weight: ${isCancelled ? 'bold' : 'normal'}">${row.Event_Type}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    if (indicator) {
+      if (isTruncated) {
+        indicator.innerText = `Showing the ${limit} most recent records. Use the search box to find older records.`;
+        indicator.classList.remove('hidden');
+      } else {
+        indicator.classList.add('hidden');
+      }
+    }
+  }
+
+  function handleSearch() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    if (!query) {
+      renderTable(rawAuditData, 50); // Default limit for empty search
+      return;
+    }
+
+    const filtered = rawAuditData.filter(row => {
+      const id = String(row.Allstars_ID || '').toLowerCase();
+      const email = String(row.Email || '').toLowerCase();
+      const status = String(row.Event_Type || '').toLowerCase();
+      return id.includes(query) || email.includes(query) || status.includes(query);
+    });
+
+    renderTable(filtered, null); // No limit when actively searching
+  }
+</script>
