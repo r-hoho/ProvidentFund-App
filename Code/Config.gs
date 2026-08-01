@@ -3,6 +3,12 @@
 // ==========================================
 
 const SPREADSHEET_ID = SpreadsheetApp.getActiveSpreadsheet().getId();
+
+// Admin emails allowed to bypass maintenance mode
+const ADMIN_EMAILS = [
+  'navananyeamsiri@airasia.com',
+  'taa_pd_department@airasia.com'
+];
 const SHEET_USERS = 'Users';
 const SHEET_ENROLLMENTS = 'Enrollments';
 const SHEET_AUDIT = 'Audit_Log';

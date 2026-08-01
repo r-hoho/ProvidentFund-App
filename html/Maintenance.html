@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- Load Pico.css Framework (Main app uses v2) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <title>Provident Fund App - Under Maintenance</title>
+  
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f6f8; /* Soft light-grey page background */
+      margin: 0;
+      padding: 1.5rem;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .maintenance-card {
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-radius: 8px;
+      border: 2px solid #cbd5e1; /* Clean solid outline */
+      background: #ffffff; /* Solid white card background */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    .maintenance-icon {
+      font-size: 4rem;
+      color: #C52F21; /* Core AirAsia Red */
+      margin-bottom: 1.5rem;
+      animation: pulse 2.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.95; }
+      50% { transform: scale(1.04); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.95; }
+    }
+    .divider {
+      margin: 1.5rem 0;
+      border-top: 1px solid #cbd5e1;
+    }
+    h2 {
+      color: #1e293b; /* Dark Slate Header */
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+    h3 {
+      color: #334155; /* Slate Subheader */
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+    }
+    p {
+      color: #475569; /* Slate Body Text */
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      background-color: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #0369a1; /* High-contrast blue status indicator */
+      font-weight: 600;
+      margin-top: 1.5rem;
+    }
+    .footer-support {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 2rem;
+    }
+    .footer-support a {
+      color: #C52F21;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <article class="maintenance-card">
+    <div class="maintenance-icon">
+      <i class="bi bi-cone-striped"></i>
+    </div>
+    
+    <!-- Thai Section -->
+    <h2>ระบบปิดปรับปรุงชั่วคราว</h2>
+    <p>ขออภัยในความไม่สะดวก ขณะนี้อยู่ระหว่างการปรับปรุงระบบชั่วคราว และจะกลับมาเปิดให้บริการอีกครั้งใน <strong>วันจันทร์ที่ 3 สิงหาคม 2569</strong></p>
+    
+    <div class="divider"></div>
+    
+    <!-- English Section -->
+    <h3>System Under Maintenance</h3>
+    <p>The application is currently undergoing a maintenance. We will be back online on <strong>Monday, August 3rd, 2026</strong>.</p>
+    
+    <div class="footer-support">
+      <small>ติดต่อสอบถาม: <a href="mailto:taa_pd@airasia.com">taa_pd@airasia.com</a> </small>
+    </div>
+  </article>
+
+</body>
+</html>

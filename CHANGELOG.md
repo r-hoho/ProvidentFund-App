@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 While in BETA the app stays in the `0.x` range; it graduates to `1.0.0` when stable
 and the BETA badge is dropped.
 
+## [0.2.2-beta] - 2026-08-01
+
+### Added
+- Created a beautiful, responsive, and light-themed corporate Maintenance Page (`html/Maintenance.html`) featuring corporate red highlights and bilingual support details.
+- Integrated a compact warning banner (`MAINTENANCE_MODE (Non-admin bypass active)`) visible at the top of the dashboard only to administrators when maintenance mode is active.
+
+### Changed
+- Configured dynamic, real-time maintenance checks in `doGet()` inside `Code/Main.gs` powered by the `MAINTENANCE_MODE` Google Apps Script property.
+- Added secure Admin Bypass logic (`ADMIN_EMAILS` defined in `Code/Config.gs`) to permit administrators to test on development branches (`/dev`) and access the app during periods of downtime.
+- Bumped client-facing version string in `html/Index.html` to `v0.2.2-beta`.
+
 ## [0.2.1-beta] - 2026-08-01
 
 ### Added
