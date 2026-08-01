@@ -1,5 +1,12 @@
 # Project TODO
 
+## August 2026 Policy Switch
+- [x] **Transition to the NEW 6-month cooldown / 3rd-withdrawal lockout policy** — DONE.
+  - [x] Update `Profile.gs` to change the withdrawal cooldown duration from 12 months to 6 months.
+  - [x] Update `Profile.gs` to allow up to a 3rd enrollment (lockout after 3rd withdrawal instead of 2nd withdrawal).
+  - [x] Update frontend labels/modals in `JS_Withdraw.html` and `Modals_Withdraw.html` to reflect the 3rd withdrawal maximum limit.
+  - [x] Verify withdrawal cooldown calculations and lockout checks using the 8th test case.
+
 ## Go-live blockers (must do before launch)
 - [ ] **Migrate data from the prior platform into the Google Sheet database** — port existing employee + enrollment records from the current/legacy system into the live Sheets (`Users`, `Enrollments`, `Beneficiaries`, and any historical `Audit_Log` if available). Must reconcile to the column schema each sheet expects (column *order* matters — backend reads via `headers.indexOf(...)`). Key fields to map/validate: `Users` (Allstars_ID, Work_Email, Name_English, Business_Title, Hire_Date, Probation_End); `Enrollments` (First_Enrolled_Date, Current_Enrolled_Date, Current_Plan, Investment_Plan, Withdrawal_Count, Last_Withdrawal_Date, Last_Plan_Change_Date); `Beneficiaries` (append-only ledger — Timestamp, Allstars_ID, Work_Email, Beneficiary_Data JSON). Decide handling for already-enrolled members (preserve original enrolment/member-since dates so tenure, match tier, and plan-change locks compute correctly) and anyone mid-cooldown/locked. Verify a sample of migrated users render correctly in the dashboard before cutover.
 - [x] **Move `PF_*` template/folder IDs to Script Properties** — done. `Letter.gs` reads the three IDs via `getLetterConfig_()` (Script Properties); IDs no longer in source. Set in the editor under Project Settings → Script Properties; verified live via `testGenerateBeneficiaryLetter()`.

@@ -4,8 +4,8 @@ A mobile-first, bilingual (Thai / English) self-service web app for employees to
 company Provident Fund — check status, enroll, adjust contributions, manage beneficiaries, and
 process withdrawals — built entirely on Google Apps Script and Google Sheets.
 
-![status](https://img.shields.io/badge/status-BETA-orange)
-![version](https://img.shields.io/badge/version-v0.2.0-blue)
+![status](https://img.shields.io/badge/status-stable-green)
+![version](https://img.shields.io/badge/version-v1.0.0-blue)
 ![platform](https://img.shields.io/badge/platform-Google%20Apps%20Script-4285F4)
 
 ## Overview
@@ -48,7 +48,7 @@ the `google.script.run` bridge — no external API layer.
 
 ## Status
 
-Live in **BETA** (`v0.2.0`). See [`CHANGELOG.md`](./CHANGELOG.md) for release history.
+Stable production release (`v1.0.0`). See [`CHANGELOG.md`](./CHANGELOG.md) for release history.
 
 ## License
 

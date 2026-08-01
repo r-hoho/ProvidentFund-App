@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 While in BETA the app stays in the `0.x` range; it graduates to `1.0.0` when stable
 and the BETA badge is dropped.
 
+## [1.0.0] - 2026-08-01
+
+### Added
+- Created a programmatical test harness (`Code/TestCases.gs`) containing 5 comprehensive mock-data tests to verify withdrawal cooldowns, permanent lockout counts, membership tenure math, and plan-change lock periods in the Apps Script editor.
+
+### Changed
+- Transitioned the app from BETA to **v1.0.0 Production Stable**:
+  - Dropped the client-facing `BETA` badge from the header of `html/Index.html`.
+  - Bumped client-facing version string in `html/Index.html` to `v1.0.0`.
+- Implemented the official **August 2026 Policy Switch**:
+  - Reduced the withdrawal cooldown duration from 12 months to **6 months** (applied after 1st and 2nd withdrawals).
+  - Raised the permanent lockout limit to **3 withdrawals** (allowing up to a 3rd enrollment cycle).
+  - Reduced the contribution plan-change lock duration from 1 year to **6 months**.
+  - Reset membership tenure calculations correctly to `0` upon any re-enrollment cycle, fully resolving the 8th business-rule test case.
+- Updated bilingual modals, warning messages, cancellation banners, and status pill displays across `html/JS.html`, `html/Modals.html`, and `html/Modals_Withdraw.html` to reflect the new 6-month locks and 3-withdrawal limits.
+
 ## [0.2.2-beta] - 2026-08-01
 
 ### Added

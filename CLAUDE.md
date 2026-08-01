@@ -59,7 +59,7 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 
 ## GAS-specific gotchas
 
-- **No local toolchain.** Edit → paste/sync into the GAS editor → deploy as Web App → test in browser. No automated tests, no `clasp`.
+- **Local clasp toolchain configured:** We use `clasp` natively in the root directory to sync changes. Always run **`clasp.cmd push`** (on Windows PowerShell) to push changes to the Google Apps Script project draft. Never push from subfolders directly.
 - **Frontend → backend:** only `google.script.run.withSuccessHandler(fn).withFailureHandler(fn).serverFunction(args)`. No fetch / REST.
 - **User identity:** `Session.getActiveUser().getEmail()` server-side.
 - **HTML templating:** entry point MUST use `HtmlService.createTemplateFromFile(...).evaluate()` — `createHtmlOutputFromFile` will silently fail to render `<?!= include() ?>` scriptlets.

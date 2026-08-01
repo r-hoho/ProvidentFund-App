@@ -102,7 +102,7 @@ function processEnrollment(payload, deviceData) {
     const tz = "Asia/Bangkok";
     const fmtDate = d => (d instanceof Date) ? Utilities.formatDate(d, tz, "dd MMM yyyy") : (d || "").toString();
     let tenureYears = 0;
-    if (userHireDate instanceof Date) {
+    if (wasFirstEnrollment && userHireDate instanceof Date) {
       tenureYears = (today.getTime() - userHireDate.getTime()) / (1000 * 3600 * 24 * 365.25);
     }
 
@@ -240,9 +240,9 @@ function checkPlanChangeEligibility() {
         const mostRecentAction = new Date(Math.max(lastChangeDate.getTime(), enrollDate.getTime()));
 
         if (mostRecentAction.getTime() > 0) {
-          // Plan % can be changed once per year, measured from the most recent action.
+          // Plan % can be changed once per 6 months, measured from the most recent action.
           let nextEligibleDate = new Date(mostRecentAction);
-          nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
+          nextEligibleDate.setMonth(nextEligibleDate.getMonth() + 6);
 
           if (today.getTime() < nextEligibleDate.getTime()) {
             return { locked: true, nextDate: Utilities.formatDate(nextEligibleDate, Session.getScriptTimeZone(), "dd-MMM-yyyy") };
@@ -302,9 +302,9 @@ function processChangePlan(newPlan, deviceData) {
     const priorLastChangeDate = enrollRow[lastChangeCol];
 
     if (mostRecentAction.getTime() > 0) {
-      // Plan % can be changed once per year, measured from the most recent action.
+      // Plan % can be changed once per 6 months, measured from the most recent action.
       let nextEligibleDate = new Date(mostRecentAction);
-      nextEligibleDate.setFullYear(nextEligibleDate.getFullYear() + 1);
+      nextEligibleDate.setMonth(nextEligibleDate.getMonth() + 6);
 
       if (today.getTime() < nextEligibleDate.getTime()) {
         return { success: false, msg: `ไม่สามารถเปลี่ยนอัตราได้ (Cannot change plan). คุณสามารถเปลี่ยนได้อีกครั้งในวันที่ / You can change your plan again on: ${nextEligibleDate.toLocaleDateString('en-GB')}` };
