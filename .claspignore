@@ -1,0 +1,7 @@
+# Ignore all files by default
+**/*
+
+# Permit only these files/directories
+!appsscript.json
+!Code/**/*.gs
+!html/**/*.html

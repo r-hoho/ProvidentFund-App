@@ -7,3 +7,8 @@ Data/
 .DS_Store
 Thumbs.db
 *.swp
+
+# Clasp Build / Config
+.clasp_build/
+.clasp.json
+

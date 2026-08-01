@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 While in BETA the app stays in the `0.x` range; it graduates to `1.0.0` when stable
 and the BETA badge is dropped.
 
+## [0.2.1-beta] - 2026-08-01
+
+### Added
+- Configured native `clasp` integration in the project root directory via `.clasp.json` and `.claspignore`.
+- Brought the Apps Script manifest (`appsscript.json`) under source control.
+
+### Changed
+- Migrated Google Apps Script structure to follow the local organized folder structure (`Code/` for backend, `html/` for frontend) to enable seamless command-line sync.
+- Updated template loading in `Main.gs` and includes in `Index.html` to support the folder-based namespaces (e.g. `'html/Index'`, `'html/CSS'`).
+- Bumped client-facing version string in `html/Index.html` to `v0.2.1-beta` for easier tracking in production preview.
+
 ## [0.2.0] - 2026-07-01
 
 ### Added
