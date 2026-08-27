@@ -29,13 +29,18 @@
     <div style="margin-bottom: 1.5rem; font-size: 0.9rem;">
       <strong style="color: var(--pico-color);">ผลกระทบ (Penalties):</strong>
       <ul style="margin-top: 0.5rem; padding-left: 1.2rem; color: var(--pico-muted-color);">
-        <li>คุณจะถูกหักเงินสะสมอีก 1 ครั้งก่อนหยุดจริง ตามวันที่มีผลด้านล่าง (One final deduction still applies)</li>
+        <li>คุณจะถูกหักเงินสะสมอีก 1 ครั้งก่อนหยุดจริง ตามระยะเวลาด้านล่าง (One final deduction still applies)</li>
         <li>คุณจะไม่สามารถสมัครใหม่ได้เป็นเวลา 6 เดือน (6-month cooldown)</li>
         <li>หากเป็นการลาออกครั้งที่ 3 คุณจะหมดสิทธิ์ถาวร (Permanent lockout on 3rd withdrawal)</li>
       </ul>
     </div>
 
-    <div id="withdrawEffectiveBanner"></div>
+    <div style="margin-top: 1.25rem; margin-bottom: 1rem;">
+      <strong style="color: var(--pico-color);">ระยะเวลาดำเนินการ / Withdrawal Timeline</strong>
+      <div id="withdrawTimeline" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--pico-color);"></div>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 1rem 0 1.25rem;">
 
     <label style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.9rem; cursor: pointer;">
       <input type="checkbox" id="withdrawConfirmCheck" onchange="toggleWithdrawSubmit()" style="margin-top: 0.2rem;">

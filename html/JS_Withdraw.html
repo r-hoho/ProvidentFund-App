@@ -30,7 +30,12 @@
     document.getElementById('withdrawConfirmCheck').checked = false;
     document.getElementById('submitWithdrawBtn').disabled = true;
 
-    document.getElementById('withdrawEffectiveBanner').innerHTML = effectiveDateBannerHTML('withdraw');
+    const tbParts = (globalUserProfile.todayBangkok || '').split('-').map(Number);
+    const wdDate = (tbParts.length === 3 && tbParts[0] && tbParts[1])
+      ? new Date(tbParts[0], tbParts[1] - 1, tbParts[2])
+      : new Date();
+    document.getElementById('withdrawTimeline').innerHTML = buildWithdrawalTimeline(wdDate, globalUserProfile.todayBangkok, true);
+
     document.getElementById('withdrawModal').showModal();
   }
 
