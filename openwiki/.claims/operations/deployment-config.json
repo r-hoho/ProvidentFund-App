@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:a7ded50650af3aae576b076729f9ab3b44e5351c08d47955a3875626f6bd3402",
+  "claims": [
+    {
+      "id": "claim_a649fbec5bd64ca2a86d9ac3c7b61404",
+      "statement": "The .claspignore file ignores everything by default and permits only appsscript.json, Code/**/*.gs, and html/**/*.html to sync to the GAS project; data, proposals, Python tooling, and the openwiki docs tree are not deployed.",
+      "evidence": [
+        {
+          "resource": "repo://.claspignore#L1-L7",
+          "version": "repo-lines-v1:sha256:8ace0e1d8571925a1ca8ef3feb8d819fe1c110c91ea86a42be743a8616291f06:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODM2YjhhNmIzZTE4ODFhZWRhMTkyYmIxOTViMmM1MzExNmE2YmFiZDBmNTdiN2JiNjlmNGMwNzQ1NGM0MWU1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjBiZjQ4ZDEwNDIyNThjMzYyMzBjMTI1YzA2Mzc1ZDZjNDU0M2FmOGQ2YTkzMWYxMWYxNGIyMDljM2Y2ZGM0OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6b38ef6715cd4838ab5ef612b3b87cfa",
+      "statement": "clasp is configured natively in the repository root; the binding operational commands are to run clasp.cmd push (on Windows PowerShell) and never push from subfolders, because the .claspignore paths and project linkage are resolved relative to the repo root.",
+      "evidence": [
+        {
+          "resource": "repo://.claspignore#L1-L7",
+          "version": "repo-lines-v1:sha256:8ace0e1d8571925a1ca8ef3feb8d819fe1c110c91ea86a42be743a8616291f06:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODM2YjhhNmIzZTE4ODFhZWRhMTkyYmIxOTViMmM1MzExNmE2YmFiZDBmNTdiN2JiNjlmNGMwNzQ1NGM0MWU1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjBiZjQ4ZDEwNDIyNThjMzYyMzBjMTI1YzA2Mzc1ZDZjNDU0M2FmOGQ2YTkzMWYxMWYxNGIyMDljM2Y2ZGM0OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://CLAUDE.md#L60-L62",
+          "version": "repo-lines-v1:sha256:b8cbe8f18117524e6b5f8bbb18d2b128f097bd398e021f1c3da3f0c76fdd4b5d:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmMyYTQ0M2EwYmE3ZDgyYmNlMTc5NjRlMjQ1ZmFkMWUwYjQzNDljOTI1Y2I5NjVjOGNhMDI1OGU1ODdlNjAwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJkNjMzNDBlMmJlMDJhYTUwMTA2ZDUxNzhiNWE0Zjg4ZDU4OTMwZTJmNjNmMGFmYTFiYzQwYzBiMGQ0YzhmZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODhlMjA5ODhiMmQ5ZTJlMTQ1Yjc4NWIyYzZjMjk0Y2FmODhmYjE4NWNkMTI3MGIzN2M5NWMxM2UzZTJhMWQwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGY3NTc0Y2M1OGRjNzA4MTJkYWVkOGY1NjkwN2MzZjQwOWQyMmMxOWU1ZTVkOGRiNWI1MTgxYTNlN2QxNmZiZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_36589ccda03d4d83b2efca30ada391c6",
+      "statement": "The appsscript.json manifest sets the V8 runtime, Asia/Bangkok timezone, Stackdriver exception logging, and web-app execution as USER_DEPLOYING with DOMAIN access.",
+      "evidence": [
+        {
+          "resource": "repo://appsscript.json#L1-L10",
+          "version": "repo-lines-v1:sha256:f2a5f54bd6aa08bd2b718ed0abebc8a4b41e1dd70e2e482d9fa85cc12f987f19:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a16d3623a864cbfa75b5130fb8083ab",
+      "statement": "executeAs: USER_DEPLOYING means every server function runs as the deploying user rather than the visiting end user, so identity is inferred server-side via Session.getActiveUser().getEmail() and the client never sends credentials; access: DOMAIN restricts the web app to authenticated workspace-domain users.",
+      "evidence": [
+        {
+          "resource": "repo://appsscript.json#L6-L9",
+          "version": "repo-lines-v1:sha256:f1336a81b48b13fe77f52235d74122a04e104f54e3af76e35e3da21ae71c8c43:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGNjMDA0NmJlMWRkMWIzYzliOGM1ZjRkNmI1ZDk4ODc2Yjc1NzcxZjAyMWIwYWY5OWRjNzUxNDZkNGI0ZDI5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTE0OTdmYmMyYjVhNmUwMmYxZTJiODUwNzRlMmM2ZTczYjYzOWU0NzZjYTgzMzIxN2Y5YTlkMDQ1MDY4NjUyMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c0d68d9cda2d4176932780bfec6a55a8",
+      "statement": "Letter.gs reads its template/folder configuration from Script Properties via getLetterConfig_(): PF_ENROLLMENT_TEMPLATE_ID (required), PF_BENEFICIARY_TEMPLATE_ID (optional, falls back to the enrollment template), and PF_LETTERS_FOLDER_ID (optional, falls back to the template's parent folder).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L13-L25",
+          "version": "repo-lines-v1:sha256:49bdeb1802a2de2bbf204f2f3ec5a664ba1193a58dda66b4211a5d73d45bf17d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjMmNkMTI5YmY2MmZlNzIyNzMxNjZlNDkxMWRkN2IyN2JiNTQ5ZjdiZmNiZTU4ZmQ5M2Y4MjcxYjg2YzViYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQzYjAwNjMxZTE3NDdhOWZhYzQ5NTZmMTljMjBiM2I3MDNmOGU3NjhiNjc2Y2I0NWRhYzRmNWM3NGUwMmY3MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2MWRlMGNiZDg0MzlkMTA2MjBiMDYzODVhYjcyMjRkODBjMjI0MDc4NTBkNzIzZGMwYzRmYmM2OTBhMGZkODIifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L49-L63",
+          "version": "repo-lines-v1:sha256:ac078c2c0c070a701c22eb8769f3a3432bb234843d214d5e9702e9e1fda93f4d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNjA3ZmIzYmFmNTk2ZTFiYmY0NmI4NGQ4NjIxODgzNDIyODMyOGYwMzU5YmYwOTRiZGI5MjYwMGIzNWVhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhNjNhOGJiOTJmYmI3ZTBhNGFkYTIxOTUwZGYxZWQ3N2ZkMGZiNjVlZDU4MGMwYmYyZmY4YWIyZDI0OWU5NjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2MmY0ZWU3YTI0ZDU3NmU3Nzc1YjRlMDg1MjJlNDA4YTFhNTcyMjYzZDI1NmU3ODRlNDIxODIyMTJmMDI1MTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5MTFlNjFjNTI3Y2NkMTRiNTc5ODg0ZDcyYTQ3ZmFjNjViMDJkMTA1ZDM2ZDE4YjBmY2JiYzVkMmQxMzA3ZWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6eecd8065c324be0b8537cecfecd9476",
+      "statement": "If PF_ENROLLMENT_TEMPLATE_ID is unset, generateLetter throws a fatal error pointing the operator to Project Settings → Script Properties; it is the only config key whose absence raises a hard error, while the beneficiary template and letters folder degrade with fallbacks.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L55-L63",
+          "version": "repo-lines-v1:sha256:1fa943cdbbf755f8a7b2a9cf04edeadd6d8515953ca13c3a32c67129a18189f5:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTVhYWNmMzMyMzdhNGU1NzAwZmQ2ZmQ4OTI4ZWRhOWJiNzk4Yjc3NjEwMDZiODg5NTQ2YmUwNzVjZjZiY2Q5ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGE2M2E4YmI5MmZiYjdlMGE0YWRhMjE5NTBkZjFlZDc3ZmQwZmI2NWVkNTgwYzBiZjJmZjhhYjJkMjQ5ZTk2NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk0YTA2ZDBhNmVlM2NkNmIyN2Q0YmIxMWM4YWFkZWMxM2VhY2E1OWM2NTYzYWY5NTA1OGJmNjlmODRmNGJiOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzkxMWU2MWM1MjdjY2QxNGI1Nzk4ODRkNzJhNDdmYWM2NWIwMmQxMDVkMzZkMThiMGZjYmJjNWQyZDEzMDdlZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_86ca208a3e5c49db882b754a5e0f0322",
+      "statement": "Analytics.gs reads GA4_MEASUREMENT_ID, GA4_API_SECRET, and GA4_USER_ID_SALT from Script Properties via getAnalyticsConfig_(); if measurementId or apiSecret is unset, trackEvent silently no-ops so analytics is simply off until configured and the app runs fine without it.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L126-L129",
+          "version": "repo-lines-v1:sha256:b1b0edc39b578ee543ab41c05d7070ee1cdef5d30d60728d098831664003734f:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTljMDRkYWMwNjI1OGEzOTcxODNiZmM3MDJkN2E2NGIxM2QzYzRjODAxMWU4MjVmZjA0ZGY5NDdiNjgyMDg5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGE5ZTRlNWE4NDYwYWY1ZGVjOTg5ODMwNDJkNGY0MWExYjg0ZmI0ZDVkYjU5ZWJlZjVhZWE0NDNmNTQ0NDBlYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGNjOWNlYWU2NmY3MGY0MTVkYjA3YWJlOWIxYjhlNmQ4MzJiN2Y2MjljOGQ2ZWNmNWZmMzFkMDFjNTllODIyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWRjYTQ2ZjlkYTA1ZGIwNTNhOTMwOTgwNjMxMmZmN2VjZGFmNjlhM2Q5NmYwM2Q1MGMxYzdiZTViNmIzY2U5MyJ9"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L28-L39",
+          "version": "repo-lines-v1:sha256:a6ca4162676eb57904bd7c3cda3f745d29b1bcfa891b8bca14371eea2510377b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4ZmE2MTVjYjIyMTgxMDI3YjAzZWQ5MDUzODk3MmMzYWE4NWQ0NjdjMTU0MjAyMTFmMGQ2Y2Q3M2FiYzA5NjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxM2JlYjA3YWMxYmU5OTRiOTZkNTgwOTAxNzU4Y2ZhM2YyM2Y5ZDczZmYxMmJlYzg0NTQ5YjZjYjQ2N2U2MDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4adb76a55f6e4689a0304cb8cdffe14c",
+      "statement": "All per-environment and secret values (PF_* template IDs and folder, GA4_* keys, GA4_USER_ID_SALT, MAINTENANCE_MODE) are stored in Script Properties under Project Settings → Script Properties, never in committed source; the only values that live in source are the ADMIN_EMAILS allowlist and sheet-name constants in Config.gs.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L16-L22",
+          "version": "repo-lines-v1:sha256:e6a976da61d30bfaa9b0aebdbb8e22eeca66dd17d98dc745caf616e9b44364fd:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmI4YTkyYTRhN2E2ZTRmYTFjN2QxNjVlNzUyNDE0MDYwMjY0ODNkMTIxNzRlYzU0MTg3N2I1Mjc4ZmEzZGU2MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTAxZWFkOTM2YTIyODFkNTNkY2MwNjRiN2UyYTJhYjBkNTNiOTJlZjNlZjdiMzRiNjY4NjczMDA3ODk1Yzg2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmEyMDQxMmY3ZmViZDFhNzQ2YTZmODczOWY3MGJhMDkxMGNlMzliM2MzMDVkYzkzNTUxMmY3ZTk4ZmE4MjMzMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjU0NGFiZDNmYTRhMWM2OWNkYzNjMjA3MjI3MDRjYTU4Y2MwZGY5YjVmYzU0ZDlkYWM5OWVhNDRmODgwOTJlOSJ9"
+        },
+        {
+          "resource": "repo://Code/Config.gs#L1-L18",
+          "version": "repo-lines-v1:sha256:90afe4d7addb49ed66fc212925d0a033c5096fb9e2105d5c0f2946860ec6ff6b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiMWU3MTJmYTBkYmFjN2VjZjMzNDQ5Mjg5ZjNkMDA4MDQxZjY2MDI1NDBhYzVlMTdhYWNlYTAyMDFjNWZiZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzOWU3Y2IwOGJkMzgxZjIyYzIyM2QxM2YyZTEzYjY1Y2Q3NDkyZTEzMGUzMDgzYTNlYTQ0NDgwYmNhNzExODUifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L13-L17",
+          "version": "repo-lines-v1:sha256:4bd96a2ad17b9617b7a07a451d38f0809116195bffcee5ad6a099fa2261ce880:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWMyY2QxMjliZjYyZmU3MjI3MzE2NmU0OTExZGQ3YjI3YmI1NDlmN2JmY2JlNThmZDkzZjgyNzFiODZjNWJiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzNiY2U4MDQ4MTNmOGE5YmUzMTFiZDVhOThiZWVkODg4MDE5ZDUxZWY0ODM4Nzg0ZWU2MmI2MmNhYzRkMDUyMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDNiMDA2MzFlMTc0N2E5ZmFjNDk1NmYxOWMyMGIzYjcwM2Y4ZTc2OGI2NzZjYjQ1ZGFjNGY1Yzc0ZTAyZjcxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDk0MTNjOWNiOWYxZTA1NjI1YzQ3NjVmOThmMzZlNzQ0MWZiOGRiZjhjNzkyNjFmNzYxYzQyYWI5NTI2YWJlYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_00792394cc2d4a688737a8a3d8cc4429",
+      "statement": "Maintenance mode is evaluated in doGet() on every page load by reading MAINTENANCE_MODE from Script Properties; only the exact string 'true' activates it, and because it reads the live property, toggling it takes effect immediately on the next load with no redeploy.",
+      "evidence": [
+        {
+          "resource": "repo://CHANGELOG.md#L42-L45",
+          "version": "repo-lines-v1:sha256:13e6eeebe8690fce76f8e1919c8c80018b89c9be9ca826a41fb32178f8010b55:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjFjMjQ2YTdmZDM4ODJkNTAzYWJjYTk2MzgyMmIxYmRkOWM2OWQ1ZWE0YmJkNzVmOGUzNWQwODE1MTlkNWM1MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGQ1MGI1Njc2N2RkYmJmOGQxNzY5MTQ3NzlmYTNiMDFhYjdjYTMyNzA3MWM2YmFjNGI1YmU1NTI0YTkyMzNjZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWYxY2RkODZmOTg3NTI1YzBlYWIyZjEyMzY1NjFiYjYwNTk5MTMwZDFmMjI5YjM2MGY0NTEwYjljY2ZiNTMyNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWVmZGE3YjFkNDhiZDYzMmNjMGEyMjQyMzJjYTIzZjA2Njk5NDgwMmU3OTlkYTQ1NmFlYWE2ZDZjMDQxZDgzYSJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L4-L18",
+          "version": "repo-lines-v1:sha256:50dfbc967e60b8453f9e84e438fd69bbe316b2fc30f3aab59784dcad2bfa5feb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZTMyZjc4MjIyZWE2ZTUyOWMzZjU4ZjI2MmYwZjYyMDEwZTU0ZmM0YTAxZDM4NWNhOGM4OTRkNWEwYWFmNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNWRkNzA3MTgxOGMyNzY3Y2IxMDc1ZTIyNjM4MzVlYzNjZDlkZWEwMGVjNDAwNTNiMGRmYjBkMjRlZTZiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3MjAyNjNjMTZiMzRjMzQ3ZWJhMGQ5NzhiZjIzNjIwNmRkMzkwZmZjMWRkNGFlZGQzMDdjODQwNTgxYjA2MmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e13a47f0b4204515a6c5bc1ac0df92f7",
+      "statement": "When MAINTENANCE_MODE === 'true', non-admin users are served the standalone html/Maintenance template and never see the dashboard, while admins listed in ADMIN_EMAILS bypass the gate and see the normal html/Index app with maintenanceActive=true passed into the template.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L6-L30",
+          "version": "repo-lines-v1:sha256:5c3bad871d7a76387f53f6b70a2fc38767bfff5ae2824297d5c53ca0e21b52f7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1YjkwYzk0YzRlZTZkNDYwNTZkNmE1YTc3M2Y4MjVkZDkxMjNiMzhlZWZkYTYwYTJlMmQ2MzM5OTM5YjQ5YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlYTU0ODA0YTMxZTIyNmYxMzk0ODBjMjczMDUzZmIxZjY0OWVlODQyNmNkYzhiYjlhMjY5YTM5NzQ5MzdlZTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzOTI2NWI5MTEzYWZlOGRkMDViY2U0MjIxYmM0MGYxNTMyNmYyODNkYWE4NWQ5Yzk3ZGVlMDY2NjkwN2E4NWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMWJkZjQ4YTdlNmExNjNhZmUyODdkODgyN2NhNDBkM2Q5NzBmMmE1MWVkNzI1YzRjY2M3MGQ2MmFkYjY2MzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1e8863b386a3494fa2d2c8b8f0d12f10",
+      "statement": "Index.html renders a red 'MAINTENANCE MODE (Non-admin bypass active)' warning banner at the top of the dashboard only when the maintenanceActive template variable is true, so admins know they are viewing the app during a maintenance window while ordinary users are blocked.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L26-L28",
+          "version": "repo-lines-v1:sha256:4b86dc21624265a5c58f6b39e017b86fa8d0f42c8531e2e7c2ff82f14bb4d2b1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDU4Mjk2Nzc0YmIwMDNiYjYwOTA3YTcxNzBiMzk1ZTA5YmM2N2RlMDMxZDMwOGRlY2ZkNTQxMTcyOWMyZjdhZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjM5NjZjNmY5MTg0NGJjNTNiYTRkMDMzYzdmMzg3Y2ViNTVlZmI4ZDMwMjg3ZDFjYTk4NTZkYmZlNzA2YzdiZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ1NjcwMWNhYmNjMGI2MmEzYTAzYzU4NTFiNTMyNDBiMWQ2ZThkOTI5NWM2MTFiYTIxZTAxY2FlMzFlYzIxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDM1ZjE1MWExOTM2M2Y5NGJjM2UxMDY2OGQ4ZDdlNWU2MjY4YTM5N2MzNDVjOGZlOWJjNTgyOWQ0ZTQ0NjQ3MCJ9"
+        },
+        {
+          "resource": "repo://html/Index.html#L31-L36",
+          "version": "repo-lines-v1:sha256:fd945abaeefdc74fdeae73c2d4e1004ca1e386edc6d93aa4116027fec6292959:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDljNGY5NTk4NjJlNTdhMDA5NDFjOTYyYTFhYjQ2MWM5MWRiNGRmNzQ1ZDcxN2MxMmEwOWI5OThiZGViNWQ4OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDRjZjBkMDBkOTllNjA5OWUzNDllZTY4N2I4NjQ2OTU1MGZlMzE3NGI3YzdhOTRkYjk4ZTUyNGNlYjM3N2JhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDI0MGJlYTdmNzRmZGM2YzEzMTI0ZGMxOGRmZjliZjBiZTJlYWFhYzkyOGIzZDBlNWQyOTkzYjM1MzAwN2NiYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWM2ZWE1YzY1NGM3ZTgzNmMyMTM5NTI4N2ZjOTZhZmFmZWQyZmM1ZWUxNzVkZDVlNzMyN2M1NjFmODliZjFkYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9534b992b86e43f7b231c99d2ca30f98",
+      "statement": "ADMIN_EMAILS is a hardcoded constant array of AirAsia domain addresses in Config.gs and is the allowlist used by doGet() to grant maintenance-mode bypass.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L7-L11",
+          "version": "repo-lines-v1:sha256:7910c775bdf205f91551a710ebffb709dc5cf990f3875805ff85b8481676ae07:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTdkMGM3MTI5NTBlYzAyNGJlOGEzMzE3Y2E4ODY2ZmZkZmJhYTk2MGVjZWE4YWEwZWIzYTliYzYzZjYzMGRjZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZDJjMGQ2ZGM1ZTc0ZDkyZmExNGI5MWRiZWEyNjQwOTBiZWIzNWZkYjkxODhkOWIzNDExODFkY2U5ZjRjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjhmZGIzOGI3OTQ5OGUyZjkyYTNiZDNjODhmOTVlMzkwMjIzNGI4MzdmZGNiN2VkMWU0YzlhYzAwN2RlZTM0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjFmNDNkZGIwNjdjNjU2MzliN2MzMzBhNDA4NGJjZmFlZGZmOGE4OTBjOTIyMzU0ZTNlNTVlM2EzYzcyODI2NyJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L8-L9",
+          "version": "repo-lines-v1:sha256:14b98778f83770c44635fc1e8311780d5157e422eab8ba8ce2fb44c600182bf2:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ3NDE1NjdiMWE2OGY2NmMzMGVmNjIwMjgzZGEwZTE1ZDNmZDI4NWJhYWJkMDgyYWI5ZjUzNWQ2MGFjZjA5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiMDk4MWE1ODM3MTE0YzVlNzcxNWJmMTJjZjUwMjlmZDQyMDM3ZDdmN2EyNjhkMjE1MDNkNDRlOWMxZjRkOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODE1MWU0MDYwM2Y0OTRkNjFmODAxN2Y2Nzg4MWJiMTA4YzczMWFjOTAwNWM2ZTZmMmJkN2RkZTI4NWY1MjNhZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTIzYzRhNjdjODMyYjMzMWEwZmQ0N2EzMjU2ZWMxYjg2NTEwODhlNGNiODUwNDc4NjUxYjYyNzdjNTZjOGVlZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_41dce0f51d52485fb100bf076bdc45d1",
+      "statement": "reportIssueToAdmin() in Utils.gs emails a hardcoded AirAsia admin address (CCing the affected user) when a logged-in user is not found in the Users sheet, so the missing record can be investigated.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L4-L23",
+          "version": "repo-lines-v1:sha256:0146f4566a809d941f3fdf047013025fff8a40622c996feac6bb15d7a3968da4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlODMwMmY0ZDQyZTNkZjk0MDFhMTViMjNmYTgzNDk5YzliYmM4NzlkZTQ5NmM0OTY5YzRhMzg0NjRkMjRiMGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzY2U4MDJhNGZmZjQ2ZmMzYzk0ZGE0MWVhNDkxMDdkMTk0YjFiNmIxZWQwYzYxOTFkNmUyZjU3MjQzOTIxMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1ZWMwOWE5YzQ0ZWM0ZmQ0ZjdiMmY4MWRjMTNiMzFmMmY0YWM0MjUyYWEzNGYwNTI3NThiMWYzYjY0MDBlMWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ab696218beb54b9fbcd8470a1e3fd29f",
+      "statement": "sendLetterFailureAlert() in Email.gs emails the hardcoded AirAsia admin (CCing the user) a bilingual alert when PDF letter generation fails after a successful enrollment or beneficiary action; it is called best-effort from Action.gs and never blocks or rolls back the action, which still returns { success: true }.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L156-L163",
+          "version": "repo-lines-v1:sha256:6c0cf09f624ba06d640539f2ee882abffb74ee95db80b6f3c8615f01bf27388c:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdjY2E2ODRjYTIzMjFjZjc1ZjEyMTI3NTdiODNlNjIxYzA1NTg0OTVmNmVmNjI3OTIzZjY2OGI0OGViNThhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzAwZWJkNTQxMjRiZTc1OWVlYTkwY2EwZDBiYjkwMjIzM2YyYzg1NzFiNTQ1N2JhMGI3NTUyMGY3ZTE1MzhmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWYwYTQ3ZWNlMThiMDlkNzA2ODMyYzQ4MjFkMWE0YTBhMzQ0MDk2OTJkN2NjNzkyZTk2ZGUzNDVkOWZjZTY2MiJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L494-L501",
+          "version": "repo-lines-v1:sha256:1a04ff668d26c0e7783c633100af7b2943ec61a888d46304e24d772333b6180a:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdjY2E2ODRjYTIzMjFjZjc1ZjEyMTI3NTdiODNlNjIxYzA1NTg0OTVmNmVmNjI3OTIzZjY2OGI0OGViNThhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGE1MWUwMDMxZDI2Y2RlNDZkODg4YjBiMjYwYjFmYjVhMDdhZWJlNzRiYzc5MjZmYzJiMTEyNjZiOGE4YzdjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmJhNjAyNDI2YTU4ZTUzYTAxZGViMzgyNTcyOTZkNzI2MGFhMzQ3ZGY0NmU4YTQyNzJjZTJiMWZhYTYzZWRhNSJ9"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L107-L158",
+          "version": "repo-lines-v1:sha256:5ef2213c7005e42332e1ba595e6d51951862e92f48b4a223fd9d7d3e1c122a55:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5NmNjYTEwNDg4ZjBkNzJlZGY0NGIwOGMwN2RjNjY5ZDA1ZTgxZDMzMDgwMjcyYjM1NjYzMzkwMTY1MTlmY2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyZjUwMDI5M2Q4MjY2NmQ5NmE2NmI5NmVmYjhlYWFiZjdhYWE0YzIyNDU5NTM3ODI5ZWQ2MzMwMmRmMTE5NDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5MzI3YmZiNjk2ZTFkMGQ1NjE4NDc3YzNlN2E5Y2NkNDAzZGYwZjA1MzQwMjMzOWYxZDE3Mzk3OTc4MGE3ZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1MWY1M2ZhZTEyMmNiY2FkMjRiY2I4OTNkZTBkZGExMjFmMmQzNjY3MjkyMmE4ODU3ZTExZmRkZTk3ZTFjNDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_60949c37df5e4449b35ba3f49f82394e",
+      "statement": "The admin alert recipients (ADMIN_EMAILS in Config.gs, reportIssueToAdmin in Utils.gs, sendLetterFailureAlert in Email.gs) are hardcoded AirAsia addresses that must be updated, not removed, and kept consistent across all three places if the responsible admin changes.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L7-L11",
+          "version": "repo-lines-v1:sha256:7910c775bdf205f91551a710ebffb709dc5cf990f3875805ff85b8481676ae07:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTdkMGM3MTI5NTBlYzAyNGJlOGEzMzE3Y2E4ODY2ZmZkZmJhYTk2MGVjZWE4YWEwZWIzYTliYzYzZjYzMGRjZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZDJjMGQ2ZGM1ZTc0ZDkyZmExNGI5MWRiZWEyNjQwOTBiZWIzNWZkYjkxODhkOWIzNDExODFkY2U5ZjRjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjhmZGIzOGI3OTQ5OGUyZjkyYTNiZDNjODhmOTVlMzkwMjIzNGI4MzdmZGNiN2VkMWU0YzlhYzAwN2RlZTM0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjFmNDNkZGIwNjdjNjU2MzliN2MzMzBhNDA4NGJjZmFlZGZmOGE4OTBjOTIyMzU0ZTNlNTVlM2EzYzcyODI2NyJ9"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L109-L109",
+          "version": "repo-lines-v1:sha256:541ee3dcf82b3d08df92a231760d651acc5a0c6f6fe770270dba1e170d802d3a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTQxZWUzZGNmODJiM2QwOGRmOTJhMjMxNzYwZDY1MWFjYzVhMGM2ZjZmZTc3MDI3MGRiYTFlMTcwZDgwMmQzYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTQxZWUzZGNmODJiM2QwOGRmOTJhMjMxNzYwZDY1MWFjYzVhMGM2ZjZmZTc3MDI3MGRiYTFlMTcwZDgwMmQzYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTE4NDE4Mjg5ODBlMGRkNDk3NGZlMTIyMmE1YzU2Y2E5Y2E3NjFiOWZhN2EzYTcxZTc4OGFkZDJmYmI1YmIwNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzAzZTg5Mjg2N2FlYzlkNTQ5NWE1YzQ0NzUxMDJjODc0OWEwMGNhYmU1OTgwMWI2ZjY5YzkyN2UzNTYyNzE1NSJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L7-L8",
+          "version": "repo-lines-v1:sha256:d084c43a71a6661950330f1f4bd9fcf56c61b9889b48f225f75db15b7f45d261:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjFjMmM3N2NmODYyMWFlNDMyZDAwMDUzY2UxMmI0ODlkNjQyYjQ2OGMyYmU5ZTQyM2U2ODA5NTJkMTI1MjkxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjNhZDhlODUzNDlmZTExODE5ODg1OTc2ZWY5NmNiZTNmNmY2NWMyODhiMjkwNzEzYWNhZGJkZjlhOTI4MDM4OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGM2ZTBmYjNlODRiNGI3ODFjMjQ1YmQxMDg2YTU4NWExN2YxN2E1ZTYxMTQ2M2EzMDg3MGI4YWQ1YjEyNTQ0NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGNmZjVhMzEyMDlkNjBlNjM0NjAwNWMwZTUxODFlODFjMzUyNjQzZTY1ZTYzYmFiMzkwMjMyYTE4MGFhMDBmMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_984a44e518e9489990cdfd097d43d486",
+      "statement": "The OpenWiki update GitHub Actions workflow runs daily at 08:00 UTC (cron 0 8 * * *) and on manual workflow_dispatch, with contents:write and pull-requests:write permissions.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml#L1-L11",
+          "version": "repo-lines-v1:sha256:07c15848094addddf46c91bc6d7d9fd1ad86340ae0abe5610094cc45ac89d0b5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2MDI3ODdhZjZkY2MwODM0ZGUxMjFjYmIxY2I5NWY5NDU5YjcyMWVhYjAzNDlmMTA1MDFiOTk2YzFjNzdmZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwYjY2YzU5ZGY4YTA0MzQ0OTRhZTRmMjZmMGJjYmQ2NmEzNmY5ZDA5YTUxMGE1ZGEwNjEzNGQ5YzkyMTA2MTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4b378dc856bf4d52a7aaac00594683a3",
+      "statement": "The OpenWiki workflow checks out with fetch-depth: 0 so openwiki code --update can diff HEAD against the commit it last documented (a shallow clone would hide that commit and run against an empty change summary).",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml#L16-L22",
+          "version": "repo-lines-v1:sha256:5f513af748b362994b00e41cc2ab8ac7880f4f9a4ac3fb63f49be6f3f2680e8b:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDVkNmNmN2Q0MjhjYTgxMTVmYzRiYWJiNjgwNzM5MDIzMzI3YTdhOWQ5MTYzZjcwNmEyNzY4N2RkNTE2ZjM5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTMwOTc1YzdlMjBlYmE4ODU3ZWZkMzFlNjJiNjY1Zjc4N2U1MTY0MTk1MWE2NjA3ODlmYmE5MzNhNjM0NzIxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWM1YTg5Mjc3MGFlNGY1MzMzZmQ3YzllMTJlMGE2YmM0NWIyNmI1YmI3NzUzZTAzOWRmOGVkNDljOTdiOTYwNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2VmMTZlM2M4YjU0ZTJiMjA0ODE5NmFiYjRjZDgwZDIyYTUwOGVjZDYwNzQ2MTI0YTJlYTJkY2MzNDE3OTlkMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b784c068a9e641f1acd0db5d37ffeb37",
+      "statement": "The OpenWiki workflow installs openwiki@0.4.3 plus mermaid@11.16.0 and jsdom@29.1.1 (the latter two add high-fidelity Mermaid validation) and runs `openwiki code --update --print` driven by OpenRouter and LangSmith environment-variable secrets.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml#L29-L46",
+          "version": "repo-lines-v1:sha256:33a88b09599d2f4611d2c30bd00e08387a6502ec68929d70e99ed88ff4a1e000:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2Y2UwYjBkM2IzODEyMmJjMjc1MTVhOGQ5Njk2MTVkOWUxMGUyODA2NDRmNzYxMjIxZDA0NDc5YWQyNTM5M2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZjhiODAyNzQxYWZjN2ZiMzg0MGZlY2RjNDNkN2Y4ZTQwMjNiYmZjYjViN2VjNjVlZTA4ODc5OGQ4NTE3MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIzZjNiODgwMmIzMTBmZjJhZGQwMDI2YjgyZWUyZTllNTcxNTkxMmVhZjA4MWFmODZjZTExMGRkNjQyZmMxYTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEzNTc0NmFhY2Y2ODI2ODUyOGYxZDJkNjY0NDM2MTkzZDZmMDFlYmQ3MGY4NTNmMmE4YTMzYjYyODY1NmRlNWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b97d7b6147474befbe8e4f7726dc9c68",
+      "statement": "The OpenWiki workflow opens a pull request via peter-evans/create-pull-request@v7 scoped to add-paths openwiki, AGENTS.md, CLAUDE.md, and .github/workflows/openwiki-update.yml on a branch named openwiki/update, so it only updates documentation and never modifies application source (Code/, html/, appsscript.json).",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml#L48-L62",
+          "version": "repo-lines-v1:sha256:2507faafa9faf9e43981bd485c049cc5f2131c782c9588d50641b6b05c8b5686:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxY2ZmNGFkMzNiYTkxYjE0OGUxYjFiODI5MGI4ZmZmMjdiMjAzZmFiZmVlNTg3MDI4MmRlMzY3MzgzYjFiZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0Nzc5NmQzMTczMmZiY2U4OTk4YTJmN2U3YjFiYjk3NTVjMjNlNTg1MDMyMGI5MDkzN2Q4MmMzZmQwZTYyYTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxOTEzNzMyNTgyYzNlNjAzNTkwNzg2Yzg2ODM2OTUxZmYzNWU5YjJkMGY4ZDMxMDY3ZDRmNGM4NzQzZGIyYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d0158881a0784ee8a8610e6c5cd12de7",
+      "statement": "The project is a container-bound Google Apps Script project on the spreadsheet, so SpreadsheetApp.getActiveSpreadsheet() resolves the data store and the SPREADSHEET_ID constant is derived from it; data lives in the bound sheets, not in the deployed project files.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L5-L5",
+          "version": "repo-lines-v1:sha256:3932497b27a1328fcc0bfd5b8524bcb075aaa7b06ee8ac1869485bc43b99a140:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzkzMjQ5N2IyN2ExMzI4ZmNjMGJmZDViODUyNGJjYjA3NWFhYTdiMDZlZThhYzE4Njk0ODViYzQzYjk5YTE0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzkzMjQ5N2IyN2ExMzI4ZmNjMGJmZDViODUyNGJjYjA3NWFhYTdiMDZlZThhYzE4Njk0ODViYzQzYjk5YTE0MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjgzNWFiMTc3NGNlZTY1N2Q4OGQyZmExNzBhYjE2NzUyNjI4NGE4MmVjMjdjYWI3OTg3ZTNhYzE2YjhiNTQxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGI0YTkxM2RlYzE4ZWJkODUxYjEzNGVmNTBmMGM2ZWYxZGYzZDZlZjY0OWRiODJhNGI1NTY1NDJlZDBjZWE5MCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:fb466984bc524f3b396aa22eb15d308babc8ef487c2a1459101d48a0b8118ec8",
+  "claims": [
+    {
+      "id": "claim_8e61e69cc8d94afb887f54bfa3190acc",
+      "statement": "Enrollment is a 5-step client wizard (JS.html) that submits to processEnrollment (Action.gs); the server resolves the user by email, mints an EN- transaction id, upserts the Enrollments row, appends the Beneficiaries ledger row, appends an Audit_Log row, then runs best-effort post-commit side-effects (generateLetter, sendActionConfirmation, patchAuditEventData, sendLetterFailureAlert, trackFeatureAction) that never roll back the committed enrollment.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L4-L172",
+          "version": "repo-lines-v1:sha256:892fdd50976c37a82d0fada0b01450797dc9443b5775ef598fa7379e37be80df:eyJzZWxlY3RlZExpbmVDb3VudCI6MTY5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJmNTc4NTkzYjQzYjA5MDI1YzA1YTZkMGNiZTc4MGJiMzAzNTY2OTJjNWFkM2EyNjY1MTdjOTliNTVmNDE3MmY1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI3NzkwZGIyM2FjNmVmNzVmYTI2MmU3YzJiM2E2YzljMjE1M2IzOTdmYzI2ZWU5NjBhM2Y2YTk0N2QxM2FmNzNlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmZWIyYzA2ODVjZDBmNDIxZDcxMjgzZGFjZTczNmJkNWM2YWIyZmNhMTM3M2YwODA3NzQxNDM3ZTNjZGVhYmI4In0"
+        },
+        {
+          "resource": "repo://html/JS.html#L411-L434",
+          "version": "repo-lines-v1:sha256:2f1f56ed36e9a2e6c85797b36fc56ff06734fa23f4cfa8bed84952c2ca176699:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhZWU5YjQwNjRiZGI2MDA1OTQ2ZGE4MzBhZWNlMDNlMGZlNTg2NWU4NzVmYmJiOWZmYmUyOWEzZTNjZjU2YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjMTY4ODhmZjE1ZjUyMGNiZDc2YTY2NzRhMjlhYjYyZDY0OTQ0ODVjYmQ1ZmI5MGM3ZGIwNjljZGFkNjYxNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmYWQxMzNhMjEyMmE1M2MyMmRiN2QyMjg5MmI1Y2MyYTU0ZjMzNmEwZjBlMWFlZjkxODUyMDM2M2IxMmNlN2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f4909673a32f40a1ba8d464a6274e26b",
+      "statement": "The wizard has 5 steps gated by validateStep: step 1 contribution rate (contribution !== null), step 2 investment plan (investment !== null), step 3 beneficiaries (each card filled, pct >= 1, sum exactly 100), step 4 review (always valid), step 5 drawn signature (!PFSignature.isEmpty(wizSigHandle)). wizardNext advances or, on step 5, calls submitEnrollWizard.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L342-L398",
+          "version": "repo-lines-v1:sha256:4bebb5dc3ac0c6f7aeb9092c4abb974930615415f1cf5e08f9de77920a276d15:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyN2M3NDg2NWE2ZTQzNTUzNDAwZjg4ZmZjNTczZDgzY2EyNTE2OWVkM2EwODA1NDA2ODgwNGE5OWY1YmM1YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwMDljODNkN2Y4Y2JiYzM4OGJiMDNlMTBkZGNjYmE4NmM3NTAzZmJhMWM1YjlkODYwYmUyY2U0YTgxZTI5ZjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllOTZiODdhOTVjZjFhNmM3YTIzOTYwYjI4NjA4MWUxYjkyYzg4YjcwNGI5NjViOTQ4NThhNDk0MjUxNzM5ZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYyOTFmMmQwNGZjNDRmOWQwMGMwNmU1NjVlMzhjMzllNjc2ZTU2NDVhNTMyOWIwMDhhMWUwODA1NDVkOWYxMjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a312133ed09d418894e73e92727547e3",
+      "statement": "Beneficiary names carry a transient UI-only title prefix; mergePrefixes folds {prefix, name, ...} into {name: 'prefix name', ...} right before JSON.stringify on submit, so the stored JSON model stays {name, rel, pct, address}. These fragments (prefixOptions, relOptions, mergePrefixes, splitPrefix, PREFIX_LIST) are shared with the beneficiary manager.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L264-L293",
+          "version": "repo-lines-v1:sha256:0e80f279c7ec9ccadbdb5a2be7260c78683d1bf75ba424444eec5c1b21a0db7c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjMGU4MTVkNWMwNTg4NWMzYTk1YTU3ZjU0MzI0MjY1M2Q1NDVkMDhlZjQzZDY1M2U0ZTIxMDcxNDRjNTk1OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjNDBlODMzZTBjNzQ4NTAwMDRlOTlkZWQ5ODAyMTU0ZTg1OTkyNTQ5YTZlMzYzZDBlNDBlM2Y2N2E1NjdlNjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQyODFmYTA1ODgxY2E2MTA2ZjMwYzE2ZTc2NmFlMzdmYzgxN2I2OTAyZDcxOWI1MGZlMThlOTljYmZhYWU3ODMifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L417-L422",
+          "version": "repo-lines-v1:sha256:db0ecc398f06c39dd5e19cb238083b25f9751d3cda7e58f322ec32b796ad4022:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGNiYWZiMzBiNzMyZDhiMzlmNjYwYWZmYjAzMjg4MGQyMTk2YjNhMTg4NGQ2NTU5Y2E4YjFlMjQwODE4MjRkMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ5ZTEyNTQ2NDI1NTc2ZDNkZWFlOGM5YjlkYmYxMjhkNWQ2ZGRhZjVkN2ZlODU3OTM0OTI3ZGVmZmEzYjlkZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2RmZmM4MGYxODZjNzFkMzFjMTA0NWI5ZGE2NGI3ZDc4MDFhZDA2NWY5NzBmZGJhOGE1NDVmZTQzZDAxMDNkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmRlNmZkNGQyYzk5NTNmMTM3N2JlZDJjZmQxOGUyYTZiYTFiZWJjZGIwM2IzNjcyZmU0ZjU4ODA1ZGFiMmI5YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_439532be83e3400a97200d92674dbc38",
+      "statement": "Step 5 mounts a fresh PFSignature pad on #wizSigCanvas with validateStep as the endStroke callback; PFSignature.getDataUrl trims the export to the ink's bounding box (scanning alpha in device pixels) and falls back to the full-canvas export. The wizard owns its own handle (wizSigHandle), destroyed on open/close to avoid leaks.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L204-L212",
+          "version": "repo-lines-v1:sha256:a2d43dee8438a5c3b28c0ba0ebb372e3beb727f6ee376ebec88164075a29c172:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU5MjYwOTQ3OWY1MWExNjE4NTJmMmIwMzhmZDIxYzZmZTI5NDM1MDJhNmUxNWIyMGQ2NjRlZDcyNDdiMzdkNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDk4Zjk4OTAwNTFkNjA1M2UyM2IzNzA3OWI4MjUwMGEwZTE0YTA0NzcxYWI2M2Y2YjlkYjI1NmM5NjIzNDM3YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWQ5NWQ4YzVhMDFiOTI3ZTZkMTBiMTFiZjJhYzIyYWY5ZDhjMzBlZmE4NzM2NTNmYTI2NWVhYWE2YzRjNDhlNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTNjZTBjYTUxYWIyYzU2Y2EyZTQ1OGNkZTAxMDVjNTVkZGQ3MDQ2ZTM3NzE2YmJmZDAyZmI3MjMzY2Q0MWQwMyJ9"
+        },
+        {
+          "resource": "repo://html/JS_Signature.html#L24-L117",
+          "version": "repo-lines-v1:sha256:04c7ab603805c367e43f3239cba8729778b5660da0c3ba5b781fa85f5244a9d0:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3YmZlMzE4NmY5NWIwZTJmZGFjNjdkN2Q4NDc5NDg3NzE4NWI3Y2ZiYTQzMmY0NDQ5ZTVkZGIyMzE2MzQxYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc5ODAxZDUwZTdiZjhiYjE5OTZhNjlmZTE0NDU5NDRmMmNjMTQ5ZmZkNzM1ZDhjNzBlNmZjYWEwZWE5ODI1M2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0ZDdhMWVlNDYzMzEwZjA5ZWIyNzMxNzYyODdkMDk2Y2ExZDRkZDMzNTcxMDJkYzY4N2U5ZWYzNjYyNzM4MjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMzU4ZjAzNzFhNmU3MzJjNDM0MDMzMjIzNTE5OWRjZDkxZWJjNDYyMzlhNWRkY2ZlNmY5YTYzZTZlYmVjZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c630663ee82241de8968a1831fa46d2c",
+      "statement": "submitEnrollWizard builds payload { contributionPlan, investmentPlan, beneficiariesJSON (mergePrefixes stringified), sigDataUrl } and calls google.script.run.processEnrollment(payload, navigator.userAgent); on success it closes the wizard, toasts, and sets pendingFeedbackAction='Enroll' for the post-action feedback prompt.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L411-L434",
+          "version": "repo-lines-v1:sha256:2f1f56ed36e9a2e6c85797b36fc56ff06734fa23f4cfa8bed84952c2ca176699:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhZWU5YjQwNjRiZGI2MDA1OTQ2ZGE4MzBhZWNlMDNlMGZlNTg2NWU4NzVmYmJiOWZmYmUyOWEzZTNjZjU2YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjMTY4ODhmZjE1ZjUyMGNiZDc2YTY2NzRhMjlhYjYyZDY0OTQ0ODVjYmQ1ZmI5MGM3ZGIwNjljZGFkNjYxNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmYWQxMzNhMjEyMmE1M2MyMmRiN2QyMjg5MmI1Y2MyYTU0ZjMzNmEwZjBlMWFlZjkxODUyMDM2M2IxMmNlN2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_33d249e3e7a240e3878b9be5c12155e9",
+      "statement": "processEnrollment resolves the acting user by case-insensitively matching Session.getActiveUser().getEmail() against the Users sheet Work_Email column, returning Allstars_ID, Name_English, Business_Title, and Hire_Date for the letter context; missing email returns a failure, and a user not found returns 'User not found'.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L6-L34",
+          "version": "repo-lines-v1:sha256:4c30a7338ec773045896d92114bd4a04618d88653b3d39d49d64614a1fb4df5d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NTJiNDVlZjgwZTVmZWMzYWZlODkyMGM4M2RiYzdlZDg5YTUyOTM3YzkwZDA0ODgxMzQ4YWQyZjg4ZmY2YjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzNDc4YTBjODVjZTBiNTIyMGFlZjVkNWRmMjhhYmMzYzE3MjM0M2NmNjFiODU4OWY4MWQyYmMyN2U2MmUwOTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdlN2VjNDc0NjJkZDY0ZDc2OTM4ZDM1NGExYzhhNDkzYmViNGRiOGQxN2U1NGY2MTE5M2I1NDVhYTM0OGMxZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhNTg0N2M1NjZjMjU0ZGQ2N2RlOTU3ODk0ZDUxNjdkZTNkMjFjMGFkNDhkYWRjNzM4YjI4OGNhZDU5OTM5MDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_00e4913bac334c31823d6bd43d876f3b",
+      "statement": "The transaction id is minted by the handler via generateTransactionId('EN') producing EN-YYYYMMDD-<4-char-random>, and is threaded into the Audit_Log row (writeEnrollmentAudit), the letter ctx.transactionId, the email details.transactionId, and the patchAuditEventData call so all artifacts of one submission are joinable.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L121-L154",
+          "version": "repo-lines-v1:sha256:fc45b3bcd5ab3039ea115b6ac8429ff16433357107f670d7d5058ee236ed15d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlOGYzNzkwYzlkNGYwNjYyZjZmOGFlMGQ0YTBkODJhMDI0YjNkZDM3NzQ1YmQyOWI1MTkwMTQ0MzVmZTY5MmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczN2ZlMTNmYTBmOTRlYTVhMGMzYTg5MThkNzQyMWNjMWUzMzM0MDhmMWU2NTFmN2FmNGRhZTdlMGM3MWRhMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzZTk3MDc3NTNmMTFhYmExZDAyZDkzMGViODJjZTQyZWE5NmU2ZDg5MTVjZWQwYTU1OGZkMTc5ZGFjYzE2YTQifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L36-L37",
+          "version": "repo-lines-v1:sha256:7672ae573f42b208a23c5190a7cbe62b71e82c05aca21510d1148add6c678cd2:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU1OTU1NjEyM2ZjZDNhOWRhMzY3MmU5YTM0ZWFkYTIyNTQ2YTJlODhiZThmNDY1OTY2YzgwZDE4MTViN2IyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmNiNTM2OTAyY2Q4ODFmODk0NTYyMzNiZmFiZDIyNTYyMTViZTQ1OTQ2ZWZiYWRjMzhlODE1ZWNhNDIwNjI1OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzYyMDU4YmM0YmQwYjE0MTY0MDBiMmZlZTU3MDQxZjllNmZlODE4NjEzNzRjYWUxMGQ0OTRmM2MzMTc2NGRlYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiZTIyZTI1ZDdmMDQzNDQ1ZGI1YmNlYjFmOWUxYmVmOTQ5ZWIwYzk4ZmMzODY0YTA4NDRkOGNjZjRmMmI1ZSJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L48-L58",
+          "version": "repo-lines-v1:sha256:cd4645a32318811f7e49a7847ca1e76dfb1895bb6f553d68cfb2068f5ddf6a80:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg5YjRiZjZiN2YxNTI1NTM4MmUyOGNlMTUyNTZhMGY1NWJkNmEzYjRmMWRmZDg4YjFjODIwNTg4YWI3YzRmMTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0NjkzN2QzYTYzNGJhZTAxMjlhZTM3ZjE0NWIyODJjY2JkNDg5ZDZhMWMyODliYjkyZThjZTJlMDc3Nzk0MzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a086e49d020149e2a188d9d0b114eae1",
+      "statement": "On upsert of the Enrollments row, wasFirstEnrollment is true only if the existing First_Enrolled_Date is blank (re-enroll) or no row exists (first enroll); First_Enrolled_Date is written only when it was blank (never overwritten), Current_Enrolled_Date is always set to today on every enrollment, and Current_Plan/Investment_Plan are overwritten. A first-enroll row also initializes Withdrawal_Count to 0.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L56-L91",
+          "version": "repo-lines-v1:sha256:1402559985b753d8936975f377655f39af39875f0ec0460b53af1fb6a290102d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlOTE2YWJlOGIyY2Y2YzlmZGIyYmMxNjliNGU3ZmQ2Njc3NGVjZDM2ZTMzOWVkZTE0YmJkYjQ5NTZmYjVjZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwNDQ3Y2FkZmM4MDVmMjdmNGY1OGRlZThiNjE4N2Y3YTIxMDFiOWY4ZDQ4ZmMzNDUwZjc2NTAxODdhODA3OGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmMzEyNzgyY2ZlNzgyMTYyYjMxMDRmNWRlMGI3NDllZjVjYjJhNjIyNzFkNGRiYmZkODkwNTQ0ZWY0ZGMyNzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_25c884649b754a0896dac1c8d6d4800a",
+      "statement": "The Investment_Plan column is a hard schema guard: if its header is missing from the Enrollments sheet, processEnrollment returns a failure before any write; a missing Beneficiaries sheet also returns a hard failure.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L52-L52",
+          "version": "repo-lines-v1:sha256:af7edd67507072ef198dae8d842a21b878d0af49fb0812b8bb0f20b2dff7e703:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWY3ZWRkNjc1MDcwNzJlZjE5OGRhZThkODQyYTIxYjg3OGQwYWY0OWZiMDgxMmI4YmIwZjIwYjJkZmY3ZTcwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWY3ZWRkNjc1MDcwNzJlZjE5OGRhZThkODQyYTIxYjg3OGQwYWY0OWZiMDgxMmI4YmIwZjIwYjJkZmY3ZTcwMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGM2Y2MyNTUwYzlkMmJhNjM0YzZhZDRjNWViNGFjYTQ4ZDUyZDZkNGNlNTU5MzA3ZWU0YjYxOGZjMDA0NDI2ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDA0NDdjYWRmYzgwNWYyN2Y0ZjU4ZGVlOGI2MTg3ZjdhMjEwMWI5ZjhkNDhmYzM0NTBmNzY1MDE4N2E4MDc4ZSJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L93-L95",
+          "version": "repo-lines-v1:sha256:80f79cbddae0fff3cec2d2bf4bc56da9e7fd6ccc5beb48665ae3d819197f322b:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTIzNmQ5NGVhMzM0ZmFlNzI3OWVlYTAyMzMxZDViNDIzOWU4NjBlNWUzNDQ0ZGM1ZDMxZDE5OGE4MjA0MDBkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODI4ZWNlOGEzMDJhODc4YmNmYzUxZDZlMGEzN2FmZGVjOTk2OGI5NDU5MTk3NTVmNzE5YjBhOGZjNjMwZjBkNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTcwMDM4ZjM5ZWM1YjA0ZjYxYWQzYjcyNDgzOWEwYzVkYTI3ZTkwZWRkODhmOGMzZDg4ODYxNDk5MzEzZjAzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjQ1NmQ5NTNiMmM4YTI2ZTQ2ODU1MTdiZmJkNWQ4ODMwNmQwODE2MDZhMWVmYmZiMjYyNTA2M2NkNTEyYjczYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a96d96cdc12c406f84515f2a99e0601e",
+      "statement": "processEnrollment appends a row [today, allstarsId, email, beneficiariesJSON] to the Beneficiaries ledger (schema Timestamp | Allstars_ID | Work_Email | Beneficiary_Data); the ledger is append-only so the prior set survives as the previous row.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L93-L98",
+          "version": "repo-lines-v1:sha256:4a149950e2cec53cf2f41e0e3f950d5d178b0d768cf4758b835d34147fa056dd:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTIzNmQ5NGVhMzM0ZmFlNzI3OWVlYTAyMzMxZDViNDIzOWU4NjBlNWUzNDQ0ZGM1ZDMxZDE5OGE4MjA0MDBkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2MxN2YzMzkyNjY1ZTE5ZTk1Nzc3N2QwYTg3YzlkOGFmZGE5ZmUxNjE3MDJhMzA0NDA0NDM1OTAwYTUwYWViNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTcwMDM4ZjM5ZWM1YjA0ZjYxYWQzYjcyNDgzOWEwYzVkYTI3ZTkwZWRkODhmOGMzZDg4ODYxNDk5MzEzZjAzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGM4NDQ2YjI2N2JkNGFhZmY3MzJkYWY4NTQzMmJkNGJhZWQyY2M3NjIzZjBiY2RlODIxMGYwODgxMjc0ZTdlMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_849682b1c0874c6db5050f8733a40a9d",
+      "statement": "writeEnrollmentAudit appends an Audit_Log row with Action='Enroll', Event_Type='SUBMITTED', the Transaction_ID, the formatted contribution plan, Investment_Plan, Beneficiary_Data, device Metadata, and an Event_Data JSON carrying priorValues and newValues (Current_Enrolled_Date, Current_Plan, Investment_Plan, parsed Beneficiaries). It is called in both the re-enroll and first-enroll branches.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L174-L204",
+          "version": "repo-lines-v1:sha256:67720e930cc0e49a1b30ed622a8a420997f2bd4febcf9c0ea7ba9611d4621b4d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0ZWNiNDg0MjUwN2Y3NGM3YWQzMjdmYzVkZjI5NmE1ZWUzOWRhMjJkMDg1MDVjOTQ2ZTFiMzJkZTllOTJkOTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMzU0NmY4NTIwMTZkOGNiYjU3MTQxOGZiMzZmZWJjNTA2ZDQyZGFiNGVkODExYWM1ZGVmNzkwMDE1YmMyNjgifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L73-L91",
+          "version": "repo-lines-v1:sha256:cf62585191a25c8589d18f2dfb233522d1c84db42badb36ed92f036a5c085d1a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMGEyYmU3YzBjYzUyYzIzYTU5OTQwN2IwZWFkMGY3ZGQ4N2YzZGRiZTI1MmU1NGQ3NDkxYjQyZWRlNzYwOTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4MzEyZWVlNzUwNmUzODY1MWI4MTQyYjcwZDAxOTVjMjM2MTExNzYwYjg1ZjYzMjYwMjI1ZjFkOTU5NzdhYmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmMzEyNzgyY2ZlNzgyMTYyYjMxMDRmNWRlMGI3NDllZjVjYjJhNjIyNzFkNGRiYmZkODkwNTQ0ZWY0ZGMyNzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4e1a88bd5a344acb8bc2a48a81c51fc4",
+      "statement": "The letter ctx carries Users fields (nameEn, allstarsId, businessTitle, workEmail, hireDate), memberSinceDate = Hire_Date on first enrollment else today (mirroring the getUserProfile tenure basis), the contribution planPct, the employerMatchPct from calculateMatchTier(tenureYears) (tenure computed only when wasFirstEnrollment and hireDate is a Date, else 0 yielding the 3% tier), the investmentPlan, the bilingual effectiveMonth from getEffectiveMonthLabel(today), the transactionId, and the parsed beneficiaries (with a try/catch fallback to []).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L102-L124",
+          "version": "repo-lines-v1:sha256:e96bb9c39ec15bdae8c0c7f0ccaacf2079cf9cca9998326e73ed1faccfa0698d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzYzMxODg2ZWY4ZDA1Y2E3MTA4MzA3MjZjOWVjNjc0MGZlOGQ2NTY4OWJlYjk0NzQyNTQ0MmNhZTdmYzhhNDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmZTU3YTgxMDM0NDhhMDAzYTUzYjBjYTMwMjczYjA4MjAzYWFjMDM5NjUwM2JmYTYyNDEzZDBkMDJiMmY3OTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjODQ0NmIyNjdiZDRhYWZmNzMyZGFmODU0MzJiZDRiYWVkMmNjNzYyM2YwYmNkZTgyMTBmMDg4MTI3NGU3ZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0YTBkNmFhODZiMDJhYjMzM2ZlODQ1ZWUyMGZkZjE1OGQyYTFmNmY3ZDliYTYxZGU1NjJlMGU0Nzk5YzkxM2YifQ"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L29-L34",
+          "version": "repo-lines-v1:sha256:8d15b71fb00c496c616c86bf8ea8af5818919af39de7101cde4c0eec5c31985a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEwZmIwMzZhMjY3NzNhYjZkNWM4MTlkZTlmMmQ3MmFmNzMzNWZlZWE2MDVmM2FkNTNmODZiOTcwN2VlOTg5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ5ZTFhODViZGJiZWUxYzM4MjE1MjA3MjQ4MDhiNjM0NDk0MGZmNzg5ZjhmZjQ5ZTNlMTU1ZjAwOTliMzZiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWNjNDIwODg4ZTZlZmMwYTJmMGVkNmY1NGQ3YmJjMTNjMGFhZGM3OGZiNzBmMjI0OTA0YTk4NDM1YTkwMThhNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8fbd59eb310d468d89068a359a719614",
+      "statement": "The effectiveMonth used by both the letter and the email is getEffectiveMonthLabel(today): a bilingual {th, en} payroll month computed in Asia/Bangkok with the day>15 cut-off (<=15th -> this month, >=16th -> next month), so the letter and email agree on the first applicable payroll month.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L120-L143",
+          "version": "repo-lines-v1:sha256:5e408b55550c0688864c0a523e4589267c941b890e7f61e43b9105617119f905:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmNzY2ZTQwNjk0NTcwZjk4ZGNkY2MzY2JjMzJkYzE1ZDBkM2FmZTgwMDg4NjVlNTRiMDljMzU0OGFjYWUyYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4ZWJlODE2NTNiM2NhOWFhZWJiZjVjYmZhYjJiOWRkMDg1ZTQ5YjgyZDA3NzRmZmZlZmQ3ODFmMDEyN2UyY2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3ZWVmMmQzZTYzZDA0MGQ4NmNjNWM2NTAzZGJkMjFjOWE1MzMxNjI1YjhmZTVlMzJhNDBhZDUzZmQxZDZmM2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhNGFmNTQ5M2QwMTViMWY3MzI1NWRmMDJiNjk2NDMzMWZkM2QwM2ViNzQxOTNiM2I2YWIyYjc1NjJlMDU3ODkifQ"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L132-L151",
+          "version": "repo-lines-v1:sha256:387c196fed559f58dd2122c9ceefa559f09e854a6590ad85020c37df1143df49:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjYTM0NWJhYzg2Yzc2ZjIyYTVlY2I5Yzc4YjQyZmQ5Yzg3YmZlNDJmNGY2OGRhMDZlOTg4OWY2NzlkNmU4ZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0MWE4MTY3ZDc1MmIwOWU3ODRmOWJmMjA1MWI5NjhmOTFmNTgyN2IyZGJiMDQ5YjA5NDRkYmY1MGU0NjVjNjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxOTlmOTQwZWVkYjcwZTE1NjcwNTU4YmFlNTNlNjA2MmQ0ODA3NzMzYTUxMDU4OTBiNmQ5ODJhYjljZGVjOTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0bc4b551b2644c42baa8ba9fb5fffafc",
+      "statement": "After the sheet writes, processEnrollment runs the best-effort pipeline: generateLetter('ENROLLMENT', ctx, sigDataUrl) wrapped in try/catch (the only throwing step, capturing letterError), sendActionConfirmation (never throws, returns sent/error), patchAuditEventData stamping letterFileId/letterError/emailSent/emailError/signedAt onto the audit row (never throws), sendLetterFailureAlert only if letterError is set (never throws), and trackFeatureAction('enroll','success',device). The handler returns {success:true} regardless of side-effect failures.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L126-L166",
+          "version": "repo-lines-v1:sha256:9b71469586f14df09330aa941a32006adb84163876df230925e578033edf508f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmMGU4ODBmMmQ4NDM2NTI0NDY1YjE4M2MwMzBkNWZlZWQwMTI1MzQ1YzBhNWRmMjRkNDhlYjZlZjgzOGNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmOGU3MDJmOGUwYTY1NmQxZDhlZDEyMTQ2YzhkYTYyNTZmMTRjNGMzYWUxZDMxOWQ1Yzk3YzU1Mzg3MWViOGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmM2I0MTNhYTAzNDMwNDVhYjExNzNhNGMwNDVjNWYyY2MwZjg5OTVlMzJmODVlYTI0NTcxMTc0M2FhZDkxNjQifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L25-L91",
+          "version": "repo-lines-v1:sha256:b71a37ca0a1986f8b03858dd53c2b10bebef1f1753e87a4f6bdc2e1483f8342e:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlNzBhNGFlOTdlOWY5YmIwZmZiZGMwNGQyOGRmZTc4MjUyYzdhOGIxZmE5OWNlYmZlYzQ0ZGI4MmE4YzcxZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZlZGM0MDBkZDA5MjgxOTg0Mzg3NTIzZTdkNjVhNDFjOGY5YThhOTBiZjMwZGFiZGZjNWU2Zjk4N2MwZTNlNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyODIwZDI1NzdjNzQwOGJjOTcwMTgxZGU3YTdhOGYyNGE1NDI3ZjUxZjc5MTg2YmU4NjdiMDRhMjUyMzk5NTEifQ"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L67-L91",
+          "version": "repo-lines-v1:sha256:d48d9281550f0dded331b7c19909c8668eb7c3c6dcce774cbe70dec4ab9b8633:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4MTE3MWJmYzY5MzRiMTA2ZDYwNTE5ZGVlOTc2YmQ3OTAyZjg1ZWQ3Y2JlYjRkNzRjZTFhNjMyNDYzMTQ5YzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlN2U0MTJhMjE0M2NkYzE4YTRiODAxNDllYTUwYTYyNzU0MWE5M2IzZWU3YWZlY2Y3MzQxZmI0ODBhN2I4OTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwMTkyYjVkZDYxMWFiMTA4N2MxNTgyNDZlNGY3YTk1YjJmN2U2YzQzMGU2ODU3YmJkNDEyNTQ2MDk0Y2VmYTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e61985b120f44a4193bddbaa266aa1f3",
+      "statement": "patchAuditEventData records signedAt = payload.sigDataUrl ? today : null, so the audit row records whether the submission carried a signature; the sigDataUrl is also decoded and embedded into the PDF letter's {{signature_image}} markers (scaled to a 220x80 box, aspect preserved), with a null/empty sigDataUrl clearing the marker but still generating the letter.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L127-L154",
+          "version": "repo-lines-v1:sha256:b89775b1ebafad9ac608cc3347f5e3b8edaf7dd5f4016bc6316aefad0e5d7abd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExZGY4N2E0NzMxNmM3MDhjNTUwMjA5OGU5YWY2YzQ0NTM0ZWI4MGJlYWRjZjYwNjMwMjhlZmNhODU5MzdhYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhMjI3Y2YxMTBkN2JkYzVjYjJkNjU5Y2JlMWUyYzM2NGI5NWU0OTdlNjQ5YjI4MjQ3NDkxYzNiMTg0MmNiNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzZTk3MDc3NTNmMTFhYmExZDAyZDkzMGViODJjZTQyZWE5NmU2ZDg5MTVjZWQwYTU1OGZkMTc5ZGFjYzE2YTQifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L182-L209",
+          "version": "repo-lines-v1:sha256:df376e1b620079669b8f09eeb2a80093b2a7bf15574eb45e7d11fd8254e115b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjMTg0YTIyYmNkZTczMDk5ZTUwYWE1NTRmN2M0MDM3ZGEwMTFhMjJlZjhlOWNkNzI5NTE0ODI1MjU2YTVkNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYzFiZGUxYjA2ZmE2ZDJhZTA2MWEwZjY0ZDZjYTk1NTljMDMwYWY3NTZiZGVjOTJiMDk2ZDQyN2QzODIxNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkMDIyZmI2N2RmZjBmZDNmMDk4NzFiZTRiZWU1OTZjYzQwZTI2ZGJlODE4NmY5ODA2NjY5ZjRiMThkNWMyOWEifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L49-L103",
+          "version": "repo-lines-v1:sha256:b6aa3c9d56fa9792742f9c5e79e02abf0c6bd7e8710bd317a3b50fe590186571:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNjA3ZmIzYmFmNTk2ZTFiYmY0NmI4NGQ4NjIxODgzNDIyODMyOGYwMzU5YmYwOTRiZGI5MjYwMGIzNWVhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2MmY0ZWU3YTI0ZDU3NmU3Nzc1YjRlMDg1MjJlNDA4YTFhNTcyMjYzZDI1NmU3ODRlNDIxODIyMTJmMDI1MTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4ZGNhZDNhMGU4ZjIxMjJhZTQ3YzVhYThmNGU4ZTg5Mzg1YjFiN2MzMWVjMjNmNjcxMTJkZjljMjAwNjc0ZjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_957f128d90964bb3bf43d8e680a2c61b",
+      "statement": "The Enroll confirmation email is sent via sendActionConfirmation with actionType 'Enroll', eventType 'SUBMITTED', the PDF attached when letterFileId is set, and details including effectiveMonth and transactionId; because 'Enroll' is in the CANCELLABLE list, the email body includes the visit-the-app-to-cancel line.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L134-L146",
+          "version": "repo-lines-v1:sha256:324651198c2566f0ca109887c128cf0c8cd9c9788a461a1ea2705682c1191af0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkODlmNmQ5M2MwNDcwOGY5M2E2YjYzNTFlNDkwMTE3YWExYzMyOTU3YzcwYWFjYTY3OTA1ZWNiMDIzNTUzODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjNGJmNDI4ODcyM2M0NTMzODJmN2I1YTg2NDI1NWJhMWVlMjQ4Nzk4MGEyOGVlNzNhY2M4Yzk1MzE2M2I3NmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNlYmU2NzVmOWE3ZTgwODExMmI0N2NiMDJmMTZkYTBlZGNjYjkyZTQ0ZDQzNDNmZWQ5NTUwZDgzZTBkMDkyZTkifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L179-L198",
+          "version": "repo-lines-v1:sha256:509153dc78f58d98b57fd3732a4566330a295b70ebef4095c3b3ca699381440c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxMTZjZDg3MzE0YWNhYzhmYTQ4MDcwYjY0MzU3OTFhMDlmMTg3ZDNkYjFjODZhYmU4OWQ0YjQ4YjU2YTY1NjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1NTJlNzhkNGY2MTg1OWIwMzUyZmMzMjJkNWRjZjQ5YzM1NWE5NzgyNjM3MTcyODQ0MjE3NWM1NzQzODFjNzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwMTViZGI4NmI0MGJhZTgxMjVkMTZhZGMxOWFlZmI4NDdiYzg4NGExYzBlMDE4Njg0Yjk1NzhhZTBlNmMzNWEifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L30-L34",
+          "version": "repo-lines-v1:sha256:dc486ec63d8e4b7b9918987f901e862884792847a530ae85b7a273900414e2d1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2ViYmQ4ZGQ0Y2M2MTZmOGQ1MWJjZDI3MDM2MDkyZGY3ZTU5NThjMTQ3ZWM1ZDliMjAzMmU1NjUwNjU0MGQwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmEyYTA1MThkNTc2N2Q1NWRhZDIxYzFhNDQwZWVjYjU5MzMxZjc1NTRmNjAwZWZhZTY3ZWFmZDE5MjNjN2NlMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTBlNGUzOGMyMjhhMWE2ZmZiZjU4NjcyYTlmYmYxOWM4ODFjNTBlYzE0ZWQ4ZGM2Njg1NDQwYThlZWRiZmU4ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzA5ODcxZmE3YWM4YjkwNmIwYjk5ZTlhNjJhMjI5NDA3ODFlYTkzMWQxNTRiMWRiMTVhYjZmY2UwNDQ0MzZkYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ca1f89e690d24a0c9b19771ee45c5eb9",
+      "statement": "The outer catch of processEnrollment calls trackFeatureAction('enroll','fail',deviceData) and returns {success:false, msg}, so a handler-level failure is reported to GA4 even though the post-commit pipeline was never reached; trackFeatureAction is a no-op if GA4 is unconfigured and never throws.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L168-L171",
+          "version": "repo-lines-v1:sha256:68a8f3e1196c73f0c2349ca4015cd739ee59df10a78a14ac293cc3e08f6a40f6:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGVkYmY4Mzg3NTM2ODk2NmYzMTNhZTYzOTUzOWM0MDM3MDA0NWJhNTNlMmUyY2VlOTNiYjY3ZDVkYTE3Yjk4MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTZkMWM3M2U1NGU5NDA0YTYwZTYxNjBhMTBmZjg1NDYxMDYzODAzYWU4NDYzY2E3NzY5ZWZmNDVlODU3N2EwYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmUwZjRiMzM2Yzc0NzBkMGI2MjViY2UyNWY3NzIyOTQ3YzNhZTA3ODJmM2MzZTAyOGYxMWRhOTA1M2E4NWJiZSJ9"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L182-L188",
+          "version": "repo-lines-v1:sha256:075f67cf7fcaa933729fee5c6ce0c29fb5ef975acbaa7cc484733316e0329c15:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGFhNGU3Y2U5MWUyNTY5MmIxMTg2MGQzZmVkYjY1OGZiZmEyZTlkM2YwNzU0NjAyY2M0NzI1MGEzYmZiOTFjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzY3ODA3MjQ4NjE4ZGI0OGFlYzA0ODczMTJhNzU1YTZhYzEyN2VkMjY5MmQ5YWY1MTg3YjU1OWNhMTk4NjE3YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzhlMzVjYjc0YTZjMWNjYzI0MWFjYTE3Mzk5OWFmNjU2YTNlMTNiNGM3OTE3ZjE1OGZkY2EyY2NlYzg2MDE1OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8382a19f624d41d182db00ae8b656c26",
+      "statement": "Only the sheet writes (Enrollments upsert, Beneficiaries ledger, Audit_Log row) are the committed state; the letter/email/analytics are notifications and their failure degrades the notification but never rolls back the enrollment. The only hard pre-write failures are missing email, user not found in Users, the missing Investment_Plan column, and the missing Beneficiaries sheet.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L100-L166",
+          "version": "repo-lines-v1:sha256:42017376d5274616d4315994053633b3e032a6b50f828cab19a4151284fea87a:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZDRlN2U0YzliNmZkYzBjMjFmMGY5YzQzZTllYzdhMjc2ODNlNGE4ZGZkNmZiYzNiNDFlYTBlNDM5NzBlMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkZTE3N2FhN2U3Y2M3OGUxNzcwNDU5NGNkNmIzOGY5ZDhiN2ExMTQ5N2Q4ZmUxMmIxYWYyMzk2MWI0ZjRkZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmM2I0MTNhYTAzNDMwNDVhYjExNzNhNGMwNDVjNWYyY2MwZjg5OTVlMzJmODVlYTI0NTcxMTc0M2FhZDkxNjQifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L34-L34",
+          "version": "repo-lines-v1:sha256:a3478a0c85ce0b5220aef5d5df28abc3c172343cf61b8589f81d2bc27e62e097:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM0NzhhMGM4NWNlMGI1MjIwYWVmNWQ1ZGYyOGFiYzNjMTcyMzQzY2Y2MWI4NTg5ZjgxZDJiYzI3ZTYyZTA5NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTM0NzhhMGM4NWNlMGI1MjIwYWVmNWQ1ZGYyOGFiYzNjMTcyMzQzY2Y2MWI4NTg5ZjgxZDJiYzI3ZTYyZTA5NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDRiOWEwYjE2Yjk5MTBiYWE1ZDBhNGRjYWZmOGE2MGM0Mjk2MzNiZjJhZTNjYmFjYzgyMDI5MDc1ODBkMTBjYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWE1ODQ3YzU2NmMyNTRkZDY3ZGU5NTc4OTRkNTE2N2RlM2QyMWMwYWQ0OGRhZGM3MzhiMjg4Y2FkNTk5MzkwMCJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L52-L52",
+          "version": "repo-lines-v1:sha256:af7edd67507072ef198dae8d842a21b878d0af49fb0812b8bb0f20b2dff7e703:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWY3ZWRkNjc1MDcwNzJlZjE5OGRhZThkODQyYTIxYjg3OGQwYWY0OWZiMDgxMmI4YmIwZjIwYjJkZmY3ZTcwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWY3ZWRkNjc1MDcwNzJlZjE5OGRhZThkODQyYTIxYjg3OGQwYWY0OWZiMDgxMmI4YmIwZjIwYjJkZmY3ZTcwMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGM2Y2MyNTUwYzlkMmJhNjM0YzZhZDRjNWViNGFjYTQ4ZDUyZDZkNGNlNTU5MzA3ZWU0YjYxOGZjMDA0NDI2ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDA0NDdjYWRmYzgwNWYyN2Y0ZjU4ZGVlOGI2MTg3ZjdhMjEwMWI5ZjhkNDhmYzM0NTBmNzY1MDE4N2E4MDc4ZSJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L7-L7",
+          "version": "repo-lines-v1:sha256:cb71624e5b01c004241af88d670aadb5e780a5a7c3a9f60ca073198758560eeb:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2I3MTYyNGU1YjAxYzAwNDI0MWFmODhkNjcwYWFkYjVlNzgwYTVhN2MzYTlmNjBjYTA3MzE5ODc1ODU2MGVlYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2I3MTYyNGU1YjAxYzAwNDI0MWFmODhkNjcwYWFkYjVlNzgwYTVhN2MzYTlmNjBjYTA3MzE5ODc1ODU2MGVlYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjUwOTFhZjFkZTM2ZjRjMTZhMzgzNWIzNTIzMGQ0Mzg3ZjFiZTRhZDEwYzc2ZmFkNzkyNTNmNzQwMmYwZmUwNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJjYzg1ODM0N2Q5NmIzNThmNzg5MDllYjllNTQzNGY3NDNjMDAwMGJlMTliMWQzYTQyYzk5YThkNjI2OGRjNSJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L95-L95",
+          "version": "repo-lines-v1:sha256:828ece8a302a878bcfc51d6e0a37afdec9968b945919755f719b0a8fc630f0d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODI4ZWNlOGEzMDJhODc4YmNmYzUxZDZlMGEzN2FmZGVjOTk2OGI5NDU5MTk3NTVmNzE5YjBhOGZjNjMwZjBkNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODI4ZWNlOGEzMDJhODc4YmNmYzUxZDZlMGEzN2FmZGVjOTk2OGI5NDU5MTk3NTVmNzE5YjBhOGZjNjMwZjBkNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGYzMTI3ODJjZmU3ODIxNjJiMzEwNGY1ZGUwYjc0OWVmNWNiMmE2MjI3MWQ0ZGJiZmQ4OTA1NDRlZjRkYzI3MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjQ1NmQ5NTNiMmM4YTI2ZTQ2ODU1MTdiZmJkNWQ4ODMwNmQwODE2MDZhMWVmYmZiMjYyNTA2M2NkNTEyYjczYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1940ffcfc5e641588a7620972bfac045",
+      "statement": "findEnrollmentRowIdx scans the Enrollments sheet for a row whose Allstars_ID matches (loose ==), returning the 1-indexed row number or -1 if not found; it is shared by processEnrollment, processChangePlan, processWithdrawal, and the profile reads.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L188-L202",
+          "version": "repo-lines-v1:sha256:9227c4e176a2440e586b9f86e3b5965cf72c3f0adb5a48fbfb909b5e85d6f355:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZDNjZDYxYjBiMmNmNzI3MTk3ZDVlNTc4YzE3NjJiYWU0YmZjNTk5M2U2YmMzMjRiN2ZjNjkxMTUxZTU5NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ4MGRiZjkxMTFlZTM2ZGNhYWMwYTc3ODUxMDQzZjdkMzMzZjQyMTBiNTEzN2U0Njg3MWQ3MzQzNDZhNjdjNWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3dc5fa31dba248b9ad23c884cddda3a8",
+      "statement": "The signature is scaled to fit a PF_SIG_MAX_WIDTH x PF_SIG_MAX_HEIGHT (220x80 point) box preserving aspect (min of the two scale factors, capped at 1 so it never upscales), with a width-only fallback if the natural size cannot be read; the intermediate Google Doc is trashed in a finally block so orphan Docs never survive an export failure.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L182-L209",
+          "version": "repo-lines-v1:sha256:df376e1b620079669b8f09eeb2a80093b2a7bf15574eb45e7d11fd8254e115b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjMTg0YTIyYmNkZTczMDk5ZTUwYWE1NTRmN2M0MDM3ZGEwMTFhMjJlZjhlOWNkNzI5NTE0ODI1MjU2YTVkNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYzFiZGUxYjA2ZmE2ZDJhZTA2MWEwZjY0ZDZjYTk1NTljMDMwYWY3NTZiZGVjOTJiMDk2ZDQyN2QzODIxNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkMDIyZmI2N2RmZjBmZDNmMDk4NzFiZTRiZWU1OTZjYzQwZTI2ZGJlODE4NmY5ODA2NjY5ZjRiMThkNWMyOWEifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L27-L31",
+          "version": "repo-lines-v1:sha256:2b96fd386437b3f609710da166eb3d62248acbb341a9b1af353ad31e5edc221b:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzYyYTcwZTUxM2ZkZmExZTNhM2I1YjViY2NkOTE5ZDNjODU1OGMzMGQzN2M2MGNiM2JhNzU5ZGUwZGRmZGI1NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzc0YjJmZGQ1ZDFjYTg5MTMwZDE1YzBhNWZkNDBhMWViZWU4ZDU2ODE1MTBkNGEzMTYyZDQwNjUxZTVmYzI5ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIwNDBlMDk1YTk0ZTJhZGE3NGU0MjFmMzcxODc1MWE5MWE4MTBiZmQ2NmY0OGY0ZTkzOWM3Yjc0ODBlYjY3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWFiZDM4MjBlNTMzYTBmNTFlYjA5ZjI0NmRmYzJmMGNmM2FhOTA4MzlkMzc1NGFmY2M5YzZmMGNjMzcwOGQ3ZSJ9"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L77-L96",
+          "version": "repo-lines-v1:sha256:6c2846dc1338539cd84213c4d11fe664652a681f8098bafc005d724cbe81fb42:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzMmExM2Q0YmYzODkyMjdiMzM4YjgzMmY3Zjc2ZGQ0YjgxOWM5NGU2ZDVjODM3YTU4MmUwN2ZkM2Q2YWQ5YWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM5MjY0OTczNzY2Zjc5YzhhNTBlNDBmNWQxOWJiNzQ3OTQxYzFlNzQ2MjVlN2FlOTZmYWU1MWNhYWIwZTVkMTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzMDQ4NGY2MjM2YzhiOTBjMmM5NTRkZWVkMDQxYWIxZDYxZjk4MDVhNDU3NjQ3MzdmMzAxMWY0ZDcxODRkNmIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

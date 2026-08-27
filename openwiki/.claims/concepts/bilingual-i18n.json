@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:138a1d566414fce71d2c11c0a45f20cab8cb70e5d87b152c103d2ef7d00e71d7",
+  "claims": [
+    {
+      "id": "claim_6eb8c183247246b78d113d345f2c4354",
+      "statement": "Thai is the primary language and English the secondary reference throughout the app; the convention appears as five shapes: inline 'Thai (English)' labels, two-line 'Thai<br>English' labels, a Thai block-then-`---`-then-English-block email layout, bilingual `{th, en}` value pairs, and compact 'Thai / English' slash labels.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L19-L30",
+          "version": "repo-lines-v1:sha256:5605bd0c7418e44af9b54e88296e0906724e8fb6301139019be1a2f406a88116:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNjIyNjFjMDRlNzMwNjJiNmFjOGI1NjY1YjhiNzI4NGU5ODFlYzAzOWQzZTNkMzgzN2I2NmQwOWYxMTNmYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMzk4MmZkNjEwMTczNTk5MjQxZmNhOTNjN2M4NjY2ODNmNThmNTQxZWNlZDFjMjA5ODEwMjE0NTQ3NzE2NGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmOWFhMWQ4NGI4MjExY2Y4YjdiYjI5MzRmNTM0ZjRlZGEwZjExODc4NzkwMzhjNmNjMzFhN2UyMDBmMDgwOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L41-L70",
+          "version": "repo-lines-v1:sha256:7027065af61d614c52f70d8fe24bde5c2422560d8432402bf35ac107b847abbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1NTY2YTdmZTZiOTY4NTg1YmM0MDY3MDJiNWQ4ZDFlM2Q3NDMxZGY1M2NkYjJlZjkzNjE4NTIzZjFiYjE1NGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwMmIxODljZTUxMTNiM2NjNGNmYTM0MTFiNWQ5ZjkyZmM0MmFhMzA5ZDQwYzYwODZjMGY2OGM0NTllZGFkYTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlNjk4ZjUzOTEzYTEzMzYxNzUzMzVhZWYyNjE4M2IxN2Y2NTJhNjZlODhlNjU4MDUyOGM4OGY4MTU0OWI0NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4MDEzNGE2MDI5MDJlMDUxOWNkZGJhNjA0ZTU5OWVmMDNjMzRkMDVlOWYyMGVjZjc3NjMwOTUwMzJlMjBjNjYifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L116-L163",
+          "version": "repo-lines-v1:sha256:0e8b2df737372c828c275425fa3385b05bfe6fd70feebe68fca0dd48da9b0d53:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MGU3MDAwZDE3NTNlZTQ1ODgyMGM1ZDZhOTkxZjQ3NDcxNTQxYTdmMzE0ZTljZmFkNGZmOGU4MWFkMTRiMjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMmM0NWY4M2JhY2NlYzJhZjQzNDA3NmRiNjVkMjM5YWIxNGYwZmZlYWMxNDJkZDI1NjI4YWRmOWZlMzAzYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyMDQ2N2IyOTU5MzAwNjU3MzRhYjgxNDFjYjJmYzQ0YjhmZjFiNjE2ZDc0Y2RhNmUzNjdlZDIxODEwNGEyMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3OWZkZDk3ZDg4NGIzYjNlZGU4ODJjMmEwOWY2NzQwY2Q3MjZjOWQzMzJjMzY4NzY0ODJmYzMxZDBmMzM3ZmQifQ"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L33-L70",
+          "version": "repo-lines-v1:sha256:5b577a25f9b8bf57f1f6edca4e9873b9a0cd6dd1d88653bebe8fc3cb114d0048:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzMDMxODE4MWUyYTRiM2E3YWRjYzgzM2Q5YTljODgyMTNlNGQ0YzVmZjRkYjJkNTg2NDQwOGE5ZWRlNTE1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZWVmZGQ1MTEzZDk5MDU2ZjFlMTlkZTFiN2Q1YmVkZTZlMGEzMDFmOWU4ZjdiZTRlYWQzZjhmOGRhODY2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMzU4ZjAzNzFhNmU3MzJjNDM0MDMzMjIzNTE5OWRjZDkxZWJjNDYyMzlhNWRkY2ZlNmY5YTYzZTZlYmVjZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e580b1ed5cd9434ca1c2e60d96072686",
+      "statement": "There is no runtime locale system: no navigator.language check, no Thai/English toggle, no per-user preference, no message catalog or t(key) function; strings are inline literals and 'bilingual' means two string literals placed together with Thai always leading and English secondary (in brackets, after a slash, on the second <br> line, or in the second block after the divider).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L19-L30",
+          "version": "repo-lines-v1:sha256:5605bd0c7418e44af9b54e88296e0906724e8fb6301139019be1a2f406a88116:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNjIyNjFjMDRlNzMwNjJiNmFjOGI1NjY1YjhiNzI4NGU5ODFlYzAzOWQzZTNkMzgzN2I2NmQwOWYxMTNmYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMzk4MmZkNjEwMTczNTk5MjQxZmNhOTNjN2M4NjY2ODNmNThmNTQxZWNlZDFjMjA5ODEwMjE0NTQ3NzE2NGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmOWFhMWQ4NGI4MjExY2Y4YjdiYjI5MzRmNTM0ZjRlZGEwZjExODc4NzkwMzhjNmNjMzFhN2UyMDBmMDgwOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L41-L70",
+          "version": "repo-lines-v1:sha256:7027065af61d614c52f70d8fe24bde5c2422560d8432402bf35ac107b847abbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1NTY2YTdmZTZiOTY4NTg1YmM0MDY3MDJiNWQ4ZDFlM2Q3NDMxZGY1M2NkYjJlZjkzNjE4NTIzZjFiYjE1NGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwMmIxODljZTUxMTNiM2NjNGNmYTM0MTFiNWQ5ZjkyZmM0MmFhMzA5ZDQwYzYwODZjMGY2OGM0NTllZGFkYTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlNjk4ZjUzOTEzYTEzMzYxNzUzMzVhZWYyNjE4M2IxN2Y2NTJhNjZlODhlNjU4MDUyOGM4OGY4MTU0OWI0NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4MDEzNGE2MDI5MDJlMDUxOWNkZGJhNjA0ZTU5OWVmMDNjMzRkMDVlOWYyMGVjZjc3NjMwOTUwMzJlMjBjNjYifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L116-L163",
+          "version": "repo-lines-v1:sha256:0e8b2df737372c828c275425fa3385b05bfe6fd70feebe68fca0dd48da9b0d53:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MGU3MDAwZDE3NTNlZTQ1ODgyMGM1ZDZhOTkxZjQ3NDcxNTQxYTdmMzE0ZTljZmFkNGZmOGU4MWFkMTRiMjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMmM0NWY4M2JhY2NlYzJhZjQzNDA3NmRiNjVkMjM5YWIxNGYwZmZlYWMxNDJkZDI1NjI4YWRmOWZlMzAzYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyMDQ2N2IyOTU5MzAwNjU3MzRhYjgxNDFjYjJmYzQ0YjhmZjFiNjE2ZDc0Y2RhNmUzNjdlZDIxODEwNGEyMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3OWZkZDk3ZDg4NGIzYjNlZGU4ODJjMmEwOWY2NzQwY2Q3MjZjOWQzMzJjMzY4NzY0ODJmYzMxZDBmMzM3ZmQifQ"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L33-L70",
+          "version": "repo-lines-v1:sha256:5b577a25f9b8bf57f1f6edca4e9873b9a0cd6dd1d88653bebe8fc3cb114d0048:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzMDMxODE4MWUyYTRiM2E3YWRjYzgzM2Q5YTljODgyMTNlNGQ0YzVmZjRkYjJkNTg2NDQwOGE5ZWRlNTE1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZWVmZGQ1MTEzZDk5MDU2ZjFlMTlkZTFiN2Q1YmVkZTZlMGEzMDFmOWU4ZjdiZTRlYWQzZjhmOGRhODY2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMzU4ZjAzNzFhNmU3MzJjNDM0MDMzMjIzNTE5OWRjZDkxZWJjNDYyMzlhNWRkY2ZlNmY5YTYzZTZlYmVjZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fe1246ddca92496ca7706c576a2da90f",
+      "statement": "Beneficiary relationships are stored and selected by their English key (Parent, Spouse, Child, Sibling, Relative, Friend, Other); only display is mapped through REL_LABELS to a 'Thai (English)' label. The stored rel value stays the English key.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L19-L30",
+          "version": "repo-lines-v1:sha256:5605bd0c7418e44af9b54e88296e0906724e8fb6301139019be1a2f406a88116:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNjIyNjFjMDRlNzMwNjJiNmFjOGI1NjY1YjhiNzI4NGU5ODFlYzAzOWQzZTNkMzgzN2I2NmQwOWYxMTNmYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMzk4MmZkNjEwMTczNTk5MjQxZmNhOTNjN2M4NjY2ODNmNThmNTQxZWNlZDFjMjA5ODEwMjE0NTQ3NzE2NGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmOWFhMWQ4NGI4MjExY2Y4YjdiYjI5MzRmNTM0ZjRlZGEwZjExODc4NzkwMzhjNmNjMzFhN2UyMDBmMDgwOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L53-L64",
+          "version": "repo-lines-v1:sha256:60264898e6e8b6ec255bd168b3e703c71be707ce53c901e7ac13230e20641706:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2YzI2MTRiODRkNTAzMTA0MmVmMzg3ZmNmODc5OGQzZTZhNDdhYjJlMTY1MGU5MDRjZTRjMTdmOWU1ZGU1YjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwMGU0MGUzYjM0MTc5Y2FlNDM3Njk3ZGI1MDJkZTUwZWU5YmE3ZDU4NDBjYjNkY2I0YmM5MWUyYTJjNzUxMTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5YmU0ZTg3NDRlZjdkOTUyMzNkOWU4NTExYjFiMDg0OGE1ODA1OWNjOWJhMmE1NzFhNWY3MjkwMGNiNDU3NTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bdf14405d41b41d4a09a628c061a7678",
+      "statement": "REL_LABELS is duplicated identically in Code/Config.gs (server-side, consumed by Utils.gs#relLabel) and html/JS_Utils.html (client-side, consumed by the identical relLabel()); both copies carry an explicit 'keep in sync' comment because the browser and Apps Script server do not share a scope.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L19-L22",
+          "version": "repo-lines-v1:sha256:4d86b257b5cb21fb13fb14123807e8ba4f990498126da10c88491fcebb5c716e:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzI2MjI2MWMwNGU3MzA2MmI2YWM4YjU2NjViOGI3Mjg0ZTk4MWVjMDM5ZDNlM2QzODM3YjY2ZDA5ZjExM2ZiZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzc1NzY5ZDNkOGEwMmNmOGVkYmY1NjU1ZWM1ODczNmVmYTcwZWI4NDhiYmM1ZTlmZTQzM2Y3Y2U3NzM4MWI2YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWY5YWExZDg0YjgyMTFjZjhiN2JiMjkzNGY1MzRmNGVkYTBmMTE4Nzg3OTAzOGM2Y2MzMWE3ZTIwMGYwODA5ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGE2NGMyZWM4MzJjZGM1MzhlNmFkODUxNGM0MGVhNTZkYTgyMTZkNTczYWM3Y2UzMzhjNmZmYjc4YTkzZjFjNiJ9"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L55-L56",
+          "version": "repo-lines-v1:sha256:af031ecfd65b2ea22179d6241f95f7437f4dccbd24e5bdc977488ab8155f9698:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTc1MjhiZWNiOTdjYjNlMmI5MmE2MTFlZjllZTlmZDUxZjIwNGNmYWYyNjg5ZGNhZjEwN2U1OTQ0MzEyNTBlOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmIyM2M5M2Y0OGU5MDQwZTE5N2VmYmM5YzZjMzU1Y2U5ODQ5Mzc4MmMxZWU3M2E0NzcxZjliMDI5YWY3MDNmMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmNiMWIzYmZmMDdmOTg4MjBkMjM4YTQ3ODVhM2UwMDM4NDFkNGM3MDIwMDEwYTQyZjk5NjJlMWEwMTU4Nzg1ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2ZkNzYwYTYwN2NhZjAzZmU0MjFiNTg0ZGUyYjIzYjcxMzI2OWFlODM4ZjAyZmNjMDhkYWMyYjI2Y2IzOWRmYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4721f637adfc438b9a80657d1f2aa46b",
+      "statement": "relLabel() in both Code/Utils.gs and html/JS_Utils.html maps a stored relationship key to its Thai-first label; unknown or blank keys pass through unchanged via the `REL_LABELS[rel] || rel` fallback, so a mismatched mirror never blanks a row but can leave an English-only string on a Thai-primary surface.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L36-L42",
+          "version": "repo-lines-v1:sha256:9cdbb7d08929deacaacf59ffbe84de6453073de8eb643c4a6e8a3f6dbb08af9c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGIyMGI3MWIyYTkyZTBiNDlkOGE4NDU4ZDJhZTQzZjk3MWI3MmFkNzM3MzZlMDkwNjk2Yzk2YzYzMzY1ZmU0NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmIwZjlhZDkzOGE4NTBhMTA5NTBhNDk3YTk5MjY3MjEyZjllM2E0ZDk0ZDAxODRmYTEzYzYzM2IxMmUwYTU5NiJ9"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L66-L70",
+          "version": "repo-lines-v1:sha256:39286c0cfea1367fee07fed94849625eaa0463cb00aa99ccda851b5a8bc839d9:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTc1Y2IzZWU4ZDY1MGNlYTJmM2NmYWQ3MTQyOTVhOGZkNzkyMDQyZmMxMWNhNThiMGViYmU5MDc4NzUyM2UyZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDAyMGVkZTMxYTdiOTJiMTc4MDU2ZjQzZThmOWZkZWYyYzE5NmY0ZDYwNjVkNTlmOWYwYjMwM2IzMDg4NjkyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmYzNThmMDM3MWE2ZTczMmM0MzQwMzMyMjM1MTk5ZGNkOTFlYmM0NjIzOWE1ZGRjZmU2ZjlhNjNlNmViZWNmZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4e84c5c70a544a10ad46d5bfba5b1d72",
+      "statement": "The enrollment wizard's relOptions literal in html/JS.html hand-types the same Parent/Spouse/Child/Sibling/Relative/Friend display strings as REL_LABELS (Thai primary, English in brackets); Other was removed from the picker but kept in REL_LABELS for legacy display, so this literal is a third place that must stay visually consistent.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L254-L262",
+          "version": "repo-lines-v1:sha256:3b42350241b7ba550b629b6eb1eab3cc6f7d6c69ae04300225e832d7be5257e5:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmM0ZDcwNmIzY2E2ODdhZDA1M2YxZTFlODkyNzk5YjFiNWI3MjE4NmI2NjQyYzA0MzcyNmJlMzBkZTE4OTRjMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjRlN2ZlOTU1ZDkwNmYzY2ZlZGU4YjgwODk0MWNjMzhhMjRlMmI1MDZhZmVlNGJmMTM1ZDZjMjVlNGZjODllYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmQ1MjNjOWQ3ZmYyM2MxOWYwZTU0MmIzMWQ2NmIzNDI0ODM5NGI3NzI3MDA3NGU3N2E1ZWM4ODZkZTIyYjIzYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmMzMGY3OGYxZWRlNjExMmZiNTM4NGQ1NzIwM2MxZTBlOGJmMzRlZWZlZDk3NjQyOThlNDdhYWRhMGZkNmVkYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f06f6a63da264879859b71cb75f4c746",
+      "statement": "sendActionConfirmation builds every confirmation email as two parallel halves: buildEmailContent returns {subject, thaiAction, thaiDetails[], enAction, enDetails[]}; the caller joins the Thai block, a literal `\\n\\n---\\n\\n` divider, the English block, then the `— Allstars Provident Fund System` signature line.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L41-L70",
+          "version": "repo-lines-v1:sha256:7027065af61d614c52f70d8fe24bde5c2422560d8432402bf35ac107b847abbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1NTY2YTdmZTZiOTY4NTg1YmM0MDY3MDJiNWQ4ZDFlM2Q3NDMxZGY1M2NkYjJlZjkzNjE4NTIzZjFiYjE1NGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwMmIxODljZTUxMTNiM2NjNGNmYTM0MTFiNWQ5ZjkyZmM0MmFhMzA5ZDQwYzYwODZjMGY2OGM0NTllZGFkYTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlNjk4ZjUzOTEzYTEzMzYxNzUzMzVhZWYyNjE4M2IxN2Y2NTJhNjZlODhlNjU4MDUyOGM4OGY4MTU0OWI0NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4MDEzNGE2MDI5MDJlMDUxOWNkZGJhNjA0ZTU5OWVmMDNjMzRkMDVlOWYyMGVjZjc3NjMwOTUwMzJlMjBjNjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8302aee2ecbc4c02badaade555354fbd",
+      "statement": "The confirmation email subject is itself bilingual in the form `[กองทุนสำรองเลี้ยงชีพ / Provident Fund] <Thai subject> / <English subject>`; buildHtmlEmail mirrors the same Thai block — `<hr>` divider — English block split plus a bilingual two-line footer.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L346-L362",
+          "version": "repo-lines-v1:sha256:e67be857db5876378b77f3b5dc6ee280d42cc5c00ce8a774a496c3bda08f9ce4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhZjc5Mzc1OTU5M2NjNzAyYWY4ZTRmMzFjOTY0YmY1NDAwM2IzZDdiMjQwZjNiNTExNDFkN2M5ODQ5M2Q4ZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmYjdkOWNjNDU4ZjViOTM3MjEyMzAzMmUzZTc1ZGY1YzkzMDZjODY0OTI2MDFmMTg5N2FkZmI5ZWViNTkzY2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxNzg2YjI5YzFkNWIxOGU4YTNjODQwZjRhN2U4NmE2Zjk3ZmU2OGE3Yjg3MTdkNWExNjY2ZWNhMTg2ZjgyZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY2OWM3NTg5NzYzNGEzMDE1ZTZjNDlkN2Y3MmE4MTgzNWE0NmJkMmZjZGE5ODM4OTAxYzg5ODEzN2E3MTY2ODkifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L70-L70",
+          "version": "repo-lines-v1:sha256:202b189ce5113b3cc4cfa3411b5d9f92fc42aa309d40c6086c0f68c459edada8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjAyYjE4OWNlNTExM2IzY2M0Y2ZhMzQxMWI1ZDlmOTJmYzQyYWEzMDlkNDBjNjA4NmMwZjY4YzQ1OWVkYWRhOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjAyYjE4OWNlNTExM2IzY2M0Y2ZhMzQxMWI1ZDlmOTJmYzQyYWEzMDlkNDBjNjA4NmMwZjY4YzQ1OWVkYWRhOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2RhZmRlZmY3ODYyYjJhMTFhYWJiODUyNjVhMTdkMzQ5MTdlYzYyYWMxNTllMTYxYmJlOGFmODUxYWI1ZmZmMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjgwMTM0YTYwMjkwMmUwNTE5Y2RkYmE2MDRlNTk5ZWYwM2MzNGQwNWU5ZjIwZWNmNzc2MzA5NTAzMmUyMGM2NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a58834e76ae6421f8d4b4e23b9fb7447",
+      "statement": "The cancel-line ('หากต้องการยกเลิกคำขอนี้…' / 'To cancel this request, please open the application.') is shown only for SUBMITTED events of cancellable actions (Enroll, Change Plan, Withdraw); beneficiary and investment-plan updates take effect immediately with no cancel state, so the bilingual cancel copy is intentionally suppressed for them.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L30-L34",
+          "version": "repo-lines-v1:sha256:dc486ec63d8e4b7b9918987f901e862884792847a530ae85b7a273900414e2d1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2ViYmQ4ZGQ0Y2M2MTZmOGQ1MWJjZDI3MDM2MDkyZGY3ZTU5NThjMTQ3ZWM1ZDliMjAzMmU1NjUwNjU0MGQwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmEyYTA1MThkNTc2N2Q1NWRhZDIxYzFhNDQwZWVjYjU5MzMxZjc1NTRmNjAwZWZhZTY3ZWFmZDE5MjNjN2NlMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTBlNGUzOGMyMjhhMWE2ZmZiZjU4NjcyYTlmYmYxOWM4ODFjNTBlYzE0ZWQ4ZGM2Njg1NDQwYThlZWRiZmU4ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzA5ODcxZmE3YWM4YjkwNmIwYjk5ZTlhNjJhMjI5NDA3ODFlYTkzMWQxNTRiMWRiMTVhYjZmY2UwNDQ0MzZkYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ba17b24da93349d7a8958a58a77d643e",
+      "statement": "sendLetterFailureAlert reuses the identical Thai-block-then-`---`-then-English-block layout with a separate bilingual subject, for the admin alert when a signed PDF letter could not be generated.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L107-L162",
+          "version": "repo-lines-v1:sha256:aa73bede4f959956c39de9c068f03f2f3e243973805ecbf01b4459feecdf52a4:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5NmNjYTEwNDg4ZjBkNzJlZGY0NGIwOGMwN2RjNjY5ZDA1ZTgxZDMzMDgwMjcyYjM1NjYzMzkwMTY1MTlmY2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5MzI3YmZiNjk2ZTFkMGQ1NjE4NDc3YzNlN2E5Y2NkNDAzZGYwZjA1MzQwMjMzOWYxZDE3Mzk3OTc4MGE3ZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzOGRjNDU2Y2Y3ZjAzNmNmNGI4NTdlYzQzYzA2ZGFkNjI4ZTY2MmQyZTY3MjZjZTRmNzdlZmM0ZjU1OGNlYzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9668bd9301dd4e7aa3d1e9ef91bae6ac",
+      "statement": "Letter.gs#buildPlaceholderMap fills the {{date_today}} template placeholder from the PF_THAI_MONTHS array using the Gregorian year, rendering as `5 มิถุนายน 2026 / 5 June 2026`; the {{effective_date}} placeholder renders the ctx.effectiveMonth `{th, en}` pair as `มิถุนายน 2026 / June 2026` for enrollment, falling back to ctx.effectiveDate for the beneficiary letter (which has no cut-off).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L114-L144",
+          "version": "repo-lines-v1:sha256:ef21a9fdcb7cb99fa17dffe8f8381bfd312216eed88b39da747c227143fe7980:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2NDRiZmYyZjhlMGFiOWFmNzA4NDNmNzQzMTQ1ZGQyN2IxNzZlNDc5ZDlmNDU1MThmMmE4NjgzZTI3ZjZkZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhMDgwODg2MTdiYTZmZGM5MDJmMmNlZWQ4MGFhODg4NTdmODBjMmRkOTAzODU3YmUxYmZkODk4NGRlMTJhZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiNDJkNzFjY2M3NmJmZWM3Y2NkMGVlN2FmZjhhYjliZDdiOGFhMGE0MzFlNTQ5Mjg0YWY5YzgwZTNkMzkxMmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cbfee3f66dd54e03a9a2ba5721fcffa8",
+      "statement": "PF_THAI_MONTHS in Letter.gs is the single source of Thai month names for the letter module's {{date_today}} placeholder; the same twelve Thai month strings are inlined again in Code/Utils.gs#getEffectiveMonthLabel and html/JS_Utils.html#getEffectiveDateInfo, making three copies of the same array that must stay consistent.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L33-L37",
+          "version": "repo-lines-v1:sha256:a7ef5625a5bc53838c166adf5d7c1ab61d0984288afdde9d0bf9524477c82ff9:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzJiYTdjNmY1YzllNDY2MzliNzEzODIzOGE5YzYyNWE3OWQyNzg4NzMyZjEwODA4ZjVlMTk0ZGJmOThjNzE2NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZDJjMGQ2ZGM1ZTc0ZDkyZmExNGI5MWRiZWEyNjQwOTBiZWIzNWZkYjkxODhkOWIzNDExODFkY2U5ZjRjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWU4MzRiOTIwYTAwNTk0ZjBiYjMxNTdkNzk3NjFlYjZiMmZiMDg2MDc3ZmUxNjNlMGZjMzgwMmE2NjUyN2YzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTFjMDFkZjMxMWNlNWIzMDkzODNiYjg2NmQxYjQ1OTE3MjZlMGUzNWFhNzZjMDc0YjhiMWI1NGQ2OGE0ZDI0MCJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L145-L148",
+          "version": "repo-lines-v1:sha256:6dc614c8c6d93162b05dc5dd80b5a5db29190ad62aa5aa17b1d8c95b802bfc55:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmI2NGZkYjIwZDkxNzQ4OGZjYWMzMTlmMGY3ZGQyZjc2YzRmNWFkNDYyNDJhNmNhYTY5NWQ4NGNiMmYyMjI3MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTFiMmQ1YTYwN2NlNTc3NDAyODlhM2NkNGQyMTY5OWFiOTIxMTU4MmQ2ODMxNWFhY2YyNTU4ZmQ0MzFmNDhjMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzRhODc3ZGYxZmVhZDQzMDdkNDk3MGViNGJmN2MxZjE4NWNkZjc3ZmE0MGMwMDZjMzNlZTMzMTI5YmE1ZTk5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzEwNmY4NDQzMTI3NmMyZmE5YzZlMzkyZWI1NDQ0NTk3OGQ2ZGM3NmRjYjYxZDk2M2QwZDc3ZWJiODcwMTk5OCJ9"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L21-L24",
+          "version": "repo-lines-v1:sha256:d37b8be95c99784f78d45ce8f7596e2d743d0e798c7f1efb2745d9542a8e36e2:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2M4ZWM3ZGE3NWZlMWYyYjM3YTMyODc1ZDlkNDQyYTU2NWNiY2QwNWIzOWRkNDc5OGU1MGE0MDc5OTRhYzQ3NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjJlOTY2ZWIxZWJiYjM1MzIxNjQ1YzQyMDk1MmI5MmNkZWRkMmM4NDUzY2MyZDZlZjA4NTdkYmIzZjI1NTMwNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2M0YWYyNGUyMmUwMjRlOTMxNDYwYzZkMmYyYjgxZjBmNjY0ZTQ3ZjA3YjVmMjU4MzkzYzUyYWZhYjQ2ZDQyYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjYzMzAzZGUzNDM5MTVjNWQxOGYzOTUwNzNiN2E0MTUxMDBmYzAxMDFhZjQ5MjdmODIxNWQ2YzcxZjVjYTRlOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_498e3aeeda1d4808be66ba238d4e9c32",
+      "statement": "getEffectiveMonthLabel in Code/Utils.gs applies the same ≤15th/≥16th cut-off rule as getEffectiveDate but returns a bilingual `{th, en}` payroll-month pair (e.g. {th: 'มิถุนายน 2026', en: 'June 2026'}) rather than a month-end date, so emails and letters do not read the day as a literal money-movement date; this is the server-side author of the value consumed by emails and letters.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L123-L151",
+          "version": "repo-lines-v1:sha256:11473300037a8d51861a50bb5cb91b58e52a46ca6706c6d84537733cb3e62b03:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2OTAxYzc4YWQ0ZjU2YTk2ZmQ3ZDhhZWQ3NmRjNjYzMjAxODM4N2MwN2Q4ZGJmNWJkMjdiNzBjYTdkZjRhM2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxOTlmOTQwZWVkYjcwZTE1NjcwNTU4YmFlNTNlNjA2MmQ0ODA3NzMzYTUxMDU4OTBiNmQ5ODJhYjljZGVjOTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2e1662a085b24d549eaf6a1d4624b363",
+      "statement": "fillBeneficiaryList renders the {{beneficiary_table}} placeholder as a plain-text list, one beneficiary per line as `- Name — <relLabel> — 60%` with an optional indented second line `ที่อยู่ / Address: ...`; the relLabel call here is the server-side one in Utils.gs, so the letter's relationship strings flow through Config.gs's REL_LABELS.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L159-L172",
+          "version": "repo-lines-v1:sha256:bd373559a1f4a3e7d345c3c981162e2e0249a370780d76a5a7285b0ade8cee50:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0YWYxODFmNmJiOTVhNzM4MWRhMzRkZDkzMzY4ZWJlZDdmNTdhMDhiNTRlN2ZiYzUyY2E2YWVjZWFiNGU1OTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_890680c79fbb49359225108db6339fc1",
+      "statement": "The dashboard status pill (#statusPill) is set by populateUI in html/JS.html to compact bilingual 'Thai / English' slash values: 'หมดสิทธิ์ถาวร / Locked', 'ระหว่างทดลองงาน / Probation', 'ระงับสิทธิ์ชั่วคราว / Cooldown', 'เป็นสมาชิก ครั้งที่ N / Enrolled #N', and 'มีสิทธิ์สมัครได้ ครั้งที่ N / Eligible #N'.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L116-L163",
+          "version": "repo-lines-v1:sha256:0e8b2df737372c828c275425fa3385b05bfe6fd70feebe68fca0dd48da9b0d53:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MGU3MDAwZDE3NTNlZTQ1ODgyMGM1ZDZhOTkxZjQ3NDcxNTQxYTdmMzE0ZTljZmFkNGZmOGU4MWFkMTRiMjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMmM0NWY4M2JhY2NlYzJhZjQzNDA3NmRiNjVkMjM5YWIxNGYwZmZlYWMxNDJkZDI1NjI4YWRmOWZlMzAzYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyMDQ2N2IyOTU5MzAwNjU3MzRhYjgxNDFjYjJmYzQ0YjhmZjFiNjE2ZDc0Y2RhNmUzNjdlZDIxODEwNGEyMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3OWZkZDk3ZDg4NGIzYjNlZGU4ODJjMmEwOWY2NzQwY2Q3MjZjOWQzMzJjMzY4NzY0ODJmYzMxZDBmMzM3ZmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c535a857d16c40faa5cb1715cc2b4b05",
+      "statement": "The cooldown / ineligible message (#cooldownMessage) uses the two-line shape with Thai, English, and the date on separate <br> lines so the long Thai run breaks cleanly on mobile rather than wrapping mid-sentence; the div lives directly in the Actions <article>, not inside #enrolledActionsGroup (which is display:none for non-enrolled users), otherwise setting it visible would stay hidden.",
+      "evidence": [
+        {
+          "resource": "repo://html/Index.html#L113-L113",
+          "version": "repo-lines-v1:sha256:b5d15216e68dd877f058dc7e0b0c3b0532e3769ea87e8ea3f62f6589074ae735:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjVkMTUyMTZlNjhkZDg3N2YwNThkYzdlMGIwYzNiMDUzMmUzNzY5ZWE4N2U4ZWEzZjYyZjY1ODkwNzRhZTczNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjVkMTUyMTZlNjhkZDg3N2YwNThkYzdlMGIwYzNiMDUzMmUzNzY5ZWE4N2U4ZWEzZjYyZjY1ODkwNzRhZTczNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzE0Nzk4MjhhOTFiNTcxYTNmYzY2NTAyZmE2YTMxNGFhNjE0MTQ3YmNlYTQ1ZmU5MTM4YTMwYTI1OWU3ZjliNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAwZWJjODFhODlhOTc5OTUzNDMxNTk4MTcyMWM1ZjU0OGEyZWNkNGUwZjU0YmI1NmYzOGQxMDA1ZWFiZTgxOCJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L119-L128",
+          "version": "repo-lines-v1:sha256:b176a2c71a95df9241868f5bf678627ee45e8b8fee8b8f84859a2c0838a0740c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlODI3YmE5NDljNzc5ZDVkZmEyMTkxZDllNDZkMDRmNjQ3YThkMmRjYzNjYjI1MDQxMGIzNjg0MDMzZDM0MjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxMWFlYWMzMDY0NDZhOWQ2ZmZiZDhlMWMyYzFjMmMwZmNmZmJjYmJhY2Q5MGExODkzODgxYTdhNjkxNDUwYWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3YTU0YjhhZDRiMjRmMmEyYmQ5NjYxMDcxOTIyYWM1MjVkZTQ1YzFlNDcxNjYyZWNiYWFlOWE1ZTliZjRhMGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxNWVlNWFjZmZkYTZiMWY4YTJmNDU0NzBiMDRlNmEwMzI1M2JhMzU4M2ZhYmIzYTM0OTg5MWJmOGNkZDRmOGYifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L612-L630",
+          "version": "repo-lines-v1:sha256:ade98cf6e8e66b2365489d1c23b2bc81cfb6fdc277734b0638d5e671a73bc202:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMzY1MGNhZTM1NmY1YzJmY2E5ZjU0N2ZmODRiNmZkZDNiNmJlZjQ2YTYxMDM1YmM0ZWQwNmVhNjRmMzNlYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxNTc0MTQ1MTIyYjNiMTMyMmY1MDk4MzUzMDBkZjJiYTIxZGM5NTJlNTU0MzcyZWM0NGFkYjQ3YmExZmJjZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiNWJjYzcwOWNjYmJmNWZiYTAzMWM0MWYwMDE1ZmFkZTQzMzc1YmIyNWRiZDQ2YzM0MDg3YjAxYWFjMmUzNmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bb54bef5e6fc439c8c3abc8995398cee",
+      "statement": "buildWithdrawalTimeline renders each step as `<strong>dateLabel</strong><div>th / en</div>` (the slash form), with the re-enroll footer reusing the two-line form `สามารถสมัครใหม่ได้ในวันที่ / Re-enroll on:<br><strong>…</strong>`; the probation message also uses the separate-<br>-lines shape for Thai/English/date.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L121-L124",
+          "version": "repo-lines-v1:sha256:d976227f90ad818d9a15a60a243eeb185672c6258cdaeaff2575aabeb3762864:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmY3M2EyMTZlN2MwODgyYzM3YjNlNDc2NzFiNjQ1MGM4MWE2MDYxOTFkNTQ2NTNjMDM1MTBhMmRjNTkyMzZmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWNiMTlhN2UxODk1OTI0ZDE1ZWIzNTY0NTIxNjMyMjhiMWJlMzk4NWZmMDVhZmZiNzU3ZTMyZmIxMDhlODBjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzdhMTRlY2U3MWQ5M2UzYmYzN2RkODdhODZkYWY3NzJlOGU5ZGUyMjQ5NWE1Njk2ODRmOTUwZDMwODdhZDZkZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQ5YzRkNmJkOTU0M2ZmMDVlMjFjNzFmMTMxZTY1Y2Y1YzVlMmM0YTZlOTMzYmRlZTBhZTA4MWExMDAzOWI2NiJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L576-L609",
+          "version": "repo-lines-v1:sha256:9238f40e9cd0872982bd82a5fdc9e4916d16c43c7a2f7fcb93256b50a00987c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczNzIzMjlkNjY1YTY5ZTViYzNmZGQ1MjcwODA4MWU4MDViYzY4OGM0ODU1OGUyMjExMTQ0NDE5MDg2ZjEwZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwNDFmNzA4ZGNkYWRmZjE3MzJiMjZkY2Q0Y2M2OGFhODhjZWQyMTdjM2RiODNkOGVjMDY0ZjU0OTJjNWY0NTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4ZWY3MTIxMTMyZTI5YmUxY2U1ZDcyZDNhMzJlMDE0MmNjYzE3YWVmNWVhNDBmNDdmZjYzMmUwMTM3ZThmZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhOTExM2FiYWVmNjdiZDBhNDI0NGFkYjQ4ZGRlMjM1NzgxZTcyMzBiNzhjNGJkZWE0Zjk3NzQ4MjY4MWU5OGIifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L612-L619",
+          "version": "repo-lines-v1:sha256:4dd0e1c458081f0657567f35d724b3e9d436e75c53bf27f1eaec9da75b60943d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMzNjUwY2FlMzU2ZjVjMmZjYTlmNTQ3ZmY4NGI2ZmRkM2I2YmVmNDZhNjEwMzViYzRlZDA2ZWE2NGYzM2VjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDk2OTc5ODllZjAxMWFhOWUwYjhiMjYzOGE0OTA4MTUxOTNmZmViODNhNjBhNjhiNGEzOWVkNzIyMDVmZmU4NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzE1NzQxNDUxMjJiM2IxMzIyZjUwOTgzNTMwMGRmMmJhMjFkYzk1MmU1NTQzNzJlYzQ0YWRiNDdiYTFmYmNmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzZjN2Y2MjViZmVmODk3N2NjOGVhMzM0MGY3OTEwODA4YWYwMWI1ZjAwMDdlNmYyOTgwNmI0NTM0MTkzMjU4MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_af1248ee3e09409d9a46eba2c931523e",
+      "statement": "effectiveDateBannerHTML in html/JS_Utils.html is a two-line bilingual instance: a bold Thai status, <br>, the English status, <br><br>, a Thai label, <br>, an English label, then a single bolded `monthTH / monthEN` line; the 'withdraw' context flips both the status and the 'first applies / final deduction' label copy to the last-contribution month.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Utils.html#L33-L51",
+          "version": "repo-lines-v1:sha256:1dd54e951281a2c5a917fd15ba9e98b66d88aadc1e06e1d8b9fe76977a66a103:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzMDMxODE4MWUyYTRiM2E3YWRjYzgzM2Q5YTljODgyMTNlNGQ0YzVmZjRkYjJkNTg2NDQwOGE5ZWRlNTE1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZWVmZGQ1MTEzZDk5MDU2ZjFlMTlkZTFiN2Q1YmVkZTZlMGEzMDFmOWU4ZjdiZTRlYWQzZjhmOGRhODY2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjYjFiM2JmZjA3Zjk4ODIwZDIzOGE0Nzg1YTNlMDAzODQxZDRjNzAyMDAxMGE0MmY5OTYyZTFhMDE1ODc4NWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c169098c34c7428598411ab623743d39",
+      "statement": "The payroll cut-off rule (submitted ≤ 15th → end of this month; ≥ 16th → end of next month) is implemented twice with explicit 'mirror' comments: getEffectiveDate and getEffectiveMonthLabel on the server (Code/Utils.gs) and getEffectiveDateInfo on the client (html/JS_Utils.html, returning {withinCutoff, monthTH, monthEN}); the monthTH/monthEN strings must match across the two so the banner and the email cite the same payroll month.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L93-L151",
+          "version": "repo-lines-v1:sha256:78e6fccab773eae449f0dde7b6992ab7f0dccfd418f630d2fe99af0b62484029:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxOTlmOTQwZWVkYjcwZTE1NjcwNTU4YmFlNTNlNjA2MmQ0ODA3NzMzYTUxMDU4OTBiNmQ5ODJhYjljZGVjOTQifQ"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L6-L31",
+          "version": "repo-lines-v1:sha256:dea3719b49bb1ffd55d6119fc033f78bce9d6b5bfa13ac0516e2f0bacdcf8deb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1OTU4YzYwOGI3OTFlMGM4NjdmNjA3YTIwODIxNzhiNTQ2YWNkNjAyMmQ3OGUzMjExYTY0Mjc2ZTRkMzY3MjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjYTE2OTRkYTk3NzFmMjNiMGM3MmI2MDcxMmYxZjVmMGUzZGNmODhiZjI4ODRkNDczNDhmOGYyNjY3NzczNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ3Yzc3MjY0YWY1ZmJkODk0MTg4ZGNkNDM5ODk4ZGEwYWE3M2I1NzY0MGJlMGQ4NmJmMTlkMDZhNmZlZTE5ZGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_01169d92fa204df69de77642612f3da7",
+      "statement": "The beneficiary title prefix dropdown (prefixOptions in html/JS.html) groups Thai honorifics (นาย/นาง/นางสาว/ด.ช./ด.ญ.) under an `<optgroup label='ไทย'>` and English (Mr./Ms./Mrs.) under `<optgroup label='English'>`; the prefix is a transient UI-only field merged into `name` via mergePrefixes at submit so the stored model stays {name, rel, pct, address}, and splitPrefix re-separates a saved title when editing to avoid double-prefixing.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L264-L305",
+          "version": "repo-lines-v1:sha256:631cad55fad330bc28b33fa2212f5ca672aaf09c6a77060b11a94518b613641e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjMGU4MTVkNWMwNTg4NWMzYTk1YTU3ZjU0MzI0MjY1M2Q1NDVkMDhlZjQzZDY1M2U0ZTIxMDcxNDRjNTk1OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjNDBlODMzZTBjNzQ4NTAwMDRlOTlkZWQ5ODAyMTU0ZTg1OTkyNTQ5YTZlMzYzZDBlNDBlM2Y2N2E1NjdlNjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5ODJjZTViMjI1YmY1YWEzNmNiMWNkY2VmZWEzMWJjNjQzMmQ3ZDY4OWVhYjBjMmZiZjdmODIzZjJmNzZlOTQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

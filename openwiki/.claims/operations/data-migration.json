@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:a0e0002d325ae46b6f90724c16d8b0a63493160f434632a1d4de45eb230f476b",
+  "claims": [
+    {
+      "id": "claim_f1a7fd3423784444a93c73c8a79d43c2",
+      "statement": "The data migration toolchain is gitignored and not deployed: .gitignore excludes Data/, *.xlsx, *.xls, *.csv, and .claspignore permits only appsscript.json, Code/**/*.gs, html/**/*.html to push to GAS, so the Python scripts, MIGRATION.md, and source/build workbooks (employee PII) exist only on the operator's machine.",
+      "evidence": [
+        {
+          "resource": "repo://.claspignore#L1-L6",
+          "version": "repo-lines-v1:sha256:fd48be51354f578b230b9ae454d401bcccece6f0c1f9759d2f4d6edbb164a5c0:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODM2YjhhNmIzZTE4ODFhZWRhMTkyYmIxOTViMmM1MzExNmE2YmFiZDBmNTdiN2JiNjlmNGMwNzQ1NGM0MWU1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBiODAyNDRhODBjZTE5NWU1M2FkOGRjYmU1ZTQxOTNiM2UzOWI1NzBkOTFjMDA2YTRkZjIwZWU5ZTVjNWQzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjBiZjQ4ZDEwNDIyNThjMzYyMzBjMTI1YzA2Mzc1ZDZjNDU0M2FmOGQ2YTkzMWYxMWYxNGIyMDljM2Y2ZGM0OCJ9"
+        },
+        {
+          "resource": "repo://.gitignore#L1-L5",
+          "version": "repo-lines-v1:sha256:26607d2fb0bb9029b9639ca5d80007399ca08b23e92431b8f651b0f396c0013f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjk2NGQ0MGRkYjYzODZmMjZkZTEzM2EwOTQyOTYyZDZmOTNlNDkwOGNiZDk4YjI0MDA2ZTE1MzA3N2JkYzkyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzk0ZTJjMGVhMDM5NjZhMzAzN2U4ZjJjNDMzZGRmN2JmZGZkNDFiNmUxYjdiZmIwYzU1ZDkxYjliNjdlODUzYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c7cd391596c64ec3a1132ed01898e4e0",
+      "statement": "This is a manual hand-migration: the Python scripts only prepare and verify the build workbook; the values are typed by hand from the build output into the live Google Sheet, and no script writes to the live app.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L1-L14",
+          "version": "repo-lines-v1:sha256:fe7668586a080663a65db144a2f955a8ad7debeb656c32078e009e5e7b32b86b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkMzI0OTIxYThlNjAxMGYxMGM5MGIxZTc2N2VkNTNlOGZiYzczNDZhMjYyZDQ0M2NhMjMyYTY1MTU2ZmVmNTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4OGUxMTRlYzI3Nzc2NjRlYzdlNGIwNzRjZGRkNTVkZWVmOTk3ODQwODI1MjFhMzczNDQ2ZTM3MTYzOTA5YjIifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L3-L5",
+          "version": "repo-lines-v1:sha256:b80bad5da1d08527607b51d91f68e498cbcf56780b1860eab5021f968bffd202:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGIzNmNhMmU5NThkYzY3NTBjZTU1YjQzZDVlNGQ3ODUxZWUzMjIwMWQ4ODk1MmJmNzY2ODcxZjA2N2EyYjFhZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2M2ZWViNjljMjVhODRmNDAzY2FjNjJmZTliNWU2Y2VlZjI3MjY2YzQwNzdjMTVmNjBhOWY2OGY0ZjczN2IxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDlkNWQyMGQxN2ZkMjhmYjRlNTlhZmRmYjUyNzI5NzJjNjk0NTVhZjNlOGNkMWM3NWM0MmJhZWFjZWJmOTRmOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4864f2651a63474b99fec8c72fd87620",
+      "statement": "MIGRATION.md defines five golden rules every migrated sheet must satisfy because of how the .gs code reads cells: header names are sacred (looked up via headers.indexOf, so a typo returns -1 and silently breaks), dates must be real Dates (instanceof Date, else treated as no date), numbers must be numbers (Withdrawal_Count 0/1/2/3, Current_Plan decimal), no stray whitespace in Allstars_ID/Work_Email or in headers, and Allstars_ID is the join key across Users/Enrollments/Beneficiaries/Audit_Log.",
+      "evidence": [
+        {
+          "resource": "repo://MIGRATION.md#L9-L24",
+          "version": "repo-lines-v1:sha256:9c2d72caab7b20831ea71fc969b6eabad54e2bcad882603e9338697222ec0b68:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjYTVmYzZlOTYwYTFkMjA1NDY1OTlkYTg3NGExODE3OTRjZGIzYjhkZDEwZjkxNjk5OTIyZGYwOWUxYmU5MTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliMzBkNGY1MTdmYzY2YzJjNjhlZjA2ZjNhNDgxNzhiY2YwODJkNDc5MmE2MThkZDc1ODVjNTljZjk5NDYxODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_33ffcd322cd64e34a2ed05b8ecfce4a1",
+      "statement": "MIGRATION.md formalizes the lifecycle as 9 enrollment-cycle states (numbered 1-10, 6 the terminal lockout) plus a probation flag; states 1 and 7 are the only states with no Enrollments row, differing only in Users.Probation_End (future date blocks enrollment), and Withdrawal_Count holds steady through each enrollment and ticks up only on a withdrawal.",
+      "evidence": [
+        {
+          "resource": "repo://MIGRATION.md#L50-L89",
+          "version": "repo-lines-v1:sha256:646e948e6f94ff99f24ed4c9dcd722b05bae5a962456265b556223fae48c96dc:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUwYjU0NTFmMDE0MGQ4Mzc5NzQ0OGFhNGFkMzg0ODE0MmY3NTMwNTk4NWFkZTMyOGE5YzZmYWI0Mzk4MGE4MjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNWQ0MWYzMWFmMTQ3MDllYjViYzM2NTBmYzM4ZjRmOGJiZWMzYjMzYjFkYTBjNTkyZDhiODAzOGViOTA5NzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cbd26798a3214949b0fdabce99e4c289",
+      "statement": "Cooldown-versus-ready is decided purely by Last_Withdrawal_Date (+6 months vs today) with no separate flag, and an enrolled re-enrollment (states 5 and 10) must have Last_Withdrawal_Date >6 months ago because the app checks cooldown before enrolled-status, so a recent date would mis-display an enrolled member as Cooldown.",
+      "evidence": [
+        {
+          "resource": "repo://MIGRATION.md#L115-L124",
+          "version": "repo-lines-v1:sha256:c56dec0f957995f8263bbfc00565ad6497ba70c7fd036ec5d7af1128bf848059:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4NDJiYTQ0OWY4Y2Q1YjNkZDI3M2UyMTg0ZDZkYTY1MGVkZjdlOGI2ODk5MDM3YTQ2YTNlZDYyYWVhN2NkOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUxMzVlMWQzODY4MjBiMTJhOGZmN2Y4MDZhZTU0NTFlMjYwNDg2M2MzOGI5MTk5NDFjYjM4ZjA0ZTY5NzAxOGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhZmU1YzA4ZDg5YzZkMGY1ZDVhMTM2MDQ5MjAzM2NhNzdhNzFhZGQzOGY3NDQ1ZmQ4ZjJkODMxMjIyOGJkZWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_370c448e3cfa4c76b5df9e94a9164b6d",
+      "statement": "build.py uses a fixed TODAY (2026-06-29) and COOLDOWN (~183 days) for reproducible cooldown math, DEDUP_DAYS (120) to merge form-withdrawals with bank events that are the same real event (kept under COOLDOWN so distinct withdrawals never merge), COUNT_RULE='max' and COUNT_TERMINAL_REASONS=True as the two deferred decision switches.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L27-L46",
+          "version": "repo-lines-v1:sha256:270589a6fae22c553b371a04d50e10cefb203238d8b7061a1ac5ef4b73ad4da3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzMjkyYjJkMTk0NjcxZjQyY2ZkZmI1M2IxOTdlYTcwN2JmMjM1ZGMzMThhODk1N2Y0NDAyZGM1N2UzNjcxZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhMGMyMWFlYzI4ZTY2MjBmZWMyMjQ1ODllOWEwMjQ2OTllZjNiZThlZmNhZGRhYTE2YjQzNTNiZWFiMmU1NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlMGM2ZWIyZDMyYmMzZGZkMTQ2NGJmYjRlNjlkMGUyNzEyYzY4MzBiYmY5ZDdkZjhiMTUxNGQzZDk4ZmRiNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ1OTQzNzcxZGJjZTcxZjFiYjY0MmI2ZDdhMTg3ODQyMWZlZDBhOGQxZGEwZDEwYWZhY2IzYWJmZTQyYjQzMTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ada9d9a765e449eb43d424a8a00b7a5",
+      "statement": "build.py resolves one enrollment state per active staff from Master.xlsx plus a second update workbook, using WorkingDB Staff_ID as the spine (Allstars_ID), with the BANK_Withdrawal_Report join bridged through a normalized WorkingDB.PF_MemberID (norm_pm: strip spaces + uppercase, placeholders to None) because BANK_ACTIVE joins on numeric Staff_ID but the withdrawal report joins on the messy PF_MemberID.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L53-L60",
+          "version": "repo-lines-v1:sha256:62d9c65affe1935ff1991db0134f2becf78385289ebeb5bc046651415e1c2033:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWIzOTE1YmIzMTM4MjE4MGRjNjk2NTA2MTE5NDI4ZDkyMTg5NGY1Zjk0OGMwNWVjOTJhYmIyNDY4ZWEwZmMzYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzgwYjZiOWZjYzdlNjM2MTNmMWE3MGVmNDdmYTk5YTU1MTc2YThhZWU5OGZjZWE0ZTFiNjMzMWJmYWI4YzI4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDU1MjY3OWE1MDIwMTM0MThhMmYxYjcyYjA4ZDM1NGExZTRhNzk3NzJhYTQzNzMyODAxODY2M2VhNmIxN2Q2OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTY1NTVmNjQ4NmFjMzFkMmU1MzZiNjRlYTQzNmE1NDNjNmM1NWIzMDk1YzkyYWQwZDE5YzEyNTI1NmU1M2VhNSJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L87-L101",
+          "version": "repo-lines-v1:sha256:6db16f20702b26b0295c465d997f27982826e05a2b44d008188ad6a5d221c218:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyZDNmMDgzZWNjOWYzNDUwNWE1Nzk0ZWRmODA0OTYxM2EwZDg1YjM3OThhN2UxYzdiOTM1MmEzZDE2MWEzMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5ZWI2YWI1ZDc0ZDMxYjk4NTFhNWNkNDA2ZTVkOThkNDg1ZmQ1MTg1MTMwMzM3NTE0NTk3MmY4ZTFlMGRiMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNhOGMwOGE3NjMxMjY2OWEzY2FkNDZjNWNlMDk5ZTFlZDlmZjJmMDYyODBiZGRjZjViNTA3ZGZlMTkxMDdhZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkzMjE1YzI1NmJhMTQ3NDVlZTQyMWU2NmY4ZTNlYmMxODBjZThmMjg1N2ZjYjg4YWQwZDU0YWYwODU2MWEyN2YifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L185-L190",
+          "version": "repo-lines-v1:sha256:4d2ccd0b0f8a32b7dca149fd4d2bb76c58b806179ff21cd70e991c56adf48596:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODdjZDEwNmZiOWViMTkxZWU2ZjVmYjI3Mjk0NzQ1ODc2MDRhMDI1NzNiZjczY2Q5NWRjMzI2YzkwOWMwZGExOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTI0ODZlMjYxOGNhY2Q0ODFlY2Q0NjRhYzI5YzcxMWFiNjIxZmYwM2JkZWFmNGJmY2QwZjVhNTk3MmMzOWVlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDJkNzQwZWI2ZmE5OWVmODY2ZDdjMzk3OThmMDEwYmQ1NWI2ZjNjMjBkZGJmZDA2M2VlOGIzMjBlNGFjNDAyOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmYxODM2NzhkN2I4MWEzNzI0NDkyOTFhZjU2MDZkZTg2MTEwNjY0MWI0NWY2N2FmNjU1OTI0ZTA1NGZhYzlmNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_96ef573eb59f4b3e832893f161d5a197",
+      "statement": "build.py derives enrolled-now status and rate from June_Payroll_Obfuscated (PF Employee Rate > 0 implies enrolled, decimal rate) union the B Company Payroll batch from the update file (whole-number percent divided by 100, June takes precedence on overlap); payroll wins on enrolled-status over the bank.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L103-L131",
+          "version": "repo-lines-v1:sha256:b8851ab9edda2bb41807e3e1b1dbaf64ae35dd9921b9c71b1eabe7e497f636d4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyNzYwYmI5NmM0ZWI5OWUzMjdiMTMzMTY3OTRhYTE5NDYwYTgyZDI2ZDM5YWIwYWVjZjk3NDYxM2Y3ZGZmY2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmYzIyYTZiNTUyNjQ1ZjRkMjVjNjhkNGQyNDBhZmE3YmMyNTUxMzdlZWUyYWJlOWVmZWNhOTQ0MDExZWViMWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI5Yzg1NWY4ZjA4Zjc3YzI1MDU5NjkxZmEyMGJlNjYzNDg5ZDcxOTc5YmYzZjI2M2UwYTUwMjg2ODQ5YWRlZGUifQ"
+        },
+        {
+          "resource": "repo://Data/build.py#L370-L381",
+          "version": "repo-lines-v1:sha256:cf4c2855b5d1877b794d5b8199d7b83c383fe4ce5528b44d4718a861f782dfd6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0NzBlMGFkZjkyMmJjZTJhZDFlN2RjOWNiMmE0ZGI5NjIwNjhlN2UxNjJmN2NkMzBiM2I1NDJmYzc1MzdhNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiMDEyYzcwMTZiMGM0MzZhNDA1ZDg4YzhjMTZiN2M1YWY1YTE0NzZmNGQ1NjFmMWU0NzMyZDI4YjEyYTJlNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhNzE5MmQzMTA5OTcyZDcyNjRjOTlkZjY3MzIxYzJlY2I4OTEwZGYwNzk2ZTI4NzdlODQ5MWM4NTc0NTRlZjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6f9ff79e4ebd4f67a8457bbfe5164d58",
+      "statement": "build.py takes bank membership from Bank_Active_29Jun26 (update file), which replaces the stale BANK_ACTIVE and adds a Member Start Date used only as a cross-check (category J); bank membership values are only 1 or 2 so no active staff is at 3rd-enroll or permanent lockout (state 6 is unreachable from active staff).",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L132-L150",
+          "version": "repo-lines-v1:sha256:999fee8a0680e931645e37b85b2295d026271b3d55fb859f72047d7e72e0fdcd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmYjVmNjQ1N2NlZjAyNTlmMmEyMTYxNjY5NjI3YTA4Y2ZjOTYwYWNhMTE3NmQxMjhhMzMyMjI3YzgwNTRiNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk2ODNjOTRlMDZiOTE4ZDVjYWFkZmZmODAyNDQzOWYwNDUwOTAyMTE1MGM1NGE1ZjVhOTMxZTRkYjFjZWQyMzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwYjQyYzA3OTU2NjJmMjI4ZDAzYWJlMWRmOTI3MDhmNjAwYWNlMjQ5ZjFhYzcxMzdiODc0ODVhMWIyNzM1NzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0MzdkNGE5MDM1ZmMzNTgwYWE4OGUzMmFhZDRiNWI5MzU0NGRjOGI2YjRhYzdhZjE2Yjk2NzI5ODY1MTNlYTcifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L204-L207",
+          "version": "repo-lines-v1:sha256:c2a51be4b0958e9015351580ab4dbab4312f77e0d31eaa2ed776280425ccbffd:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTUzMzQ2YmViYzgzOTY1Y2VmOTcxNDNjMWVkZjMxODdmMzg4MTczYjc4ODgzNGY5NzEwM2U3NDA1MjVhM2YxZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTk3ZGUxOGE0ODY0ZmU4Mjg1MjZlNjZiMWNhNTRiN2YyMjgwNmI5M2M2Y2MyMjQ2MzBlYTc4NzNlOGEyZmFjMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzY4YzFjMTdlNGY2Mzc1ZjlmMDY0NTA0ODViNDNjYmMzMGQ2YjAyMmQ1MjU3YmU3NGVkZjUzZmQ2MGQ5ZjJhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWRhY2Q2MmZjZTkwMWFkNDhkMjdjODk5MmM4NjVjNGMzMjJjYTg5ZDBmMTJjMTE2OTg4N2I4NjQzYmYzOTY1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b2332481fa9249f5aaf9ce4a46f86481",
+      "statement": "build.py excludes 'Transfer within Group' (an intra-group company move, not a withdrawal) from withdrawal events, fills bank-report gaps from Old-Form 'Withdrawal' events deduped within DEDUP_DAYS of a bank event (same event, processing lag), and takes Current_Enrolled_Date from HRIS_NEW PF Start with fallbacks to Old-Form Enroll, HRIS_OLD Pf Start, then bank Member Start (last resort, flagged), while First_Enrolled_Date is the earliest PF start across sources (equals Current when count is 0).",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L163-L169",
+          "version": "repo-lines-v1:sha256:916c643a78f743e3856348b6b089f4198b4358d9f0f864980e75bec67983a85c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGNlYzMxNDE0NWFmMzk0MGY4NjBhMDI2MTUxOGE3MWNmOGEzMDI3Zjg4ZmY0ZGMwZDFiYzY5YTAzYzA1YjFhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGYyNmNhNzM3NmRlNjM3ZjE0MGM5MzgxOGNjZmZlNzA3ZmJkZDhjZWE5M2IxZjI2YWRhNTc5MGZiNGUwNWI0OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWNjYTU2ZWM0Y2YzZGI0NGQ5NTNhOWM4M2NkODE2OTIwMDk0OWE0YWFjYjJhMmJiNTJiYWNlMGRlZWQ0NTkzYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzg4YTYzZTJkNjZkYTk4NTEzNjM0MDE4NDM0ZTMwNWQxYmJlMzI1MTFhZjBiNGQ2MWI4MzM0NDc3ZWNiNWY1YyJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L284-L296",
+          "version": "repo-lines-v1:sha256:65e9ec5935226b8da6c1e4a96e5c24ec2a19755970f5b7bab025d87d548ebf88:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmNzRkN2IxODlmNzU3Nzg4MTRkYWNkZTc4Nzc2MjMwZDk0MjE4OTEzN2MzMzJmYmFiNzA4MDQyMGFmZDQ3N2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmOGEyYjZjMTZjZjRlZjUyMzU5NDczYmE5ZWM1M2E4OTA4ZDdkMTNlZTA3ZmQ5MjA4MjAyYTZkNDRkODc5ZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzNjZkMTZiYjkyZmZhZTZjZjIyMzFhYzU3MjkwZWU0NWEwZThmYzQ1YTlkYTJlMDgxN2E2OTc2ODhmZDhiM2YifQ"
+        },
+        {
+          "resource": "repo://Data/build.py#L335-L364",
+          "version": "repo-lines-v1:sha256:3a31d581112b6350b31839765e709725f14344baf443fe2be5d35c4d89d95577:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRiMTIwYTFiNmZkMmFkZmRiMzA1NzVhNzQyNzMyNDUzY2U5ODg0MWZhMmJlOTJjZmY4NzI2ZDQ3OWNlYTRhYWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1MGJkZTA2NjFkOTkzMjM4NmJlNGU5NjAzMDIwMmYzYTNmMWY0ZGUxMTg4YmRhYTdlOTRkYzYzMzM4ZWU5OGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5ZDk1YjI0ZDk3ZDMyNjUyZWViNTIxODVmOTA0NDZmZjNmMzc1NzE0OWYwYTEzY2YyYjJjM2RkOTliYzEyZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3YTY3OWVhYTU1YTc1MTBiNjE2OGMyZmJhM2E1NDE0ZjRmNTgxMDQ5MzI4YWEyNTllYTY2MTMyY2Q2MDUzMDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0ccaea2fb9bc4511b7bf868db998fba6",
+      "statement": "build.py assigns state via an enrolled-map {0:2,1:5,2:10,3:10} by count, a not-enrolled cooldown/ready split (3/8 if last_wd + COOLDOWN > TODAY else 4/9), state 6 for count==3, and None (no row, state 1/7) for staff with no PF history.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L389-L403",
+          "version": "repo-lines-v1:sha256:be99dbc20d59c8cadf82451a677cd95f119ce8c990c49d5d05d1ea28c682bbda:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyOTBmNGU0ZDczOGNkOTRhNDBlOTdjMzYyMmI3NTQ1MTNhNGFiNjM2NmY3ZDIzNmMxODI5MjU5MTUxNjI3N2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliZjBiZGM0YTU0ZmQyNDM2YzdhOWI4MDg0MDYwNjFiYTcyNWI4OGZmMGU0ZTM1ZjFiODFhMGRkMmE4NzQ2OTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxODUyYzg4ZWYxZWVjMDAyNGE2M2E2YjZmYzVlZjdlN2I0MjA5YjE2YjBlMDk3MjFiYTE3NjM3ZjE5NTJmYzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjZjM1NDM3YjdiMTVkMTkzMTE2OGFhODc4YzI4ZmYxMzg0Yzc1ZTgyMmFjYzA4OWZkZWQ1OWRkZDMyNDcxYWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_668fc412b26040969c7b4b58ed1ba332",
+      "statement": "build.py emits Migration_Build.xlsx with five sheets: Enrollments (import-ready, only the 8 exact app headers, rows only for states with a row), _Users (Allstars_ID + Hire_Date + Probation_End, identity blank), _Enrollments_Build (per-field _*_why provenance + _State + _Confidence + _GoLiveImpact + _Flags + raw counts), _Discrepancy_Log (long format one row per issue), and _README (self-documenting precedence rules).",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L455-L545",
+          "version": "repo-lines-v1:sha256:e986e7835fa3f8aa83525e18365072acd6d10ed05b5a51ef27d614e60fc7ed97:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0OGRiZjU2MTI4ZDVhZmRlZWVkZjNkMzVhZjU5OWQyM2E2YjVlY2Q5NGI3ZjAwODcwMGRmZDdlZGNkNmU3YjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzYjQ0MWVlY2E5MTJhMTE2YmEyMGJmNDJkZGZmNjIzOGMwYzZkYmJlN2VkOWIxYWVjMTY2ZWQwMWY1ZmZkNDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjNWU2MDUwYWYzYTI5YmIxYjJlOGQ3YjczYTBmMjNmNGY0OTUwZDlhMjAyMDAzZWVmYzJhZjhkY2YxZmI3ODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyYzI0NGI5ODFlNTBhZDA5MGQ1ZmYyZGMxZWEyZWNmZGZjNzcxNWVjZTQ2YzQ3ODQwNTVjMjk3MTJjZDAyZDQifQ"
+        },
+        {
+          "resource": "repo://Data/build.py#L546-L599",
+          "version": "repo-lines-v1:sha256:fb9e1614d2d50aa1b8b04c3deda08a52a9c582f16a6de08157ad80a3871e544e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1MjZhY2FhZTc2NTc0MDk5Mjk1MThjZDcwYThkNDBkYWNhNzE5ZmIxYWZlNDkwZDlmZmFjOGM1NmJkYWFlNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3ZjBjZmM5YjZlMWNjZjIyYjhmNWJiNjc4MzVlNTY5OTM5MGIyMGYyZTRiN2I1Njc2Mjc2MmY3ZWQ0NTY2NDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmZWU1ZmFkZTAzMDhmNjBmNzliNGI4ZDJiYWM4MDM0YzY2OWQ4MjFiMjQzZWJhMGZmYTM2NzA5ZGJhMGMwMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1MzRkMDljNjAyN2UzOTA0ZTA5YjEyZjdlYmU1NWRhNjMwMGVlM2Y2ZGU5MjEyZDdkMWJhNDc4YWY1YjM2ZjcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0af3f3bca4ea4b448e12917dd848b0fa",
+      "statement": "The _-prefixed sheets and columns in Migration_Build.xlsx are build aids that must be deleted before importing to the live app; only the Enrollments sheet is hand-imported (and _Users mapped into the real Users sheet).",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L11-L11",
+          "version": "repo-lines-v1:sha256:ae16ae9ff0dbcbefba55a876ecf1a3f585b57f2b14bf416c342cdbfb05628b42:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWUxNmFlOWZmMGRiY2JlZmJhNTVhODc2ZWNmMWEzZjU4NWI1N2YyYjE0YmY0MTZjMzQyY2RiZmIwNTYyOGI0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWUxNmFlOWZmMGRiY2JlZmJhNTVhODc2ZWNmMWEzZjU4NWI1N2YyYjE0YmY0MTZjMzQyY2RiZmIwNTYyOGI0MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjI3NmM1N2NkZjBkM2M5MzQxMGNjMjYwMGRlZmYxMGQxZGQ0ZTJmNzhiYTBlNjJmM2YwZTE1ODkzYmQ1YzY2NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDFmMTEyMzE5NTIwNjMwYTEyOWUwZjQ5OGZiNjAxYzYyNzNjNTg4MTAwOWNhOGFkNjY4MDU0NTdjMGI4ZWMxYiJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L594-L595",
+          "version": "repo-lines-v1:sha256:296e28ad806aa9f12ee7260b517d7ac86b66dc7a7c0563da6ae126b9e8b557b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDQwMDAzMmNhMWNmNDRlY2Q4MTc4NWFlNGVmNjQ0ZGFlYjBlNDBjZTRkNWU1N2U5ZTc4NDg3OTNmYzYxOWQxOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTQ1YWRlOGIxY2Y3ZGNiMTk2MDcxOTg4YjBhNTAwMmI2MjA5M2E5MzdmMTU5Y2FkNjM1NDQ2NDk2NjYyOGNiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjQ0OGM1YmY0MGIyN2M0ZDg3ZTcyMzNlODQ1NmFiMzA2NDQ0NTU5ZGQxZDEwM2Y2MmVhNzZlZTU1NzEzMGVhZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWM4YzlkODM4YTdiY2VlZWNhZDJlY2Q5ZDZkZGE5ZWE0YzYzNWFiMDQxMGZkNmU0NWMzZTNhYzdmMmJlZDRmMCJ9"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L231-L231",
+          "version": "repo-lines-v1:sha256:1ed54c7d4de150ec56da7bfaced1dfb9090c5d85b6cef480cdeb6c0968255d34:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWVkNTRjN2Q0ZGUxNTBlYzU2ZGE3YmZhY2VkMWRmYjkwOTBjNWQ4NWI2Y2VmNDgwY2RlYjZjMDk2ODI1NWQzNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWVkNTRjN2Q0ZGUxNTBlYzU2ZGE3YmZhY2VkMWRmYjkwOTBjNWQ4NWI2Y2VmNDgwY2RlYjZjMDk2ODI1NWQzNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjg0NTY5MDg2ZDE3YWM4YzJmY2M5Yjk4MTNjNmY4NmJiMDc1NTMwNjMyYjQ2Mzg2MzJlZTI5YmM4ZTMyOGMzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTE2YzFmYWJjNWFjMzMzYzY3OTNkN2I5ZDA1OWI5MzY3Y2Q2ZTg2MmU4ZmZjNGM3NzllNWU3ODhkN2M0OGFiZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4fb8016084214844a12879d8ce9995f8",
+      "statement": "build.py writes each run to a wall-clock-stamped Migration_Build_YYYYMMDD_HHMM.xlsx and refreshes a stable Data/Migration_Build.xlsx pointer that the inspect/verify companion scripts read.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L24-L26",
+          "version": "repo-lines-v1:sha256:1e0c6eb2d32bc3dfd1464bfb4e69d0e2712c6830bbf9d7df8b1514d3d98fdb77:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2VkNmY5NzhjZjM3M2FhOGJiM2JlOWY2ZDVkZjQ2MTY5ZmFjMzdlOTZkMDNmMjVlMGI2MjlmNjYwYzUwZjQ2YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGM1OWMzMDYwMDVmN2NlNTE4ODgwOTRmNDE0MDhkYjlmZTFiOWZjYWVlZjgzY2NhNzg1Mzc4YTRlOTIzNGI1NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWYzNzRhYmE4MDljZGJhOTljMDY1YzczNzQwZjkwMjM1ODA5MDVlNTI0MDMyMTViMDc1Y2IxN2ExYjkxYThjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjhlZjlkNmRhZWJlMDhlYzNhMjgyNmQ4ZTNlOTNiMTg3MDIxZDJmNDY4MmYyNjkzOWU1OWE3ZjM4M2VhNjZmMyJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L601-L602",
+          "version": "repo-lines-v1:sha256:d4443a21cc9753ac197aadb8076af485541511c122613f6e796c059ec2399b9a:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNiZmZkOTU0MWMxNzEwYmMxN2VlNzg5ODdkMDcxZWQ4OGEyZmNlZThiNjc0YzAzNzk4NTg3MzE0MTIwNTcyMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU4ZmIzYWExMWE4NGNjNTM0NGQ2ODJjMmQxYTlmOGM5MjdlNGU4N2IwYzFlYjA1YzA1Njc3NDNjZmNmYjg5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjI1NjliYzcyZTVkMDlkY2FiYmNiOTM1M2M1ZDE0Yjk2ZTFjMzk5MTJmMjc4ZDJkOTBkYmYwYzNiZWQzMjA4NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjA4ZmZhYTU3NjU3NTFhNmJmZjE4MTk5NjgyNDRhZWQ3MjJkZjI1YWYzYzhkMTExNDU2NWMwNmMzYTllZDU2ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_853bd9a5c5d24599935221913d7066e6",
+      "statement": "build.py logs every discrepancy with a single-letter _Category (A-K) for filtering: A clean re-enroll, B resigned/rehire re-enroll (flips on COUNT_TERMINAL_REASONS), C bank-claims-membership-no-event, D withdrawn-not-re-enrolled, E/F enrolled-status conflicts, G nonstandard rate, H stale enroll date, I enrolled while on probation, J bank-vs-enroll-date cross-check, K bank member unmatched to spine.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L249-L262",
+          "version": "repo-lines-v1:sha256:ad01654c0435aa267c8ad095bb67b72b9f69130bc7dc2604317e4c8e2468849d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkNDg1MjkzNGE1NDljZDYyMWNkMzFhZTU4NjM0NzE4YTEzNGYzYTBkYmQxNjMxMDhhMmRjZWNlYjA3MWVkOTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzYmQwNzVlM2JhNTcxYmY1MjBmODUxNDI1Mjg0MmM3MTgwZTU2Mzk2Y2QxYTM0ZDdlZmNiZTkxMmMxNjA4ZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzMTBlNWRlMzNlNDgyMmRiZTFhOGE3YThmMWY3OTU1ZjQ2ZTkxZThkMTY4MWJjYjMyZDQ0YTNmZjBhMzc0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczNTY0Y2ExNGY3NzI5NTUzMzczNTcxMmJkMWY5NmI2ZTc2NTNiMGUxMzE4NDJiYzkzZDg2MDU0ZTZiMThjMzMifQ"
+        },
+        {
+          "resource": "repo://Data/build.py#L575-L587",
+          "version": "repo-lines-v1:sha256:58322e640f29589a4c6752060fdb82dcf51999042561ed56ae731c204fac2f7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1MTc2YWZkZWFmOGI4YWZkNmU4Yzc0NTUxMGYzNTM3MDIwNWQ5YzYzMTY1YmM1MTUxMTVkY2E2NTUyOTE0Y2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhNTJiZWIxNDk0ZDMzNzRhMTczM2JlYTBjMWZjOTA4YzUwN2VlNTcyOGM5ZWY4MjM2OTg1YWFmMDk0MDNjMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUxMjhjZjc2MjA3MDg2NDIyNjEzNTZlYjQ2N2IxMTk2MDNhMGRkMjhhYzk3ZjcxZDA3NjY1OWY1NDdiODdiMTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc0YmI4NDZmMTU1NGUwMTA0ZTM2NDNhOWM4YzIzMmFmYWFmNzgxOTg0NTI0N2EwYmIwNTczZTk2ZmJjM2VkYjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_879e5cc2d0b446fbb8e0770f6f3a4be9",
+      "statement": "build.py separates _GoLiveImpact from _Confidence: Blocking = wrong enrolled-status or eligibility (enroll/re-enroll/cooldown/lockout) to verify before go-live; Cosmetic = only displayed tenure/match-tier/vesting/rate with no action gated; the rule is that enrolled members' count/date issues are Cosmetic while not-enrolled members' count/date issues are Blocking because they gate re-enroll eligibility.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L230-L246",
+          "version": "repo-lines-v1:sha256:d4d6710250a7c05255905f0bc450f78a4c8379c76d50b3a52a2bc0b7035c21b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0Y2Q2NDU4NzIzYTUwZjk4MzdiNmFiYTUxZGJjMzI5ZGExOWVmZTJjNTZiZGMxY2FhNmYyMzI4ODc0MWZkN2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwYmNkYzVjYjcwZmMzZjZiMjllYzI0YTk3ZjkwNGU4YmIwNzNhNzMwMzNjMzZhZTkwZjhmNTE1YjYxOTUyZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU1ZmM5Y2M0N2VlZTg1NDhmM2ExM2Y3YzFmNmYxZjhjNDVhNTVlMzIyZDc2ZTliMzJhMjIzZjQxOWY5NzE4YjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRkZjNjNGI5YTJlNzkxZjMwMmMzM2NjZjNlNmY0ZTE2MTc2ODU5ZTJlMWFkYTE3ODk5YmEwNThkMGJmODE3OTQifQ"
+        },
+        {
+          "resource": "repo://Data/build.py#L587-L592",
+          "version": "repo-lines-v1:sha256:af32837f304cf77ef3b4ca27a510fefde4af717e655148136db037ed95aeb4a2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmE1MmJlYjE0OTRkMzM3NGExNzMzYmVhMGMxZmM5MDhjNTA3ZWU1NzI4YzllZjgyMzY5ODVhYWYwOTQwM2MwZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGMxZWE4MmVhYTIyNjRkMjYyNTNhYzVlMzIzMGNjYjBmMDExMmQ4MTAwNzRiMTI1ODcwOTIyYmU0NTNlMzg5NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWRhOGZjYWE4NjE5M2ViMjZlOTJiMTNkNzk5MmI4YzEyOWIzMGNkYzZlNDMxZDYyNTE4YjZlMDIxN2E5ODc0NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGU4OTYwYzRlMjllMGM3ZWU1ZTZjMWQyMTc1MjdmNzMxNTRlMGQzZGJhMGMzZmRjYWQwNGZmYmRiZDI2OTYyZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e7f0255c3acd48c9a79abc7c943eac58",
+      "statement": "build.py prints a run-end sanity summary of state distribution, confidence counts, bank-vs-events disagreement sub-groups, go-live impact tally, and three invariant checks that should trend to zero: count>=1 with no Last_Withdrawal_Date, enrolled state with no plan, and enrolled with no Current_Enrolled_Date.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L610-L647",
+          "version": "repo-lines-v1:sha256:b7f352dbca6657e59fe421a9ca55c99f404d358487ef4760321f9f37b3398847:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMzk0MzJjNjhiYWNkMTBjNDg0OGZmZjlhMDlkMmNhZjU3NDhmYzY1NGJlMjc2YmVjYzFjMmRjYzU5ZGI1ZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllNTAyZGJlNmRjYzVmOTVkZmNkNTQ2NWI1OTQ1ZWZmNjc4ZWVmNTQzZWJmYzVkYWVmMjBhYzcxYjMzOTJmODIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzYWRkMDk4MzRmODRlZTIzMGM3MThmYWY5ODExMzIyZDJmMTZhYzg3NDlmMmNhNzQ5NDI0MTZiMWZkYzYzOTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a8cd05169dc41c1a1c54375e12f9bcf",
+      "statement": "verify.py is a read-only audit of Migration_Build.xlsx that checks the Enrollments headers and row count, spot-checks that date cells are datetime (not strings), lists the count>=1 rows missing Last_Withdrawal_Date, summarizes _Discrepancy_Log by issue, and confirms no state-5/10 row has Last_Withdrawal_Date >= Current_Enrolled_Date or is still within cooldown.",
+      "evidence": [
+        {
+          "resource": "repo://Data/verify.py#L1-L69",
+          "version": "repo-lines-v1:sha256:913387617298feb19f1cc452acd9bde72ebe22a8ee4fbeae6fb3ed5c9957273b:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0ZWY5N2NjZWZiN2VlZTg2NzRjZTM4MzU1ZTAzZDJhNjM2N2YyMmVlMzgyOTg0NDFmZmIxMmI5ZWZmMDliODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4MTk5YjE2Nzc1ZTU4M2RlOGExOTdjOTRmNjM5YTc4NmEyZjJjOTgzNmJlZjJiZmVmNjY1MDliOGI3ZGY4ZDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a19615e04c644a7875c834a20ceea6d",
+      "statement": "inspect_one.py traces a single Staff_ID (CLI arg, default 1000233) across all source sheets (WorkingDB, June_Payroll_Obfuscated, BANK_ACTIVE, HRIS_NEW, HRIS_OLD, BANK_Withdrawal_Report, Old_Registeration_Form) and prints that staff's full _Enrollments_Build row and _Discrepancy_Log rows.",
+      "evidence": [
+        {
+          "resource": "repo://Data/inspect_one.py#L1-L77",
+          "version": "repo-lines-v1:sha256:994091659507b511cc852619f916c8b7191105548b5215b45bd7ba448da7ad83:eyJzZWxlY3RlZExpbmVDb3VudCI6NzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViZjRmMDM0MWFmOGJiZmQ1NTBmM2I4NTIyNGQ5NDQxY2FkMTk5MDJlZmFjZjM5OTZhZDQwYzg3NDgzMTY1MjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyYjhjMzE4OTJjZTMwY2M1ODNmMjM3ZDQ5YWE2NTJmNGE3ZGY2NzhmNTIzYTA0NjA1NDQ5MjBlY2U4NDNjMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e8f82fd6461a47da9cb88c9139a5adfa",
+      "statement": "check_lpc.py audits Last_Plan_Change_Date coverage in the build: how many rows have it set (by _enroll_src and _State), and how many are still within 6 months of the run date (currently plan-change-locked), validating the plan-change-lock seed.",
+      "evidence": [
+        {
+          "resource": "repo://Data/check_lpc.py#L1-L16",
+          "version": "repo-lines-v1:sha256:2a75d5c592d1c313b59e6412b634ed6b87e58d944274fc07c406307385fc5722:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0Y2EyMmM1ODVmZDVmNjQxMWI2MDNjMzcxY2VmNzQ3NGFlMzc2YmU1MjJjN2RkMTBhODZkMDY1ZWIyYWRjNWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhOWRjZTMzOGI4NGJkODE4NjUwMzQ0ZDA2YjEzYzU1NjYyMTI1NmIwZDBlZDYwNWFhZGEzZTNhOTAyNTI1MGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_263d6068455f4270b31f0470bc3e2285",
+      "statement": "stack_update.py compares the 29_June_2026 update.xlsx against the current build: new Bank_Active_29Jun26 vs old BANK_ACTIVE (count distribution, coverage, membership changes, Q1 recheck on whether new 2nd-member agrees with withdrawal events) and B Company Payroll vs June payroll (net-new enrolled, overlaps, nonstandard rates), then reports the current state of the B Company net-new enrollees.",
+      "evidence": [
+        {
+          "resource": "repo://Data/stack_update.py#L1-L116",
+          "version": "repo-lines-v1:sha256:4394291ceeed906f1524387c5f51030a1382e1aa3406dee177a22f427aa173f2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzOTJhZDE1NDVjMjIxNGE0NDVlZmViMjQ2MDAwNWIwODYzZTFlZjYxMjlhMDRiOTc2ODNkMGY5NzM2MDg4NzViIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIyODY4MGI1ODU5YjI2N2I4MTM4N2VjYzQ5ZTk5ODJjZjNiNzE5MmVkMGVmNjRlMWYwZTU1NWU4ODE1MzE4YjVmIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_27e21e14f2dc4b43b9159f9667192dad",
+      "statement": "build.py emits date columns as real datetime values and applies yyyy-mm-dd number formatting, and writes Withdrawal_Count and Current_Plan as numbers, honoring the MIGRATION.md golden rules mechanically.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L29-L29",
+          "version": "repo-lines-v1:sha256:e11583f536fb75786a509fcdb7e72f800823c3defa96c3cca679f687c7ec6793:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTExNTgzZjUzNmZiNzU3ODZhNTA5ZmNkYjdlNzJmODAwODIzYzNkZWZhOTZjM2NjYTY3OWY2ODdjN2VjNjc5MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTExNTgzZjUzNmZiNzU3ODZhNTA5ZmNkYjdlNzJmODAwODIzYzNkZWZhOTZjM2NjYTY3OWY2ODdjN2VjNjc5MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGE2MmQ0MzAxMmI1MzgyZGQxNWQ3NzhlNjllNjkyZGMxM2M1MGZhMDc5NTQxMWNmZTI1YjEyYzQxNGY2YzA1ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWNhZjZhNDBkNGVkNWJhNjUyNTlmMDgyOGFlYTg0OTZhYWIwMjMzZTc5M2Q3ZWU4ZDVhMTQ4ZDk3MDgzNzRiOSJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L468-L475",
+          "version": "repo-lines-v1:sha256:e21d17a6d0392f430078a305cbc96eff9692d42736226aa379910c694707d09c:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODBhYTczZjY1Zjc5YmMwNGE5MGJiYTcwY2FhY2E2MjE0ODEzYzMxNGM1MjY1YjcxZGVjMjQyNDA0OGE1NmJiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWJiZTg0YTgxMDAyMGRjZjliYjg1ZDQ3OWFkMzk3YmYxMzM3ZjY0NDE3Y2Q5ODJiNDZhNmFiNjA3MWJjMDQwMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2YwMmU3OGZmMDU4ZjcwOTY1ZDczMzRkNDRjOGJhNDVhYjgwNjQ4OWEzNGI5ODJjZTQ0NGE2N2E1NDRkM2Q4MSJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L486-L496",
+          "version": "repo-lines-v1:sha256:05f9d87c10f71b8c80ad80f06ce6b458f9fccee2b8de911c649074cab112145a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwMmI2NjgwODE3ZGY1OTgxZjkxOWYwYWM1NTQxMTkzNmU4ZGNhOTM2MmU4ZTRjMzgxYjA2ODQwODZhZDNhNzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhMWI4ZWZkMDA5ODI2ZmQwYmZhNzlmMDFmNDk1MjAzYmIzYTE1OWRjMDdmYThmZDc1ZWEzNzBmOTZmZjBiYmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4OGQ2YjlhZDIyYmUyMWZiOGY3NmM2MDdiMDYxZmJmMTU4Y2MwMTljYjc4MzYyZTMxZjMyNjk4MGE1YjY2OGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxNjdkMmMzMTIyODQxNTUxNWI5OGU1YTM5OWFjOWM0MjllOWQ2MmE3ZmI0Y2Y0NWU3ODkwYjc5NmNkZmQ1NmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b81fe1cf078b49b5b0ccb91856efc067",
+      "statement": "build.py flags terminal-reason events (Resigned from Company, Retired, Death) attributed to active staff and, when COUNT_TERMINAL_REASONS=True includes them as qualifying withdrawals while forcing Confidence to Low.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L277-L282",
+          "version": "repo-lines-v1:sha256:c170753eb3dcdf836494d39ecc3cea68342fdd36684feef52c906a4481ef1873:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ0MzM3YzAwYTc4YmE0OTA3ZDg5YWQ0YjA0YjgyMmQ1NjkwNmJhYzE2MWZiZDIyZDliMGU3N2ZjODBmYWM1YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOThlN2U2OGY3Y2M0M2ViMmI3MjJjZDU4MGRjZWRjZDNhODg3OTZlODNkZDM2MmNjYTFkNzgzNmNiYTQ4ZWU5NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzcyZWEyMzE1MzE4ZTU0NDlhYzE2OThhNGQ1MjE3NzgyNjkxMTdiZWNmNDYwNjc0YjIxMjc2MzU3ZTY5ZTA4NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTdiOTU2NDIxYTlkZDgxZDcwMTg3NjhjOWU5OWUzZmRkMDg5MGI4MWZkMGNjZDQzZmFhM2MyOWI3NTc3MDViYyJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L331-L333",
+          "version": "repo-lines-v1:sha256:ad98bc0f72f33b2f9a5b14576f50016bb031ca487bbd72bc7f94c3a6e465fde5:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmU5YWVjYjk3NDIwZGFlMTMyYmVhMWU4NjU0MDM5NTQ4Yjc1YzRhOWQxYjI5Y2RjOGU2YWE0ZDI1M2M4NzYwZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmMwNmU0ZTZmNTc1YjRjNDE5OTI1NmE1M2ZlZWI0NzBiNzRiM2I0NzUzNmJkNTBkMGU2MjI4ODJiZTUwMDc2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDdkYzg1OTg5YTgzYWIyMWUwODcxZDA1MjJlYzM1NTMxOTM5YTRjZGUxODYxODBjZTc4ZjRlMTlmYjRlYjc4MCJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L49-L49",
+          "version": "repo-lines-v1:sha256:8965abdbeaffeede6e778aa0ec53baf0f09d1eb7b35c4beb92431ce50f475212:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODk2NWFiZGJlYWZmZWVkZTZlNzc4YWEwZWM1M2JhZjBmMDlkMWViN2IzNWM0YmViOTI0MzFjZTUwZjQ3NTIxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODk2NWFiZGJlYWZmZWVkZTZlNzc4YWEwZWM1M2JhZjBmMDlkMWViN2IzNWM0YmViOTI0MzFjZTUwZjQ3NTIxMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2M3OTcxMzhmMjgyMTJlOTllYWQ2ZmYzNDg0OWEwNTU4NmQxMDdjMTNjMmY0N2E2OTNiNmViMGQxYjI0ZDEzMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDU1MjY3OWE1MDIwMTM0MThhMmYxYjcyYjA4ZDM1NGExZTRhNzk3NzJhYTQzNzMyODAxODY2M2VhNmIxN2Q2OCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_53d4bc63850545f7aa9de7c847d8b1d0",
+      "statement": "build.py detects and logs enrolled-status conflicts: payroll-enrolled-but-not-in-bank (category E) and bank-member-but-not-payroll-enrolled (category F), both classified as Blocking go-live impact because enrolled-status rests on an unresolved payroll/bank conflict, with payroll winning on status.",
+      "evidence": [
+        {
+          "resource": "repo://Data/build.py#L236-L237",
+          "version": "repo-lines-v1:sha256:b129b62ea1c6497c7785b0a1610593db15ab40775898f4825cbe64226fdb75bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmY4ZWI4N2UwNmU3ZGU2NzU0ZWZhN2M1MDVkZmYwMjIxZGE4ODI2YWJmMzFiOTVlOGY5Mzg5MGY5Mjc0NjRkOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzEwODVlNDI1ODY3MDEyNDY4ZDRiNTk5OTQ1ODQxYWFkMTk2MDExNDY4NTAwNjc0YTY1MmIyYmMwZGJlOTE5ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmE0YzAyMWMzZTNlNDE0ZWNkNzkzNGRiZTllMDZmMjBjZTNkZWM1OGExZWUwNzE1ZmI1ZjJhZjA1OTEyOTNiNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDA1ZWMyOTI4OTVjYWMxNzU4OTcwZmUzMDBhMmNkYWQ5ODUzMWRlM2VlNjQ0MzE3YWZhYWQ4YTE0MmQ0N2RlMiJ9"
+        },
+        {
+          "resource": "repo://Data/build.py#L370-L381",
+          "version": "repo-lines-v1:sha256:cf4c2855b5d1877b794d5b8199d7b83c383fe4ce5528b44d4718a861f782dfd6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0NzBlMGFkZjkyMmJjZTJhZDFlN2RjOWNiMmE0ZGI5NjIwNjhlN2UxNjJmN2NkMzBiM2I1NDJmYzc1MzdhNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiMDEyYzcwMTZiMGM0MzZhNDA1ZDg4YzhjMTZiN2M1YWY1YTE0NzZmNGQ1NjFmMWU0NzMyZDI4YjEyYTJlNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhNzE5MmQzMTA5OTcyZDcyNjRjOTlkZjY3MzIxYzJlY2I4OTEwZGYwNzk2ZTI4NzdlODQ5MWM4NTc0NTRlZjAifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:fdba797a554a3fb932fc65c66afb702105e72440d3a240b4e2c2131768131c00",
+  "claims": [
+    {
+      "id": "claim_8ff21716a9294bce8fe0b275b1e644a7",
+      "statement": "The GAS Provident Fund app has no automated CI test runner for its application code; validation is performed by editor-run harness functions invoked from the Apps Script editor that emit PASS/FAIL or diagnostics to the Logger, because the .gs files can only execute in the Apps Script runtime bound to the live Spreadsheet.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L190-L196",
+          "version": "repo-lines-v1:sha256:88aad62dad236ac619fcadc1a3db5190feb628a6571ab904b9fbf126cfd9ef45:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTdmZjc5ZjRiYTIwZDZlMTRjY2Y3ZGQxYmYyNTk2NTFkNWVlZjdhZGJkMzkzNGQxZDJkZGI4ZGViYjI0ZmU2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODliMWQ5ZjA1NzIzZTNiOWM0MTY3ODliZWQwMGE2ZWQ1MjBmNGE3Y2RlZGNlMDUzMWJhMDNmNGYzZjNjMzg0ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWRjY2JkNTZiNWNiMzg0NWJmYzQ4NjI2MGIwY2Y0MGNmOGZjMzg5Yzc2OTA4Y2FiNTBmNGFiZDljY2M4ZTAxYSJ9"
+        },
+        {
+          "resource": "repo://Code/TestCases.gs#L1-L11",
+          "version": "repo-lines-v1:sha256:35cefa3559b467ce76f0e73a5f3095fc2ed1ed6751df75305cc776fd1a055bd8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiMWU3MTJmYTBkYmFjN2VjZjMzNDQ5Mjg5ZjNkMDA4MDQxZjY2MDI1NDBhYzVlMTdhYWNlYTAyMDFjNWZiZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0MTI4YmU4N2I2ODkwNmMwYWZlODdmMGZhZTY5MmFiNjViZDc4N2MxMGZmZjVlODMzZjRiNTcyZDQ5MWY5M2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiMTM5MzY4NDMxYWU1YTQzYTVlNTU5NzQwNmYyYmNiZmVmNzg3ZDY5NmVkOTdkZGEzY2Y3MDQxOWUyMWIwOGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a9a372217ffd4e318f3d0ad41b6ffba2",
+      "statement": "testAugustPolicyRules() is the single entry point of the policy suite; it defines an inline assert that logs [PASS]/[FAIL], runs five try/catch-guarded test cases, and ends with a TEST SUITE COMPLETED pass/fail summary line.",
+      "evidence": [
+        {
+          "resource": "repo://Code/TestCases.gs#L177-L178",
+          "version": "repo-lines-v1:sha256:12ed0ff8861cdaf74d1c17455a094794f93ef25d9384f2cdeb6868aaa6f17448:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTdhNjhmMGFmNmI2NmJkZDU0OThlYjgxNTBhZjk0ZjdjZGI4YjM5OWMzMjU1ZjEzNzM5MzVmMDQyMGE1OWViNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjg3ZTA1OWIxNDY2MWE4ZmMyMDQzOTMyNGI5M2M5Mjc1MWNhNjkxODFjOGFjZTZjMTIyNjc1YWNkZjllZTUwMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://Code/TestCases.gs#L8-L21",
+          "version": "repo-lines-v1:sha256:516345558a425ea5027f611525fdb63c098275436bab2ad23d31c6b8206209ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxY2QyY2NmY2E1OTI5ZWQ1OGI1ZDg3MjRhYjMzNjU4MmRkNTRlODcyNTc2MzAxNjQ0Y2NiNzgyMmNhNDMwZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmNzI5ZjIwZGNkOThkODU5NmFkNjY5Y2U5OWQ1MGNlYzRiYjA0NzY4NzExMWFmMzg1OTE1YmI3ZTk0YTAwMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRiYTdiM2RmN2MzZWMwOWY5OGVhMWJhN2QyZDA5NDcxNDQ5NmE2YjUzZjk2YjFiNzZmM2M1NGI5OGY1YTcwNjcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b803861501744e93a618a6566217112a",
+      "statement": "TestCases.gs re-implements the August 2026 policy logic in-place (local helpers simulateCooldown, getStartDateForMath, simulateActionTenure) rather than calling the live Profile.gs/Action.gs functions, so it verifies the intended rule but can drift from production code.",
+      "evidence": [
+        {
+          "resource": "repo://Code/TestCases.gs#L101-L131",
+          "version": "repo-lines-v1:sha256:0e0cab633cfff99c41d5b1661b942c64c94966d171aec9c328971356838ef61b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZTQ2NGNhNjMxMmQ2ZjM3NGMyZDYxNWIwODBiODBkZjlkNDBlZGM4YzY4MmViZDE1ZWRjMTQ0ZGVkODkzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4N2UwNTliMTQ2NjFhOGZjMjA0MzkzMjRiOTNjOTI3NTFjYTY5MTgxYzhhY2U2YzEyMjY3NWFjZGY5ZWU1MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyN2ZiNDg2OTA5MTBhMDY3OGNmN2Q1ZDFjODAwODUwZmQxY2VmNmJjMzJjY2Y5ZWY5OTI5MmJiOWY5OTE4ZmIifQ"
+        },
+        {
+          "resource": "repo://Code/TestCases.gs#L133-L158",
+          "version": "repo-lines-v1:sha256:409f6e0ac39c6d88c793dd361734677ee85b1f33ad585b3dc355d703cc03d84a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZTQ2NGNhNjMxMmQ2ZjM3NGMyZDYxNWIwODBiODBkZjlkNDBlZGM4YzY4MmViZDE1ZWRjMTQ0ZGVkODkzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4N2UwNTliMTQ2NjFhOGZjMjA0MzkzMjRiOTNjOTI3NTFjYTY5MTgxYzhhY2U2YzEyMjY3NWFjZGY5ZWU1MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM2NzNmNzkyMTEwZWVmNjJhYTFkMWZiNDhiNzk5NDc0YjE4YzMyMDNhMGE4ZTI1YjUwZmY4OGMwYjYxNDFmMjMifQ"
+        },
+        {
+          "resource": "repo://Code/TestCases.gs#L52-L73",
+          "version": "repo-lines-v1:sha256:aeffbf903a6ff57b591a61a18707723711b7b2c28d3cc74257c5a5c7cbcfe9c3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZTQ2NGNhNjMxMmQ2ZjM3NGMyZDYxNWIwODBiODBkZjlkNDBlZGM4YzY4MmViZDE1ZWRjMTQ0ZGVkODkzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4N2UwNTliMTQ2NjFhOGZjMjA0MzkzMjRiOTNjOTI3NTFjYTY5MTgxYzhhY2U2YzEyMjY3NWFjZGY5ZWU1MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRlMDkxYTQ5ZGE1MGViNDk1ZjAzNTUzMzM4N2I5ZmM0MjcxNjRiM2I3YzBkYzEwNzFhM2UzNmY4MWQyYTZhNmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cbc1a548698545549bf67ee3c7df20c0",
+      "statement": "Test Case 5 (employer match tier) is the exception that calls the real pure function calculateMatchTier(years) from Utils.gs directly, asserting the tier boundaries: <5 -> 3%, <7 -> 5%, <10 -> 7%, >=10 -> 10%.",
+      "evidence": [
+        {
+          "resource": "repo://Code/TestCases.gs#L160-L175",
+          "version": "repo-lines-v1:sha256:aea8161081028d5c1c8a2a5110a40a85cd47ecc0bea67600cd74939b482da357:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZTQ2NGNhNjMxMmQ2ZjM3NGMyZDYxNWIwODBiODBkZjlkNDBlZGM4YzY4MmViZDE1ZWRjMTQ0ZGVkODkzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4N2UwNTliMTQ2NjFhOGZjMjA0MzkzMjRiOTNjOTI3NTFjYTY5MTgxYzhhY2U2YzEyMjY3NWFjZGY5ZWU1MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkMDYyZWQ5NTY5ZjQzZjg4YWFlNTBjN2QwMjY0OTcyNWVmMDMyM2FiODUxMWEyM2Q1YzFjYWJlYWY5M2IxNzcifQ"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L29-L34",
+          "version": "repo-lines-v1:sha256:8d15b71fb00c496c616c86bf8ea8af5818919af39de7101cde4c0eec5c31985a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEwZmIwMzZhMjY3NzNhYjZkNWM4MTlkZTlmMmQ3MmFmNzMzNWZlZWE2MDVmM2FkNTNmODZiOTcwN2VlOTg5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ5ZTFhODViZGJiZWUxYzM4MjE1MjA3MjQ4MDhiNjM0NDk0MGZmNzg5ZjhmZjQ5ZTNlMTU1ZjAwOTliMzZiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWNjNDIwODg4ZTZlZmMwYTJmMGVkNmY1NGQ3YmJjMTNjMGFhZGM3OGZiNzBmMjI0OTA0YTk4NDM1YTkwMThhNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4f99035f04cb4918b3c0293a45c05b44",
+      "statement": "The suite pins the August 2026 rules: plan-change 6-month lock (Test 1), 1st/2nd-withdrawal 6-month cooldown with 3rd withdrawal being permanent lockout rather than cooldown (Test 2), and tenure restart on re-enrollment where count>=1 switches startDateForMath from the hire date to the re-enrollment date (Tests 3 and 4).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L110-L130",
+          "version": "repo-lines-v1:sha256:335d12a0c9af0a8fb46e0264ebe6bdf692cf8f82042e90d13828a8bc595de0ee:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjMzdjNGIzMzIwYmFhM2EzMTJhODYyYTkzODg0NzY4MzM4MDI0NjFkMzM4OTdjNzY2MGEyNGM3N2M3NWMwNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxYTNhM2VkN2Y3ZjJkMmJhYmNkNjJmNmI3YmM1ZGE5ZTNkNTVkZjAwNTVkM2U5MGU2NTEyMzM5M2VjZmFhZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1M2Y1NDk1YWFhMzU3MTM1ZmY0M2QwNzU0YWQzZDMzMGFmYWNiM2U3ZDI4OTk3ZGYyYzUwODAzNzFjZTk2ZjgifQ"
+        },
+        {
+          "resource": "repo://Code/TestCases.gs#L101-L158",
+          "version": "repo-lines-v1:sha256:59787b168e7771705d4337dfe2da7090919b8f2e427d0cfd4ea351a5030bf26a:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZTQ2NGNhNjMxMmQ2ZjM3NGMyZDYxNWIwODBiODBkZjlkNDBlZGM4YzY4MmViZDE1ZWRjMTQ0ZGVkODkzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4N2UwNTliMTQ2NjFhOGZjMjA0MzkzMjRiOTNjOTI3NTFjYTY5MTgxYzhhY2U2YzEyMjY3NWFjZGY5ZWU1MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM2NzNmNzkyMTEwZWVmNjJhYTFkMWZiNDhiNzk5NDc0YjE4YzMyMDNhMGE4ZTI1YjUwZmY4OGMwYjYxNDFmMjMifQ"
+        },
+        {
+          "resource": "repo://Code/TestCases.gs#L23-L50",
+          "version": "repo-lines-v1:sha256:2f0a2daee7fde547c640d55445687f0850c771dec39688ddf3041b81b47e0361:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZTQ2NGNhNjMxMmQ2ZjM3NGMyZDYxNWIwODBiODBkZjlkNDBlZGM4YzY4MmViZDE1ZWRjMTQ0ZGVkODkzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1YTQ0Njk2MzY0M2UyNGRhYWUzOGIwZTBhZDc5NjRkMDhkMGJlMGVhNWM4OGZjNGM4MWY5NzBiM2UwMDgxYzIifQ"
+        },
+        {
+          "resource": "repo://Code/TestCases.gs#L52-L99",
+          "version": "repo-lines-v1:sha256:92b63ca97ad4b9cd5e1dc4866e243baf2d9dee5d1081650264f139a830543e14:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZTQ2NGNhNjMxMmQ2ZjM3NGMyZDYxNWIwODBiODBkZjlkNDBlZGM4YzY4MmViZDE1ZWRjMTQ0ZGVkODkzYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4N2UwNTliMTQ2NjFhOGZjMjA0MzkzMjRiOTNjOTI3NTFjYTY5MTgxYzhhY2U2YzEyMjY3NWFjZGY5ZWU1MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1NjE0NGE1M2RjNmViNGJiMmNlMjc2OWQ4NDBmMTYwNzJjNTVmNmU0YzhiOWFiODFkN2IzN2Q1N2VlYWUwMzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7f9da031648648d2a4643716b5f5b321",
+      "statement": "The Analytics module is best-effort and never throws; trackEvent is a silent no-op when GA4_MEASUREMENT_ID or GA4_API_SECRET are unset, so the app runs before GA4 is wired.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L126-L158",
+          "version": "repo-lines-v1:sha256:754246da3c3fa9f5dfcebccf87950d772305237bfa5aa4ec12ec6ddd132d9446:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5YzA0ZGFjMDYyNThhMzk3MTgzYmZjNzAyZDdhNjRiMTNkM2M0YzgwMTFlODI1ZmYwNGRmOTQ3YjY4MjA4OTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjYzljZWFlNjZmNzBmNDE1ZGIwN2FiZTliMWI4ZTZkODMyYjdmNjI5YzhkNmVjZjVmZjMxZDAxYzU5ZTgyMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzY2I3ZWQ2ZjNlMDY1ZGE5OGVlMWJjMmU0OTVhZDk4NDBiYmU0ZmViYTdhN2M5MWUwNDljNmZmMjM5YzBlNDIifQ"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L23-L39",
+          "version": "repo-lines-v1:sha256:f87fb19e865210e7db83ecdc57b3886fb2007fd0673c780f619f9e9969f8e0ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMTAwNWE3ZjA1NjE4ZmQwZmUzOTYwOWIyODc2ODBkMmU2OTZhMTAzZWM1ZDMyN2RhNzg1N2M0OGFhNjhiOWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4YjlhNWExMGYyNDczNWJiMDEwNmQ1YjkzYzFkNzdlOTkwMGM5ODg2YjFkZjY1ZDIwN2RmNjg3Zjg5ZjJjNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxM2JlYjA3YWMxYmU5OTRiOTZkNTgwOTAxNzU4Y2ZhM2YyM2Y5ZDczZmYxMmJlYzg0NTQ5YjZjYjQ2N2U2MDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b6c58f14bbdc47a2baa1c8b0a2497bea",
+      "statement": "testTrackEvent logs config presence, prints the SHA-256 hashed user_id of the active editor user, validates a sample feature_action event against the GA4 /debug/mp/collect endpoint (which returns validationMessages), then sends one real feature_action(test, success) to watch in GA4 Realtime.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L190-L228",
+          "version": "repo-lines-v1:sha256:c4bece2460d4a1ef21886c8143513c40cddee8ddb79b21fd6d4660a91dbbd6ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg5YjFkOWYwNTcyM2UzYjljNDE2Nzg5YmVkMDBhNmVkNTIwZjRhN2NkZWRjZTA1MzFiYTAzZjRmM2YzYzM4NGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0NDFjYTJjYjljZGNhNzAxYWFiYjg2NDRjODA3YmM0ZDZjN2EyZTE0NDRjOGQ0OTczNjAxMjMyODA0Y2E1MTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_876b71c94ad74e3f89784b218b0b0dea",
+      "statement": "testDeviceTracking unit-checks parseDevice_ against seven representative UA strings and sends one live feature_action tagged as an Android/Chrome/mobile device to confirm the device_category/device_os/device_browser custom dimensions land in GA4.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L230-L260",
+          "version": "repo-lines-v1:sha256:020754cfbd837b40c6df639e12286638b52df5579247c457647225cb52512885:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxYWNjOGNjOGNlYzJkODgxYzM2NmFjMjU2YjBkOWM3NWYzM2U3NTUzMGM1NDQxMDRiMzk0ZjE5MzYwMGU5ODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0e95423094214edea76f9a75e32bfca3",
+      "statement": "Analytics sends server-side GA4 Measurement Protocol hits because the app renders in a sandboxed googleusercontent.com iframe where third-party cookies break client-side gtag.js; a stable hashed user_id enables returning-vs-new despite the iframe cookie problem.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L4-L15",
+          "version": "repo-lines-v1:sha256:c388c974ddeab7f299e9b985534e57ee7b382ccad82ca1a354ef92770b4e5468:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc5Yzg3NGUxYzI1MDliMTdmNGQ5MDA0ZTE3NWRjODdiYWYyNzY5NTIwM2M0YTBmNGJiNjYyNjQyNjE0OGNmMjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwMWVhZDkzNmEyMjgxZDUzZGNjMDY0YjdlMmEyYWIwZDUzYjkyZWYzZWY3YjM0YjY2ODY3MzAwNzg5NWM4NjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlNTVhODM3YmJkZGQ1Nzg4MjM2NzFjMzY0NGJlZmQ0Zjc2ZDBiYjRhNGNiYWUwOWUwZWQxZmNkZTBiNWE5YmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhkZTkxNWY3OTI3YjI5NzkwMjlkMmMwZWQ4NWMxODAyODgxYzY0MTA1NTU0NjBiNGE1YTIyNmNhMjJiMDJlNzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0ebbbc1560874865aecf69b1c143a14b",
+      "statement": "generateLetter copies a Google Docs template, fills placeholders and beneficiary list, inserts the decoded signature PNG scaled to fit a 220x80 pt box (aspect preserved, never upscaled), exports to PDF, archives it in Drive under an Enrollment/Beneficiary subfolder, trashes the intermediate Doc, and returns {fileId, fileUrl, fileName}.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L182-L216",
+          "version": "repo-lines-v1:sha256:0ae949a425cb0b68215c0d0cd81fe7cf95f980245ea3b8deba3cfb7ffd7cd3c1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjMTg0YTIyYmNkZTczMDk5ZTUwYWE1NTRmN2M0MDM3ZGEwMTFhMjJlZjhlOWNkNzI5NTE0ODI1MjU2YTVkNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYzFiZGUxYjA2ZmE2ZDJhZTA2MWEwZjY0ZDZjYTk1NTljMDMwYWY3NTZiZGVjOTJiMDk2ZDQyN2QzODIxNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhYTdmNDhlMWYyYzI3NzNmMmI0NDE1Mjg1MzY3NmRjZWE4OGI4NDc1MWM1NjMzYmNjMGIwZDE1NzdlZmRjNzIifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L28-L31",
+          "version": "repo-lines-v1:sha256:28d0613b6bbe72faeef12ae360ec555223243434a83360b05b7e5f735f0222b3:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjY3ZWIxMzAyNTE4MjI1ZWZkZWQ5NTNlZmZiYzkxMGI1OGE4YzkzZjZjN2M3NzFiZDkyNTA1MTM3MzMzZTgzMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzc0YjJmZGQ1ZDFjYTg5MTMwZDE1YzBhNWZkNDBhMWViZWU4ZDU2ODE1MTBkNGEzMTYyZDQwNjUxZTVmYzI5ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDVkMjRiZjE0MjBkNmViYThlYjBkMjRmNWY2ODY3MGQ1ZTA1M2Y2MDY4NTZjMTQ0YmNkOTZjZWVmMWRiODA4MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWFiZDM4MjBlNTMzYTBmNTFlYjA5ZjI0NmRmYzJmMGNmM2FhOTA4MzlkMzc1NGFmY2M5YzZmMGNjMzcwOGQ3ZSJ9"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L49-L103",
+          "version": "repo-lines-v1:sha256:b6aa3c9d56fa9792742f9c5e79e02abf0c6bd7e8710bd317a3b50fe590186571:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNjA3ZmIzYmFmNTk2ZTFiYmY0NmI4NGQ4NjIxODgzNDIyODMyOGYwMzU5YmYwOTRiZGI5MjYwMGIzNWVhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2MmY0ZWU3YTI0ZDU3NmU3Nzc1YjRlMDg1MjJlNDA4YTFhNTcyMjYzZDI1NmU3ODRlNDIxODIyMTJmMDI1MTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4ZGNhZDNhMGU4ZjIxMjJhZTQ3YzVhYThmNGU4ZTg5Mzg1YjFiN2MzMWVjMjNmNjcxMTJkZjljMjAwNjc0ZjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_211bd3d28cb8413a88114c161059fb54",
+      "statement": "The Letter module is allowed to throw (unlike Analytics) because the calling action handler wraps generateLetter in try/catch so a letter failure logs but never blocks the user's action.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L9-L12",
+          "version": "repo-lines-v1:sha256:8d93ba9b070f8c2207892ec3a67d1fdb9316e9d49fd6d598788ff95ca374fa9a:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyYTdlYjk1NjI1N2NhNTZiZmQ4ZGVjYTIwNjNjYjg5NjE3YmFlN2E4YjYwMDExZWIwYmRhYTc2Nzc1ZDI5OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTAxZWFkOTM2YTIyODFkNTNkY2MwNjRiN2UyYTJhYjBkNTNiOTJlZjNlZjdiMzRiNjY4NjczMDA3ODk1Yzg2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzhhODA5ODhjNDc3NjBiNzdlNzZjNTBlZmM3OWUwODZkMjdlMGE3ZWNlNTZkN2E2MzRmZjJiOWEyZjFhNGY3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzRmMjIwNWM2NzBlOWZhNTJkMzgxNTE4ZTA0OWZiZDk2YmMzYjkzODNmY2EyY2ZmYThmNDFmMGIyYjlkZjNkOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_79c85170e35a4d0e86ce5936629498af",
+      "statement": "testGenerateLetter and testGenerateBeneficiaryLetter are editor-run harnesses that exercise the end-to-end PDF pipeline with hardcoded ctx and a 200x80 sample signature PNG, requiring the PF_* Script Properties; the enrollment harness uses an effectiveMonth while the beneficiary harness uses a precise effectiveDate.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L233-L268",
+          "version": "repo-lines-v1:sha256:fc10a3a7e59a41a9628366b8e1eacd8b02fb94847090a55d01b89104ec1cb8d1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyNzA3NjkxMDQyZGEwNDk2ZmFmODY0NzkxOTU2ODc2YzUwNDY0YWEzZTJlZmM2ZmUwYjhjMjgyMmRiNWJiMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0YWViMTQzZGQyNTE5OThlOWIwYmIyOGM4YTA3NTAzMmNjNTQ4MGViMWFjYzQ4MDE3MDc3YWM3MTAwZGQzYTgifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L270-L298",
+          "version": "repo-lines-v1:sha256:6869bebbf8d5327925778c07503f5087b0d519235845a497a28e37677c511150:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhNDYxNjgxNzhiYzEwNzAxMzY4NjEwOTBlOTc1ZjBkMzU5ZDdmYzdiMTMxNzQ4NGNlNzVhYzM1ZGU1MTAyMjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc680d61ceee40239b9006e821fbdf6c",
+      "statement": "Data/verify.py is an offline openpyxl structural sanity check on Data/Migration_Build.xlsx: it prints sheet names, Enrollments headers and row counts, dtype spot-checks on the first 3 enrolled rows, the flagged count>=1-no-Last_Withdrawal_Date rows from _Enrollments_Build, a _Discrepancy_Log tally by issue, and state-5 re-enrolled sanity checks.",
+      "evidence": [
+        {
+          "resource": "repo://Data/verify.py#L1-L50",
+          "version": "repo-lines-v1:sha256:20f39112e0bb3f93c1608b2cf7c3b4b902e8a7c549c0af4b7705b9afdc927889:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0ZWY5N2NjZWZiN2VlZTg2NzRjZTM4MzU1ZTAzZDJhNjM2N2YyMmVlMzgyOTg0NDFmZmIxMmI5ZWZmMDliODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0OGU3ZGIxZjM1NTI1YTljY2VkNThlMTRhY2E2MWNiNmM4ZWJjZmIyZDA5NDgyNGE0MjdjYWRmYjFkYWUxZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0ZjZlNTE1NGUzYmJlOGIwODczOGNhZGU2NjM4NjJlYzg1NTllNjAxNzk5ZTgxNDdkNGM4YjNiOTU2YjUxZjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8bd88e8b66d6475f9b236aaa34857a26",
+      "statement": "verify.py asserts two state-5/10 invariants: rows where Last_Withdrawal_Date >= Current_Enrolled_Date (invalid re-enroll) should be 0, and enrolled re-enrollees whose Last_Withdrawal_Date is <6 months before a fixed TODAY of 2026-06-29 (183-day cooldown) are counted as cdbad because they would wrongly display as Cooldown.",
+      "evidence": [
+        {
+          "resource": "repo://Data/verify.py#L52-L69",
+          "version": "repo-lines-v1:sha256:ff71c9aa5a8fff04bdca606fb719aa88f037a1f9593b1fcb8d38e58ece9623be:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmZGI5YTVjMmFmY2EyZDE1NzQ2M2VmOGZlMDllZjVkYTA3NzMyMmViNmQwN2QzOTNjMzhkNDEzMDUwYjg1MmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4MTk5YjE2Nzc1ZTU4M2RlOGExOTdjOTRmNjM5YTc4NmEyZjJjOTgzNmJlZjJiZmVmNjY1MDliOGI3ZGY4ZDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5Zjc3Nzg3OWVhM2YwZDBhMWY2OGY0ZTU1MTY0MjkwZGU1MDhmZDBhNDUwMTAxMjYxMjgzY2I4MmQ5Mzk0YWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a97a18fd6f9c4e58b4b114f7a28d3ed4",
+      "statement": "The .github/workflows/openwiki-update.yml workflow refreshes documentation (not the app) on a daily cron and workflow_dispatch: it checks out with full history, installs openwiki plus mermaid/jsdom, runs openwiki code --update --print against an OpenRouter model traced to LangSmith, and opens a docs: update OpenWiki pull request scoped to openwiki, AGENTS.md, CLAUDE.md, and the workflow file.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml#L1-L62",
+          "version": "repo-lines-v1:sha256:80c00948af1a58991f19d0e905676db4bf2a662bd6ab896b9d86d577d6a8b1d7:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2MDI3ODdhZjZkY2MwODM0ZGUxMjFjYmIxY2I5NWY5NDU5YjcyMWVhYjAzNDlmMTA1MDFiOTk2YzFjNzdmZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0Nzc5NmQzMTczMmZiY2U4OTk4YTJmN2U3YjFiYjk3NTVjMjNlNTg1MDMyMGI5MDkzN2Q4MmMzZmQwZTYyYTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

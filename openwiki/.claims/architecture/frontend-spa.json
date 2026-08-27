@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:254c061bd3b62a540d77e26ad9eee09f6bd0b4bb95bdada01633bc0d98f13ee5",
+  "claims": [
+    {
+      "id": "claim_c1794201ece6413999ecabd9101c426a",
+      "statement": "The SPA is a single evaluated HtmlTemplate (html/Index.html) that include()-pulls CSS, Modals, Modals_Withdraw, JS_Utils, JS_Signature, JS, JS_Beneficiary, JS_Withdraw, and JS_Feedback into one document; doGet() must use createTemplateFromFile + evaluate() (not createHtmlOutputFromFile) so the <?!= ?> includes work, and include() itself returns HtmlService.createHtmlOutputFromFile(filename).getContent().",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L24-L39",
+          "version": "repo-lines-v1:sha256:f731f30621f1cab2a8c6c20e1abf8e715172e01728d2a67c219573c1d69cbf7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3OTUyZDJmN2QwNGE3ZjhlZDI3ZWNhYjczOWYzZTVmMGU0YTllZjE4ZjgwNTM1YTM1MWE5NDEyMmJiNDc4ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkZGU2ZmNkNzFiNTI4M2I4MjJmZmZlMTQwZmQyZGJhYTIxN2NhNjA4YTI5Y2EyNDEwYzRiYWEzZDdmZjg2YWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://html/Index.html#L160-L168",
+          "version": "repo-lines-v1:sha256:5cd6190dd263ef1aeee8dd3958d2f075a24e7f6d355430f195b5b47cc88075da:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDE4OTFkNWZlNTY2ZmY4NTBjZTY3MjA1NmVlZjYxMTMzM2UxNDBkMDk4MGY5OTZkMDE2ZGQxZDg3NzIzNTQ1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYThhYTI1YTg0OGQ2ZTNhNzZlOTEzYzg2NzZlZWE5MTljYTM0ODYyYmFhYTFiZDkwMzViYzZlNjU1ZTkxM2RkNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzkwYWIxNmVhOTExM2I3ZmU0ZTQwOTgzM2VlMGJiYjcyNTAwN2RiNzMxZDUyZWI1NzY2Y2FiZjQ3ZDQ3YmMxZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5dc730e67d2d4d398a6988198f8d4911",
+      "statement": "On DOMContentLoaded the SPA fires three google.script.run calls in parallel: getUserProfile -> populateUI (or showError), checkPlanChangeEligibility -> applyCooldownUI (storing planChangeStatus), and a best-effort trackAppOpen carrying navigator.userAgent + screen WxH with no success/failure handlers.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L1-L6",
+          "version": "repo-lines-v1:sha256:be0269a06dcb6d842a85f633a38ae32959fc7b65b19952c716819d722d4717c2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2YxNGEzMjEyMGMwMzRlYWZjNzZkNDEzODE2NmJlYjhjN2E5NjhhMzYzM2EwMDA4ZTc0ZjQwNmRkOWQyMTI2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMThjODc5YmQzOGI5MTAyMGM2MmU5YWY0NDIwOWRkMTA5YjI0YWZmMDFkYzlmNjg2ZGJiZDY1MTg0ZjhmYjQwMCJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L7-L19",
+          "version": "repo-lines-v1:sha256:1da2220a847392d2d76bc29b47879b766eb0da746e7f4985d75f894e652b2540:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkZTA1N2JjY2JhMzhkNjY2ZDdhM2UyYWNjM2QzMzQ1NDRiYjc0YTU4ZGQ1N2RkZmQyOWZkMDExOWJiYjczNWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJmOGI4Y2Q4YjAyYmEyYzgxNzE0YTQ3ZWQ4N2MxMDc5ODFmZmQ0ZjU3ZjMyMGJhZDg5M2ZiMTNkZDAwNGVkNTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2M2RkYTNjYmZlZjY4YzU4NTdkZjY5MDBhYzA0YjFkY2EzYWE4ZmI1NTkwMDgzY2E5MzE5ZTUyMzU1MWFiMWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9754729c6f7a44d9b13151ed64635052",
+      "statement": "GA4 app_open is fired client-side on DOMContentLoaded (not server-side in doGet) so it can carry device info (doGet cannot see the browser UA); the post-action reload is a soft re-render that re-enters populateUI without a new DOMContentLoaded, so app_open does not double-count, and doGet deliberately does not call trackAppOpen.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L160-L170",
+          "version": "repo-lines-v1:sha256:53be63db334df05002eceda115989bd15fd4139d87ca55c22ef151ca0f5db01e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlYzk1MjcyNjVjNzQyM2RlYjdiYWZiZjgwYzgxODQ1MWFiZjcwMGI4NjZlM2ZhN2ZjZmEyM2IxYjExZjk4NTYifQ"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L20-L23",
+          "version": "repo-lines-v1:sha256:83fff4ef63cd1a19e429595c839f57ef3cc2d2917a64074554e46d4549d1b14d:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODM0MDYzMjZhZjBlZmZmNmQwNDUwOWE1MGM2YmU5MGY3M2IyNjY4NWY3YjM5ZjExZDg2OGY2NmM0NTNkNTRiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzdiZGVhNTQwMzBhOWNhNWI0NzNjOTViNjFiYWI3YzViMjE3Y2UzMjFkMzQ4MDJmNDA3MjdiYmRkNTRkZDUwZiJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L7-L15",
+          "version": "repo-lines-v1:sha256:0a3b92544bae1deaad7d0bee8321395317a09389d95c292364a125fdde91da2c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRlMDU3YmNjYmEzOGQ2NjZkN2EzZTJhY2MzZDMzNDU0NGJiNzRhNThkZDU3ZGRmZDI5ZmQwMTE5YmJiNzM1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmY4YjhjZDhiMDJiYTJjODE3MTRhNDdlZDg3YzEwNzk4MWZmZDRmNTdmMzIwYmFkODkzZmIxM2RkMDA0ZWQ1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjFkYjVlNWMyYWFmNmFjMWQwYjk3NDY2NmU0NGEwYjFkYjM2YTIyM2IzNGJkMDU1ZjFjZTQ3ZjRjMWQ5ZDQzZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a4887dbe48494ee78c33b7913b143557",
+      "statement": "showSuccessToast forces a full dashboard reload after each action: it hides #dashboardContent, re-shows #loadingState, and re-fetches getUserProfile + checkPlanChangeEligibility, re-entering populateUI rather than patching the DOM from the action response.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L25-L40",
+          "version": "repo-lines-v1:sha256:5614de7a0e28cfa58965814b61264b020e4df2a3b5e1cab6f3e39ee4f6b62e8b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5OTZhMjQ5YmM5YWI3MzQ5ZjhkYTUzZTk0MzZlOTdlOTYzYjQyYjBmYjczMDI1NzRiNmU2ODY2NGI2MmU0MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1YjQxZjViYmFkNjQzZmRjMmZkN2Q1ZmRjMjllYzJkYTRmNjk3YjI5NDc4MGQyNDJmMGJlNjgxN2M5ZDYwNmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0YjgwZDVkNzFkNTY2ZTBlYWQ5MjA2NDRkOTIxMDBlZDI4YzQzMWU1YzRkY2ZjOWNkM2U0MTE2OWNiOWYwNmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3a967e72055143aaaddbc02159c1b4e7",
+      "statement": "Each success handler sets the module-global pendingFeedbackAction (e.g. 'Enroll','Change Plan','Update Beneficiaries','Withdraw') before calling showSuccessToast; the reloaded populateUI sees the flag, clears it, and (after a 300ms delay) opens the feedback modal so it lands on the home screen after the reload rather than over the just-closed modal.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L166-L170",
+          "version": "repo-lines-v1:sha256:632c93bdb6775eaf3a793608a8f0e8678c6bb97a9697910a8b4b495cf34ae7f3:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2E5ZDYwODk5NWFjM2FiYjlmN2Y4MGI4MjBiMGFlZjc0NWU5ZTZiNjEzNjkxZmVmZDRiMzI4NGE0MWM0Mzg0OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWI2MmY2MGQ4NTkwYTU3OWNmNDZmOGQ2NzM3OGM0YzU3MmI5NjJjZWNjZGI5MGM3YTVmN2I0MmI5NjA3ODJhNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWU0N2YwNGNkZTkyZTg2OTRlOGI2ZGJhOGUzYTc5ZmQ0NTJjYWJiNWFiMzgyOWNmNTQwYmRhMzU0OTNhYmY4OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmFmN2Y0OWM3ZTAzMWExNGIyZDUxMTU3MzhiNWM4M2ZkMDA1MzQ5ZjYzN2YyMmI1YmRmM2E3ZWQ1YWQxYjk2YyJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L22-L24",
+          "version": "repo-lines-v1:sha256:35b41f5bbad643fdc2fd7d5fdc29ec2da4f697b294780d242f0be6817c9d606b:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2VkODNmMmU0ZWM3NmQzOTVjNDhkODEwMGMzZjI4MjQyYjM3YzQzNTg5NzMzOWVlMDYyMmM3NWVmMzBkYTc0MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjAzMjcyZGM3MDkyYzZjMjAzZjU2YjIzNjFiY2I4MDQ2OWE5NjgwMWQwMDMzYzQ4MzcyZGIwYTZiMTQyZjYzOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTUwNGI2ZTEwYjcwY2U1NjlhYjhhOGU4ZTlhYjFkNmI5Y2I3OTVjY2Y3MThiZDAwODE0NTdlZTFhZWI5YmY3YyJ9"
+        },
+        {
+          "resource": "repo://html/JS_Feedback.html#L1-L20",
+          "version": "repo-lines-v1:sha256:b5e989b9c75876aeba7d8b5c8a1ce58212c00b8580ded2f8cc327fd350edb842:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmMTRhMzIxMjBjMDM0ZWFmYzc2ZDQxMzgxNjZiZWI4YzdhOTY4YTM2MzNhMDAwOGU3NGY0MDZkZDlkMjEyNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3OWQzYjBhM2I2NTYyMGJhNWIzNTdhZjhiMTc5YjRlZmYzZWEwYWEwNjZlZWQyZTFjZjdiODA5NmViZjk1NjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ff5b34baa7374914acdbce275f980943",
+      "statement": "Multi-step flows (enrollment wizard #enrollWizard, beneficiary manager #beneficiaryManager) use a custom position:fixed .wizard-overlay (z-index 9999, body overflow hidden while open), NOT native <dialog>; simple single-purpose confirmations (change-plan, change-investment, cancel-tx, withdraw, feedback) use native <dialog> with showModal()/close().",
+      "evidence": [
+        {
+          "resource": "repo://html/CSS.html#L78-L103",
+          "version": "repo-lines-v1:sha256:4a38d599048a39bbc48f1bd1bd8f00e201e1c00399252efaae4447e3ddb53a2f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4ZGY5Y2E4NmFlZTAzZDNmMTYzYzA5Y2ExYjQwZjg2Njk5MTY2Y2Q0Y2FjOTBmNWU0M2I3NTAxYjY1ZDFlZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyNTM4ZmNkNmVlNjFiMDQ3MTdkOTZiNDhmOGVlZmYyOGRkNmM0NWZlNDg1OWIwYTU2ZDkwNDlkODZkYmNmZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwNzYzM2U0NDkzMjRhOWEzMDdiNDNiMDhiYjM2M2VlODNjN2FjMjczMGVhY2Q3NjY4MjQ5MDJiZmYxMmI5OTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5NmJiYjU5MjI5N2FhZGE3M2MxMGE3MDYyZjA4NGZiNzJiNjFiNzE2NjkxNzA5YzhkMjAzYWIxZTVmZmQ5ZDgifQ"
+        },
+        {
+          "resource": "repo://html/Modals.html#L1-L10",
+          "version": "repo-lines-v1:sha256:1cade4223a990fda96c5377044176f5b9a790efdd8e39ca68b612b8778c9dca1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkNjQyOTAxNWVkODE3M2QzODc1NmZhMDYzNzMyYTM3MGZlOTdmYjE4NjZlNDFlNjg5ZWZlOTM2NTY3OGZmOTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5MzkzMGYyNmY4NzZlOGU3OWEwOGI4NGE5MjhhNWNkYjI2MDhkYzAzZmE0NzUyMDhiODk1NmVkNWIzZWViOTUifQ"
+        },
+        {
+          "resource": "repo://html/Modals.html#L138-L219",
+          "version": "repo-lines-v1:sha256:0dfacefbcb948dc50e77b6b966bacb2126b2801e980a2633d1bc48417dbe7061:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmZGZkNDE3ZDUyZGNkY2RkODgzMjAyMGViMzhmZDM1M2M1OGQ1Y2IwNjQ3YmJmZmMxOGE5MTM3ZGEyYmFjMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjMDMzMjcyMDliYjkyZGMxNGNlMWJlMWM4NDBjMTJjYWIyZmYzYzhhMmRlMWZkNjhkMDZmNTYzMDQ0MmYxYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM1ZmE5NTY3ZjAzNDg3YzkzOGI5MWRhNTI1NzdkOTMwM2E2NDcyOWE4ZDk4YjM1YTRkYjZiZDhmYjE1ZDRiMjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2YjY4YTdjMGZlMmQyOTM4MTljMjA3MGQ1OWI3NzFmNmY2YmY3MTc4OGNlZTFhNTFjZmNhNzE2MDlmNGMzMjgifQ"
+        },
+        {
+          "resource": "repo://html/Modals.html#L222-L290",
+          "version": "repo-lines-v1:sha256:7c31fd5a39f1a77339394678a3c550caac2ab9c63fcca3722ef3065d3bba9db6:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkNDA3NGIzMjg5YTg4N2VmMTc2MWQwZTJhZWI0MjZlNmM5MmIzZGJjYzg0OGM1YWJmNGQyYTEzM2UzZmQ4NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlYjUxNjU4YzRmZjAzNWZlY2RlYjRjMjY5ZWZiMmQzM2E2N2FjOTkyOGEyYTZjMmQyZDlhMTQ2MzBhMGVjMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlZTZhN2I2ZjU3ODBjZjE4ZWYyNTFkYjNhOGE1NzU1NzdlMjdiZWUwY2QyZTliYTg2Njc4ODRmZDc4ZDUxYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViNmI4MmYwOWVjZmU1YWJkYzgxYjYzMTk2ODdkMjlhNWM5MzkyNzcxZWNmYjM0NWMwMjcyZGZmNTlkZDZjYWEifQ"
+        },
+        {
+          "resource": "repo://html/Modals_Withdraw.html#L1-L55",
+          "version": "repo-lines-v1:sha256:ab2c688005a8a147da4f32ae32f36701b6b7fd27beab691d8beb8440020f82d3:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiMzcyYzhmZDI0ZTFhMTExNTk3ODU4NDY1MWYzMGJjM2YwZDdhNWE0NWViZTJkNmVlMjhjZmVlNjczNzRiMzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNzgyNmMyMDRmZWExYTQ5NTUxYzAzZGE2NjQxNTI3ZjU0MTM4Y2UxZmQ5MjkyZTA4YjA2YWUzM2I1MjU0NmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d86297060854cb29283296fb237e840",
+      "statement": "#cooldownMessage must live directly in the Actions <article>, NOT inside #enrolledActionsGroup; #enrolledActionsGroup is display:none for non-enrolled users (probation/cooldown/locked), so nesting #cooldownMessage there would keep the eligible-after / withdrawal-timeline message invisible even when set to display:block.",
+      "evidence": [
+        {
+          "resource": "repo://html/Index.html#L105-L137",
+          "version": "repo-lines-v1:sha256:0d667d1eaa6226821584763fb16a0b3ba5414b9dbdffa1df567315b3769fad86:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1MGM4YzhmMWNjMTE5YzRkMWQ3ZjdkNzE1N2I1MDVlYWRlOWQ2OWEzYzQzY2E3MjVkYzk0ZGZlOGY2ZGYyYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhZmU2ODg4OWZmZDI5Y2Q0YzFkMTc3NzhmNGRiZDc1NzNlMzgxNThjN2Y2ZDg4NWEyODY0MjA1NmM0YTYwYTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUyNGVkYWJlNDQ0OTM0ODZiOWVkNzc5YjZkYmQxN2U5NGQ4ZjZiY2JhM2NlYTc5MjRkZjVmYzYzYTYzN2RmMjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwZDFjZDA1NzhjZGI1ZjNhNjZlZTAyYTE1YjFjOWVmMzVjNDBlMDA2MTYwYzcyYmU5MTRlODQ3OTk5OGFmNWYifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L107-L129",
+          "version": "repo-lines-v1:sha256:11c7cfb4f1ae8b4f794b18df77ad4fcf80ec89a221b0d2fbed777011ed937763:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhMWJhOTYxY2YwYWM0ZDQxMGM5NmNiZmI1MTc3OWM4NmJmYjU1ODc3MWRjYzU4Zjk3OWVhMjk0ODBmZjQyNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc5NjQ0MWUyZDIwMGE0NTg3ZDM0NzE0MGU3MWU1OTVkMDRjYmQyNGJhNjA2ZjFjYTg3YzQ1YjUwYTcyZmViMDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMwMDM0NGE3ZWMwMDIzZTNmYzU3YTFkN2FjNzQzYjNkMTMxNjg5NTQ3ZjM3MDU0ZGI2NTc1ODYwODVlZDVjM2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzYmU2Y2ZmNzAwYmI5NWIzMDI0ZTVhMWY0N2JhMDJlM2YxYWIyYjk0M2EyZGY2M2IyOGM1NGMzNzUwYTM2ZTUifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L612-L630",
+          "version": "repo-lines-v1:sha256:ade98cf6e8e66b2365489d1c23b2bc81cfb6fdc277734b0638d5e671a73bc202:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMzY1MGNhZTM1NmY1YzJmY2E5ZjU0N2ZmODRiNmZkZDNiNmJlZjQ2YTYxMDM1YmM0ZWQwNmVhNjRmMzNlYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxNTc0MTQ1MTIyYjNiMTMyMmY1MDk4MzUzMDBkZjJiYTIxZGM5NTJlNTU0MzcyZWM0NGFkYjQ3YmExZmJjZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiNWJjYzcwOWNjYmJmNWZiYTAzMWM0MWYwMDE1ZmFkZTQzMzc1YmIyNWRiZDQ2YzM0MDg3YjAxYWFjMmUzNmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d6e2a5215c33406b907f68494fb7ac3c",
+      "statement": "window.PFSignature is a handle-based wrapper over signature_pad (CDN) exposing mount(canvas, onEnd?) returning {pad,canvas,onEnd,resize}, isEmpty(handle), getDataUrl(handle), clear(handle), destroy(handle); each flow owns its own pad instance via a handle so the enrollment wizard (step 5) and beneficiary sign view do not collide.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Signature.html#L1-L24",
+          "version": "repo-lines-v1:sha256:7d22e8dfa7847571a2f42f7e0d3b07d3b4bfeac75862058540d208f4f81df4d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmMTRhMzIxMjBjMDM0ZWFmYzc2ZDQxMzgxNjZiZWI4YzdhOTY4YTM2MzNhMDAwOGU3NGY0MDZkZDlkMjEyNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3YmZlMzE4NmY5NWIwZTJmZGFjNjdkN2Q4NDc5NDg3NzE4NWI3Y2ZiYTQzMmY0NDQ5ZTVkZGIyMzE2MzQxYzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4Y2U4ZTAwMmMxM2I5ODkwODgxMTdkNTBiNjM3ZGE1Y2VkNjc3ZmExNTRlMWE3NzE5Y2FlNTAxMGFjMGJjOTkifQ"
+        },
+        {
+          "resource": "repo://html/JS_Signature.html#L35-L117",
+          "version": "repo-lines-v1:sha256:faa5d81fe0c3789d422e3278769df733a7d1a9843f9a8c05d9949d7a1670a1fb:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2OTBlYzZlZWQzZDc3NmRjYmFlNDA3Zjc4MDY0MzkzOWJiNGZiZmY1Y2ZjYzBjZTQxMjNiNmVhZWM4Yzg1MjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc5ODAxZDUwZTdiZjhiYjE5OTZhNjlmZTE0NDU5NDRmMmNjMTQ5ZmZkNzM1ZDhjNzBlNmZjYWEwZWE5ODI1M2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyODJkYzNmZDJjNDMwZTNjYjkxNjNkM2NmZTAxYjdlY2I0YTA1ZDg2NjViMWI4ZGE3MDYyYzk2YTdiN2IzNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMzU4ZjAzNzFhNmU3MzJjNDM0MDMzMjIzNTE5OWRjZDkxZWJjNDYyMzlhNWRkY2ZlNmY5YTYzZTZlYmVjZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1ba74883e73f4a69b5e200df9eae8884",
+      "statement": "PFSignature.getDataUrl() auto-trims the export to the ink's bounding box (8px pad in device pixels) by scanning the alpha channel, so a small/corner signature exports tight; it falls back to the full-canvas pad.toDataURL on no-ink/failure, and the letter generator then scales the tight crop to fit its box. Callers gate submit on isEmpty(handle), not on a non-null data URL.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Signature.html#L64-L104",
+          "version": "repo-lines-v1:sha256:f359feff0011467f6d2f99a02f7583255f6b7ce4ba2576f3936ef80536b514ec:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkOGYzYmFiNzMyNDEzY2E2MjU5MTQ5ZjRkMDQ5OGFmMjVmNTJmOWQzOTU2NDkxZWIyY2FhY2ZjYmMxYWYyZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4OWY0YzQ0ZTNjN2JlNGMzN2IwN2M1ZTRhMzA5YjExYmIzNTdhZTVhNzY3Zjk5ZGZiZGNmNmRlZWI2YzExZTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliYTE3MGY3NmU5YWMwZjc2ZmY2MDYzYmJkNjc0ZjYxY2YzMmMxZTcyMDRmYTI0MGVjYzViOTA2YWFhMjZiZjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6e2d0f97e79848aab7e606aa32ae931e",
+      "statement": "The signature pad is mounted fresh each time the sign view opens (mountWizSignature on step 5, mountBenSignature on view D) and destroyed on overlay close (closeWizard/closeManageBen), because signature_pad clears the canvas on a backing-store resize and the window resize listener must be removed to avoid leaks.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L188-L212",
+          "version": "repo-lines-v1:sha256:8dcf728b5ed1c5fae86344df61aade0bb702074d816e40c288332500cbb79cdb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1YTQ5MGUwNGM5ZjY4OWVkYjdiYjQ3NjQ2ZTI3ZDIxMjEyOWNlOTE1ZjRhY2Y3NGU1MmZjMDM2NjJiOTc2ZGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5OGY5ODkwMDUxZDYwNTNlMjNiMzcwNzliODI1MDBhMGUxNGEwNDc3MWFiNjNmNmI5ZGIyNTZjOTYyMzQzN2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5OTk1NGRiMTM5NTBjYjUzN2U1Yzc3OTg4YmMwZGVkMGE0MGFmZTU3ZDFlZjIyMjRiYzQ4MmMwNzRmZTE0YzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEzY2UwY2E1MWFiMmM1NmNhMmU0NThjZGUwMTA1YzU1ZGRkNzA0NmUzNzcxNmJiZmQwMmZiNzIzM2NkNDFkMDMifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L19-L33",
+          "version": "repo-lines-v1:sha256:c539cb2575aacfe1c7ceb0f45da9fbf73006d946d88d17b52ba19ea8140394d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNDc5NTUyNjdlZmE3YjM5NDA0MGE5NGNlMDFjMDhmMDIxNTlmNGNjMzg1YWVkZDk5NjcxYjI0MWEzNjBlYzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmNDVhMTk4N2M5ZTM0OTNhMGRmYTg3OTAzMzUwMzE1MGZhOTJiOTZiMTI5NGE0NWI3NTcyMWUxMjMxY2M5OTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIzMzM4YmNkZWY3YmI2YjZiYTQ3ZmM0ZjM0NDg4YjJhYTA3NWFhODQyNmNhM2NmZGZhZGY4N2I1N2Q3NmJkZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkNzdjYWZhOTNiZTc1OWVjMzA0MjhkZGYzOTk3M2FmN2RlNDIyNDFjMzViNTcxNDJlM2IwYTYzMWM4ZTBiNDYifQ"
+        },
+        {
+          "resource": "repo://html/JS_Signature.html#L107-L114",
+          "version": "repo-lines-v1:sha256:29230e960a336901c7725f747908812ce2c133ed6ccece2108438ea8c022c11d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzZlZjI3NTU4ODljMzBkNzZlMjhjOTQ2ZWE1MDFiYzYyOGY1MDcwMzllYmUwYzFhYTY5ODM1M2Q0NGE1N2U3MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzU5MzBjYmVkNGZlM2ZlNmIzNzhhOGIyNTJlMTZmZmU3NWM1Zjg4MzRmNDdjZDFlNzdkNzJmZjFhNmZhNmZkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGI1YjVlMTc0YmYyYTRhMTQ2Yzg1ZjdmNmI1ZGE0Y2QyZTcxMDljMGNmNDhiNzQ3OTY4ZTMzYWExMTI0MzBlMCJ9"
+        },
+        {
+          "resource": "repo://html/JS_Signature.html#L26-L33",
+          "version": "repo-lines-v1:sha256:29adfb62981139b3d7be5febcbff318f417de397920438fe20239ba0e59b1e57:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDQyMDVhN2YyYjNhM2Y3YWY0NTI1MzE3YjQ3MTVlZDVhZGU2NThiMDc0ZjQyNzYzMzFlMjBhMzMwZTY5MjRmMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzc3MWViMDEyZTM0Y2U0ZDlkZTMyMzFhZjBkN2RiYzg5ODczNDYxZDY4MjRiNDAxMjlmZmYyYWNhNDI5YzU4ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTU5Njc1NGI0ODNlYzM2MTk4ZTkzOWYxZTI1YmQ5MDk4ODMzMDkxYTNjYjA0ZTMyY2RiMTljZTg4OWZkZDMwYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5faaea977c104ab6affd26855b95daeb",
+      "statement": "The stored beneficiary JSON shape is {name, rel, pct, address} with no prefix field; prefix is a transient UI-only field merged into name via mergePrefixes right before submission, and splitPrefix pulls a known leading title (PREFIX_LIST) back out of name on re-edit so the dropdown is populated and a re-save does not double-prefix. The same prefixOptions/relOptions fragments and 100%-total validation are shared by the wizard and the manager.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L268-L305",
+          "version": "repo-lines-v1:sha256:047107e9fdfb5464b25a784691785547967642ae448475a638ea02be92fb99ee:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzZmNmZjRhNTliZWIyNmYyYmNlZmYwNTlkMzg5MGU4ZDcwM2Y3YWExYmI1NjNmOTQyMjU4OTBhMGM0ODBhNzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMjRhZjdjMzM0ODlmOTIwYjE3NjdlNzZjNTJiY2FkOGI3MTE1Yjc2MTczMzdkY2IxNDcxZmFhOWQyNjIwNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5ODJjZTViMjI1YmY1YWEzNmNiMWNkY2VmZWEzMWJjNjQzMmQ3ZDY4OWVhYjBjMmZiZjdmODIzZjJmNzZlOTQifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L357-L396",
+          "version": "repo-lines-v1:sha256:9122a80bfc52dac406226dad06f2d6be15dbf6cf17e92edb5b44f311d9034fbd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2MjkzMDFlMmJkMGMwNWFhY2VhMDViZjU4MWI5NGRlODQ0NzhjNmQ0NDY2NWVjNzg4MTE4Y2FjM2JmODEzZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkNTIzYzlkN2ZmMjNjMTlmMGU1NDJiMzFkNjZiMzQyNDgzOTRiNzcyNzAwNzRlNzdhNWVjODg2ZGUyMmIyM2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2MjdhZTMzMjhkZDYzMTRhZDEyZTg0NmUzYTExMzVjYzAwYTc0MDZhNDQ4MjQ2NjY3ODhjNjU2NTBiOWY1ZDAifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L113-L122",
+          "version": "repo-lines-v1:sha256:fd9561eeae3406979323e543117587b64d742401ceecf7aa9e18d09c76363a32:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlOTgyODg3MzJlZGU3MDZmNzM1ODlhZGEyOGRjOWZiYjU3YzExYTNiODFhNjY2ZjhjODcwY2VmYzk2NTRlOGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNjNhOWJmZGQ4NTIzYzgxYjA1N2Y5N2UwZWFlOTdhZGU4ODY3MzlmZDJlNTRmMmE2N2VkNDFiNmI4NGUwYWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjYmI1ZmUzYmExODFhYTA4ZWU5YWQxYjUzYWIxMTY5ZDFhMzhkZDBlYTYwZTYyMmMzMmEyMzk2OTU2ZTUyMjkifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L181-L193",
+          "version": "repo-lines-v1:sha256:7de5e68912fbb110b259687c47ed7474d252711908a09c0d22b133f5de795661:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMWRjOTRlYTAxNThiMjllYTM0MjIzZjViNGQ3MTU4MTk3ZWRjNDI5YWIyZDA5M2UzNjIzYzNkNTVlZDI0YjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NWVmMWRiYTUxY2U0M2RkMzIyMjdlNGUyN2Y5YmIwYTZjMjhkYmUyMjUxOGQ3YjVjNDJlZTJhZWNhOTIzMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzMjg5YzE2NTRjNDdhODQwNWY2YzBhYjkyODhhZjFhOWI1Yjc3MGE2YWM5MDNhNmQzY2JiZDNkNjdkNzZjMGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1f0d59408cbe4662891c7cb7611994b7",
+      "statement": "populateUI is the single dashboard renderer: it renders the pending-transactions box (each pending tx gets a Cancel button via openCancelTx) and drives a status cascade over response.enrollment (withdrawalCount>=3 Locked, isOnProbation Probation, isCoolingDown Cooldown, isEnrolled Enrolled #N showing the 2x2 action grid, otherwise Eligible #N showing the enroll button).",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L42-L174",
+          "version": "repo-lines-v1:sha256:6f4a9b94f65ed1617882725dd896a7767b670b38b0715feb37d3b5015ca34188:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwYjdhNTJmZjhjODM1ZDAzN2I2MDVlZDgzN2E0NmJlYTFiOGYzYzMyN2ZiZGMzNWE5MGMzZDAzOGE2YmNjMGUzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIyN2U1Nzg4ZDVkOWQ3M2QyNGE4MWRiYzBhNWE3NGJmYTgyYzljM2IzYWY5OWU1MmFmNzk2ZTkwYjQ2OGE4YTNkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI0YmI4NzJkNDA0NmI0MDQzZjU3ODhlZDg1NDIxMjc3MGYzMTlhMGM4YTdiMjE4MmFhYTdlOTE2ZmY3NWY1OTQwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJjNDhiMjgzNDUxNGVlYzhmNDJhMTUxMWIxM2U5MzdjNThhNDUyMTQ3NGM4OGViN2ExMDliNDQzNTkxNjhlYmZjIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_3426816ccc6f4be9932a7e3ae77dcec6",
+      "statement": "The SPA is a thin client over .gs functions reached via google.script.run: getUserProfile (Profile.gs), checkPlanChangeEligibility (Action.gs), trackAppOpen/trackFeatureAction (Analytics.gs, best-effort), processEnrollment/processChangePlan/processUpdateBeneficiaries/processWithdrawal/cancelTransaction (Action.gs), submitFeedback (Feedback.gs); all actions pass navigator.userAgent as deviceData for the audit log and device analytics.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L210-L258",
+          "version": "repo-lines-v1:sha256:247d2c33d15ad5ea196bb9d1c8ea37b2fd8961c8e19674c21a2bcb422e795509:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyYmRkMDRkNTkxZjVhYWZkN2E4YmU3YTc1OWJlNTNlMmYwMGRhODA1OGVlZWRmM2RiYTQ0NDA2NjlkZDIzM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2MjYzNGNjOTNiMTdjYzljYzBhOGJkZjA4NjBhZDVjYTA1OTI3MDBkOWY0OGMwOGE3Nzc5MThhYTZjNjg1MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRjODZkZTgxY2JmYzc5ZTg1NmJhOGQyM2M1YWJmYWVlZTU5NzE2YzJhYTRjYzA3NWQ3ZGQ5OTk3ODA3MzczMTMifQ"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L160-L188",
+          "version": "repo-lines-v1:sha256:06b70caf49db27625fe945f1aadacc5cf72c96fe17860d6426ce3bdd8ee9b363:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZTM1Y2I3NGE2YzFjY2MyNDFhY2ExNzM5OTlhZjY1NmEzZTEzYjRjNzkxN2YxNThmZGNhMmNjZWM4NjAxNTkifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L411-L434",
+          "version": "repo-lines-v1:sha256:2f1f56ed36e9a2e6c85797b36fc56ff06734fa23f4cfa8bed84952c2ca176699:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhZWU5YjQwNjRiZGI2MDA1OTQ2ZGE4MzBhZWNlMDNlMGZlNTg2NWU4NzVmYmJiOWZmYmUyOWEzZTNjZjU2YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjMTY4ODhmZjE1ZjUyMGNiZDc2YTY2NzRhMjlhYjYyZDY0OTQ0ODVjYmQ1ZmI5MGM3ZGIwNjljZGFkNjYxNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmYWQxMzNhMjEyMmE1M2MyMmRiN2QyMjg5MmI1Y2MyYTU0ZjMzNmEwZjBlMWFlZjkxODUyMDM2M2IxMmNlN2EifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L463-L478",
+          "version": "repo-lines-v1:sha256:7ddbcc85df606febdda9956479d26cf55b792d8cac530ed8bfb43499c50d5bff:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhMzg2M2IxNGI3YmE4Nzg3ZmMyYTJhYmI0MDdiNmY3OWRhZDA4N2ExYTQzMWU2Y2RjY2I4NzU2MmQzZjE0NWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjNTJkZDhhNDg4Nzc0NThkMjcyNzgwYTBiMmZlODllOTBkYmUzOTk2YWVhYjdhNjEzMThmYThkMjY3MTg1ZGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRiNGMwZTQ3NjE1YzIyNjU3NTAyYjc5ZGVmODUxYmM0ZDJlYWQ3NjVlNWNmYjdhODBmYjdhMWNhMDU4OTE1YWYifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L519-L553",
+          "version": "repo-lines-v1:sha256:22aebb4c1b37c860241533e904e94a32580a77e6cb839643e98446c21a50d0f8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1MWYzMWY5ZDg3MjZhZGQyYjdlMTdlODk2YTU5MjdmZmZjMjYwMGVmMmMzODMyNjIyYmY4N2VmZTA2MDgyODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhYmEwZDU5Mzk1ZjQzN2U2Yzg2OTljMmVkNmVjMWMzYjQwM2YxOWNlNjgyNDU4Y2ZjMGQ5OTk0MjAxZjA4NjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwZjM2OGUwOWQ1NjUwNzFjNDM4NjJmMmNjMjk4ZTQyNjhiNWRhNDExMTcwNzlmNGE1NWI5ZGVkOWIxYjhjY2QifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L195-L224",
+          "version": "repo-lines-v1:sha256:424d197d54144522eb66aa41a6939970fb4b37c89890e804414afa5e58257659:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1Yjc3YWE3NmIxNGRjYjA4ZDg3OWQxMDk4MDQ4MTYzNzBkZGZiMGFhNDVlZGM3MDBmMjQxMzJkOWE0NmY2YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI2YmFiNWNmMTVjMzYzM2M3MDBiZTE3ZWIzODM0OGQ1YzlkYTJiZmE4Mjc1Njc2YzU3NWQwNWUxNWQxYzg2ODkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjOTY1NjIxMGEwMjAyNzE5YzFjYzNmMzNiYmE1MTIxMzVjMjZiYjhkOTcwZDIzNTA1NTJlNzVkMjU3NjMxY2EifQ"
+        },
+        {
+          "resource": "repo://html/JS_Withdraw.html#L51-L78",
+          "version": "repo-lines-v1:sha256:2e291270d404819b5d2073de05b1f2522c5229c370e76282c6b5ec870dbf183a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4NWUxODlhYzQ3ZWY4NGQwOWQ4ZmIwOTU1NGE5Yjg3YjE1ZjI4MmUyNjhiNGI5YmU2MThhYzQ2MDMzODg1YzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI0OTg1NWRmMzhlNjE5YmI3ZTA4OTU3YWM0MzlkN2JkNzQ2NjhiMDUyYTY4NTc5M2IxN2UzNGZiZjQxZGY5NzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjOTY1NjIxMGEwMjAyNzE5YzFjYzNmMzNiYmE1MTIxMzVjMjZiYjhkOTcwZDIzNTA1NTJlNzVkMjU3NjMxY2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c16b413d4a6f409a860460c0ad271808",
+      "statement": "GA4 analytics are best-effort and never block user actions: trackAppOpen/trackFeatureAction no-op when GA4_MEASUREMENT_ID or GA4_API_SECRET are unset, swallow all errors, and forward navigator.userAgent which parseDevice_ buckets into low-cardinality device_category/device_os/device_browser (never the raw UA) because GAS renders in a sandboxed iframe where GA third-party cookies are blocked.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L126-L158",
+          "version": "repo-lines-v1:sha256:754246da3c3fa9f5dfcebccf87950d772305237bfa5aa4ec12ec6ddd132d9446:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5YzA0ZGFjMDYyNThhMzk3MTgzYmZjNzAyZDdhNjRiMTNkM2M0YzgwMTFlODI1ZmYwNGRmOTQ3YjY4MjA4OTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjYzljZWFlNjZmNzBmNDE1ZGIwN2FiZTliMWI4ZTZkODMyYjdmNjI5YzhkNmVjZjVmZjMxZDAxYzU5ZTgyMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzY2I3ZWQ2ZjNlMDY1ZGE5OGVlMWJjMmU0OTVhZDk4NDBiYmU0ZmViYTdhN2M5MWUwNDljNmZmMjM5YzBlNDIifQ"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L160-L188",
+          "version": "repo-lines-v1:sha256:06b70caf49db27625fe945f1aadacc5cf72c96fe17860d6426ce3bdd8ee9b363:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZTM1Y2I3NGE2YzFjY2MyNDFhY2ExNzM5OTlhZjY1NmEzZTEzYjRjNzkxN2YxNThmZGNhMmNjZWM4NjAxNTkifQ"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L84-L116",
+          "version": "repo-lines-v1:sha256:f3ed653a26b5293fb9b4391e65fb47078b670e7328d6256b73d539c3384d5c86:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzN2U1MWFhNmQyMmQ2ZDNhMzUxMTk5NmVhMjIzMzQ0NmJhMWM1MmVjN2YxZDdiMDNhYjQ5YTcwMTMyNmQzYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE0Njg0ZjZiNTRlMzkwOTNhY2FhNDE3ZmE2MDI2ZmY5ODhkOWMwMDJiYTc3ODgzNTEzZThiMzJjMDU1N2QyNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMwZmE2MGY1ZjU5YWE2N2U3OWM5ZmI1OGNhN2RlYzUxOGYwODdlNjgwZDQwMWI1ZGU2NjUxNjIwNGRkODJmYzUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d5a4c9dcd30142b783e11e6878fbaafc",
+      "statement": "doGet() checks a MAINTENANCE_MODE script property; if active and the active user is not in ADMIN_EMAILS, it serves html/Maintenance instead of html/Index, otherwise it evaluates the Index template and sets the viewport meta. The maintenanceActive flag is passed into the template to render the admin maintenance banner.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L4-L31",
+          "version": "repo-lines-v1:sha256:14727ea529bdac5ae382cf5a855f8972a05ae0d6c4d07c650970fb38d929c7c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZTMyZjc4MjIyZWE2ZTUyOWMzZjU4ZjI2MmYwZjYyMDEwZTU0ZmM0YTAxZDM4NWNhOGM4OTRkNWEwYWFmNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNWRkNzA3MTgxOGMyNzY3Y2IxMDc1ZTIyNjM4MzVlYzNjZDlkZWEwMGVjNDAwNTNiMGRmYjBkMjRlZTZiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiM2Q2MTc5ODdkZGUxZjRiOTkzYTIxMzYyYTM5ZmY1MTMwNzUyZTY5MTA1ZGM2YzYxOTIyZmVmZjhkY2EwN2UifQ"
+        },
+        {
+          "resource": "repo://html/Index.html#L31-L36",
+          "version": "repo-lines-v1:sha256:fd945abaeefdc74fdeae73c2d4e1004ca1e386edc6d93aa4116027fec6292959:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDljNGY5NTk4NjJlNTdhMDA5NDFjOTYyYTFhYjQ2MWM5MWRiNGRmNzQ1ZDcxN2MxMmEwOWI5OThiZGViNWQ4OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDRjZjBkMDBkOTllNjA5OWUzNDllZTY4N2I4NjQ2OTU1MGZlMzE3NGI3YzdhOTRkYjk4ZTUyNGNlYjM3N2JhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDI0MGJlYTdmNzRmZGM2YzEzMTI0ZGMxOGRmZjliZjBiZTJlYWFhYzkyOGIzZDBlNWQyOTkzYjM1MzAwN2NiYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWM2ZWE1YzY1NGM3ZTgzNmMyMTM5NTI4N2ZjOTZhZmFmZWQyZmM1ZWUxNzVkZDVlNzMyN2M1NjFmODliZjFkYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_eadf41115fdb4ad281fddff4ae2bd9fe",
+      "statement": "JS_Utils.getEffectiveDateInfo() mirrors the backend cut-off rule (day <= 15 this payroll month, 16+ next month) and effectiveDateBannerHTML() renders the notice; context 'withdraw' flips the copy to the last contribution month while enroll/plan-change use the first applies month.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Utils.html#L10-L51",
+          "version": "repo-lines-v1:sha256:8918510f1744126c219c7b525a9bf22559d303796d55893d2d5fee8d80e4d6b4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzZDQwYTQxOTBlNmY5YTY5NzI4ZmEyZTlhMTliMTNlOWViNDJjOWMwNGE5ODdlM2EzMTA2ZjIzYTdmZmFhMjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyZWZkODZiZmU4OTU2OTBiNzZlNjM4ZDljZjM0NWY0NDkzZjc4NjA1OTZjODUzYjIwZmU3OWQ0YTFmMmI0YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjYjFiM2JmZjA3Zjk4ODIwZDIzOGE0Nzg1YTNlMDAzODQxZDRjNzAyMDAxMGE0MmY5OTYyZTFhMDE1ODc4NWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c3e44f95ceaf4d1f875319d0d93ee37f",
+      "statement": "REL_LABELS in JS_Utils.html is the client-side mirror of REL_LABELS in Code/Config.gs; rel values are stored as English keys (the <select> option value) and relLabel() maps them to Thai-first display labels, with unknown/blank keys passing through unchanged.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Utils.html#L53-L70",
+          "version": "repo-lines-v1:sha256:b4483b7962473d18bd0d29144dd51f085c0b73807af70e0f5452c831a57ea2a9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2YzI2MTRiODRkNTAzMTA0MmVmMzg3ZmNmODc5OGQzZTZhNDdhYjJlMTY1MGU5MDRjZTRjMTdmOWU1ZGU1YjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwMGU0MGUzYjM0MTc5Y2FlNDM3Njk3ZGI1MDJkZTUwZWU5YmE3ZDU4NDBjYjNkY2I0YmM5MWUyYTJjNzUxMTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMzU4ZjAzNzFhNmU3MzJjNDM0MDMzMjIzNTE5OWRjZDkxZWJjNDYyMzlhNWRkY2ZlNmY5YTYzZTZlYmVjZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c9016cc292054860bec00375064f5add",
+      "statement": "openWithdraw computes the 5-year vesting verdict from globalUserProfile.tenureY: own contributions are always fully eligible (static green), while employer match is not eligible until 5 years (red) or fully eligible (green); it also renders the withdrawal timeline via buildWithdrawalTimeline and gates submit on the confirm checkbox.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Withdraw.html#L6-L49",
+          "version": "repo-lines-v1:sha256:eef7917adc3b7b5f2b8c61577bed2453e90669a416905d25d3d6bdba6370af13:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxZDU0MDYyY2YzOTc4MzhjZmMwM2I0MmFkZTNlMTRjMDhhMjMxNzllNDIxZDdkYmE3ZDgzYzNjMzY4YzdkNzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1MTJjYWI0NGM2NGZjNTVlMTJlOWQwNDNlMGNjMzMxNDE5MWRkZDNhZDBiMzYyN2Q1NTRlODE1MzM5OWFjNGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxYjUzMTYwMDM3MzA3YWM1ZmM1OTAxMmMwYTViZTQzYmU0ZWNiMzMzY2IzZTY3NmYwZTY0NDNmOGZjOGZlNmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a15f76076d3e476683c1a449b8fa18f5",
+      "statement": "The wizard's validateStep() gates the Next/Submit button per step: step 1/2 require a non-null contribution/investment selection, step 3 requires beneficiary total exactly 100% with all fields filled (with over-100 vs under-100 helper text), step 4 is always valid, step 5 requires a non-empty signature; the beneficiary manager's validateUpdateBen mirrors the same 100%-total rule for the Save button.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L357-L396",
+          "version": "repo-lines-v1:sha256:9122a80bfc52dac406226dad06f2d6be15dbf6cf17e92edb5b44f311d9034fbd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2MjkzMDFlMmJkMGMwNWFhY2VhMDViZjU4MWI5NGRlODQ0NzhjNmQ0NDY2NWVjNzg4MTE4Y2FjM2JmODEzZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkNTIzYzlkN2ZmMjNjMTlmMGU1NDJiMzFkNjZiMzQyNDgzOTRiNzcyNzAwNzRlNzdhNWVjODg2ZGUyMmIyM2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2MjdhZTMzMjhkZDYzMTRhZDEyZTg0NmUzYTExMzVjYzAwYTc0MDZhNDQ4MjQ2NjY3ODhjNjU2NTBiOWY1ZDAifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L181-L193",
+          "version": "repo-lines-v1:sha256:7de5e68912fbb110b259687c47ed7474d252711908a09c0d22b133f5de795661:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMWRjOTRlYTAxNThiMjllYTM0MjIzZjViNGQ3MTU4MTk3ZWRjNDI5YWIyZDA5M2UzNjIzYzNkNTVlZDI0YjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NWVmMWRiYTUxY2U0M2RkMzIyMjdlNGUyN2Y5YmIwYTZjMjhkYmUyMjUxOGQ3YjVjNDJlZTJhZWNhOTIzMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzMjg5YzE2NTRjNDdhODQwNWY2YzBhYjkyODhhZjFhOWI1Yjc3MGE2YWM5MDNhNmQzY2JiZDNkNjdkNzZjMGQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

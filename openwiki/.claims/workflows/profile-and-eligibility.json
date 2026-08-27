@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:8e1e4578ccc4a38ecb56bd50ff2710c4b8fbeb5dfbb00e1d8ffd3e4cbb63bddf",
+  "claims": [
+    {
+      "id": "claim_a338446ba1dc48009c58a7cedff8d0f2",
+      "statement": "getUserProfile() resolves identity server-side from Session.getActiveUser().getEmail(); the client never sends the email — it lowercases and trims it before matching the Work_Email column of the Users sheet.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L5-L25",
+          "version": "repo-lines-v1:sha256:1fc4a3087d3a4305fa1fb2adeb08af1f5384a7529d84507b554b8a6467baee79:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwYTFmNjEzNzA3MzU3MGNlMDc2MmViOThhY2E4ZTVlYjU2MzUzMjFiNTY5M2YwNjY1ZDQ1ZWUwZDdjYjU2MGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlY2VlOTVmMTY4Yjc2N2I0Y2YwN2VmMTRmMzdlZDM3N2MwOWRmYWIwMDkxYzY3MTcyMjc1M2YyOGE1N2U1MzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMxMzVhYzc1NTYyMzZiN2E1NGRkOGZkMGQ4N2ZmMDg3NzQ0YmJmNTQxZTRhYWMzYmRkNjhmMGNmZDU4NmRlMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFiOTk4ZTI0Yzk2ZDViM2UzOTBmZmY0NjQ5MzZkNzFiNzk0MzRjNjJlZWQ0MjAxYTE2NTAxNDJkY2Q1MGQ3ZmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4696906971764192991639e2f3d55cb5",
+      "statement": "On a successful match, getUserProfile joins Users → Enrollments → Beneficiaries by Allstars_ID (captured from the Users row) and calls getPendingTransactions(allstarsId) for the Audit_Log-derived in-progress box, then computes eligibility and returns a single object the frontend consumes wholesale in populateUI.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L24-L97",
+          "version": "repo-lines-v1:sha256:d280b7c073722b70740a6bfe0f066df46d906c269927caffe0f3fa47e411c498:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1MWE0NjFjZjQ5YTA0NGRhZjY2MzUxYTVhODUyMDJkMjc0N2Y2YzkzYjg4YTM4MmIyYjk4ZmYxMDJjZTczYWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Y2YwZDZjOWY3MWI3ZTBhMzhiNTAwMjEyMzBlMjdkNjI0OTZmYzk2MTE4ODBiODUwOTk5NjgxNGZlNDIyNzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRiNjkzYTc5NzRkNDU5N2JiYTBmYTZiOGY0NGM2MDM1YzI1MTk4MjZmYTQ5NmZjMjRjOTViMWEwYmZkNWRmNGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYjhkMGM5OTQ1NTgyMmYwYWY1YWNkNzc3YTQ4M2U1MTkyNWQwY2ZhYjhiMzhlMDg4ZWVkZmI4OWE3YWRjODEifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L99-L176",
+          "version": "repo-lines-v1:sha256:9a891ec4baed46c1ae8dc2ed258da944c6c2b556374cca7e7ce01b11c363269a:eyJzZWxlY3RlZExpbmVDb3VudCI6NzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyOGYxYjRhZTZlNmNiYzkwYTY1ZWFkMWU4ZDk2MTk2MTU5ZDRjZTA3NTFkMGVhZjBjMDcyMDZiOTc3ZTYzZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzMzkzNjEwZTcyMzYzMDg5MmI2YTA5ZTk4MGRlZjNiNGZkODRkY2NhNTQ4MTFkZWRiMTNkYWUyOGViN2E3OGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxYmEwZmJiMzQ3OTg4ZGQ2NDgyYWU2NTdkMzcwMWM0NTRiZDFjMjRiYTYzYTk1NjI2NTk2MDc0ZmE2ZmFjZmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d248dbfa2124564b6d026e10b4ca6f9",
+      "statement": "If no Users row matches the session email, getUserProfile returns {success:false, msg:'...User not found...'}; any thrown exception is caught and returned as {success:false, msg:e.toString()}, so a sheet/schema error degrades to the error state rather than reaching google.script.run's failure handler.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L178-L182",
+          "version": "repo-lines-v1:sha256:7dca2d253440109ad29a977682acddf697e191924490e8f717a634f0e3b0784c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWRlMDg0ZDQxYzgwMGFmYzgyMTEzMTZlYzRkYmU3ODJmNDM4OTIyNjgyMTAwNGM4N2Y5MjRmMGY5YjQ5NDc2YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTM1NmZjZmZkNGU4OTk2NWMzYTA5YjU2Y2NkNmI1Mjg3ZmZhMDllODliMDY2ZWI5MGJkMzQ1YjBlODgyNGRmOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4f73029a012c4fccaa3b9abe4065f324",
+      "statement": "Enrollments join is by first matching Allstars_ID row and captures Withdrawal_Count, Current_Enrolled_Date, Last_Withdrawal_Date, Current_Plan, and Investment_Plan; isEnrolled is derived as currentPlan ? true : false, and Investment_Plan is read defensively (null when the column is absent).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L42-L63",
+          "version": "repo-lines-v1:sha256:6a6c5e26875671664a081e9860fec224a85cf4c850febb3fe509cbbef0ee7000:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzMmViZGNhZjM4ODkzZjc5YzQxNmM0OTlmMWMwYWI2ZDI5OTIyZmY3Mjg3YTM3OTY1YzdkNmUwMzE4OGExODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwNTcwYmQzZWYwNDY5YjExZGI5NGJmN2NkNzEwMzZiMWM4OTExOTA3ZDQ4MzlkMDMwZGI2MDYwZjJmMjY5NmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg5YTQwZjMxNmZjZGVlMWUzZTliYjc2MTk1Y2FiNmVhY2MxNDYzMzJlNjA5M2E2MDk4ZmE4MTljOGY2MzgwNjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6c5a104753dd4b71b29b42092f24273e",
+      "statement": "The Beneficiaries sheet is an append-only ledger; getUserProfile reads it bottom-up so the first match is the newest active row (becomes beneficiariesJSON) and pushes every matching row into beneficiaryHistory, so the dashboard and beneficiary manager can render the full edit history.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L65-L94",
+          "version": "repo-lines-v1:sha256:776e0d5cd3316553dcd0468d3fe6554e53d8158bb56afee54ce3674f372c1788:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5ZTAyNTIwYzMwNTA1MWU0M2JmMTUwZTk2MGE3NTRhYjQ2M2MzYjEyNzIxMTliNzY5OGFmOTE4OTNmMzg4NmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNzVjYTg4OThhNTZhOTZmZDI3NjY2OGEwMjc1N2UwZmNhY2I5MWY5OTAyYjZkZThmZGY5MTYzZTRkZTQ4ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMWZjMGQ3ZmEzYjE4NzU4YWIxNzFiOWZjYWIxMjJhNmE4Mzc3YzdlNzJmNWY3YmE2NmMzMmRjN2VmNWUyNDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_053530817c804fe8a561280dc27c6d67",
+      "statement": "getPendingTransactions admits an Audit_Log row to the in-progress list only when the Action is in CANCELLABLE_ACTIONS (Enroll, Change Plan, Withdraw), the latest Event_Type is SUBMITTED or EDITED, and isWithinEditableWindow(submittedAt) holds; beneficiary and investment-plan changes are deliberately excluded because they take effect immediately and have no cancel state.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L216-L254",
+          "version": "repo-lines-v1:sha256:b316080bd7068993466fa65941286694a94aef990d13e099b1736caaa8245c0e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwOGJkMzA2YTRiZDRmMTNjZTMwNTcxNTVhNGJhYTgyZmY1MGFkMTk0ZThjMjhhYjZmMmJjMmE1ODgzM2E3YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNTM2ODQ2YzI3MGE1OTEyYzA0MGQwYTUwMmVlNmFkYzk0M2JjODYzNDgyYjRhOWUzYTc3OTMxZmMzNjFjMDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b2ebe17239054a099e3416e63949a47d",
+      "statement": "isOnProbation is true only when Users.Probation_End is a real Date still in the future; the end date is surfaced as a string for the 'Eligible to enroll after' message.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L102-L108",
+          "version": "repo-lines-v1:sha256:8a6e15c3cafc79743a2c314c521bc41f4ed0b134cac8b10444a446e12985cb35:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDMzNGZjMDdkYzA1ZjViOGU4ODMyYzUxYWQyMWQ3OTg5NDk4MTE5NWY5ODZiNWMxODJjODk0Njc4MDllYzFiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDk2MjJhOTg2MjkyMjVmMjU2OGNjOWMwNjMyNTlkNGVmNDM1YzNkMjAwMzg5MTJlNDEyNTZhYTdmMmRmOGIxYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWYzZjIyNDkzOWE0ODVmMzVhM2E1ZDJlODQxMTBjNWMwNjFkOTczMzU3ZDY4YzYyNWE2NDE5ZDBlYTFmMmUxNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b3547611db1446d88d8c62ac9b613590",
+      "statement": "isCoolingDown is computed only for Withdrawal_Count 1 or 2 with a real Last_Withdrawal_Date: unlockDate = Last_Withdrawal_Date + 6 months, and isCoolingDown is true when today < unlockDate; the date itself is the switch (no separate flag), and cooldownEndDate is surfaced for the 'Re-enroll on' message.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L110-L123",
+          "version": "repo-lines-v1:sha256:96aa2deded40369ae23f73003ecc09b1994b39ba4f22d79aea88b4573b13f08c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjMzdjNGIzMzIwYmFhM2EzMTJhODYyYTkzODg0NzY4MzM4MDI0NjFkMzM4OTdjNzY2MGEyNGM3N2M3NWMwNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxYTNhM2VkN2Y3ZjJkMmJhYmNkNjJmNmI3YmM1ZGE5ZTNkNTVkZjAwNTVkM2U5MGU2NTEyMzM5M2VjZmFhZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwNDUxZTk2NDk1MGUxYjEyNjcxYTIwMmYwYzA2ZDNjOTc3M2U2NzFmZTU4NzllYjFmZmQ4NjNhZjNkZDBjZWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5194bba5513245648ef198b567fa6073",
+      "statement": "Tenure's membership-start rule: startDateForMath defaults to Hire_Date but switches to Current_Enrolled_Date when Withdrawal_Count >= 1 and the enrolled date is a real Date, so a re-enrollment after a withdrawal restarts the tenure clock; the dashboard consumes memberSinceDate/tenureY/tenureM from getUserProfile, never the raw enrolledDate column.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L125-L146",
+          "version": "repo-lines-v1:sha256:1a4cec6ea2ad9760d0a34ddd3ac2964d802694c9a8873ac6c61087e12e1cef11:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0ZjIwMmNiMzI5OWY5NTU4ODVlMDVmYzIxMDMzNWYxMWU0MDBiOGY2NmJiYzRiNDA2MzJiNTdhZGE4MTY3MTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNzVjYTg4OThhNTZhOTZmZDI3NjY2OGEwMjc1N2UwZmNhY2I5MWY5OTAyYjZkZThmZGY5MTYzZTRkZTQ4ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM2Mzg0MzAzMmI5MjkxZDY5NzBiY2I0MWE5Y2Q5NGI1NjAxN2Q2Y2JmZGM0NTlhMDkwNDU0YTg0ZDhkOTVlMTIifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L171-L172",
+          "version": "repo-lines-v1:sha256:33709fc7f155383402e5d28b2336075cbf72a217728e9c523979553c90516f24:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjg2MGI5NDFkZWE1NGU5OWMzZDVkNjFmMmUzZjBkNjhjMDIxMDI3MDlkNDRlZTI3MjRjYzhhZmI4NjM2YjdmMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODk0NzU0M2Q0N2E0NTk2NzhiOTMyZGZhYTM3MTlkNmVlMzljNWEzNTA3ZWQyODljZGJkYjI4ZDRlMzExZWExMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNThjZTY1ZDk2NmQ2ZWIyOTI3NGI0NTEwNjY4OGVmNDI2Zjg1NGQ2ZjcyMGIzY2JhNzMyNzU4ZTZkNzA4YTY3MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDI1NzczYmVkYTg2ODAxYjgzZTA3YWI1OGFhYjE2YzIyYWNiM2RhNGYwNTA1NTUwNjcyYmVmYTZkYTg1YWMwMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_51e9d73f0a3d46f7bfc7f32ce9de3b54",
+      "statement": "matchPercent = calculateMatchTier(tenureYears) maps fractional tenure onto four exclusive-upper-bound bands: <5 →3%, <7 →5%, <10 →7%, else 10%.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L147-L147",
+          "version": "repo-lines-v1:sha256:b02e6cd25af7fa8f230db52a09c2e0e56f3397ba0fbc23cfddb0fde3f3fe0c2c:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZTZjZDI1YWY3ZmE4ZjIzMGRiNTJhMDljMmUwZTU2ZjMzOTdiYTBmYmMyM2NmZGRiMGZkZTNmM2ZlMGMyYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZTZjZDI1YWY3ZmE4ZjIzMGRiNTJhMDljMmUwZTU2ZjMzOTdiYTBmYmMyM2NmZGRiMGZkZTNmM2ZlMGMyYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjViZTE4MWQzYzA3NThhM2U0ZGEwOTkxZTNjZDNhOGRjNGZjZDFmOWZkNDBkZWFjOWU4YWJjNGFjN2M4YTEwNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDY5Njk0NjM4OWVmYzVhNWQ0NjliNTZmYWE1ZWI5NmRjNGI4NjNmODdjNDZiMzVlZDY2OTI4ZDY0OTMzNWE5ZiJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L29-L34",
+          "version": "repo-lines-v1:sha256:8d15b71fb00c496c616c86bf8ea8af5818919af39de7101cde4c0eec5c31985a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEwZmIwMzZhMjY3NzNhYjZkNWM4MTlkZTlmMmQ3MmFmNzMzNWZlZWE2MDVmM2FkNTNmODZiOTcwN2VlOTg5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ5ZTFhODViZGJiZWUxYzM4MjE1MjA3MjQ4MDhiNjM0NDk0MGZmNzg5ZjhmZjQ5ZTNlMTU1ZjAwOTliMzZiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWNjNDIwODg4ZTZlZmMwYTJmMGVkNmY1NGQ3YmJjMTNjMGFhZGM3OGZiNzBmMjI0OTA0YTk4NDM1YTkwMThhNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cac7f47a8b0a4c6ca410d1ebeefe5e0a",
+      "statement": "The returned object carries the eligibility flags (isOnProbation, isCoolingDown, cooldownEndDate), the tenure tuple (tenureYears 2dp, tenureY, tenureM, memberSinceDate), matchPercent, pendingTransactions, and todayBangkok (today formatted in Asia/Bangkok) — all consumed by populateUI.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L149-L176",
+          "version": "repo-lines-v1:sha256:4ad3bd3c3b66f41edb911b3512f35e93ef50896e06704e426bd57b24069ebf36:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzOWViMTUxNWU4MjE1NGY5MjdkMDlkNzNkNjkzYzUyMjM5MmMzOTFlYzAwMmVhZGI3ZmY0ZGRmNjM1Y2YyZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ1Y2Y3NDg3OTk3ODY3Mjg1ZmMzNjU2NTVlNzVmZDhjMTM3YTMxZWE4YzYyMzcwYWIyYTFlNTYyNzJhNzY0MzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxYmEwZmJiMzQ3OTg4ZGQ2NDgyYWU2NTdkMzcwMWM0NTRiZDFjMjRiYTYzYTk1NjI2NTk2MDc0ZmE2ZmFjZmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d464761957b84e479fe20980644b30dc",
+      "statement": "checkPlanChangeEligibility re-resolves the user by email (separate from getUserProfile), reads Last_Plan_Change_Date and Current_Enrolled_Date, takes max of the two coerced Dates, adds 6 months, and returns {locked:true, nextDate} if today is before that date; a missing user degrades to {locked:false}.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L210-L258",
+          "version": "repo-lines-v1:sha256:247d2c33d15ad5ea196bb9d1c8ea37b2fd8961c8e19674c21a2bcb422e795509:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyYmRkMDRkNTkxZjVhYWZkN2E4YmU3YTc1OWJlNTNlMmYwMGRhODA1OGVlZWRmM2RiYTQ0NDA2NjlkZDIzM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2MjYzNGNjOTNiMTdjYzljYzBhOGJkZjA4NjBhZDVjYTA1OTI3MDBkOWY0OGMwOGE3Nzc5MThhYTZjNjg1MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRjODZkZTgxY2JmYzc5ZTg1NmJhOGQyM2M1YWJmYWVlZTU5NzE2YzJhYTRjYzA3NWQ3ZGQ5OTk3ODA3MzczMTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5c4e6e637dad446ab5d5a4892621011d",
+      "statement": "checkPlanChangeEligibility is a pre-compute for the change-plan modal variant only; the write-time refusal comes from processChangePlan re-deriving the same max(lastChangeDate, enrollDate)+6 months math, so a stale planChangeStatus is harmless and the server re-validates regardless.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L292-L312",
+          "version": "repo-lines-v1:sha256:447d50e8c4d20b46e2894a599fb8d07a38dc9cc6d918c70fc006a4d4efe74fb3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5Mjg3M2UwNmNlN2U5MmQ0ODJkYjQxMGY0ZjNmOTA3YTk1YjdmY2NjYmRkZWNjN2ZlNzUwYTVlOWJlZWY4ZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3M2RmZmRjMzBhY2JhOTQ4OWQ2NjU0MzgxMGRiZDQxZWQ2Yzk2Y2IzMmM2NGQzNTE0YTRiNThlOTVhZjc4YjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE4ODBlMjc3N2ExNjRiZjQ3MjlmYjg2Yzg0Zjk0ZTUzZGYxOWRmOGJiY2JlMTUwNzQzN2FiNjQ0MzBkOGJmM2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c1b29c1b6914b238d365d8d484f7ff0",
+      "statement": "populateUI is the single success handler for getUserProfile; it stashes response.enrollment into globalEnrollmentData and the whole response into globalUserProfile, renders the in-progress box from pendingTransactions, then runs a strict non-commutative status cascade (lockout → probation → cooldown → enrolled → eligible) where the first matching state short-circuits the rest.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L42-L164",
+          "version": "repo-lines-v1:sha256:17912904a8b93d8543e61efa5779177367012a2b25ffb5894d669a6bca2213b3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwYjdhNTJmZjhjODM1ZDAzN2I2MDVlZDgzN2E0NmJlYTFiOGYzYzMyN2ZiZGMzNWE5MGMzZDAzOGE2YmNjMGUzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5YjYyZjYwZDg1OTBhNTc5Y2Y0NmY4ZDY3Mzc4YzRjNTcyYjk2MmNlY2NkYjkwYzdhNWY3YjQyYjk2MDc4MmE0IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI0YmI4NzJkNDA0NmI0MDQzZjU3ODhlZDg1NDIxMjc3MGYzMTlhMGM4YTdiMjE4MmFhYTdlOTE2ZmY3NWY1OTQwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhNTZiNmNhZjJmYjAzYzgyZjljODJkZjcxNTEzN2Y3ODE4NGFjNmRhMjQyNWZhYTY4YjZmMzUwOTgwMDY3ODA0In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_c017066ccb064afcbaa7711fe6524b31",
+      "statement": "The 'N' in 'Enrolled #N' / 'Eligible #N' is withdrawalCount + 1 (the attempt number), not the count; a pending Enroll flips the status pill to '—' and the info plan to '—' while the in-flight row is shown.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L133-L164",
+          "version": "repo-lines-v1:sha256:3c80d16c114e3a954196ce7bbdaf1446148338dec5279815085bf7bf228ddc42:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiOWZmYWE1MDVjMDdiZjZjM2JkMjIyZTFlM2I1ZGZlMGQ5ODBiNDlmMjljOTE0MDk4MDA0NjMyMjkxZTQyMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQzYmU2Y2ZmNzAwYmI5NWIzMDI0ZTVhMWY0N2JhMDJlM2YxYWIyYjk0M2EyZGY2M2IyOGM1NGMzNzUwYTM2ZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1NmI2Y2FmMmZiMDNjODJmOWM4MmRmNzE1MTM3Zjc4MTg0YWM2ZGEyNDI1ZmFhNjhiNmYzNTA5ODAwNjc4MDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1d1ed07885004f4bbcb67b1134e9e53d",
+      "statement": "showWithdrawalMessage renders the #cooldownMessage div for both lockout and cooldown states via buildWithdrawalTimeline(wdDate, response.todayBangkok), and suppresses the 'Re-enroll on' footer when withdrawalCount >= 3 because the permanent lockout has no re-enrollment path.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L612-L630",
+          "version": "repo-lines-v1:sha256:ade98cf6e8e66b2365489d1c23b2bc81cfb6fdc277734b0638d5e671a73bc202:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMzY1MGNhZTM1NmY1YzJmY2E5ZjU0N2ZmODRiNmZkZDNiNmJlZjQ2YTYxMDM1YmM0ZWQwNmVhNjRmMzNlYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxNTc0MTQ1MTIyYjNiMTMyMmY1MDk4MzUzMDBkZjJiYTIxZGM5NTJlNTU0MzcyZWM0NGFkYjQ3YmExZmJjZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiNWJjYzcwOWNjYmJmNWZiYTAzMWM0MWYwMDE1ZmFkZTQzMzc1YmIyNWRiZDQ2YzM0MDg3YjAxYWFjMmUzNmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_69476bd4ef544843acf095196e0f9f53",
+      "statement": "Every mutating action ends with showSuccessToast, which after the toast fades forces a home-reload by re-issuing both getUserProfile (→ populateUI) and checkPlanChangeEligibility (→ applyCooldownUI); this is the SPA's substitute for a server round-trip and re-reads canonical sheet state rather than patching the DOM from the action response.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L25-L40",
+          "version": "repo-lines-v1:sha256:5614de7a0e28cfa58965814b61264b020e4df2a3b5e1cab6f3e39ee4f6b62e8b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5OTZhMjQ5YmM5YWI3MzQ5ZjhkYTUzZTk0MzZlOTdlOTYzYjQyYjBmYjczMDI1NzRiNmU2ODY2NGI2MmU0MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1YjQxZjViYmFkNjQzZmRjMmZkN2Q1ZmRjMjllYzJkYTRmNjk3YjI5NDc4MGQyNDJmMGJlNjgxN2M5ZDYwNmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0YjgwZDVkNzFkNTY2ZTBlYWQ5MjA2NDRkOTIxMDBlZDI4YzQzMWU1YzRkY2ZjOWNkM2U0MTE2OWNiOWYwNmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3003daafd5474e38a4c92dd917a7c302",
+      "statement": "trackAppOpen is fired client-side on DOMContentLoaded (not from this server path and not from doGet), so the forced home-reload's soft re-render does not re-fire it and does not double-count the GA4 app_open hit.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L7-L15",
+          "version": "repo-lines-v1:sha256:0a3b92544bae1deaad7d0bee8321395317a09389d95c292364a125fdde91da2c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRlMDU3YmNjYmEzOGQ2NjZkN2EzZTJhY2MzZDMzNDU0NGJiNzRhNThkZDU3ZGRmZDI5ZmQwMTE5YmJiNzM1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmY4YjhjZDhiMDJiYTJjODE3MTRhNDdlZDg3YzEwNzk4MWZmZDRmNTdmMzIwYmFkODkzZmIxM2RkMDA0ZWQ1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjFkYjVlNWMyYWFmNmFjMWQwYjk3NDY2NmU0NGEwYjFkYjM2YTIyM2IzNGJkMDU1ZjFjZTQ3ZjRjMWQ5ZDQzZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_20b41007ee7448f98c7321ae0fdf00ee",
+      "statement": "The sheet names and SPREADSHEET_ID used by getUserProfile come from Config.gs constants (SHEET_USERS, SHEET_ENROLLMENTS, SHEET_BENEFICIARIES), so a sheet rename is a one-line config change; the Beneficiaries ledger read is defensive and degrades to an empty history when the sheet or its columns are absent.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L5-L17",
+          "version": "repo-lines-v1:sha256:3e028c41b1284079df201d392496ce5fc42699e0de63bd0806fcf88b4831c6d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5MzI0OTdiMjdhMTMyOGZjYzBiZmQ1Yjg1MjRiY2IwNzVhYWE3YjA2ZWU4YWMxODY5NDg1YmM0M2I5OWExNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYTA3YzUzMTNjNGU2ODEwZDNlOTk0YWFhZjFkNmJmZTg3Yzk4ZDZkNDIyZmQ1MjhkZDI5YTk3NGYwNDc5ODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4MzVhYjE3NzRjZWU2NTdkODhkMmZhMTcwYWIxNjc1MjYyODRhODJlYzI3Y2FiNzk4N2UzYWMxNmI4YjU0MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMmZkNzAxY2Y0NTg3MGY0ODM5NDliNDc2ZmEyOTJmOTZmZmZlNjg0ODkxMThkZWJmOGFlN2ZkMjFmMjE1YzAifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L68-L94",
+          "version": "repo-lines-v1:sha256:edeb80445b23ef478db3c5dccf2288c35c04b5cff3bfb0f7ef8c2bf8001bf1de:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5MjRhMDlmMjhlOWUwNzliMDJkYzNiNjgxMzg3ZWI0Yzg3NTU0YzhiMmQwYzVlODNhMDdlZTM2ODZlNmQyMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViYjE5NTM5ZGU0NTA0OTFlNWJiNmViYTBjNTIzZjZmMzg2NTQ2MmQ4NDQyODM0ODY3OWQ0YWIxOWIwNWRhNjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMWZjMGQ3ZmEzYjE4NzU4YWIxNzFiOWZjYWIxMjJhNmE4Mzc3YzdlNzJmNWY3YmE2NmMzMmRjN2VmNWUyNDcifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:6f42a6f353fdf24983ebc71f27349d7d4cf274eeefd402754d8c12ac4c6552e9",
+  "claims": [
+    {
+      "id": "claim_e0a9cf9678e9430fbae91262ad6d1755",
+      "statement": "populateUI in JS.html evaluates user state in a strict non-commutative cascade: permanent lockout (Withdrawal_Count >= 3) first, then probation (today < Probation_End), then withdrawal cooldown (within 6 months of Last_Withdrawal_Date after the 1st or 2nd withdrawal), then enrolled (Current_Plan non-empty), then eligible default. The first matching state short-circuits the rest, so a permanently-locked user is never also shown as on probation or in cooldown.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L116-L164",
+          "version": "repo-lines-v1:sha256:22b50f884c7d838d543387e00e398f64844d39bf4dbcac444dbc8b4c88060ff9:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MGU3MDAwZDE3NTNlZTQ1ODgyMGM1ZDZhOTkxZjQ3NDcxNTQxYTdmMzE0ZTljZmFkNGZmOGU4MWFkMTRiMjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyMDQ2N2IyOTU5MzAwNjU3MzRhYjgxNDFjYjJmYzQ0YjhmZjFiNjE2ZDc0Y2RhNmUzNjdlZDIxODEwNGEyMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1NmI2Y2FmMmZiMDNjODJmOWM4MmRmNzE1MTM3Zjc4MTg0YWM2ZGEyNDI1ZmFhNjhiNmYzNTA5ODAwNjc4MDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7a5413610e2b45b9aae3f9be3df396d6",
+      "statement": "The probation, cooldown, and permanent-lockout gates are enforced client-side only in populateUI; the server-side write functions processEnrollment, processWithdrawal, and processUpdateBeneficiaries do not re-validate these gates before writing. Only processChangePlan re-validates the 6-month plan-change lock server-side at write time. This is a known production-readiness gap.",
+      "evidence": [
+        {
+          "resource": "repo://App%20Design%20Document%20-%20Internal%20Provident%20Fund%20Enrollment.md#L83-L90",
+          "version": "repo-lines-v1:sha256:2e69f841180d04bf328e826c51c92a07b98806268ed1184200dda7c708097f9f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZhNmY3ZmRkY2RjNzc2MjM0YmI4YWRiOGNkNWM2ZjkyMzk4NGMyYTllMTIyYjlmZWVmZjIzZGM0NzBmZjlhMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmFkMzZlYjI5YzQwYWQ3Mjg2NWE0M2Q4YjZhYThhNDRkYjI4MDQ4YTQyNjcyOTUxMWY2NGVjNmNkNWZhMWZhMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ1MzY5OWE3ZDI2ZWZiNjJlMjk1MTNhNjk1NjIzNTIzOTg5NWE4ZWRmMjE3NWU1OTc3YTdiYjE2ZjRlZmFmZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjFiZjliOGU1MGJmM2MyMzA1NmZjNzViNTI0NjVkOWUzNzdmOTc4MmZkYWIwNWIzNDQ0ZDM1NTBhMjQ2YmRjMSJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L304-L312",
+          "version": "repo-lines-v1:sha256:4bc8f0dbe1f8ee62a9504199b63f7925315a4d4b12cdfb0b60027bd52de0f28c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmVkOWVhMWI3N2I5YzU5OWRjMjE5Zjc2NmI5MDk0NWVlZjIzMjdiZDZlNWQwYWFiMzk5ZTZmY2M4MmY2YThhZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDU5YjA0Yjc2NzE4NmM4YTA3YTYwMDcwYzE5MjQxZjkwNmE5MmY4ZDUxZGU1MjkwNDQzM2U4MmRmODliNjI2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTg4MGUyNzc3YTE2NGJmNDcyOWZiODZjODRmOTRlNTNkZjE5ZGY4YmJjYmUxNTA3NDM3YWI2NDQzMGQ4YmYzZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_084bc0de0c3a4ac9a552ba453177233c",
+      "statement": "The state cascade checks cooldown before enrolled status, so a user whose Last_Withdrawal_Date is recent but whose Current_Plan is non-blank would be shown as Cooldown rather than Enrolled. MIGRATION.md therefore requires that an enrolled re-enrollment row (states 5 and 10) have a Last_Withdrawal_Date more than 6 months in the past, or the cooldown check would wrongly mask the enrolled status.",
+      "evidence": [
+        {
+          "resource": "repo://MIGRATION.md#L117-L124",
+          "version": "repo-lines-v1:sha256:c8ebac777f2e420404e10c16b0a544204c8e049da18871aa7c04d620058cf853:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGZmZTI4NjY2ZDdhMTcwNWFhOGY3YTk0ZmJlZGRmOGJhM2RkM2E2ZWFlMmU1NDI0ZTUyNzNlZGFhZDYzYjQyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGZhOGViNzgzYzg1MTAwYTE0ZmQ5YmRhYzg2ZDU3ZTkyNDA5YzVkODE5MzRkNDllOTYyMGI3MGM5MzQ1NGZiZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGFmZTVjMDhkODljNmQwZjVkNWExMzYwNDkyMDMzY2E3N2E3MWFkZDM4Zjc0NDVmZDhmMmQ4MzEyMjI4YmRlZCJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L116-L164",
+          "version": "repo-lines-v1:sha256:22b50f884c7d838d543387e00e398f64844d39bf4dbcac444dbc8b4c88060ff9:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MGU3MDAwZDE3NTNlZTQ1ODgyMGM1ZDZhOTkxZjQ3NDcxNTQxYTdmMzE0ZTljZmFkNGZmOGU4MWFkMTRiMjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyMDQ2N2IyOTU5MzAwNjU3MzRhYjgxNDFjYjJmYzQ0YjhmZjFiNjE2ZDc0Y2RhNmUzNjdlZDIxODEwNGEyMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1NmI2Y2FmMmZiMDNjODJmOWM4MmRmNzE1MTM3Zjc4MTg0YWM2ZGEyNDI1ZmFhNjhiNmYzNTA5ODAwNjc4MDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ea1dd7d9c76645198cb08f40a99fc557",
+      "statement": "The payroll cut-off rule: a submission made on or before the 15th of the month takes effect at the end of that same month; a submission on the 16th or later takes effect at the end of the following month. It applies only to the three payroll-deduction actions (enrollment, contribution % change, withdrawal) and NOT to investment-plan changes or beneficiary updates, which are effective immediately.",
+      "evidence": [
+        {
+          "resource": "repo://App%20Design%20Document%20-%20Internal%20Provident%20Fund%20Enrollment.md#L109-L113",
+          "version": "repo-lines-v1:sha256:8ed347b27b2979d25969464ef4b985498d433705a262d611268a115a63b96997:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjYwZmIxMzYxODY1YTc3YzMyOGU4MzAwOGFiYjc1YWMyMmNlZTE4MTQ3MzgyNGQ4YjEyNTUxM2U2MzI4YTVjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjhkMmE1OTk5ODFiYWZlZDhmMTE5ZDQzYzk1NTM3ZGVjNmZiMjYwZWExMDA0Y2I0ZDQyMzllNTE4MThkM2Q3OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzZmYjZhZTY1OGM3N2U3Yzg3ODQyOTI3MjcwNDg2ZWExZGJjZWEwMzIyZmQ0YjZmNzEyZGViYTU4MmRjMjQxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzVhNjU2MTA3YTgwZDYxZDczNDE4NTcyMjc0NDcwNDk4MTg4NGVkNzkzMWQ1MDE5MDhmODZhYjU1MGJlZThlYyJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L100-L121",
+          "version": "repo-lines-v1:sha256:ee02163f02d18f74c0a3be952d51b3fa232795cbc388cbf13c87d99c2998470d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5MGUyMmUyOThhZWZhY2JkMGVmMDZkZDc3OTg0YmE1YzVmMDE1YTk2NWQzNjQwZWNkNTdkMDU2MTNiZjg1ZDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxNTMzOTAwNjgyZWRiYTQyYzc5ZGE1YWI2MDQ3OGYyMTZhYmQxMTVmMjg4Nzk5YmZjYjYyZjRiNDE5NTQ1MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyZTM3ZWY4NmFiZTE3OTU4NzZhZmExNzhjNTM3ZWUzNzUwNTBiMmQ1MzVlZDlmYTljOTk5NjI5YmYzNWZkZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_03234368c4eb4befbd4af13033a08309",
+      "statement": "The cut-off is computed in Asia/Bangkok time in every server-side helper (getEffectiveDate, getEffectiveMonthLabel, getEditableUntil, isWithinEditableWindow) so the day boundary is correct regardless of the GAS project's default script timezone. getEffectiveMonthLabel frames the result as a salary month rather than a month-end date so emails don't read the day as a literal money-movement date.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L100-L151",
+          "version": "repo-lines-v1:sha256:ef37b4d5e4f145d68f2c92dc2e012edfb8a40eabd8efed6db88572be4699b2e1:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5MGUyMmUyOThhZWZhY2JkMGVmMDZkZDc3OTg0YmE1YzVmMDE1YTk2NWQzNjQwZWNkNTdkMDU2MTNiZjg1ZDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxNTMzOTAwNjgyZWRiYTQyYzc5ZGE1YWI2MDQ3OGYyMTZhYmQxMTVmMjg4Nzk5YmZjYjYyZjRiNDE5NTQ1MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxOTlmOTQwZWVkYjcwZTE1NjcwNTU4YmFlNTNlNjA2MmQ0ODA3NzMzYTUxMDU4OTBiNmQ5ODJhYjljZGVjOTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b4fc4792be74cfca23eb7c9e2bad741",
+      "statement": "The cut-off rule is mirrored client-side by getEffectiveDateInfo() in JS_Utils.html, which renders the effective-date banner in the enrollment wizard and change-plan modal; the backend formats a date and the frontend formats a month, but both apply the same day > 15 boundary and must stay in sync.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L100-L151",
+          "version": "repo-lines-v1:sha256:ef37b4d5e4f145d68f2c92dc2e012edfb8a40eabd8efed6db88572be4699b2e1:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5MGUyMmUyOThhZWZhY2JkMGVmMDZkZDc3OTg0YmE1YzVmMDE1YTk2NWQzNjQwZWNkNTdkMDU2MTNiZjg1ZDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxNTMzOTAwNjgyZWRiYTQyYzc5ZGE1YWI2MDQ3OGYyMTZhYmQxMTVmMjg4Nzk5YmZjYjYyZjRiNDE5NTQ1MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxOTlmOTQwZWVkYjcwZTE1NjcwNTU4YmFlNTNlNjA2MmQ0ODA3NzMzYTUxMDU4OTBiNmQ5ODJhYjljZGVjOTQifQ"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L6-L31",
+          "version": "repo-lines-v1:sha256:dea3719b49bb1ffd55d6119fc033f78bce9d6b5bfa13ac0516e2f0bacdcf8deb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1OTU4YzYwOGI3OTFlMGM4NjdmNjA3YTIwODIxNzhiNTQ2YWNkNjAyMmQ3OGUzMjExYTY0Mjc2ZTRkMzY3MjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjYTE2OTRkYTk3NzFmMjNiMGM3MmI2MDcxMmYxZjVmMGUzZGNmODhiZjI4ODRkNDczNDhmOGYyNjY3NzczNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ3Yzc3MjY0YWY1ZmJkODk0MTg4ZGNkNDM5ODk4ZGEwYWE3M2I1NzY0MGJlMGQ4NmJmMTlkMDZhNmZlZTE5ZGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_25c74ad2b051457e97297a44475ea0ba",
+      "statement": "Only Enroll, Change Plan, and Withdraw are cancellable (CANCELLABLE_ACTIONS), and only while isWithinEditableWindow(submittedAt) is true (i.e., before the next 15th at 23:59:59 Bangkok time). Beneficiary and investment-plan actions log a SUBMITTED audit row but are excluded from the pending-transaction list because they are effective immediately and have no cancel state.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L216-L231",
+          "version": "repo-lines-v1:sha256:116ea929ceb462273a2f0c4ff606c9785a74136a5041a08c8eca06c23b9b29e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwOGJkMzA2YTRiZDRmMTNjZTMwNTcxNTVhNGJhYTgyZmY1MGFkMTk0ZThjMjhhYjZmMmJjMmE1ODgzM2E3YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ZDg1MDdkZTg5NGUyMjU2OTVkZTEyMmMwODRmYzgyMDM0MzJkYTNiNGI1MmM1YTNmNmYwNjJkOTdmMzEyZTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhZTcyMTI4YTAyYjUyY2Y0MmEwZTZhNDQ4Mjg2OTc3NWRlNDE5MzRjNTFiNmJjM2E5ZmEwN2Y2NjU3OWMzNjMifQ"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L159-L183",
+          "version": "repo-lines-v1:sha256:47713b8ea764d0f5a0ab9da2337f4b28c5c8f6d2c86cf59681a1bc3995fb26d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0YWUyZmFhNzMwODM2MWIxNDZlMzIxZmUwYTIwODA4ZTRhOGJjMzcwNDAzMzAwOTg0N2I5N2JjNTU3MmUxNjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlNTE4NDFhZjJkZjFkN2NjNTc5MDc4MGViMmNmYTgxNDE1NmExMmNkYTJmYWQwOTY0NzQ5MDIwZTcyZWZjYTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ2NzlkYjRhMDE0ZDkzNTQ3OWU3YTdkZTFlNzM4MTBmZjYwNmVkZWI3NjE1NjgzZThlNTJiMmEwOWRmODFhNjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1aa8a487a6214c2599b65edb08a29405",
+      "statement": "cancelTransaction re-checks isWithinEditableWindow before reverting, and a cancelled Withdraw restores the prior Withdrawal_Count and clears Last_Withdrawal_Date — so cancellation rolls back the withdrawal penalty (no count increment, no cooldown anchor persists). It restores the captured priorValues for the affected Enrollments fields.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L596-L611",
+          "version": "repo-lines-v1:sha256:0142b9d7d0efc3be9dec6f053873d1a82e3536c4bb6e6df86ed2f298b59efde9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5YWI5MGUxOWEzOTA5YzY2YWExY2JiNjAzMzVhYWQzNGUwYzdlMjMzMzA5ZTgxZDQ2NTEzNzNiNjgxYmEyNzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiMjNiNzQ0NzU2ZjUxZDQ0ZDlkNDJlZDgyNjYyMjU2ODk3NzFjMDliNTI3ZGNjMWI5NmFiYjI1YmIzMTAyMTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwMDI3YjY1YzA0ZmQ5NmJjN2MwNjM0ZmM3NDEyNWMxYTNjMzA1OTAxMzMzOGUwZWY1YjBlMDdhYTZkM2M2MTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_20c7f220d8064021aff571d750a0ae71",
+      "statement": "calculateMatchTier(years) in Utils.gs returns employer match by tenure band: <5y -> 3%, <7y -> 5%, <10y -> 7%, >=10y -> 10%. The upper bound of each band is exclusive (the thresholds are <5, <7, <10, else).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L29-L34",
+          "version": "repo-lines-v1:sha256:8d15b71fb00c496c616c86bf8ea8af5818919af39de7101cde4c0eec5c31985a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEwZmIwMzZhMjY3NzNhYjZkNWM4MTlkZTlmMmQ3MmFmNzMzNWZlZWE2MDVmM2FkNTNmODZiOTcwN2VlOTg5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ5ZTFhODViZGJiZWUxYzM4MjE1MjA3MjQ4MDhiNjM0NDk0MGZmNzg5ZjhmZjQ5ZTNlMTU1ZjAwOTliMzZiOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWNjNDIwODg4ZTZlZmMwYTJmMGVkNmY1NGQ3YmJjMTNjMGFhZGM3OGZiNzBmMjI0OTA0YTk4NDM1YTkwMThhNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c6c87e04a02b4db983e75607c9aaa581",
+      "statement": "The match tier is surfaced in the enrolled dashboard (infoMatch in populateUI), the enrollment confirmation letter (ctx.employerMatchPct in processEnrollment), and inversely as the vesting gate in the withdrawal modal.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L118-L118",
+          "version": "repo-lines-v1:sha256:38bb069ff99c40c23864e13e1b2ec86b95a446ddcf97375bc1d7793e6f99f142:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhiYjA2OWZmOTljNDBjMjM4NjRlMTNlMWIyZWM4NmI5NWE0NDZkZGNmOTczNzViYzFkNzc5M2U2Zjk5ZjE0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhiYjA2OWZmOTljNDBjMjM4NjRlMTNlMWIyZWM4NmI5NWE0NDZkZGNmOTczNzViYzFkNzc5M2U2Zjk5ZjE0MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTBjNDhhMDllN2EwYzA4MjllZWFkOTEzOThhNDJmYTE5MzllMDk0NDg1MzY5ZWQ2NmQwYjhjNTk3M2QyMmFjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTJkMzRlZWRhZTA4MGQxMTc5Mjg2YTE4OTYzZGQwMDVkNjFiMThkMGM1NTkxNzNkMzg4MjUzY2Q3YzFlZWI3NiJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L157-L157",
+          "version": "repo-lines-v1:sha256:34a5e72dba19c74466af4eb4b4b4a57d2804d50c8be945533e7c5004f5e49742:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzRhNWU3MmRiYTE5Yzc0NDY2YWY0ZWI0YjRiNGE1N2QyODA0ZDUwYzhiZTk0NTUzM2U3YzUwMDRmNWU0OTc0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzRhNWU3MmRiYTE5Yzc0NDY2YWY0ZWI0YjRiNGE1N2QyODA0ZDUwYzhiZTk0NTUzM2U3YzUwMDRmNWU0OTc0MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmJkNzNkOGU3NzY5MjU5ZmIwODg1YmExNjhiZmU2YTlkOWQ0OWVkODgwNjU2NWFiMzEyMzhmNWU1YzEzNGRhOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2NhMWQ1MWM1NjcxNTA2NTlhNGI4MDZkODk4ODZmMzM1NmU0Y2UwZjY2MjhkY2Y3YWE5MDUwNmQ2ZmViYTcxMyJ9"
+        },
+        {
+          "resource": "repo://html/JS_Withdraw.html#L19-L27",
+          "version": "repo-lines-v1:sha256:b5f11932f1d45ebe3033858842268c8d93be5a10b42b3c85deff28eb2d1002bd:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTI0NGU4MDJjMjQ0Yjc0MDMxYzEwOGVhNDQ4ZGFkMDMxNmVmMjk2Y2ZhNjQ4YmUwZGMwYjFmMzE0NDIwYjkxYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGI4ODExZDNhYmE4YjZiZDVjMTQzZTNhOTJiNmU1NjY1M2JjZGRiYjNlZWE5NjY2ZDZjOGM0OGE1OTQ1NDhkYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODJlOTdhMGY1NDQ4NzVmNjMyMTVhNDI3NzdhOTlmOGIwMzg1MTVjMWQ1N2Q0NDQwN2VmYzQ2YWNhMGRhMjg0MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_58770a86f1d74899b080d41889d8f2f2",
+      "statement": "Membership start date (the basis for tenure) is Hire_Date on first enrollment, but Current_Enrolled_Date on re-enrollment after a withdrawal (Withdrawal_Count >= 1). getUserProfile derives startDateForMath from rawHireDate and switches to enrollmentData.enrolledDate when withdrawalCount >= 1; the dashboard consumes memberSinceDate/tenureY/tenureM, never the raw enrolledDate column.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L125-L147",
+          "version": "repo-lines-v1:sha256:89f58c5a659aa4bb5f3aba5377d3d9f7c0088e05d5f743e21503e66e9a6ac961:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0ZjIwMmNiMzI5OWY5NTU4ODVlMDVmYzIxMDMzNWYxMWU0MDBiOGY2NmJiYzRiNDA2MzJiNTdhZGE4MTY3MTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmU2Y2QyNWFmN2ZhOGYyMzBkYjUyYTA5YzJlMGU1NmYzMzk3YmEwZmJjMjNjZmRkYjBmZGUzZjNmZTBjMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNzVjYTg4OThhNTZhOTZmZDI3NjY2OGEwMjc1N2UwZmNhY2I5MWY5OTAyYjZkZThmZGY5MTYzZTRkZTQ4ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2OTY5NDYzODllZmM1YTVkNDY5YjU2ZmFhNWViOTZkYzRiODYzZjg3YzQ2YjM1ZWQ2NjkyOGQ2NDkzMzVhOWYifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L149-L176",
+          "version": "repo-lines-v1:sha256:4ad3bd3c3b66f41edb911b3512f35e93ef50896e06704e426bd57b24069ebf36:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzOWViMTUxNWU4MjE1NGY5MjdkMDlkNzNkNjkzYzUyMjM5MmMzOTFlYzAwMmVhZGI3ZmY0ZGRmNjM1Y2YyZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ1Y2Y3NDg3OTk3ODY3Mjg1ZmMzNjU2NTVlNzVmZDhjMTM3YTMxZWE4YzYyMzcwYWIyYTFlNTYyNzJhNzY0MzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxYmEwZmJiMzQ3OTg4ZGQ2NDgyYWU2NTdkMzcwMWM0NTRiZDFjMjRiYTYzYTk1NjI2NTk2MDc0ZmE2ZmFjZmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5c62288c532f437bbf45c2c341606cd9",
+      "statement": "First_Enrolled_Date is set once on the first enrollment and never overwritten; its emptiness drives the wasFirstEnrollment flag in processEnrollment. processEnrollment sets memberSinceDate to Hire_Date when wasFirstEnrollment is true, else today (the re-enrollment date).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L115-L116",
+          "version": "repo-lines-v1:sha256:c11b62c56ed7ecce0f2da7fd9362198eb1ec83a20c0dc4b80172c4883db2a6ea:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWIyMTg5MjE1NzUzMTQ3YzlmMDljYWI5ZWExMGZkM2VmMGU3OTFiZmU2OTI1MTk3MjE2NWQ2YjJiZjY3OGNlMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWU1NTExZTIxZTgyNTI0YjkxNTUyODVlNzg0MWJlNzU0NDIwY2Y0N2MyM2VjMWEwYTEzNDU5ZGJkMzI1NzdkNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjcwYWIwMGI3ZWIxNzYzY2JjYWFjOWE3YjMyMjM2ODE0MmNiMDA2NWU5ZGIzMjE4MTczY2U1NWU3YjdiYjc0OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDdlZWYyZDNlNjNkMDQwZDg2Y2M1YzY1MDNkYmQyMWM5YTUzMzE2MjViOGZlNWUzMmE0MGFkNTNmZDFkNmYzYiJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L56-L67",
+          "version": "repo-lines-v1:sha256:c25079b3210e5554151a3d4f7e694cc67cc77c9d6b39e13d29d3acfa4091b94a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlOTE2YWJlOGIyY2Y2YzlmZGIyYmMxNjliNGU3ZmQ2Njc3NGVjZDM2ZTMzOWVkZTE0YmJkYjQ5NTZmYjVjZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0NjA5ODAwYjk0MjJlNGY1ZDAzOTc5MDY1MzAwY2RjOTFlOTIxZjBkODBlNjc2NzIyODA4ODcxODIwMTJiNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwNDQ3Y2FkZmM4MDVmMjdmNGY1OGRlZThiNjE4N2Y3YTIxMDFiOWY4ZDQ4ZmMzNDUwZjc2NTAxODdhODA3OGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1YTkwZmI0M2YzMjRiNmUyNTAxYzQ2MTUwN2IzMTQyODRmMzAxNDhkMmRhYzg5Y2YyNTlhNDE3NWZjMGFkMzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4a4e8dda0cf846e99a15c14155e5478f",
+      "statement": "The 6-month plan-change lock is measured from max(Current_Enrolled_Date, Last_Plan_Change_Date). checkPlanChangeEligibility computes nextEligibleDate = mostRecentAction + 6 months and returns {locked: true, nextDate} if today is before it; processChangePlan re-validates the identical lock at write time and stamps Last_Plan_Change_Date = today on success, becoming the new anchor for the next window.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L236-L249",
+          "version": "repo-lines-v1:sha256:fd91f42428e695e2693607bd63fa0beda07b55752ec8bbdda9a36bad9002ced2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwOTBhZGI2ZjJhNjlkNWMzNWFjNjA3YzFiY2Y2ZTRhYjdiYjgzM2UyZjFkMjcwNzFjNWQyMjYzZjg1ZTM1ZDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MDA1ZDU3MTA2YTM2MmViMDAwZGFmM2RhNDY3NGM4MmI1MThmZjVhMmUyZjY3ZWU4ZTc1N2EzMzNjMmFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNhNjYwZjg3OWI2MGE5ZDhjMjMzYmZhYTA4NjI4MzdjMjk1MzEyYTZmZTE4ZmZiOGY4MjUzMDZmODRjYTAxZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU5OWE3MmQ5ZTgxYmU2ZjE4ZTA2NmJiODNhMTE5ZWY1NDU4YjVhMjZmZTcwYjJlMTg2YTdkYWRjNzlhNWMyZGMifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L295-L315",
+          "version": "repo-lines-v1:sha256:1bc49bb65ba0201ff883aa45bad19dc98cbf3dbf269a84db67e05eec2146c9f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmZTU3Njg3NGMxMDlkNGZiMWYzMDVjZTVkNGMxZTE2MjRhYTUzMWZmZjdmZTEyYTlhOGUyN2NkNTU5YTI1ZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzOWYyM2Q1MjRmNTVkOTdlNzEwNGM1NWRiYzBlMDUwYjk4MzZmNjUzYzdmZDZiZjBlNDc3ZDVkZGI4MjgwNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0YjVlNzM3YjQxZjA0ODIxNDZmNjg2MWE5M2Q4MjAxMTBjNDA1NzIzYzc1OTA4ZTU5YzA0MjA4NjI2YzdiNjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFkZjIwYmM4NjRiOTY1MWQ3N2Y4ZTlmNTVkZWUzNGYxOThiMzk4MGNmOTJlZjZkMTFhN2EwYmYxYTA1YmQ3NWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f9a2c5d0d18b4b61bf364138871f43d3",
+      "statement": "The 6-month plan-change lock applies only to contribution % (Current_Plan). Investment-plan changes and beneficiary updates are not throttled by it and are not payroll-cycled, per the cut-off rule.",
+      "evidence": [
+        {
+          "resource": "repo://App%20Design%20Document%20-%20Internal%20Provident%20Fund%20Enrollment.md#L115-L116",
+          "version": "repo-lines-v1:sha256:0a26e0b1be124f87680be9d1afcc181bdaa95169cf1dfafb303140cb63ba5a79:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdkMTIyZTMxMmZjZWE4ZmFiMDI0N2Y1OTQ1YWMzZjg5ZTRlMTVkMzgwMTcyYTIwN2EyOWYzMmM5NDA1ODExOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzZiNTVkNmI0ZjNmMzIwNTU2NzU0ZmU4ZGNlNzBkMDYyMDE4OWExYjA5YWQ1NDZiMTE3ZDU2NGUwOTU0NzRjMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzZjOTgzZjE0ZjA4YzVkMTI2MjU3ZGYzMTM1NTA2YjUzZjU2ZjdiMjU2OTU2NTgwMDkyMThiZmU1MTRkOTgxMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWU4M2E1N2Q1YWQ4Nzc0ZTUzZmIwOGFlMjY4NzkzYjc4NGI4MWU3Nzk0YzM4NWQ4OGE1YWVlOWFlOWExY2RlMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6092693e511c4ee5bf1b2a24797aedb1",
+      "statement": "Withdrawal_Count holds steady through each enrollment (0 through the 1st, 1 through the 2nd, 2 through the 3rd) and only ticks up when processWithdrawal runs, which also clears Current_Plan and Investment_Plan (blank Current_Plan is the not-enrolled signal) and sets Last_Withdrawal_Date = today. Members get up to 3 enrollments over their lifecycle.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Withdraw.gs#L43-L57",
+          "version": "repo-lines-v1:sha256:cbd57b3e64dcecd44e6b66c3a42df943c655b9d49ff5cba61bc472379bfe4609:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlNzE2ODljNmFhOWNlMzdjZWI3NWRjNmQxZTBhOWRlZjI2MTEwNjY3OGQ4ZDA2NzYxMDFkNDQwZTkzZGNhODYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyN2JlOGM0OGQwY2JhMWVlY2ZjY2YyMTc5YzU5YjhiYzI1ZTNhYWFmMGMyOTc4NzQ2YWJlYzY1MDk2NDBkYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0NDJkOWVlYmE5ZWFlYmU1YTg5MDhlODRhZTk2NTVkMzYwODc2NGI2Y2QzOTFlNWExMDQ5ZDlkYjRkZjFmZmQifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L50-L69",
+          "version": "repo-lines-v1:sha256:24473c6008f4120748d1b9e748aa054d66cbec2df9ad52d4a20a4c5ae7dc7896:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUwYjU0NTFmMDE0MGQ4Mzc5NzQ0OGFhNGFkMzg0ODE0MmY3NTMwNTk4NWFkZTMyOGE5YzZmYWI0Mzk4MGE4MjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyMWY5Mzg1Y2UxNTJhZGFjN2JiNzA4YTBlMjgwZDljZjY1MzdhMmIxZjFjNzNhYzEwNjVlY2FmYWMyOGI2NDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_37509772297a42efa54c56f1f50a884e",
+      "statement": "The 6-month re-enrollment cooldown applies only after the 1st and 2nd withdrawals (Withdrawal_Count === 1 or === 2). getUserProfile computes unlockDate = Last_Withdrawal_Date + 6 months and sets isCoolingDown only if today < unlockDate and a real Last_Withdrawal_Date exists. Cooldown-vs-ready is decided purely by that date relative to today; there is no separate flag.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L110-L123",
+          "version": "repo-lines-v1:sha256:96aa2deded40369ae23f73003ecc09b1994b39ba4f22d79aea88b4573b13f08c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjMzdjNGIzMzIwYmFhM2EzMTJhODYyYTkzODg0NzY4MzM4MDI0NjFkMzM4OTdjNzY2MGEyNGM3N2M3NWMwNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxYTNhM2VkN2Y3ZjJkMmJhYmNkNjJmNmI3YmM1ZGE5ZTNkNTVkZjAwNTVkM2U5MGU2NTEyMzM5M2VjZmFhZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwNDUxZTk2NDk1MGUxYjEyNjcxYTIwMmYwYzA2ZDNjOTc3M2U2NzFmZTU4NzllYjFmZmQ4NjNhZjNkZDBjZWEifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L117-L119",
+          "version": "repo-lines-v1:sha256:b2e13070aa2953a18359b85b39aba3e983caeb324b3d213e5d95a7b8acff9960:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGZmZTI4NjY2ZDdhMTcwNWFhOGY3YTk0ZmJlZGRmOGJhM2RkM2E2ZWFlMmU1NDI0ZTUyNzNlZGFhZDYzYjQyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhiMGM5ZGQzN2I1YjkwN2E5Mjg3YzQ3YmIwYWFkNjNhNDY4MDUwOGE3MTQwNmUzNDgxNmI3NjQ3NDA5OTc1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGZhOGViNzgzYzg1MTAwYTE0ZmQ5YmRhYzg2ZDU3ZTkyNDA5YzVkODE5MzRkNDllOTYyMGI3MGM5MzQ1NGZiZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzg3ZGU0M2M1OTdiNGM2ZTdiODc3ZDY2OTlmM2Y1YTUwZDc5NTEyNDMxZjZhZjhiYmU1YmZiMmM4NDg5ZmY4ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_989fc31fe2d24c98855be9a13431d5ee",
+      "statement": "The 3rd withdrawal (Withdrawal_Count >= 3) is a permanent lockout with no cooldown path back. populateUI checks this state first in the cascade and shows Locked; processWithdrawal does not refuse the 3rd withdrawal (it increments the count), so the lockout takes effect on the next enrollment attempt.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Withdraw.gs#L43-L57",
+          "version": "repo-lines-v1:sha256:cbd57b3e64dcecd44e6b66c3a42df943c655b9d49ff5cba61bc472379bfe4609:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlNzE2ODljNmFhOWNlMzdjZWI3NWRjNmQxZTBhOWRlZjI2MTEwNjY3OGQ4ZDA2NzYxMDFkNDQwZTkzZGNhODYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyN2JlOGM0OGQwY2JhMWVlY2ZjY2YyMTc5YzU5YjhiYzI1ZTNhYWFmMGMyOTc4NzQ2YWJlYzY1MDk2NDBkYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0NDJkOWVlYmE5ZWFlYmU1YTg5MDhlODRhZTk2NTVkMzYwODc2NGI2Y2QzOTFlNWExMDQ5ZDlkYjRkZjFmZmQifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L116-L118",
+          "version": "repo-lines-v1:sha256:67a54b8ad4b24f2a2bd9661071922ac525de45c1e471662ecbaae9a5e9bf4a0b:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTgwZTcwMDBkMTc1M2VlNDU4ODIwYzVkNmE5OTFmNDc0NzE1NDFhN2YzMTRlOWNmYWQ0ZmY4ZTgxYWQxNGIyMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjExYWVhYzMwNjQ0NmE5ZDZmZmJkOGUxYzJjMWMyYzBmY2ZmYmNiYmFjZDkwYTE4OTM4ODFhN2E2OTE0NTBhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjIwNDY3YjI5NTkzMDA2NTczNGFiODE0MWNiMmZjNDRiOGZmMWI2MTZkNzRjZGE2ZTM2N2VkMjE4MTA0YTIwNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjk5Y2E5ZjA0NjhlNGIxODVmM2ZjY2E0ODc0ZjAxZGY1ZGE2MjFkMTA4NjA4Y2E4YzAzOGNmNzkyZmM2Y2JiMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_40bdbed9f79a45129e955c84ae0a99fa",
+      "statement": "MIGRATION.md formalizes the enrollment lifecycle as 9 states plus a probation flag. States 1 and 7 (never enrolled, fresh) have no Enrollments row; states 2-10 cycle through enrolled (Current_Plan set) to withdrawn (blank, count ticks) to cooldown (count 1 or 2, <=6 mo) to ready (>6 mo) to re-enroll, with state 6 being permanent lockout (count 3).",
+      "evidence": [
+        {
+          "resource": "repo://MIGRATION.md#L50-L69",
+          "version": "repo-lines-v1:sha256:24473c6008f4120748d1b9e748aa054d66cbec2df9ad52d4a20a4c5ae7dc7896:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUwYjU0NTFmMDE0MGQ4Mzc5NzQ0OGFhNGFkMzg0ODE0MmY3NTMwNTk4NWFkZTMyOGE5YzZmYWI0Mzk4MGE4MjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyMWY5Mzg1Y2UxNTJhZGFjN2JiNzA4YTBlMjgwZDljZjY1MzdhMmIxZjFjNzNhYzEwNjVlY2FmYWMyOGI2NDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_523e6942099245b5b878c29437529086",
+      "statement": "5-year vesting: the employer match is paid out on withdrawal only if tenureY >= 5 (whole years). The employee's own contributions and returns are always 100% vested regardless of tenure. This is a display rule surfaced in the withdrawal modal (JS_Withdraw.html openWithdraw), which renders two eligibility rows — own contributions always green, employer match green if tenureY >= 5 and red otherwise. The actual payout is calculated outside the app.",
+      "evidence": [
+        {
+          "resource": "repo://App%20Design%20Document%20-%20Internal%20Provident%20Fund%20Enrollment.md#L105-L108",
+          "version": "repo-lines-v1:sha256:45484fe5d0def9002ddb697c424f6b1aec6d58bf624b1756308a3a6bad74751a:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmIzMjFhZjBjZDM5OTdjYjFhMTg4NmU5MGEzNjA2M2E4NDBlY2E2Mzk3YjVkYzNkM2QzMzBjZDE2YzFmNjA3YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzMzNTUyMTc3MDdhN2VhN2M5YmE1OWJkYmFjZWZkNGQ1ZWVhOTczMmIzNDM5Zjg2NmUyOTUzNTUwOTVlZjViZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDNmMzU3ZjhhY2I5MWJjZTBlOTY3ODA2YTQ2Yjc4ZjQ4MDg3N2VjYTgxMTRkZmE0YTkyN2RlZDYwMWE3NThjZSJ9"
+        },
+        {
+          "resource": "repo://html/JS_Withdraw.html#L14-L27",
+          "version": "repo-lines-v1:sha256:1d9222393155dd274952fd8fed38a4926e725f618769632aae9af4eb6e2b6a06:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczYmNkMDFmYzIyNjIzNzFmMzEyOTYwNjVjZjQ0YWRiNmNmOTRjOWM1ZGI3MjkyYjU0YzI0NTQ4N2E0MTRkZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmMzhiZTgyOTY0MmE5YzMwY2YzNzdjMmFiZjA4OTcxZjM4MTc4YTc5MjI1ZmQxMmIxZWU0OTlkNWMwMzUzYmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgyZTk3YTBmNTQ0ODc1ZjYzMjE1YTQyNzc3YTk5ZjhiMDM4NTE1YzFkNTdkNDQ0MDdlZmM0NmFjYTBkYTI4NDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_32b70731ff79496fb86e6eb1d206332c",
+      "statement": "A user whose Probation_End (in the Users sheet) is a future date cannot enroll. getUserProfile sets isOnProbation when rawProbationDate instanceof Date and greater than today and surfaces probationEndDate for the dashboard's eligible-after message. Probation lives entirely in the Users sheet (a probation-blocked user has no Enrollments row) and is evaluated after lockout but before cooldown and enrolled in the state cascade.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L100-L108",
+          "version": "repo-lines-v1:sha256:93c523eca751655cec1fcd335c8f3c3e628ca4a2bfe269859311905100813a78:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ3NDI4Yjg0NjQ0MjU5NTE3NjA5NTMyOGFmOTNhNzI2MTA4MTY5YzBlMzVmMTc4YTdlNGY3MDE2MjJkMGEwYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2VkMGZmNzA4NzczZTA0MzY4NTA5ZGU1MTg0NTBmNGJiM2UxN2VlOGQ0NGUwNWMwZTUyMGMyMzM5Yzk0Nzk4NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWYzZjIyNDkzOWE0ODVmMzVhM2E1ZDJlODQxMTBjNWMwNjFkOTczMzU3ZDY4YzYyNWE2NDE5ZDBlYTFmMmUxNCJ9"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L57-L60",
+          "version": "repo-lines-v1:sha256:d3cbd218af02479502561b1ec109e7dc437151768a2d3623cd9b6c0b6c01ba72:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmJmOTlhYzM1MDIxYzFhN2RhODIwM2E3YTk0Y2IxY2IyNjk1YmVlYzRjYzc0MTkxOWYxMjkwNzI0NWEwNTMwYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2E1MDI0NmIwY2U3YjczNTA2Mzc3M2Q3ZDVjYzFiOTVmZTVhMjlhOTdjOGY3OTMzM2E0NjJhNTQ5NTRkOWJhNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTVjYTAzNWY2ZWYyN2E5ZDM1ODcyY2ExZGU5OWNiYWFiODAzYWIwMzcxM2EwNjJjOWE2MTRhOTBiMjdiNzhhOCJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L119-L125",
+          "version": "repo-lines-v1:sha256:92502e4b19948a527d6789cf88af5866e4c4fe102892e2973bda0ce195758e3c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWU4MjdiYTk0OWM3NzlkNWRmYTIxOTFkOWU0NmQwNGY2NDdhOGQyZGNjM2NiMjUwNDEwYjM2ODQwMzNkMzQyMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjdhNTRiOGFkNGIyNGYyYTJiZDk2NjEwNzE5MjJhYzUyNWRlNDVjMWU0NzE2NjJlY2JhYWU5YTVlOWJmNGEwYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmU3ODg4NTVjNDA4MTdlYWQ1OGI2NTYxM2YyZGVkNmMxYmM2YWYwNzI5OTI1MDJiYmQ4MDNkOTI0ODY4MmRkOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a3f22d04522142c4887f964b7a2aab45",
+      "statement": "Beneficiary validation (enforced client-side in validateStep step 3 of the wizard and validateUpdateBen of the beneficiary manager): maximum 5 entries; each pct >= 1; all pct must sum to exactly 100 (not 99, not 101); and title prefix, name, rel, and address are all non-empty for every row. The Add button hides at 5 entries, and the Next/Sign button enables only when the total is exactly 100 and allFilled is true.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L357-L396",
+          "version": "repo-lines-v1:sha256:9122a80bfc52dac406226dad06f2d6be15dbf6cf17e92edb5b44f311d9034fbd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2MjkzMDFlMmJkMGMwNWFhY2VhMDViZjU4MWI5NGRlODQ0NzhjNmQ0NDY2NWVjNzg4MTE4Y2FjM2JmODEzZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkNTIzYzlkN2ZmMjNjMTlmMGU1NDJiMzFkNjZiMzQyNDgzOTRiNzcyNzAwNzRlNzdhNWVjODg2ZGUyMmIyM2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2MjdhZTMzMjhkZDYzMTRhZDEyZTg0NmUzYTExMzVjYzAwYTc0MDZhNDQ4MjQ2NjY3ODhjNjU2NTBiOWY1ZDAifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L181-L193",
+          "version": "repo-lines-v1:sha256:7de5e68912fbb110b259687c47ed7474d252711908a09c0d22b133f5de795661:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMWRjOTRlYTAxNThiMjllYTM0MjIzZjViNGQ3MTU4MTk3ZWRjNDI5YWIyZDA5M2UzNjIzYzNkNTVlZDI0YjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NWVmMWRiYTUxY2U0M2RkMzIyMjdlNGUyN2Y5YmIwYTZjMjhkYmUyMjUxOGQ3YjVjNDJlZTJhZWNhOTIzMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzMjg5YzE2NTRjNDdhODQwNWY2YzBhYjkyODhhZjFhOWI1Yjc3MGE2YWM5MDNhNmQzY2JiZDNkNjdkNzZjMGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9aa1d738f243439a8a2d1438e4ff6417",
+      "statement": "Beneficiaries are stored as a JSON-stringified array in Beneficiary_Data, appended to the Beneficiaries ledger (newest matching row = active record). Each entry is {name, rel, pct, address}. The stored rel is an English key (Parent/Spouse/Child/Sibling/Relative/Friend; Other retired from the picker but retained in REL_LABELS for legacy display) displayed via relLabel() as a Thai-first label; relLabel is defined in two synced places (Config.gs and JS_Utils.html).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L93-L98",
+          "version": "repo-lines-v1:sha256:4a149950e2cec53cf2f41e0e3f950d5d178b0d768cf4758b835d34147fa056dd:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTIzNmQ5NGVhMzM0ZmFlNzI3OWVlYTAyMzMxZDViNDIzOWU4NjBlNWUzNDQ0ZGM1ZDMxZDE5OGE4MjA0MDBkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2MxN2YzMzkyNjY1ZTE5ZTk1Nzc3N2QwYTg3YzlkOGFmZGE5ZmUxNjE3MDJhMzA0NDA0NDM1OTAwYTUwYWViNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTcwMDM4ZjM5ZWM1YjA0ZjYxYWQzYjcyNDgzOWEwYzVkYTI3ZTkwZWRkODhmOGMzZDg4ODYxNDk5MzEzZjAzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGM4NDQ2YjI2N2JkNGFhZmY3MzJkYWY4NTQzMmJkNGJhZWQyY2M3NjIzZjBiY2RlODIxMGYwODgxMjc0ZTdlMiJ9"
+        },
+        {
+          "resource": "repo://Code/Config.gs#L19-L30",
+          "version": "repo-lines-v1:sha256:5605bd0c7418e44af9b54e88296e0906724e8fb6301139019be1a2f406a88116:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNjIyNjFjMDRlNzMwNjJiNmFjOGI1NjY1YjhiNzI4NGU5ODFlYzAzOWQzZTNkMzgzN2I2NmQwOWYxMTNmYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMzk4MmZkNjEwMTczNTk5MjQxZmNhOTNjN2M4NjY2ODNmNThmNTQxZWNlZDFjMjA5ODEwMjE0NTQ3NzE2NGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmOWFhMWQ4NGI4MjExY2Y4YjdiYjI5MzRmNTM0ZjRlZGEwZjExODc4NzkwMzhjNmNjMzFhN2UyMDBmMDgwOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L66-L94",
+          "version": "repo-lines-v1:sha256:de1e78964abb7f527a4b16eb95d1568c8ee9a617dbd14c4013eee0781e7aabab:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjOTk4ZTk0MmJlMDAxOWJkZWYwNzQ0MGQ5NDc4ZDU2NWY1YWE3MzA2YTk1NDNmOTgzYWZjODYyODNkMDI1M2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI0OThiZjgxMDQ0ZTc0MTk2OTFhYTQ1Y2M2ZWI2YmU1NzQ1NmMzNjgyN2ZjMjJiYTJlNTNlNzcxOTlhMTA2ODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMWZjMGQ3ZmEzYjE4NzU4YWIxNzFiOWZjYWIxMjJhNmE4Mzc3YzdlNzJmNWY3YmE2NmMzMmRjN2VmNWUyNDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7d0324f0359645e3beaaa8f3f0369199",
+      "statement": "The title prefix (นาย/นาง/นางสาว/ด.ช./ด.ญ. or Mr./Ms./Mrs.) is a transient UI-only field merged into name at submit via mergePrefixes(), so the stored model stays {name, rel, pct, address} and nothing downstream changed. splitPrefix() is the inverse: on re-edit it scans the leading name for a known prefix from PREFIX_LIST and pulls it back into the dropdown so a re-save does not double-prefix. Both the wizard and the beneficiary manager call mergePrefixes right before JSON.stringify on submit.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L264-L305",
+          "version": "repo-lines-v1:sha256:631cad55fad330bc28b33fa2212f5ca672aaf09c6a77060b11a94518b613641e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjMGU4MTVkNWMwNTg4NWMzYTk1YTU3ZjU0MzI0MjY1M2Q1NDVkMDhlZjQzZDY1M2U0ZTIxMDcxNDRjNTk1OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjNDBlODMzZTBjNzQ4NTAwMDRlOTlkZWQ5ODAyMTU0ZTg1OTkyNTQ5YTZlMzYzZDBlNDBlM2Y2N2E1NjdlNjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5ODJjZTViMjI1YmY1YWEzNmNiMWNkY2VmZWEzMWJjNjQzMmQ3ZDY4OWVhYjBjMmZiZjdmODIzZjJmNzZlOTQifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L417-L421",
+          "version": "repo-lines-v1:sha256:d6a59e5ba5267b196626ed227936dc506ad473e684e757798ab49694138a3c67:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGNiYWZiMzBiNzMyZDhiMzlmNjYwYWZmYjAzMjg4MGQyMTk2YjNhMTg4NGQ2NTU5Y2E4YjFlMjQwODE4MjRkMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRjZWUyNzI0OGE0MzFhNmZkMjliZTM0MGZlMjY2ZGNiMGM0NDJhZmVjOWNiYWU2YzIyODAzZWZkNjYzNWU1YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2RmZmM4MGYxODZjNzFkMzFjMTA0NWI5ZGE2NGI3ZDc4MDFhZDA2NWY5NzBmZGJhOGE1NDVmZTQzZDAxMDNkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWE2ZWRmYjA5YzA1MmE4ZTFiYTBjZjY0MTkzMjkwNDQ0NDZmZjY4YmUyMmYwMDQzNWQ0YzMwY2RkY2JkZTNkOSJ9"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L113-L122",
+          "version": "repo-lines-v1:sha256:fd9561eeae3406979323e543117587b64d742401ceecf7aa9e18d09c76363a32:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlOTgyODg3MzJlZGU3MDZmNzM1ODlhZGEyOGRjOWZiYjU3YzExYTNiODFhNjY2ZjhjODcwY2VmYzk2NTRlOGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNjNhOWJmZGQ4NTIzYzgxYjA1N2Y5N2UwZWFlOTdhZGU4ODY3MzlmZDJlNTRmMmE2N2VkNDFiNmI4NGUwYWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjYmI1ZmUzYmExODFhYTA4ZWU5YWQxYjUzYWIxMTY5ZDFhMzhkZDBlYTYwZTYyMmMzMmEyMzk2OTU2ZTUyMjkifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L221-L221",
+          "version": "repo-lines-v1:sha256:39fb4d353e741a944c84d52fd02d1dc748c80219f487603faccba390e38999c4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzlmYjRkMzUzZTc0MWE5NDRjODRkNTJmZDAyZDFkYzc0OGM4MDIxOWY0ODc2MDNmYWNjYmEzOTBlMzg5OTljNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzlmYjRkMzUzZTc0MWE5NDRjODRkNTJmZDAyZDFkYzc0OGM4MDIxOWY0ODc2MDNmYWNjYmEzOTBlMzg5OTljNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNkN2NiYjA0YmMwM2Q1MDU1Y2RlMDVlY2M1MjhmNTM0ZWQ0Y2U3ODEwZWMzMDczOTYwM2E0YWE2ZTc3YmJhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTE4MWM1NGU1ZTI0MTZjM2UwOWQzM2ZjMjZkYzM2M2RiMzIxODdlODI1NTI1MmYyYTg1MWExOWUzOGU0OGMxNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_713f66bca15d49e6911a58a060f50c2e",
+      "statement": "processUpdateBeneficiaries is effective immediately (no payroll cut-off, no cancellable pending state) — it stamps effectiveDate: today in its letter context and the beneficiary action is excluded from CANCELLABLE_ACTIONS, so it never appears in the in-progress transaction table even though it logs a SUBMITTED audit row.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L442-L463",
+          "version": "repo-lines-v1:sha256:5f91be0c1bf4558f8afd0d11437bfb660662d1f65a661baa768731574cb139d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZDRlN2U0YzliNmZkYzBjMjFmMGY5YzQzZTllYzdhMjc2ODNlNGE4ZGZkNmZiYzNiNDFlYTBlNDM5NzBlMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMTAzNWE1NzI2NzM4Mjc5ZGFiN2EyMjc0MDMzYWExMWVkNThmYWMwYzFiNWQyZTIxNTEwNmYxNmQxYzIzNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhMjI3Y2YxMTBkN2JkYzVjYjJkNjU5Y2JlMWUyYzM2NGI5NWU0OTdlNjQ5YjI4MjQ3NDkxYzNiMTg0MmNiNTQifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L216-L231",
+          "version": "repo-lines-v1:sha256:116ea929ceb462273a2f0c4ff606c9785a74136a5041a08c8eca06c23b9b29e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwOGJkMzA2YTRiZDRmMTNjZTMwNTcxNTVhNGJhYTgyZmY1MGFkMTk0ZThjMjhhYjZmMmJjMmE1ODgzM2E3YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ZDg1MDdkZTg5NGUyMjU2OTVkZTEyMmMwODRmYzgyMDM0MzJkYTNiNGI1MmM1YTNmNmYwNjJkOTdmMzEyZTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhZTcyMTI4YTAyYjUyY2Y0MmEwZTZhNDQ4Mjg2OTc3NWRlNDE5MzRjNTFiNmJjM2E5ZmEwN2Y2NjU3OWMzNjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7ebaebb6a1a0434ab72ee33ddec08eb5",
+      "statement": "The cooldown/locked/withdrawal-in-progress message (#cooldownMessage) must live directly inside the Actions article, not inside #enrolledActionsGroup (which is display:none for non-enrolled users), or setting it visible would still be invisible under its hidden parent. showWithdrawalMessage renders the withdrawal timeline and the next-eligible re-enroll date there for cooldown and locked users.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L72-L73",
+          "version": "repo-lines-v1:sha256:ee004c3d1766cb69aae6a6609d424ca34778bfb79fa80c2faff70d0a97de8268:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWJjYmZlY2VhNjIwYTA5NGQ1ZGUyMmU1NDczNmQ5YjIzMjhhMWMxY2E3MDY5MjI5ODYzNGQ1Y2U2YTM3ZjY4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjAyMjAxODg5MzBiNTA4OWM0NDkzZjI3MDBjN2NmMTNkMjUxNGE2MTZmYzdjMmUzMDRmMDZjYmJkNjg3MGMyZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWIxYmM1YmM0YTIzN2Y1NzhlNmFmNGE0MTVkMDY0N2Y5OTEwYjAzYjM2NGUxZTI3YzFmMWRiYWE3NDNkMDNiYSJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L612-L629",
+          "version": "repo-lines-v1:sha256:76e4f0c130c1af35ded32764622dd6edd8544f259a4115328268244183ee2e5a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMzY1MGNhZTM1NmY1YzJmY2E5ZjU0N2ZmODRiNmZkZDNiNmJlZjQ2YTYxMDM1YmM0ZWQwNmVhNjRmMzNlYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OTZiZWY5MWI4MzNmMDkwMWQ0N2EzZjlmZTNiYjMyYjc5ODQ4YWZkODdkM2M5ODQ1OTliZDRhZWNhOGMwNDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxNTc0MTQ1MTIyYjNiMTMyMmY1MDk4MzUzMDBkZjJiYTIxZGM5NTJlNTU0MzcyZWM0NGFkYjQ3YmExZmJjZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk2NzQ2MmIyMDYwY2U5OTQ2MmU4N2MzN2ZlNDE3N2ZjOGFmNjkwYjZlZWY5NGQ3ZjY2NmQ2YzBiYWU0OTMwMjgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

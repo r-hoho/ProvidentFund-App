@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:0e9cdcc36f0bfbb8bbbc681a1624154e1c3206b680fb7bfc3713cf9cb5c9b199",
+  "claims": [
+    {
+      "id": "claim_6a094764ede3452a91187f3a4ed4d367",
+      "statement": "The Provident Fund app is a mobile-first, bilingual (Thai/English) self-service web app for managing a company Provident Fund, built entirely on Google Apps Script and Google Sheets with zero external infrastructure (Google Workspace handles identity, data, documents, email, analytics); it is a stable v1.1.0 release.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L1-L48",
+          "version": "repo-lines-v1:sha256:16d10f542a31e27bccb894dabbb73d3c9b88656c7bd7b772ee11bf3828217f7d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0ZTI0MDYyOWY1YjhjNDQ1MzcwM2M1MTA4MTU4MzU5ZDJkM2JkN2EzY2Q2MjA4NjZlZGM3NDhlY2UwNDViODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyYzVlODQ0NmE1MjE5MDY5ZjVjZjZmYTE0ZjFlMWVkZjRiMTI1ZGYwNjZhMGRhOGNlZjQyMDE2MjU1OWNjNWYifQ"
+        },
+        {
+          "resource": "repo://appsscript.json",
+          "version": "repo-file-v1:sha256:f2a5f54bd6aa08bd2b718ed0abebc8a4b41e1dd70e2e482d9fa85cc12f987f19"
+        }
+      ]
+    },
+    {
+      "id": "claim_560981f3b0ce4f8d9b84dfc3e2ad1796",
+      "statement": "The app is a container-bound Google Apps Script web app whose manifest pins V8 runtime, Asia/Bangkok timezone, USER_DEPLOYING execution, DOMAIN access, and Stackdriver exception logging.",
+      "evidence": [
+        {
+          "resource": "repo://appsscript.json",
+          "version": "repo-file-v1:sha256:f2a5f54bd6aa08bd2b718ed0abebc8a4b41e1dd70e2e482d9fa85cc12f987f19"
+        }
+      ]
+    },
+    {
+      "id": "claim_e9ec8557709448729c0dd203d09a2745",
+      "statement": "The backend is split by responsibility across Code/*.gs files (Main.gs entry/templating/maintenance, Config.gs constants, Profile.gs read+eligibility, Action.gs+Withdraw.gs write handlers, Email.gs, Letter.gs, Analytics.gs, Feedback.gs, Utils.gs, TestCases.gs); all run in one single server-side global namespace so cross-file calls are plain function calls.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L7-L20",
+          "version": "repo-lines-v1:sha256:2ec0d638b53c93c284b7dcba75137e7d91cc5bdd1c6973dd721066089cf528ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlMDc1NmQ3MDZiZGNjZjBiNWQ4OTJiNDA2ZTVkYTgwNjViNTJiNjcwYzhlNzUwY2JlMWJmMzBlMGJhYWNkZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5YWIwMjBjMDA1ZTg3N2ZmMTE0ZTk0ZjNjMjA3ZDQ1M2ZlZjI4MTUwY2NkNGU3NDhiZTRmMDVjMGM3ZjAyY2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlYzkwNjg1NjgxYjQxYzI2ZjQ3Yzg1M2RmYzljM2EzMjFhMGI0NDg2MWRmNTE3ZjZkMzQwNDdkZjcyNjVlNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhYmNkYTlhYzVmZjcxZDM4NGEyZWRjNDdkZDc1YjYzM2JhMWFlOTgwOWEzM2MwMGMwMjc3MDU0MzI0MWRiNzQifQ"
+        },
+        {
+          "resource": "repo://Code/Config.gs#L5-L17",
+          "version": "repo-lines-v1:sha256:3e028c41b1284079df201d392496ce5fc42699e0de63bd0806fcf88b4831c6d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5MzI0OTdiMjdhMTMyOGZjYzBiZmQ1Yjg1MjRiY2IwNzVhYWE3YjA2ZWU4YWMxODY5NDg1YmM0M2I5OWExNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYTA3YzUzMTNjNGU2ODEwZDNlOTk0YWFhZjFkNmJmZTg3Yzk4ZDZkNDIyZmQ1MjhkZDI5YTk3NGYwNDc5ODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4MzVhYjE3NzRjZWU2NTdkODhkMmZhMTcwYWIxNjc1MjYyODRhODJlYzI3Y2FiNzk4N2UzYWMxNmI4YjU0MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMmZkNzAxY2Y0NTg3MGY0ODM5NDliNDc2ZmEyOTJmOTZmZmZlNjg0ODkxMThkZWJmOGFlN2ZkMjFmMjE1YzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c1dc0df0b35e4d7ab06b913645bcd449",
+      "statement": "The frontend is a vanilla JavaScript single-page app whose shell Index.html composes partials via Apps Script include() scriptlets; the entry point must render it with HtmlService.createTemplateFromFile(...).evaluate() because createHtmlOutputFromFile silently fails to expand the scriptlets, and include() returns HtmlService.createHtmlOutputFromFile(filename).getContent().",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L60-L65",
+          "version": "repo-lines-v1:sha256:a2ee3fa7b81e6f977ceb6b13023dd8297e3d858a7ac7defc8ef49c3d965dce1a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmMyYTQ0M2EwYmE3ZDgyYmNlMTc5NjRlMjQ1ZmFkMWUwYjQzNDljOTI1Y2I5NjVjOGNhMDI1OGU1ODdlNjAwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNkYTFhZjI4OWFjNWIwY2Q1NTE3YWYyZTgxZGJiNTUyZDljOGU4NTBmZmY4OThmOTUzZmE1NWMzMzU3ODA3ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODhlMjA5ODhiMmQ5ZTJlMTQ1Yjc4NWIyYzZjMjk0Y2FmODhmYjE4NWNkMTI3MGIzN2M5NWMxM2UzZTJhMWQwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTY5ZjhlNTY0ZjI0YzZjMzk0NjI3Nzc5Y2MyMjkyNDczNTJiN2NjNTgzMjlhYmMxNGZhNjJlNjM1YjUyZTE0NCJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L24-L38",
+          "version": "repo-lines-v1:sha256:e51803c402f72c710eaad1c75f9cade1ab97d82bc8ebe55584270594b68993e0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3OTUyZDJmN2QwNGE3ZjhlZDI3ZWNhYjczOWYzZTVmMGU0YTllZjE4ZjgwNTM1YTM1MWE5NDEyMmJiNDc4ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhZjE4ZjRlYzQ2NDczMWYzZTAzYTNkMTIwYjcyN2VkMTZlOWUwZWU4MDk3M2ZmMzRhZGEyOGE4Nzg1YjI1NmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkZGU2ZmNkNzFiNTI4M2I4MjJmZmZlMTQwZmQyZGJhYTIxN2NhNjA4YTI5Y2EyNDEwYzRiYWEzZDdmZjg2YWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_41cc2a2f66324b9b863165d1f826fcd6",
+      "statement": "All client<->server communication uses only google.script.run.withSuccessHandler(fn).withFailureHandler(fn).serverFunction(args); there is no fetch or REST endpoint, and the backend is addressed by server-side function name. The app runs as the deploying user with domain-wide access and end-user identity is inferred server-side from Session.getActiveUser().getEmail(), never passed by the client.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L60-L65",
+          "version": "repo-lines-v1:sha256:a2ee3fa7b81e6f977ceb6b13023dd8297e3d858a7ac7defc8ef49c3d965dce1a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmMyYTQ0M2EwYmE3ZDgyYmNlMTc5NjRlMjQ1ZmFkMWUwYjQzNDljOTI1Y2I5NjVjOGNhMDI1OGU1ODdlNjAwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNkYTFhZjI4OWFjNWIwY2Q1NTE3YWYyZTgxZGJiNTUyZDljOGU4NTBmZmY4OThmOTUzZmE1NWMzMzU3ODA3ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODhlMjA5ODhiMmQ5ZTJlMTQ1Yjc4NWIyYzZjMjk0Y2FmODhmYjE4NWNkMTI3MGIzN2M5NWMxM2UzZTJhMWQwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTY5ZjhlNTY0ZjI0YzZjMzk0NjI3Nzc5Y2MyMjkyNDczNTJiN2NjNTgzMjlhYmMxNGZhNjJlNjM1YjUyZTE0NCJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L8-L8",
+          "version": "repo-lines-v1:sha256:4d741567b1a68f66c30ef620283da0e15d3fd285baabd082ab9f535d60acf09a:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ3NDE1NjdiMWE2OGY2NmMzMGVmNjIwMjgzZGEwZTE1ZDNmZDI4NWJhYWJkMDgyYWI5ZjUzNWQ2MGFjZjA5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ3NDE1NjdiMWE2OGY2NmMzMGVmNjIwMjgzZGEwZTE1ZDNmZDI4NWJhYWJkMDgyYWI5ZjUzNWQ2MGFjZjA5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODE1MWU0MDYwM2Y0OTRkNjFmODAxN2Y2Nzg4MWJiMTA4YzczMWFjOTAwNWM2ZTZmMmJkN2RkZTI4NWY1MjNhZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGNiNDdjYjE4ZGMxYjQxOTBkNDZhMjkyNWZjYTFkNGUwYzRhZGU0YjlmMDNjNmM3OGRiNTUwMGFmMmRmYjIzZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d69f2e63f2b14f9ea156f3799c2725bd",
+      "statement": "Google Sheets is the system of record across six sheets (Users, Enrollments, Beneficiaries, Audit_Log, App_Feedback, Monthly_Reporting); SPREADSHEET_ID is resolved from the bound spreadsheet via SpreadsheetApp.getActiveSpreadsheet().getId(), and column access is positional via headers.indexOf('ColumnName') so column order in each sheet matters.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L37-L46",
+          "version": "repo-lines-v1:sha256:aea05ff03841b6bcdf8696dc84c0260f6ab17a2e10b8b51fee4d17732537eb7a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxMTMyNjRjMTJlODdjMTYzNmJhZTY0NzZlMzIzYmZmNzkyYjUxMjgxYzVjNzgyNDk4MWEzZGNiZjhlYjRjZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2M2U0M2EyYTM4OGRjN2MwY2MzNjMzMDNlMjdhMGI0OGQxOTBiNTlmNTE3ZGY2NGEyMmQ1Nzg1ZDlkMWQzNDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjMmViYTY1ZGZjZDQzN2E3YzlkOTU1NWJhMTAxZDljNTlmMzU0M2FkNjZjZjM4OGRlNzNhZTNiNGE2MGI4ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhjZmIxNzRmNDM5OTM0M2NiY2ZmMzAwOGEzYjA2OTlhMTU4NWU5NTlmODYwMjljNWM1ZWZhZWRkN2E1NTYzMDYifQ"
+        },
+        {
+          "resource": "repo://Code/Config.gs#L5-L17",
+          "version": "repo-lines-v1:sha256:3e028c41b1284079df201d392496ce5fc42699e0de63bd0806fcf88b4831c6d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5MzI0OTdiMjdhMTMyOGZjYzBiZmQ1Yjg1MjRiY2IwNzVhYWE3YjA2ZWU4YWMxODY5NDg1YmM0M2I5OWExNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYTA3YzUzMTNjNGU2ODEwZDNlOTk0YWFhZjFkNmJmZTg3Yzk4ZDZkNDIyZmQ1MjhkZDI5YTk3NGYwNDc5ODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4MzVhYjE3NzRjZWU2NTdkODhkMmZhMTcwYWIxNjc1MjYyODRhODJlYzI3Y2FiNzk4N2UzYWMxNmI4YjU0MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMmZkNzAxY2Y0NTg3MGY0ODM5NDliNDc2ZmEyOTJmOTZmZmZlNjg0ODkxMThkZWJmOGFlN2ZkMjFmMjE1YzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fdf3dbf799934f04a54f607331b8b6d3",
+      "statement": "Email, letter, and analytics side-effects are best-effort and must never block or roll back a user action: every write handler writes the business state to Sheets first, then runs best-effort generateLetter (wrapped in try/catch, may throw), sendActionConfirmation (never throws), patchAuditEventData, and trackFeatureAction, and still returns { success: true } once the sheet writes succeed regardless of side-effect failures.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L48-L58",
+          "version": "repo-lines-v1:sha256:01ee1c762b5e90b60bffcceaf6a6a276bd97b6553280ebf7cae765e03f16b9bd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzNmJiNWYzY2JkNjNkNGQ1MGM1ZTljOWM5OTU0OGMyYzQ1Y2FjZmRlMDIyZjc0YzUyNjE2YWE5ZGVlYmQ5YzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmYjQzMTIzZDAyODdkNTM5ZDZhNDU2NDM1MmQ2Y2ZjNzUwMWE4MTZkY2NhZjM1OTIwMmM2MWZlZTg1NjY5MzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5MGI5ZjM5OTMyZmVlOTRiM2NjYWIwYWNmOTNjODExYjhjYTFiYWYyZTc1YmZhN2RkNzZiYzgzOTg3NGM3ZDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmYmI5MjU4OWZlNTlkN2EzMzcwMjZjNjg1YWJhZjIyNTlhNWQxYjNlZDFmOTUwMGY0MmFmYzc2NDE2ZDJjMzIifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L126-L166",
+          "version": "repo-lines-v1:sha256:9b71469586f14df09330aa941a32006adb84163876df230925e578033edf508f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmMGU4ODBmMmQ4NDM2NTI0NDY1YjE4M2MwMzBkNWZlZWQwMTI1MzQ1YzBhNWRmMjRkNDhlYjZlZjgzOGNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmOGU3MDJmOGUwYTY1NmQxZDhlZDEyMTQ2YzhkYTYyNTZmMTRjNGMzYWUxZDMxOWQ1Yzk3YzU1Mzg3MWViOGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmM2I0MTNhYTAzNDMwNDVhYjExNzNhNGMwNDVjNWYyY2MwZjg5OTVlMzJmODVlYTI0NTcxMTc0M2FhZDkxNjQifQ"
+        },
+        {
+          "resource": "repo://Code/Withdraw.gs#L88-L105",
+          "version": "repo-lines-v1:sha256:d93f64ff498cc1de70a34035dd64ee8133c4c932af4baaed5c25996f8b32a673:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NDllNjdiOTg0MWU3ZjZkYTc2NzRkNjc5YmM4Y2YwNGZiOTgxOGQwNDM5NTM2ZmU1MTExZTM1ZDY3ZDZjZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMTAzNWE1NzI2NzM4Mjc5ZGFiN2EyMjc0MDMzYWExMWVkNThmYWMwYzFiNWQyZTIxNTEwNmYxNmQxYzIzNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1MjVjNjIzMWQzYmVmMTg5ZDIyNTFiZmM3NWEzZDJlN2E1ZDFiZWQyZWM5NTdhMDI0MzM3NjBmOTcxMzZmNTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e4757deab10043599eed2994b79c9999",
+      "statement": "Each write handler generates a transaction id up front so it threads through the audit row, the letter, the confirmation email, and the later patchAuditEventData patch that stamps letterFileId/letterError/emailSent/emailError; a letter failure triggers a best-effort admin alert without affecting the action result.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L148-L163",
+          "version": "repo-lines-v1:sha256:a02dd2ae2db8de7c7245ae6d35aaebfc4cc813e99358b515067afaeb544b29de:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4NzU0NGUxNjYyZDI5MWFkZDRhYjk1MGY4MTYyNzhhM2FmMjU1NTBjNWFkYWY2MjY0MDEyNzAyNDMxNzNhNjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjMmI3Mjk1YmE2MTYyZTFlOTkxNDI5YTE4NDMyMGQ3YTRkODBiMzVlNTY0ZTExY2IyNTQwMjI4MmEzOTliZjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmMGE0N2VjZTE4YjA5ZDcwNjgzMmM0ODIxZDFhNGEwYTM0NDA5NjkyZDdjYzc5MmU5NmRlMzQ1ZDlmY2U2NjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2f5af176b17843faae0b50133e5b481d",
+      "statement": "The write-handler spine shared by all write actions is: resolve server-side identity and look up the user, generate a transaction id, upsert Enrollments and append the Beneficiaries ledger, append an Audit_Log row with prior/new values and deviceData, run best-effort side effects, then patch the audit row last.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L48-L58",
+          "version": "repo-lines-v1:sha256:01ee1c762b5e90b60bffcceaf6a6a276bd97b6553280ebf7cae765e03f16b9bd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzNmJiNWYzY2JkNjNkNGQ1MGM1ZTljOWM5OTU0OGMyYzQ1Y2FjZmRlMDIyZjc0YzUyNjE2YWE5ZGVlYmQ5YzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmYjQzMTIzZDAyODdkNTM5ZDZhNDU2NDM1MmQ2Y2ZjNzUwMWE4MTZkY2NhZjM1OTIwMmM2MWZlZTg1NjY5MzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI5MGI5ZjM5OTMyZmVlOTRiM2NjYWIwYWNmOTNjODExYjhjYTFiYWYyZTc1YmZhN2RkNzZiYzgzOTg3NGM3ZDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmYmI5MjU4OWZlNTlkN2EzMzcwMjZjNjg1YWJhZjIyNTlhNWQxYjNlZDFmOTUwMGY0MmFmYzc2NDE2ZDJjMzIifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L120-L166",
+          "version": "repo-lines-v1:sha256:a6f26320bfddfc374722e9908ae59f9544f6537c126f758e4a2fe18eeaac353f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmNzY2ZTQwNjk0NTcwZjk4ZGNkY2MzY2JjMzJkYzE1ZDBkM2FmZTgwMDg4NjVlNTRiMDljMzU0OGFjYWUyYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3ZWVmMmQzZTYzZDA0MGQ4NmNjNWM2NTAzZGJkMjFjOWE1MzMxNjI1YjhmZTVlMzJhNDBhZDUzZmQxZDZmM2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmM2I0MTNhYTAzNDMwNDVhYjExNzNhNGMwNDVjNWYyY2MwZjg5OTVlMzJmODVlYTI0NTcxMTc0M2FhZDkxNjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fbc8b5bfe7884b57830c98d2219644eb",
+      "statement": "The app is deployed via clasp (clasp.cmd push on Windows PowerShell from the repo root only, never subfolders); operational secrets and per-environment IDs (PF_* template IDs and folder, GA4_* keys, GA4_USER_ID_SALT, MAINTENANCE_MODE, ADMIN_EMAILS) live in Script Properties read via PropertiesService, never in source, and maintenance mode gates non-admins in doGet while ADMIN_EMAILS bypass.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L60-L68",
+          "version": "repo-lines-v1:sha256:ac3e96e5b65c23b5decd46b7eab5125c19629b538de8ff9fa084d245c9892ea4:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmMyYTQ0M2EwYmE3ZDgyYmNlMTc5NjRlMjQ1ZmFkMWUwYjQzNDljOTI1Y2I5NjVjOGNhMDI1OGU1ODdlNjAwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODhlMjA5ODhiMmQ5ZTJlMTQ1Yjc4NWIyYzZjMjk0Y2FmODhmYjE4NWNkMTI3MGIzN2M5NWMxM2UzZTJhMWQwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjAyMjAxODg5MzBiNTA4OWM0NDkzZjI3MDBjN2NmMTNkMjUxNGE2MTZmYzdjMmUzMDRmMDZjYmJkNjg3MGMyZCJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L6-L18",
+          "version": "repo-lines-v1:sha256:ccf6d5e111352c311a30f0809df2b714f353a2bffdf9b39d10402740cd7181f1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1YjkwYzk0YzRlZTZkNDYwNTZkNmE1YTc3M2Y4MjVkZDkxMjNiMzhlZWZkYTYwYTJlMmQ2MzM5OTM5YjQ5YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzOTI2NWI5MTEzYWZlOGRkMDViY2U0MjIxYmM0MGYxNTMyNmYyODNkYWE4NWQ5Yzk3ZGVlMDY2NjkwN2E4NWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3MjAyNjNjMTZiMzRjMzQ3ZWJhMGQ5NzhiZjIzNjIwNmRkMzkwZmZjMWRkNGFlZGQzMDdjODQwNTgxYjA2MmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0a79dc10acae4d77a640456eaa238912",
+      "statement": "There is no CI test runner for the app; validation is editor-run test harnesses (TestCases.gs policy suite, Analytics testTrackEvent, Letter testGenerateLetter/testGenerateBeneficiaryLetter) plus Data/verify.py structural checks on the migration workbook.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L7-L20",
+          "version": "repo-lines-v1:sha256:2ec0d638b53c93c284b7dcba75137e7d91cc5bdd1c6973dd721066089cf528ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlMDc1NmQ3MDZiZGNjZjBiNWQ4OTJiNDA2ZTVkYTgwNjViNTJiNjcwYzhlNzUwY2JlMWJmMzBlMGJhYWNkZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5YWIwMjBjMDA1ZTg3N2ZmMTE0ZTk0ZjNjMjA3ZDQ1M2ZlZjI4MTUwY2NkNGU3NDhiZTRmMDVjMGM3ZjAyY2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlYzkwNjg1NjgxYjQxYzI2ZjQ3Yzg1M2RmYzljM2EzMjFhMGI0NDg2MWRmNTE3ZjZkMzQwNDdkZjcyNjVlNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhYmNkYTlhYzVmZjcxZDM4NGEyZWRjNDdkZDc1YjYzM2JhMWFlOTgwOWEzM2MwMGMwMjc3MDU0MzI0MWRiNzQifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L25-L25",
+          "version": "repo-lines-v1:sha256:2e70a4ae97e9f9bb0ffbdc04d28dfe78252c7a8b1fa99cebfec44db82a8c71da:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU3MGE0YWU5N2U5ZjliYjBmZmJkYzA0ZDI4ZGZlNzgyNTJjN2E4YjFmYTk5Y2ViZmVjNDRkYjgyYThjNzFkYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU3MGE0YWU5N2U5ZjliYjBmZmJkYzA0ZDI4ZGZlNzgyNTJjN2E4YjFmYTk5Y2ViZmVjNDRkYjgyYThjNzFkYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmVkYzQwMGRkMDkyODE5ODQzODc1MjNlN2Q2NWE0MWM4ZjlhOGE5MGJmMzBkYWJkZmM1ZTZmOTg3YzBlM2U0MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTgwMmM2MDU0NjE5YTQwZGFkYTQzYTVhMjk2Y2ViOTMxMmQ0YWRkOTNmM2ExNTQyMjMxZmY5ZmNhNmM0MThiMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4545d1607da0450090f4f474970e768e",
+      "statement": "REL_LABELS, the Thai-first beneficiary-relationship display map, is mirrored in Config.gs (server) and html/JS_Utils.html (client); the two copies must be kept in sync.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L19-L30",
+          "version": "repo-lines-v1:sha256:5605bd0c7418e44af9b54e88296e0906724e8fb6301139019be1a2f406a88116:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNjIyNjFjMDRlNzMwNjJiNmFjOGI1NjY1YjhiNzI4NGU5ODFlYzAzOWQzZTNkMzgzN2I2NmQwOWYxMTNmYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMzk4MmZkNjEwMTczNTk5MjQxZmNhOTNjN2M4NjY2ODNmNThmNTQxZWNlZDFjMjA5ODEwMjE0NTQ3NzE2NGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmOWFhMWQ4NGI4MjExY2Y4YjdiYjI5MzRmNTM0ZjRlZGEwZjExODc4NzkwMzhjNmNjMzFhN2UyMDBmMDgwOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

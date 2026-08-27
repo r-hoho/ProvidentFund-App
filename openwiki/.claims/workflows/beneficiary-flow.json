@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b145c2d64391efec4ed88711e9f4f37eb8469f4ef99793b6ad376d04fb1e44b2",
+  "claims": [
+    {
+      "id": "claim_895ea1c479414d08940786f042d9b537",
+      "statement": "The beneficiary manager is a single #beneficiaryManager wizard-overlay containing four stacked views (benViewA Current, benViewB Edit, benViewC History, benViewD Sign) each with its own footer; switchBenView(view, preserve) shows one view+footer, swaps the header title, and re-renders the relevant content.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L42-L64",
+          "version": "repo-lines-v1:sha256:80c64013b31d9295afbdd357a51b9e032584b2b0432979816903ea924d4e43ec:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhZTVmNTUzM2VkMTI5MDdhNjViNzczOTNhZGJlOGYzMTM2YjZjMDJkNzZjOWZlN2Y1ODFlZTg5MjdjMGZlNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0MmY0OGZhMDhmYTFlNjdiOTNkOGRlZjIwODczNWNkZDY0ZmNlNTI1ZDlhNzliYTQ4NTVmMWZkYzU3OWExMzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3N2YxNjRhMDNiOGRjMDNkMzg0ZGZiZTA0YWUzMzViZjcwMzJmZDEwMWIwZmJmNjhlM2I3YjBhZDFjMGQ0OTkifQ"
+        },
+        {
+          "resource": "repo://html/Modals.html#L222-L290",
+          "version": "repo-lines-v1:sha256:7c31fd5a39f1a77339394678a3c550caac2ab9c63fcca3722ef3065d3bba9db6:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkNDA3NGIzMjg5YTg4N2VmMTc2MWQwZTJhZWI0MjZlNmM5MmIzZGJjYzg0OGM1YWJmNGQyYTEzM2UzZmQ4NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlYjUxNjU4YzRmZjAzNWZlY2RlYjRjMjY5ZWZiMmQzM2E2N2FjOTkyOGEyYTZjMmQyZDlhMTQ2MzBhMGVjMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlZTZhN2I2ZjU3ODBjZjE4ZWYyNTFkYjNhOGE1NzU1NzdlMjdiZWUwY2QyZTliYTg2Njc4ODRmZDc4ZDUxYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViNmI4MmYwOWVjZmU1YWJkYzgxYjYzMTk2ODdkMjlhNWM5MzkyNzcxZWNmYjM0NWMwMjcyZGZmNTlkZDZjYWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b8072a0ac6dd432abd05732d06236c30",
+      "statement": "openManageBen guards only on a missing profile, never on a blank beneficiary list, so a migrated/enrolled member with no record still opens view A's empty state rather than the button being a dead tap.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L9-L17",
+          "version": "repo-lines-v1:sha256:d2b0f40f2a7405ec3d21a535d6fc7188823d23eabe048bface9dd99e941dff82:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDQ5MGZlNjk4Y2NmYzgyMTc4MWM0MjliYmJhZDlmNTY0OTcxMWZhMGYyOTRhMDdkNjAxZWFmN2I4YWVmZGRiMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODM3MzQwNDFiMTgyODNmMmNkZjQ3MGY3ZWJkZjY4ZTQ3YWRiMDYzNGNlMzRiYWY1MjA1YjE1NTQxZmZhYTgzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzRlMmE4YTJmNWEyY2EyOWFjZGRkY2I5YTUwMzhhZDNmYmVhYTVmOTk2MGJiNDhmZjQ3OGZlZmRjMzJhMzYwMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_573dd4ff757a4eb8b5788110daeff58a",
+      "statement": "View A (renderCurrentBeneficiaries) reads globalEnrollmentData.beneficiariesJSON and renders each beneficiary's name, relLabel(rel), percentage, and address, with an empty state when the list is blank.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L66-L84",
+          "version": "repo-lines-v1:sha256:4435ee93080716d3b2bb5a3bf89bd8ed20b833271fe39d2478cba478de61dea9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyZjVhZmY3Mzg1YTJlMWU4YmY1MDNkNjk2MWVjZWY2NDYyNTIzZDUyMjE0ZTJhZTdjODM1NGZkOGQzMjk4ZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4MjcwM2UzYjhhYjIzNjY1MzM5NzUyZWNmYjJiYzk5NTkyYWM0YmEwNDg2Y2E3OTJjMDI1ZDZlYWQ0MzUzMzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5N2UxZjQ1YmJhNmU2MGQ3ODU5YWE0OTg0NWQzOTVlOWI5YzIxZThjZjU1ZWI1M2UxYmMyNTM0MjkwZGRmMWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b843c275364a451e9b2a1d99d321645c",
+      "statement": "View C (renderHistoryBeneficiaries) renders globalEnrollmentData.beneficiaryHistory as a newest-first timeline with a 'ล่าสุด / Latest' badge on entry 0, parsing each entry's data JSON to a compact name (pct%) list.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L87-L110",
+          "version": "repo-lines-v1:sha256:77a14807a7afd4fa8ea72628dda224cfb03a17e443668b93f1c66c949cb9c4bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmODllNGFhZjVlOTE0MGE1ZTgxMWZiNjBiMGZhZTk0M2QxNDk2NzY0ZDg0NmY3ZTJlZmNiYTM4NTdlYTJiNzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk0NmQyMWRhMmI0ZGE2YjgzNzZhNGVhNTRmNzQ5ZGU5NGQ5Yzg5ODYyMTM3M2M4Y2M5YzQ4MTIyODQ2NzIwMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMyM2Q1M2I5MTY4YzVkYmY3OTM0ZTJiYWQ3MWY1ZWY3NmZlYzEwMjY3NzdjOWQ0NDdhZmNmYjc5MTY5OTI0YzcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fdb65deead33494792e06601c52ee4f1",
+      "statement": "The beneficiary data model is JSON {name, rel, pct, address} where name carries the merged title prefix, rel is an English key displayed via relLabel, pct must be ≥1, and address is a required bank-required home address.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L307-L340",
+          "version": "repo-lines-v1:sha256:981aa545cd186753e80252c3f65c17669bdc4627042d1855468ff1c657caa9d0:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2MTJhOTdkOGVjZDdkYThhMGM2YTBjOTA4MzA3NGQ1ZjU4OWU5YTdkOTc0NjU4ZTMyNDk1ZDM3OWVhZWQzYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzMjRmZjJjY2FjZGM2MWI2NWRkMTM5ZTdlNWU4MmIyYzZiNWNjZjlhMDIzMDM4ZTY2NDgyMWZmZWI5YmFjZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhYTk3OGQyNDIyZWFjMjFiMDk0N2M1Y2Y5ZTg1ZDJmNTM3ZTYzYzU3NjQzMDI0MTEwNThiMDdkMTZkYjU1OTkifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L145-L179",
+          "version": "repo-lines-v1:sha256:bc83b3fa468404b7c8278b8b93b1549c20ba88b418e7ce7a3e5a61892fce4f9c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0M2I4MjQ5NjQ3ZWYxMjk2MTAyNTgyZmJhYTI0MjRjMTQ2YmY2OTI2MWY1YmJjNjAwOGM0ZGYzY2M5NGRhYjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyMjQ0YTNhM2Q4YWIxOTQwMGNlNGIyOGVhODRmM2Y3MGUxNzJmNzY5MmVmOWNhOTM0ZWVjMjhhZDllY2M0YmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFkODIyZDMzZjFjMTI3MmEyOTUzN2VkMjhiMTQ5ZTQ2M2RlZjRmMmQyZThiNzM0Mjg0YWQ5OTZmOTA4YTEwM2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5518c6bc26fb4a98b9f9e3237b590265",
+      "statement": "View B validation (validateUpdateBen) enables the Next/Sign button only when the total percentage is exactly 100 and every card has a non-empty prefix, non-blank name, a rel, non-blank address, and pct ≥ 1; the helper message distinguishes 'exceeds 100%' from 'must equal exactly 100%'.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L181-L193",
+          "version": "repo-lines-v1:sha256:7de5e68912fbb110b259687c47ed7474d252711908a09c0d22b133f5de795661:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlMWRjOTRlYTAxNThiMjllYTM0MjIzZjViNGQ3MTU4MTk3ZWRjNDI5YWIyZDA5M2UzNjIzYzNkNTVlZDI0YjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NWVmMWRiYTUxY2U0M2RkMzIyMjdlNGUyN2Y5YmIwYTZjMjhkYmUyMjUxOGQ3YjVjNDJlZTJhZWNhOTIzMDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzMjg5YzE2NTRjNDdhODQwNWY2YzBhYjkyODhhZjFhOWI1Yjc3MGE2YWM5MDNhNmQzY2JiZDNkNjdkNzZjMGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cfb42d59b89b4c9581daf211386f47fb",
+      "statement": "Up to 5 beneficiaries are allowed: addUpdateBeneficiary refuses to push beyond 5 and renderUpdateBeneficiaries hides the Add button at 5; the remove button is hidden on card 0.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L124-L130",
+          "version": "repo-lines-v1:sha256:26ce16e1648a350441055678359790a61fede1a7c0ccf978662315e211cf1dc0:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzExMGNiNDQzM2M3ZjQxZmJhYThlYzI4MDM4NDE0MTU1OWNmNDY4OTg5ZWUyNjI0NTlhZTFlZTk3NWM4YWMwYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGVjMWFlMjY1NWQ1ZjI5ZjViZWY4MTMxYWNlYTM5M2U1MzI3OWJhYjE0N2E3ZTVhMGJmMWMxODU2MzU4YjA5ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDJhZDU0MjJhZWIwNzRiYTViMTc0YTAzYzBjYzA0MzVkMTI3YTBlZjk0MGFkNDJhZjViNWMzM2RiNWUzMzBkZiJ9"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L149-L177",
+          "version": "repo-lines-v1:sha256:3c49209aee125953fcab04cdda0cc716e307c5c301324dc7d766a0265042f030:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwYmQ5ZWQ2NGQ3YjJmYjhlZGRiZTAzM2JmNzI0ZDA0NTFiNmU4ZmYxZDhhOWYzZjhkOTNjMGViOWNiNDc0ZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMjdmNDhjMGE3MGZiNzk0NmI3OTY3MDI5MzliZjc5MDc1MmJkZTU2NTExZWU4ODMyNjBkZDQ1NDczMDFjOGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1NTAyYTVlMzRkYTIzZGYzNjU0OGM3N2VhZWM5YzhkYmUzNDc4N2RlYTE2YThhZTkyMjA1NjgzMDIwM2E4NzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5NWVmMWRiYTUxY2U0M2RkMzIyMjdlNGUyN2Y5YmIwYTZjMjhkYmUyMjUxOGQ3YjVjNDJlZTJhZWNhOTIzMDkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ce5211e4f8a6483ba3c995cb35ded56d",
+      "statement": "The Same-as-Above checkbox appears only on cards after the first and toggleUpdateSameAsAbove copies the previous beneficiary's current address into this card's address when checked, clearing it when unchecked.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L132-L139",
+          "version": "repo-lines-v1:sha256:2018ed9b49da89c493af3c67d1fe039d0005e7006ab1506bc0f0b470c9e23d15:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmViNWIzYWE5YmEwMjZkZDc2YTBmYjQ1YWI2YTk2YzUxNGNhNDI2MzZhMzI1Y2JiMzZhZGVkODE5YWNkNDRjZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTVhMTc3NjNiNmMxMTNjMTlhMjVkMjU4M2U2NGNlYzI0OTE0ZTE1ZTM5N2I4NDZkMWU4NDE3MDdlZDY1MTE3YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGNiOWVmMDFiODQyOGUwMGM5MzdjNWI5MWE2ZTc5ODE1YWNlZjM1ZWVlMjFlOGU2NTZlY2JlN2U0M2MwMTYyNCJ9"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L172-L173",
+          "version": "repo-lines-v1:sha256:808083df4dd98c6a37108a6d513d5e64f6f29f03c36486e23ecd2088402fff5f:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY5YzU2MzFjODJkNzhjNWU2NTBiOTEwOWIzMzU4MjMzMmQyZWI5NzNhZWI1N2ZhNDY1ZjBiZDE5YjRmZjdlMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDIxYjIxYTBlOTA5ODY1ZjA5ZmJkOGI5MDdhOTJjM2I4Njc5NDUxMjVjN2RlOWVhZDM1OTJiNjdjOGU2NDJhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODNlNzBjMTdiMmU0MzBiNGU4MTBmOTU4OWYzZDI0YjMxNGY1MGZhZGJhNjFmMTk2MzM3MWRhOTMzYTllNWMzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGY0NmExYWNhYzMxZGE4NmI2NDhmMzZkNmJhMTJiMDg3MTkyNzVkNTg0MDVhNjhjOTUxZjllNDQ3YjhmYTY2MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_aefe297d1abf426491573eb84dd9bc10",
+      "statement": "The title prefix is a transient UI-only field: mergePrefixes folds {prefix,name,...} into {name:'prefix name',...} right before JSON.stringify on submit, so the stored model stays {name,rel,pct,address}; it is shared by the enrollment wizard and the beneficiary manager.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L264-L293",
+          "version": "repo-lines-v1:sha256:0e80f279c7ec9ccadbdb5a2be7260c78683d1bf75ba424444eec5c1b21a0db7c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjMGU4MTVkNWMwNTg4NWMzYTk1YTU3ZjU0MzI0MjY1M2Q1NDVkMDhlZjQzZDY1M2U0ZTIxMDcxNDRjNTk1OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjNDBlODMzZTBjNzQ4NTAwMDRlOTlkZWQ5ODAyMTU0ZTg1OTkyNTQ5YTZlMzYzZDBlNDBlM2Y2N2E1NjdlNjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQyODFmYTA1ODgxY2E2MTA2ZjMwYzE2ZTc2NmFlMzdmYzgxN2I2OTAyZDcxOWI1MGZlMThlOTljYmZhYWU3ODMifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L220-L223",
+          "version": "repo-lines-v1:sha256:6204f62782df765cb6de03a18d90e5a8821cef85a7dae93b2f9f45619768481d:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzNmYzQzNmE0YWQ1ZjcwYTgxZmEwOWUxMzg0OGFiNzljMjgwZWI2NTQ5NTUzMzU1NjBlNWVmZjg0ZTAzYjg1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmVmNjkwMDdhN2U3NWNjZGIyYzE5ZWZhOWQ5NWM0M2JmNzg3ZjMzYTJiOWM4MjY1YzRhNWNlNjQyZmU2ZGJlYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDliN2FiNzIxZDIwODYxYTkwMmY3NzZkNjZiZjE1N2NmYWJiYjhiNjRkZWNhNDAzNzVmOTA4ZDY0MjBkM2VlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzFhZTNjZGNlZDE5OWI4ZTgxM2E2ZDc5ODFiZmQ0NDdjYTcxY2Q2N2I4NzBkNWM2NGU0MTFjYjIwOWYwNTkyOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ec4f68a4c0e144649acf07026d743a8b",
+      "statement": "splitPrefix is the inverse of mergePrefixes: when re-editing a saved beneficiary it scans the leading name for a known PREFIX_LIST token (matched as prefix + space) and pulls it back out into prefix, so a re-save does not double-prefix the name; initUpdateBeneficiaries runs the saved list through splitPrefix to populate the dropdown.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L295-L305",
+          "version": "repo-lines-v1:sha256:9832d966b02323bbcaaa717a74928813393d4becba5473f69560b86707c6a8d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NzkxMzk5ODhlOTRmZTMyNGYyYjdkMjE1MTM1NWRlYzA1NTY3ZTdlMTBlNzkwNjllYTUyOTA1NTVjMTM5MGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxNjcwMGU4YmQ5YWM5MmQ3OGRiY2NiYWMyNTZkZWRiYmM1YmQ4ODVlM2UwYTIyYTZjYjEzNzJmOTJiZjI3YjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5ODJjZTViMjI1YmY1YWEzNmNiMWNkY2VmZWEzMWJjNjQzMmQ3ZDY4OWVhYjBjMmZiZjdmODIzZjJmNzZlOTQifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L113-L122",
+          "version": "repo-lines-v1:sha256:fd9561eeae3406979323e543117587b64d742401ceecf7aa9e18d09c76363a32:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlOTgyODg3MzJlZGU3MDZmNzM1ODlhZGEyOGRjOWZiYjU3YzExYTNiODFhNjY2ZjhjODcwY2VmYzk2NTRlOGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNjNhOWJmZGQ4NTIzYzgxYjA1N2Y5N2UwZWFlOTdhZGU4ODY3MzlmZDJlNTRmMmE2N2VkNDFiNmI4NGUwYWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjYmI1ZmUzYmExODFhYTA4ZWU5YWQxYjUzYWIxMTY5ZDFhMzhkZDBlYTYwZTYyMmMzMmEyMzk2OTU2ZTUyMjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c12c4149cc7e4937ab13221ff42e8388",
+      "statement": "View D mounts a fresh signature pad each open via mountBenSignature (destroying any prior pad), and the Save button (submitUpdateBenBtn) is gated purely on PFSignature.isEmpty(benSigHandle) being false, re-checked on every endStroke.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L25-L38",
+          "version": "repo-lines-v1:sha256:1d039079dc9edbf440da41de5832a45c54be488290f02520138cb788fa264dee:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhYzhlMDYxMDZlOGIxMTNlZGM0YmE2YmZmZjY1YzhiNTdjZDAwZDIzNWFjMzQ3MThkOGRmZTYzMjdjOGFkYzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkOTVkOGM1YTAxYjkyN2U2ZDEwYjExYmYyYWMyMmFmOWQ4YzMwZWZhODczNjUzZmEyNjVlYWFhNmM0YzQ4ZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY0MmY0OGZhMDhmYTFlNjdiOTNkOGRlZjIwODczNWNkZDY0ZmNlNTI1ZDlhNzliYTQ4NTVmMWZkYzU3OWExMzYifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L63-L63",
+          "version": "repo-lines-v1:sha256:d29c471554a6f6f44645beebbb8d5fc6c56915e1be763dcd333739b4ada200cd:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI5YzQ3MTU1NGE2ZjZmNDQ2NDViZWViYmI4ZDVmYzZjNTY5MTVlMWJlNzYzZGNkMzMzNzM5YjRhZGEyMDBjZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI5YzQ3MTU1NGE2ZjZmNDQ2NDViZWViYmI4ZDVmYzZjNTY5MTVlMWJlNzYzZGNkMzMzNzM5YjRhZGEyMDBjZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjhhYThjNTcxNWJjNzQyMjQ1NzY4ZjY1NmMxZjc5N2M5NWQxYmY4OWQ5ZjNlYzE1ZDQ0NjgwZTQ5NmEzYzUyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmJiMTQ5YTJlNWRhZWIyN2Q0Yjg2OWE3NGY1M2RlOWIzMDY0NGQwN2QxZWM5YTM2ZWU2M2QxMGY2YmRlYjYwOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_48c83a9d53d04ed1824e7549fd3bd63b",
+      "statement": "The beneficiary signature pad uses the shared window.PFSignature helper (a handle-based signature_pad wrapper) with its own benSigHandle, distinct from the enrollment wizard's wizSigHandle; getDataUrl returns a PNG auto-trimmed to the ink bounding box and closeManageBen calls destroy to avoid leaks.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L19-L23",
+          "version": "repo-lines-v1:sha256:5315fb08764eb37c6d2b65669a0d2e484bdc8938bbab3e56b69e5f67fdb23f37:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmE0Nzk1NTI2N2VmYTdiMzk0MDQwYTk0Y2UwMWMwOGYwMjE1OWY0Y2MzODVhZWRkOTk2NzFiMjQxYTM2MGVjNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjMzMzhiY2RlZjdiYjZiNmJhNDdmYzRmMzQ0ODhiMmFhMDc1YWE4NDI2Y2EzY2ZkZmFkZjg3YjU3ZDc2YmRmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTcxODBjOGMwZWE3YTQ5ZGZjYjU3ZGIwMGUxOGVhYWU5OTlmYzI1YmQ0Y2E1N2M0MTJhYmE3YzUwZTI4NzY2MCJ9"
+        },
+        {
+          "resource": "repo://html/JS_Signature.html#L100-L117",
+          "version": "repo-lines-v1:sha256:71fe8b3532857887ab061e42bc72b57e0d578a4817c2510d9f71a7cf5bf1d1a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc5ODAxZDUwZTdiZjhiYjE5OTZhNjlmZTE0NDU5NDRmMmNjMTQ5ZmZkNzM1ZDhjNzBlNmZjYWEwZWE5ODI1M2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkNTk4MDlhY2Q5ZmQxMjA0MDZiZWE2OGY1YWJlNzRhZjNkODNiY2JmNmRlOTY2ZTJkYWRlMGIxNTFmMjZlMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMzU4ZjAzNzFhNmU3MzJjNDM0MDMzMjIzNTE5OWRjZDkxZWJjNDYyMzlhNWRkY2ZlNmY5YTYzZTZlYmVjZmUifQ"
+        },
+        {
+          "resource": "repo://html/JS_Signature.html#L24-L54",
+          "version": "repo-lines-v1:sha256:e3ebbc13c548268ade79537da424d820b1dec33d2669a169f405f607d539c768:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3YmZlMzE4NmY5NWIwZTJmZGFjNjdkN2Q4NDc5NDg3NzE4NWI3Y2ZiYTQzMmY0NDQ5ZTVkZGIyMzE2MzQxYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0ZDdhMWVlNDYzMzEwZjA5ZWIyNzMxNzYyODdkMDk2Y2ExZDRkZDMzNTcxMDJkYzY4N2U5ZWYzNjYyNzM4MjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmNDM1NWI3YzRmNjZlNzY0ZjQyMDNkMjI1NDhkNWJiMDMzOWQxZjIzZmRlMDU0ZTgyNTQyMDJiODNjOTkxNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c2f9f1a0af48499884e6afcb653c0977",
+      "statement": "submitUpdateBeneficiaries serializes mergePrefixes(editBenData) and PFSignature.getDataUrl(benSigHandle) into {beneficiariesJSON, sigDataUrl} and calls google.script.run.processUpdateBeneficiaries(payload, navigator.userAgent); on success it closes the manager and shows a success toast.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L195-L224",
+          "version": "repo-lines-v1:sha256:424d197d54144522eb66aa41a6939970fb4b37c89890e804414afa5e58257659:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1Yjc3YWE3NmIxNGRjYjA4ZDg3OWQxMDk4MDQ4MTYzNzBkZGZiMGFhNDVlZGM3MDBmMjQxMzJkOWE0NmY2YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI2YmFiNWNmMTVjMzYzM2M3MDBiZTE3ZWIzODM0OGQ1YzlkYTJiZmE4Mjc1Njc2YzU3NWQwNWUxNWQxYzg2ODkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjOTY1NjIxMGEwMjAyNzE5YzFjYzNmMzNiYmE1MTIxMzVjMjZiYjhkOTcwZDIzNTA1NTJlNzVkMjU3NjMxY2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5a822a1dc6ee4f68a86de34e2cf223f2",
+      "statement": "processUpdateBeneficiaries accepts either the {beneficiariesJSON, sigDataUrl} payload object or, for backward tolerance, a bare beneficiariesJSON string, and resolves the acting user from Session.getActiveUser().getEmail() against the Users sheet.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L374-L407",
+          "version": "repo-lines-v1:sha256:6adec621cfa756eec76dfa5230a036a907e19b29cfae8957dfbade805b76a0b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5NmNjMjRjMDM4OWJkZWQyMjU1MjM4YjVhY2JhMWFmZTMzNDc2ZWYyNGM0MGYwMTdkMzIyOTE3NGMxYmIxNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzNDc4YTBjODVjZTBiNTIyMGFlZjVkNWRmMjhhYmMzYzE3MjM0M2NmNjFiODU4OWY4MWQyYmMyN2U2MmUwOTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjZWFmZDA5MzNmZDg4Y2UwZTFjMzdhZmRjMmI5ZjUxODZlOWI0OTFmYTczODg3ZDkxNjEwODY2N2ZiZDg0MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxMWMyYzI3MTRmZTU4MDEyNTk2ZGUzNGMzNTMzZDU3NmZhZWZkNmVhNWJiM2NiMzlkNjliNGFjMDA1ZmFlNTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a5c9ffed16664c5d9922ed6d75b0c20f",
+      "statement": "processUpdateBeneficiaries appends a new row to the Beneficiaries ledger sheet with schema Timestamp | Allstars_ID | Work_Email | Beneficiary_Data; this append is the authoritative write and a missing sheet returns a hard failure.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L409-L414",
+          "version": "repo-lines-v1:sha256:870a7c79f1f97df1653cd3d4e21529540923ce5c50d0927747326697194e6b4c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjhkMjliYWU3OGIwNzNlZTA1NTE0ZGI0MzkyMzhiZjczMzIxZTBjMmEyYzljMmFkOWU0OGU4MzJmODYwNGI0YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2MxN2YzMzkyNjY1ZTE5ZTk1Nzc3N2QwYTg3YzlkOGFmZGE5ZmUxNjE3MDJhMzA0NDA0NDM1OTAwYTUwYWViNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzYyMDU4YmM0YmQwYjE0MTY0MDBiMmZlZTU3MDQxZjllNmZlODE4NjEzNzRjYWUxMGQ0OTRmM2MzMTc2NGRlYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzIyNjU2Zjg4YzUxYzE1NGZkYWY5MTI0Mzk2MDE2YTc5ZDkxNmVkMDU1ZWIxMmEzMjY3ZjU5OTY3MTUyYWJhYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_75c3807667bc4a68a27341d6b37ec697",
+      "statement": "processUpdateBeneficiaries writes an Audit_Log row with Action 'Update Beneficiaries', a BN- transaction id, Event_Type SUBMITTED, and Event_Data carrying only newValues.Beneficiaries (no priorValues, because the append-only Beneficiaries ledger itself preserves prior state as the previous row); Selected_Plan and Investment_Plan are blanked.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L416-L440",
+          "version": "repo-lines-v1:sha256:5df741dc89fa73e42a395e7591b494877640cc71f2e119d4e758339cdc50db7e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyZGI0NTJhZTM3NzJiMThlZjFhYWYyMjRjMGE1N2NkYzQ2NDZhM2Y0Yzk5OTE0MWE5ZjQwYzQ5Njk4YTNhM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5YmU2ODA3ZTRhYjRhZDRkYTQxY2MxOThhNDZmZWU4ZGY5NThhMDE2YWRlM2U3NDRlYjRhNDc5ZmNlMjRiYWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkZTE3N2FhN2U3Y2M3OGUxNzcwNDU5NGNkNmIzOGY5ZDhiN2ExMTQ5N2Q4ZmUxMmIxYWYyMzk2MWI0ZjRkZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiMzBiODQ4OTVjNDE3NzQ4ZTBkYTg4OTg5YWE0MGQ2NDJjODQ2YWNhYmM1YTI0NjBkZjgyNjZmYmQ1YTkzZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8dd06219aa0c44a898f523408ab4688c",
+      "statement": "processUpdateBeneficiaries generates a signed PDF letter via generateLetter('BENEFICIARY', ctx, sigDataUrl) and sends a confirmation email via sendActionConfirmation with the PDF attached; both are best-effort and wrapped so a failure never blocks the update.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L442-L484",
+          "version": "repo-lines-v1:sha256:1cfe88e356f0957680e9b41cb0d34b2c098a8b44501218cdd6934d288f7c808a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZDRlN2U0YzliNmZkYzBjMjFmMGY5YzQzZTllYzdhMjc2ODNlNGE4ZGZkNmZiYzNiNDFlYTBlNDM5NzBlMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMTAzNWE1NzI2NzM4Mjc5ZGFiN2EyMjc0MDMzYWExMWVkNThmYWMwYzFiNWQyZTIxNTEwNmYxNmQxYzIzNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNlYmU2NzVmOWE3ZTgwODExMmI0N2NiMDJmMTZkYTBlZGNjYjkyZTQ0ZDQzNDNmZWQ5NTUwZDgzZTBkMDkyZTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c263137021924fa3bd370e152fd2d11b",
+      "statement": "For the beneficiary letter the ctx carries effectiveDate set to today (immediate — no payroll cut-off) and leaves the enrollment-only placeholders planPct, employerMatchPct, investmentPlan, and memberSinceDate blank.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L450-L464",
+          "version": "repo-lines-v1:sha256:89ccb3a90241236f9d1f6e4c539330d967839da7fb235b8b74306625c74940b0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwZTI5NjFhNTU3M2QzMWIwZTRmZmNiZDk3YWIzYjc3ZmE1MWEwNzIzN2U1MWI2MjI0MGNlZWRmMmM4ZTA2M2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmZTU3YTgxMDM0NDhhMDAzYTUzYjBjYTMwMjczYjA4MjAzYWFjMDM5NjUwM2JmYTYyNDEzZDBkMDJiMmY3OTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRkOGZiMjZmMWJkYmI2MTQxZWVhMmFlNTIxYjFlNzcwY2UzNTFkZjkxNzQ5MzlmMGM5NzZhMGJiOTk2YTM3ODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0YTBkNmFhODZiMDJhYjMzM2ZlODQ1ZWUyMGZkZjE1OGQyYTFmNmY3ZDliYTYxZGU1NjJlMGU0Nzk5YzkxM2YifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_af9509b50657435c82aada7127f94eab",
+      "statement": "After dispatch, processUpdateBeneficiaries patches the audit row's Event_Data with letterFileId, letterError, emailSent, emailError, and signedAt via patchAuditEventData.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L486-L492",
+          "version": "repo-lines-v1:sha256:f6d23b430f65b2343a199de3535d34a652b6e86e7069aa6a6873031ab54c6fa9:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDg3NTQ0ZTE2NjJkMjkxYWRkNGFiOTUwZjgxNjI3OGEzYWYyNTU1MGM1YWRhZjYyNjQwMTI3MDI0MzE3M2E2NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWMyYjcyOTViYTYxNjJlMWU5OTE0MjlhMTg0MzIwZDdhNGQ4MGIzNWU1NjRlMTFjYjI1NDAyMjgyYTM5OWJmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTNlOTcwNzc1M2YxMWFiYTFkMDJkOTMwZWI4MmNlNDJlYTk2ZTZkODkxNWNlZDBhNTU4ZmQxNzlkYWNjMTZhNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_70321411b92c4aa9bf54d8a4ccb26128",
+      "statement": "If generateLetter throws, processUpdateBeneficiaries calls sendLetterFailureAlert (admin to, user CC) so a document can be followed up; this is best-effort and never affects the action result.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L494-L501",
+          "version": "repo-lines-v1:sha256:1a04ff668d26c0e7783c633100af7b2943ec61a888d46304e24d772333b6180a:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdjY2E2ODRjYTIzMjFjZjc1ZjEyMTI3NTdiODNlNjIxYzA1NTg0OTVmNmVmNjI3OTIzZjY2OGI0OGViNThhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGE1MWUwMDMxZDI2Y2RlNDZkODg4YjBiMjYwYjFmYjVhMDdhZWJlNzRiYzc5MjZmYzJiMTEyNjZiOGE4YzdjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmJhNjAyNDI2YTU4ZTUzYTAxZGViMzgyNTcyOTZkNzI2MGFhMzQ3ZGY0NmU4YTQyNzJjZTJiMWZhYTYzZWRhNSJ9"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L107-L162",
+          "version": "repo-lines-v1:sha256:aa73bede4f959956c39de9c068f03f2f3e243973805ecbf01b4459feecdf52a4:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5NmNjYTEwNDg4ZjBkNzJlZGY0NGIwOGMwN2RjNjY5ZDA1ZTgxZDMzMDgwMjcyYjM1NjYzMzkwMTY1MTlmY2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5MzI3YmZiNjk2ZTFkMGQ1NjE4NDc3YzNlN2E5Y2NkNDAzZGYwZjA1MzQwMjMzOWYxZDE3Mzk3OTc4MGE3ZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzOGRjNDU2Y2Y3ZjAzNmNmNGI4NTdlYzQzYzA2ZGFkNjI4ZTY2MmQyZTY3MjZjZTRmNzdlZmM0ZjU1OGNlYzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f8e7252f3dbb41e183d980da07e73b12",
+      "statement": "Beneficiary changes are effective immediately with no cancel state: getPendingTransactions only treats Enroll, Change Plan, and Withdraw as CANCELLABLE_ACTIONS, so 'Update Beneficiaries' never appears in the in-progress pending-transaction box.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L216-L231",
+          "version": "repo-lines-v1:sha256:116ea929ceb462273a2f0c4ff606c9785a74136a5041a08c8eca06c23b9b29e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwOGJkMzA2YTRiZDRmMTNjZTMwNTcxNTVhNGJhYTgyZmY1MGFkMTk0ZThjMjhhYjZmMmJjMmE1ODgzM2E3YzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ZDg1MDdkZTg5NGUyMjU2OTVkZTEyMmMwODRmYzgyMDM0MzJkYTNiNGI1MmM1YTNmNmYwNjJkOTdmMzEyZTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhZTcyMTI4YTAyYjUyY2Y0MmEwZTZhNDQ4Mjg2OTc3NWRlNDE5MzRjNTFiNmJjM2E5ZmEwN2Y2NjU3OWMzNjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_164b9dd095a24b0ba731dab5b54245f4",
+      "statement": "The Update Beneficiaries confirmation email lists the full new beneficiary set and omits the address, and contains no cancel line, consistent with the immediate-effect no-cancel semantics.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L219-L235",
+          "version": "repo-lines-v1:sha256:94508ead07935f3a466a4d029de6b50fd2482bd232dcd9319df6994db9ede616:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhYjVhYmNjOWFhNzhhMzBlMzAyZTBhMTI4MTY5NDc5ZWJmNjM1NzIzNGM3MGNiNjVjYzY3YWQ2OGMwZGUxZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZWVmZGQ1MTEzZDk5MDU2ZjFlMTlkZTFiN2Q1YmVkZTZlMGEzMDFmOWU4ZjdiZTRlYWQzZjhmOGRhODY2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxOTZmNDFmNjNiMWQ0MDg4MmU4NDNlOGJmMTdmZDBjMjMwMjE3Nzc0NThlNGY1YjFjZDkzZmY2OTUwNmMzYWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8a802f0cd8734420b38b53a54dc0bf00",
+      "statement": "generateLetter selects PF_BENEFICIARY_TEMPLATE_ID for type 'BENEFICIARY', falling back to PF_ENROLLMENT_TEMPLATE_ID when the beneficiary template is unset; both template IDs and the letters folder are Script Properties, not source.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L14-L25",
+          "version": "repo-lines-v1:sha256:eac8880288c42a4c38c6320f4359a399a4fffebcde8ded2164d50a77fc0bd915:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkM2Q4NGFiNjdhNjIxYTlkYzM1MjQ1MWY2ZTA3YmVmNjI1NjYxMTZiOWMzOWMxMTE0NWY2OWY2NmNlYjNlNzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0OTliOWE3Mzg1Yjk5ODFhNDM0MTg1M2RiZTJjODUwZjQ1ZjgxMTM4OTVhY2E3Nzk3Y2IxNWMwYjE5MTNlNmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2MWRlMGNiZDg0MzlkMTA2MjBiMDYzODVhYjcyMjRkODBjMjI0MDc4NTBkNzIzZGMwYzRmYmM2OTBhMGZkODIifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L49-L57",
+          "version": "repo-lines-v1:sha256:cb03309d06644673cf3dc909876ce269ddad4badd7c053782d50ed5a96613ff4:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDA2MDdmYjNiYWY1OTZlMWJiZjQ2Yjg0ZDg2MjE4ODM0MjI4MzI4ZjAzNTliZjA5NGJkYjkyNjAwYjM1ZWEwZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTYyZjRlZTdhMjRkNTc2ZTc3NzViNGUwODUyMmU0MDhhMWE1NzIyNjNkMjU2ZTc4NGU0MjE4MjIxMmYwMjUxNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2UyZDczMGQ1ZjQ1MjVmYjlkZWMzMzUxYjNhNDhkZWZiNzEyZjQxZmIzMjQ4YzZjMzJjODk1NTI3ZGRiODc5MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e9fbbafddffb4c9e9ffd2727e5f4b398",
+      "statement": "REL_LABELS is duplicated in both Code/Config.gs and html/JS_Utils.html and must be kept in sync; rel is stored as the English key and only display is mapped through relLabel(), with Other retained for legacy display but not offered in the picker.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L19-L30",
+          "version": "repo-lines-v1:sha256:5605bd0c7418e44af9b54e88296e0906724e8fb6301139019be1a2f406a88116:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNjIyNjFjMDRlNzMwNjJiNmFjOGI1NjY1YjhiNzI4NGU5ODFlYzAzOWQzZTNkMzgzN2I2NmQwOWYxMTNmYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMzk4MmZkNjEwMTczNTk5MjQxZmNhOTNjN2M4NjY2ODNmNThmNTQxZWNlZDFjMjA5ODEwMjE0NTQ3NzE2NGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmOWFhMWQ4NGI4MjExY2Y4YjdiYjI5MzRmNTM0ZjRlZGEwZjExODc4NzkwMzhjNmNjMzFhN2UyMDBmMDgwOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://html/JS_Utils.html#L53-L70",
+          "version": "repo-lines-v1:sha256:b4483b7962473d18bd0d29144dd51f085c0b73807af70e0f5452c831a57ea2a9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2YzI2MTRiODRkNTAzMTA0MmVmMzg3ZmNmODc5OGQzZTZhNDdhYjJlMTY1MGU5MDRjZTRjMTdmOWU1ZGU1YjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwMGU0MGUzYjM0MTc5Y2FlNDM3Njk3ZGI1MDJkZTUwZWU5YmE3ZDU4NDBjYjNkY2I0YmM5MWUyYTJjNzUxMTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmMzU4ZjAzNzFhNmU3MzJjNDM0MDMzMjIzNTE5OWRjZDkxZWJjNDYyMzlhNWRkY2ZlNmY5YTYzZTZlYmVjZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d3c07d3ad71642e1a0850da59c632c16",
+      "statement": "The current active beneficiary set and history are reconstructed by getUserProfile scanning the Beneficiaries sheet bottom-up: the first matching row is the current beneficiariesJSON and every match is pushed into beneficiaryHistory in newest-to-oldest order.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L65-L94",
+          "version": "repo-lines-v1:sha256:776e0d5cd3316553dcd0468d3fe6554e53d8158bb56afee54ce3674f372c1788:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5ZTAyNTIwYzMwNTA1MWU0M2JmMTUwZTk2MGE3NTRhYjQ2M2MzYjEyNzIxMTliNzY5OGFmOTE4OTNmMzg4NmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNzVjYTg4OThhNTZhOTZmZDI3NjY2OGEwMjc1N2UwZmNhY2I5MWY5OTAyYjZkZThmZGY5MTYzZTRkZTQ4ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMWZjMGQ3ZmEzYjE4NzU4YWIxNzFiOWZjYWIxMjJhNmE4Mzc3YzdlNzJmNWY3YmE2NmMzMmRjN2VmNWUyNDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1879e14a66cb42c29f0d63194e3d03c9",
+      "statement": "processEnrollment also appends the initial beneficiariesJSON to the Beneficiaries ledger, so the first enrollment is itself the first beneficiary history entry.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L93-L98",
+          "version": "repo-lines-v1:sha256:4a149950e2cec53cf2f41e0e3f950d5d178b0d768cf4758b835d34147fa056dd:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTIzNmQ5NGVhMzM0ZmFlNzI3OWVlYTAyMzMxZDViNDIzOWU4NjBlNWUzNDQ0ZGM1ZDMxZDE5OGE4MjA0MDBkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2MxN2YzMzkyNjY1ZTE5ZTk1Nzc3N2QwYTg3YzlkOGFmZGE5ZmUxNjE3MDJhMzA0NDA0NDM1OTAwYTUwYWViNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTcwMDM4ZjM5ZWM1YjA0ZjYxYWQzYjcyNDgzOWEwYzVkYTI3ZTkwZWRkODhmOGMzZDg4ODYxNDk5MzEzZjAzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGM4NDQ2YjI2N2JkNGFhZmY3MzJkYWY4NTQzMmJkNGJhZWQyY2M3NjIzZjBiY2RlODIxMGYwODgxMjc0ZTdlMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a4c5683141184570a2b7303de26bd571",
+      "statement": "The prefix dropdown options are the shared prefixOptions fragment (Thai นาย/นาง/นางสาว/ด.ช./ด.ญ. and English Mr./Ms./Mrs.) with PREFIX_LIST enumerating the recognized tokens; the beneficiary manager reuses the same fragment as the enrollment wizard.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L264-L283",
+          "version": "repo-lines-v1:sha256:28a1530801a7a7f53f935c48d21be9de69edefc17212b516297baa5ecd80b468:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjMGU4MTVkNWMwNTg4NWMzYTk1YTU3ZjU0MzI0MjY1M2Q1NDVkMDhlZjQzZDY1M2U0ZTIxMDcxNDRjNTk1OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhZjhhMGY1Mjk4MTQ1MjE2MmVlYWU4YWYxNTZmMWY0ZjAwZTg5MzdiZDJkNDNkNTcwYWUyYmM1NmI2YTFlZDQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjNDBlODMzZTBjNzQ4NTAwMDRlOTlkZWQ5ODAyMTU0ZTg1OTkyNTQ5YTZlMzYzZDBlNDBlM2Y2N2E1NjdlNjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU5OGQwM2Q4Y2E0NjJkZGViMTQ4YmQyMGUxNzk2NWUwMzQ2YmFkNjlhMGI0MTc0NzM5NDhjZWMzMzJmNzY0MjEifQ"
+        },
+        {
+          "resource": "repo://html/JS_Beneficiary.html#L154-L156",
+          "version": "repo-lines-v1:sha256:dc60938c68cef29be32178a9f58244ec84c2536c26fbdde5de2f1ad2e47c2507:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U1NzNmMGZmYzMxYTFjMmEzZTZmM2Q5NTQ5NDc5MjNkN2RmYTY1ZGNjZjIwZDM3ODNiYjYwNGU0ZGM5Y2VlOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTllOTQ5NDhhOWRjMzI4OWRiNmYxYTMxOGRhYTI2NGJlOThkZDE3Yzc0ZTRhMmQ4ZmJlMjJiZTE3NThlY2Q0MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTFhNmQyYzMxNGQ1YzAxYzU2MmQwYjVjMmZkNzk0MmFhOTczZjc5MDY3NGFhNDg0MWIyMmJmMTliM2UxM2M2ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2QyYTNlMjdhNDhkM2QwZGM4Y2ZkNmM4YTgyNmRmNDcwNjhkNGY5Nzk1Y2ZlZWIxYmJiZDZjNWNjZGJhYWZiNyJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

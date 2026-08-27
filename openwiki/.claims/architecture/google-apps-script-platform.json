@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:5aea83876ff446d5e67dce1fe3ae065ae8eff9a4d64ade7b3c38b88a592432c9",
+  "claims": [
+    {
+      "id": "claim_565d995b72924747b7ce0b51817654d3",
+      "statement": "doGet() is the single HTTP entry point and MUST build its HtmlOutput via HtmlService.createTemplateFromFile('html/Index').evaluate(); using createHtmlOutputFromFile instead silently fails to render the <?!= include() ?> scriptlets because that API does not evaluate scriptlets.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L65-L65",
+          "version": "repo-lines-v1:sha256:0cda1af289ac5b0cd5517af2e81dbb552d9c8e850fff898f953fa55c3357807f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNkYTFhZjI4OWFjNWIwY2Q1NTE3YWYyZTgxZGJiNTUyZDljOGU4NTBmZmY4OThmOTUzZmE1NWMzMzU3ODA3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNkYTFhZjI4OWFjNWIwY2Q1NTE3YWYyZTgxZGJiNTUyZDljOGU4NTBmZmY4OThmOTUzZmE1NWMzMzU3ODA3ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzUzNjk5NjQ1ODcyOWZiYzA3YTFmZjczZDNhMTY0NTZiMDM5MzBmZmZhOGIzMzZjYmUxNDY0ZTEyZmU5NDFiNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTY5ZjhlNTY0ZjI0YzZjMzk0NjI3Nzc5Y2MyMjkyNDczNTJiN2NjNTgzMjlhYmMxNGZhNjJlNjM1YjUyZTE0NCJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L4-L31",
+          "version": "repo-lines-v1:sha256:14727ea529bdac5ae382cf5a855f8972a05ae0d6c4d07c650970fb38d929c7c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZTMyZjc4MjIyZWE2ZTUyOWMzZjU4ZjI2MmYwZjYyMDEwZTU0ZmM0YTAxZDM4NWNhOGM4OTRkNWEwYWFmNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNWRkNzA3MTgxOGMyNzY3Y2IxMDc1ZTIyNjM4MzVlYzNjZDlkZWEwMGVjNDAwNTNiMGRmYjBkMjRlZTZiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiM2Q2MTc5ODdkZGUxZjRiOTkzYTIxMzYyYTM5ZmY1MTMwNzUyZTY5MTA1ZGM2YzYxOTIyZmVmZjhkY2EwN2UifQ"
+        },
+        {
+          "resource": "repo://html/Index.html#L160-L167",
+          "version": "repo-lines-v1:sha256:e844eb37fe5839cf6275b91253ce84394d2afdc1cc9511911245c6dc3a934193:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDE4OTFkNWZlNTY2ZmY4NTBjZTY3MjA1NmVlZjYxMTMzM2UxNDBkMDk4MGY5OTZkMDE2ZGQxZDg3NzIzNTQ1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTQ1ODkxMGM0YWJiZDBiOTUyMzZlMjY1NDY0NzgwMGVkOGM4NGQ3MWVmNjc5YzU3YTk5NDBkM2UxOTYxNmY0NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYThhYTI1YTg0OGQ2ZTNhNzZlOTEzYzg2NzZlZWE5MTljYTM0ODYyYmFhYTFiZDkwMzViYzZlNjU1ZTkxM2RkNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWI3YTQ3ODEwMzRlNjNiMThiMTRmOWJiYWMwYjFjNzQ2MDViNmU0NDBhOTlhMGJlOGU3ZDNiZmQ4M2YyYmJmOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e8eb80ce40634f1eb23063c7a9753140",
+      "statement": "The include() global server-side function (Main.gs) returns HtmlService.createHtmlOutputFromFile(filename).getContent() and is the helper invoked by every <?!= include('html/...') ?> scriptlet in Index.html to splice CSS, modal, and JS partials into the page; deleting or renaming it breaks all partial loading.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L37-L38",
+          "version": "repo-lines-v1:sha256:cf1068746156256d8587141b198426f12bb024fca22879f123781bd685f85027:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGEyZWQ0YTI4YjRjZTljYWU5YjYxYzBmYWQxNGVmMjZlODY5YjZiNjMyMzk1ZTk3NWE0ODE2MWE1YjY5MDUwMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGFmMThmNGVjNDY0NzMxZjNlMDNhM2QxMjBiNzI3ZWQxNmU5ZTBlZTgwOTczZmYzNGFkYTI4YTg3ODViMjU2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ2N2I2MzE5NzE1YjIyODg0MGEwYzdkYTYwYTFmNjY5NzMxMGQxZDg2YTFkMWE1NWQyNmNhOTE1YmJhYmEwYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiJ9"
+        },
+        {
+          "resource": "repo://html/Index.html#L20-L167",
+          "version": "repo-lines-v1:sha256:6e4f767eb30ff15373339aecf5db19114b4c5da91ff5d1610113aa42aa1c61ac:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkMzI4ZGIxNmFjNzFkMDQyNmUyOTYzOGNhZjJiNzNkMTJkMDJjZDkxODk5ZGM2Y2VmNTI2NWIzZGVlOWVmMTJkIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIxNDU4OTEwYzRhYmJkMGI5NTIzNmUyNjU0NjQ3ODAwZWQ4Yzg0ZDcxZWY2NzljNTdhOTk0MGQzZTE5NjE2ZjQ2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkMmNjMzk1NDE4ZjdkNTMwNTU1ZWIyNzllZjI3Mjg4ZTcxM2ExNTdlZjFjNWIzNWZhMjVkZjVhMTIxMDJhNGUzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5YjdhNDc4MTAzNGU2M2IxOGIxNGY5YmJhYzBiMWM3NDYwNWI2ZTQ0MGE5OWEwYmU4ZTdkM2JmZDgzZjJiYmY5In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_0d8574523acf45b9a3c257a1bb663beb",
+      "statement": "There is an intentional asymmetry: doGet() uses createTemplateFromFile(...).evaluate() (the only evaluation pass, which resolves nested scriptlets), while include() uses createHtmlOutputFromFile(...).getContent() (raw string injection spliced by the forcing <?!= ?> scriptlet), so include() is not a second evaluation pass.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L4-L38",
+          "version": "repo-lines-v1:sha256:a101933266372dba4abd0919c2536a6e57be30f5b50e75f2f2def6dea421f6d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZTMyZjc4MjIyZWE2ZTUyOWMzZjU4ZjI2MmYwZjYyMDEwZTU0ZmM0YTAxZDM4NWNhOGM4OTRkNWEwYWFmNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhZjE4ZjRlYzQ2NDczMWYzZTAzYTNkMTIwYjcyN2VkMTZlOWUwZWU4MDk3M2ZmMzRhZGEyOGE4Nzg1YjI1NmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNWRkNzA3MTgxOGMyNzY3Y2IxMDc1ZTIyNjM4MzVlYzNjZDlkZWEwMGVjNDAwNTNiMGRmYjBkMjRlZTZiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIifQ"
+        },
+        {
+          "resource": "repo://html/Index.html#L20-L167",
+          "version": "repo-lines-v1:sha256:6e4f767eb30ff15373339aecf5db19114b4c5da91ff5d1610113aa42aa1c61ac:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkMzI4ZGIxNmFjNzFkMDQyNmUyOTYzOGNhZjJiNzNkMTJkMDJjZDkxODk5ZGM2Y2VmNTI2NWIzZGVlOWVmMTJkIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIxNDU4OTEwYzRhYmJkMGI5NTIzNmUyNjU0NjQ3ODAwZWQ4Yzg0ZDcxZWY2NzljNTdhOTk0MGQzZTE5NjE2ZjQ2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkMmNjMzk1NDE4ZjdkNTMwNTU1ZWIyNzllZjI3Mjg4ZTcxM2ExNTdlZjFjNWIzNWZhMjVkZjVhMTIxMDJhNGUzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5YjdhNDc4MTAzNGU2M2IxOGIxNGY5YmJhYzBiMWM3NDYwNWI2ZTQ0MGE5OWEwYmU4ZTdkM2JmZDgzZjJiYmY5In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_d53a6f85299740469e58b1f83174d4aa",
+      "statement": "Server-side values are pushed into the template before evaluation by setting properties on the template object (e.g. template.maintenanceActive = isMaintenanceActive in doGet), then become available inside the scriptlet context.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L26-L30",
+          "version": "repo-lines-v1:sha256:e18ade07d808aae414f0f4e23c3e43e644d7c1270008bafe064faf5935eda742:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDU4Mjk2Nzc0YmIwMDNiYjYwOTA3YTcxNzBiMzk1ZTA5YmM2N2RlMDMxZDMwOGRlY2ZkNTQxMTcyOWMyZjdhZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmVhNTQ4MDRhMzFlMjI2ZjEzOTQ4MGMyNzMwNTNmYjFmNjQ5ZWU4NDI2Y2RjOGJiOWEyNjlhMzk3NDkzN2VlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjQ1NjcwMWNhYmNjMGI2MmEzYTAzYzU4NTFiNTMyNDBiMWQ2ZThkOTI5NWM2MTFiYTIxZTAxY2FlMzFlYzIxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxYmRmNDhhN2U2YTE2M2FmZTI4N2Q4ODI3Y2E0MGQzZDk3MGYyYTUxZWQ3MjVjNGNjYzcwZDYyYWRiNjYzMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_28b06e39ef88406b9e5f6d316b4a71ac",
+      "statement": "doGet() implements a maintenance-mode gate: when Script Property MAINTENANCE_MODE === 'true', non-admin users (email not in ADMIN_EMAILS) are served the html/Maintenance template via createTemplateFromFile(...).evaluate(), while admins bypass to the normal app.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L8-L11",
+          "version": "repo-lines-v1:sha256:a16b4aaf95e606971005075d1ff728a91aafb3cd2586d3c98e8a9209a350f256:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFmMzAzODYwNDkzYzFiYjg4NTY5OTkzNTI5MzYzNWRkMzIyMWM3MmQ2ZDZiMTkyZmE1NWVjNWNmYjk5NDZhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZDJjMGQ2ZGM1ZTc0ZDkyZmExNGI5MWRiZWEyNjQwOTBiZWIzNWZkYjkxODhkOWIzNDExODFkY2U5ZjRjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDU3NWYxYzJjNjQzMjFmZDg3NmRhYTU3ZDJjZGVmMTJkMzVlZTJjOGNhMDdmOWJlMTMwNDIxOTlkOTJjN2M1MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjFmNDNkZGIwNjdjNjU2MzliN2MzMzBhNDA4NGJjZmFlZGZmOGE4OTBjOTIyMzU0ZTNlNTVlM2EzYzcyODI2NyJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L4-L18",
+          "version": "repo-lines-v1:sha256:50dfbc967e60b8453f9e84e438fd69bbe316b2fc30f3aab59784dcad2bfa5feb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZTMyZjc4MjIyZWE2ZTUyOWMzZjU4ZjI2MmYwZjYyMDEwZTU0ZmM0YTAxZDM4NWNhOGM4OTRkNWEwYWFmNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNWRkNzA3MTgxOGMyNzY3Y2IxMDc1ZTIyNjM4MzVlYzNjZDlkZWEwMGVjNDAwNTNiMGRmYjBkMjRlZTZiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3MjAyNjNjMTZiMzRjMzQ3ZWJhMGQ5NzhiZjIzNjIwNmRkMzkwZmZjMWRkNGFlZGQzMDdjODQwNTgxYjA2MmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_17329815d47141dfbd7099a528d090fb",
+      "statement": "The frontend communicates with the backend only via google.script.run.withSuccessHandler(...).withFailureHandler(...).serverFunction(args); there is no fetch/REST surface from the client.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L63-L63",
+          "version": "repo-lines-v1:sha256:efcc423e4ddc11e084bbd9932e8fb1160b04c682dbcb2a3d8d1603df0a7ff384:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWZjYzQyM2U0ZGRjMTFlMDg0YmJkOTkzMmU4ZmIxMTYwYjA0YzY4MmRiY2IyYTNkOGQxNjAzZGYwYTdmZjM4NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWZjYzQyM2U0ZGRjMTFlMDg0YmJkOTkzMmU4ZmIxMTYwYjA0YzY4MmRiY2IyYTNkOGQxNjAzZGYwYTdmZjM4NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjhjYmU4ZjE4MTE3NTI0ZTZiNWY4YmJiMThkMmIxMjhmMDk3YmQzOThlMDIxZjFjM2RhM2YwYzc2ZmRkNGI1ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWRjYjQ5N2M0ZDE3YTk1NmIwNTcxMGFhOTRhMGUxMmI5NjE1YTQwYjYyNWZhMTBkNTZiNDJiMjY5NTgyMWE4YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a49cd4df662348b3b444b975f6fe2e95",
+      "statement": "User identity is resolved server-side and trusted: every handler uses Session.getActiveUser().getEmail() and the client never sends identity; adding an email parameter to a client→server call would be wrong because identity is taken from the session.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L64-L64",
+          "version": "repo-lines-v1:sha256:56a7fa8f8119319e8ec28b8ae771149dd3eb026ebb8b414f95ce13403777bf86:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZhN2ZhOGY4MTE5MzE5ZThlYzI4YjhhZTc3MTE0OWRkM2ViMDI2ZWJiOGI0MTRmOTVjZTEzNDAzNzc3YmY4NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZhN2ZhOGY4MTE5MzE5ZThlYzI4YjhhZTc3MTE0OWRkM2ViMDI2ZWJiOGI0MTRmOTVjZTEzNDAzNzc3YmY4NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGE0MGY4M2YzNTFhODliNmU2YTkxMTM0NTUzNWMyMDBkYWZiYThjZmY1ODYyNmM5NjVlOTI5YWNmNDc4MmNjZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDY2ZGExNjZkOTAxYWMzMjM1M2UwZTU1ZjBiMzhkZGU0ZmRjYjg4NzY5ZTZjYzdkNzViZDc4MTg5ZTU0OGE1MiJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L6-L6",
+          "version": "repo-lines-v1:sha256:2652b45ef80e5fec3afe8920c83dbc7ed89a52937c90d04881348ad2f88ff6b6:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjY1MmI0NWVmODBlNWZlYzNhZmU4OTIwYzgzZGJjN2VkODlhNTI5MzdjOTBkMDQ4ODEzNDhhZDJmODhmZjZiNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjY1MmI0NWVmODBlNWZlYzNhZmU4OTIwYzgzZGJjN2VkODlhNTI5MzdjOTBkMDQ4ODEzNDhhZDJmODhmZjZiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2U3ZWM0NzQ2MmRkNjRkNzY5MzhkMzU0YTFjOGE0OTNiZWI0ZGI4ZDE3ZTU0ZjYxMTkzYjU0NWFhMzQ4YzFlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzgzNWFlZGJiOTZiZmY1Yzk2NDc1ZWQ4ODMxZTg0ZThmOTkyOGVkOTk0MmVhOTU1YWEyZTcxNmM0OWFlZmIzNiJ9"
+        },
+        {
+          "resource": "repo://Code/Feedback.gs#L18-L18",
+          "version": "repo-lines-v1:sha256:9b100888ce578fba03c762631002d4bf120bf02b4d621628a42f819002a0d61f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWIxMDA4ODhjZTU3OGZiYTAzYzc2MjYzMTAwMmQ0YmYxMjBiZjAyYjRkNjIxNjI4YTQyZjgxOTAwMmEwZDYxZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWIxMDA4ODhjZTU3OGZiYTAzYzc2MjYzMTAwMmQ0YmYxMjBiZjAyYjRkNjIxNjI4YTQyZjgxOTAwMmEwZDYxZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjdjN2U2NjMxZjY4ODhhMjZhODAyNTZiN2UwMWY1ZWU4NDUxYmM5NTdjNGFhM2U5ZjMwNDAzNmE1NDZiZWQ2MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzIyMTEwOTI3NDY2YjNkZjBmOWUzMjhkZWQyODg3ODg5NWE3MWQwNjRjM2Q5MDMyYmQyNTk3YTAyNjZmZDA5OSJ9"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L7-L7",
+          "version": "repo-lines-v1:sha256:8b5be4533408e4350db8aa507cb194033ca8af6c5f9259d0f854c71e73eab7ef:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGI1YmU0NTMzNDA4ZTQzNTBkYjhhYTUwN2NiMTk0MDMzY2E4YWY2YzVmOTI1OWQwZjg1NGM3MWU3M2VhYjdlZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGI1YmU0NTMzNDA4ZTQzNTBkYjhhYTUwN2NiMTk0MDMzY2E4YWY2YzVmOTI1OWQwZjg1NGM3MWU3M2VhYjdlZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTU1ZGNhNTc1YTgwNzQ1YjNiZWZiZjg5OTJhNGEwYTg4ODNiNTIxMjdlMjk1NDVkMTQ4NzRiZDJjNDhjNTA0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjJjNTUxMmFiN2JjNWUyNjliZmQ3NThhZDFkYTliMzEyOGVkOGNhMGZiZDY0OWIzYTVkOWEwYTVmZWMzNTE0MyJ9"
+        },
+        {
+          "resource": "repo://Code/Withdraw.gs#L6-L6",
+          "version": "repo-lines-v1:sha256:2652b45ef80e5fec3afe8920c83dbc7ed89a52937c90d04881348ad2f88ff6b6:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjY1MmI0NWVmODBlNWZlYzNhZmU4OTIwYzgzZGJjN2VkODlhNTI5MzdjOTBkMDQ4ODEzNDhhZDJmODhmZjZiNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjY1MmI0NWVmODBlNWZlYzNhZmU4OTIwYzgzZGJjN2VkODlhNTI5MzdjOTBkMDQ4ODEzNDhhZDJmODhmZjZiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODkzMDY4MDZjNzk3MTI4YzNlYjIxYTljNWQzYTg1MWQzODg0MmMzODEyYTg1MTRkYzU4NjU3YjA4YzJkOGI1ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTAxOTAzZTI3YzM4ZmVhNTFjNjk4OTFjN2ZhNmU1OWQ5MmYzZTY1NmU4ZDhjNzA4MmY4N2Y4ZGJlN2E1ZmRjNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2d54d81bf9f64a999fc1f1f24cd912aa",
+      "statement": "The project is a container-bound script: the global SPREADSHEET_ID constant in Config.gs is derived from SpreadsheetApp.getActiveSpreadsheet().getId(), which returns null in a standalone project and would throw at load time, breaking all sheet access.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L67-L67",
+          "version": "repo-lines-v1:sha256:b13aaf23ae8f99dda09fb2b1c0a985bc8eea3fa304aaa25126bac3f37a75c4b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjEzYWFmMjNhZThmOTlkZGEwOWZiMmIxYzBhOTg1YmM4ZWVhM2ZhMzA0YWFhMjUxMjZiYWMzZjM3YTc1YzRiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjEzYWFmMjNhZThmOTlkZGEwOWZiMmIxYzBhOTg1YmM4ZWVhM2ZhMzA0YWFhMjUxMjZiYWMzZjM3YTc1YzRiOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWRjYjQ5N2M0ZDE3YTk1NmIwNTcxMGFhOTRhMGUxMmI5NjE1YTQwYjYyNWZhMTBkNTZiNDJiMjY5NTgyMWE4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTNjOTE4YzQyNWY5ODFhZDAzMzFlYjhkMmRlNzg5MDdlN2I1ZWU1OGRiNWNjZDRkYjQ5Mjk1YThlNDhhYjI3NyJ9"
+        },
+        {
+          "resource": "repo://Code/Config.gs#L5-L5",
+          "version": "repo-lines-v1:sha256:3932497b27a1328fcc0bfd5b8524bcb075aaa7b06ee8ac1869485bc43b99a140:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzkzMjQ5N2IyN2ExMzI4ZmNjMGJmZDViODUyNGJjYjA3NWFhYTdiMDZlZThhYzE4Njk0ODViYzQzYjk5YTE0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzkzMjQ5N2IyN2ExMzI4ZmNjMGJmZDViODUyNGJjYjA3NWFhYTdiMDZlZThhYzE4Njk0ODViYzQzYjk5YTE0MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjgzNWFiMTc3NGNlZTY1N2Q4OGQyZmExNzBhYjE2NzUyNjI4NGE4MmVjMjdjYWI3OTg3ZTNhYzE2YjhiNTQxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGI0YTkxM2RlYzE4ZWJkODUxYjEzNGVmNTBmMGM2ZWYxZGYzZDZlZjY0OWRiODJhNGI1NTY1NDJlZDBjZWE5MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_00bbcdead2674b9d8e6d047a7426b582",
+      "statement": "Sheet columns are located by header name via headers.indexOf('ColumnName') (case-sensitive), so column order does not matter but header names are sacred; a header typo returns -1 and silently reads the wrong/last column with no exception thrown.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L66-L66",
+          "version": "repo-lines-v1:sha256:c30abd1cbc9d5922d14eecd26eb90b49aba4560a7da5405b6a34f5627b877695:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMwYWJkMWNiYzlkNTkyMmQxNGVlY2QyNmViOTBiNDlhYmE0NTYwYTdkYTU0MDViNmEzNGY1NjI3Yjg3NzY5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMwYWJkMWNiYzlkNTkyMmQxNGVlY2QyNmViOTBiNDlhYmE0NTYwYTdkYTU0MDViNmEzNGY1NjI3Yjg3NzY5NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGY3NTc0Y2M1OGRjNzA4MTJkYWVkOGY1NjkwN2MzZjQwOWQyMmMxOWU1ZTVkOGRiNWI1MTgxYTNlN2QxNmZiZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzk3MmU2YjExZDVhM2EyM2E4MzY4ZGY3NzZkYjNjOGJhZDc3OGRkODQxMDZlMzY3YWNiNzQ5ZTVmZjcwYzk5ZSJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L532-L538",
+          "version": "repo-lines-v1:sha256:0be8b107c7c7d55041790aa86a7fea98cfe516dd863ad1bc7faad1a09368a9f1:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTRjMjliYjkyODljNTI3ODU1NWI2MmVlMGQ2ODQ1MzVkYjc5YTQzMDgzMTk2YmFhNTJkMGE1N2YyNDJmYzJiNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZlOWUzZmU2NWNjZDU3NGFmOWU5MzM4NzI4ZDFhZDY5ZTA2YWFhMDI1YmU1NDRkMmVjYTllZTE5ODBhZmEyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzdjMzBjZThiZTMwYzFkZGJlODY0ZmNjMGU5ZDY3N2I3MWY3ZTIyZTk3MzA1YjFmNWUyNTlhODM3MWQ4ODhhYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzM5OTk0NWE2MDc2YTJiZWE4MzIyYTc3ZmMyOTEwYjQ1YjhiNGM3ZmU1M2Q0Y2VkMDI1MzJmOGNhN2Q0MzA3ZCJ9"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L17-L22",
+          "version": "repo-lines-v1:sha256:366795ea00082ef27ac5e05dda14c1eb78cb640ca5467668400563dcb56a995b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQwOTBlZmE1YWE3MjgwYjg5NDVkOTRmNDI4ZTNkYmU1ZTdiYWU1NjgyNmJjYzI4YzkzYWFjMDlmZDJiMDY4ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFjZTc3ODFkMzE2Y2NlMmQ1OTdlMWZkZTg5NzM1ZjAxNWQzYWY3MzhlMWVlNmE2NWI5ZjY4NzFhY2VjN2RiYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTAyNjI4YzNlZWMxZGZkM2Y4YTAxOWVjYzJiYTczNGFiMjU0ODJkOGJhNzkwZDFmNzkxNzU2YTUyYjMxZWFhOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGM5ZThmYmZhNTMzYTk1YTBhNWMzZWIwZGIxM2UwZjM3YmU3YTVlMDRmMGI2OWRhYjk5YjY5NTg3NzJlYjg3ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a35a956dc1194794894ab1f743d2143e",
+      "statement": "appsscript.json pins runtimeVersion V8 (modern JS: const, arrow functions, template literals), executeAs USER_DEPLOYING (handlers run under the deploying user while Session.getActiveUser() still resolves to the in-domain caller), access DOMAIN (only in-Workspace users reach the app), timeZone Asia/Bangkok (drives server-side date arithmetic for payroll cut-off and effective dates), and exceptionLogging STACKDRIVER.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L67-L67",
+          "version": "repo-lines-v1:sha256:b13aaf23ae8f99dda09fb2b1c0a985bc8eea3fa304aaa25126bac3f37a75c4b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjEzYWFmMjNhZThmOTlkZGEwOWZiMmIxYzBhOTg1YmM4ZWVhM2ZhMzA0YWFhMjUxMjZiYWMzZjM3YTc1YzRiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjEzYWFmMjNhZThmOTlkZGEwOWZiMmIxYzBhOTg1YmM4ZWVhM2ZhMzA0YWFhMjUxMjZiYWMzZjM3YTc1YzRiOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWRjYjQ5N2M0ZDE3YTk1NmIwNTcxMGFhOTRhMGUxMmI5NjE1YTQwYjYyNWZhMTBkNTZiNDJiMjY5NTgyMWE4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTNjOTE4YzQyNWY5ODFhZDAzMzFlYjhkMmRlNzg5MDdlN2I1ZWU1OGRiNWNjZDRkYjQ5Mjk1YThlNDhhYjI3NyJ9"
+        },
+        {
+          "resource": "repo://appsscript.json#L1-L10",
+          "version": "repo-lines-v1:sha256:f2a5f54bd6aa08bd2b718ed0abebc8a4b41e1dd70e2e482d9fa85cc12f987f19:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_468862661c4745cb979e6a3f91053ea2",
+      "statement": "Because executeAs is USER_DEPLOYING, redeploying the web app as a different user changes whose identity the script runs under and shifts identity/permissions — a subtle operational hazard when rotating the deployment owner.",
+      "evidence": [
+        {
+          "resource": "repo://appsscript.json#L6-L9",
+          "version": "repo-lines-v1:sha256:f1336a81b48b13fe77f52235d74122a04e104f54e3af76e35e3da21ae71c8c43:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGNjMDA0NmJlMWRkMWIzYzliOGM1ZjRkNmI1ZDk4ODc2Yjc1NzcxZjAyMWIwYWY5OWRjNzUxNDZkNGI0ZDI5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTE0OTdmYmMyYjVhNmUwMmYxZTJiODUwNzRlMmM2ZTczYjYzOWU0NzZjYTgzMzIxN2Y5YTlkMDQ1MDY4NjUyMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_43eede1f478a45a48146e78a55ec10d4",
+      "statement": "The only server-side observability sinks are Stackdriver/Google Cloud Logging (via exceptionLogging STACKDRIVER for uncaught exceptions) and the GA4 Measurement Protocol (Analytics.gs, best-effort, never throws); there is no console.log/stdout sink and no filesystem.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L20-L20",
+          "version": "repo-lines-v1:sha256:f9ab020c005e877ff114e94f3c207d453fef28150ccd4e748be4f05c0c7f02ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhYjAyMGMwMDVlODc3ZmYxMTRlOTRmM2MyMDdkNDUzZmVmMjgxNTBjY2Q0ZTc0OGJlNGYwNWMwYzdmMDJjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhYjAyMGMwMDVlODc3ZmYxMTRlOTRmM2MyMDdkNDUzZmVmMjgxNTBjY2Q0ZTc0OGJlNGYwNWMwYzdmMDJjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjk2MmNlM2M3NjUwMDcwMWU2NzczM2UyOTk5ZWEzODJjZmQ1N2U3YTZhZWRhNWJmYTY4ZWU1Y2Q4MzBlMjdhNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmFiY2RhOWFjNWZmNzFkMzg0YTJlZGM0N2RkNzViNjMzYmExYWU5ODA5YTMzYzAwYzAyNzcwNTQzMjQxZGI3NCJ9"
+        },
+        {
+          "resource": "repo://appsscript.json#L4-L4",
+          "version": "repo-lines-v1:sha256:aecf3dcee5acb2920b771484913ded1d15fc89d1e426494fbfc2d910638466d9:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWVjZjNkY2VlNWFjYjI5MjBiNzcxNDg0OTEzZGVkMWQxNWZjODlkMWU0MjY0OTRmYmZjMmQ5MTA2Mzg0NjZkOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWVjZjNkY2VlNWFjYjI5MjBiNzcxNDg0OTEzZGVkMWQxNWZjODlkMWU0MjY0OTRmYmZjMmQ5MTA2Mzg0NjZkOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOThjMjE3MmU3MDI3YTY0MmFkN2UwNjQ4MThmMjQ1OWQyZTk0YzdiY2YwNmY5MTE5NDAwN2QxNTdhZmE1ODczMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDU5ZTM0ZDhhMmFmZWJjNDljMTNkMjViMjRjM2NmYjBiYjdjZTY3Y2QzMGM2M2FmNmI2YzRjMjg1MWUyZjhmOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_575f236f829f414688d4e8d27c9033cf",
+      "statement": "trackAppOpen is fired client-side from JS.html on DOMContentLoaded rather than from doGet() because doGet() runs server-side and cannot see the browser's navigator.userAgent; calling it from doGet() would double-count visits and lose device dimensions.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L20-L20",
+          "version": "repo-lines-v1:sha256:f9ab020c005e877ff114e94f3c207d453fef28150ccd4e748be4f05c0c7f02ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhYjAyMGMwMDVlODc3ZmYxMTRlOTRmM2MyMDdkNDUzZmVmMjgxNTBjY2Q0ZTc0OGJlNGYwNWMwYzdmMDJjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhYjAyMGMwMDVlODc3ZmYxMTRlOTRmM2MyMDdkNDUzZmVmMjgxNTBjY2Q0ZTc0OGJlNGYwNWMwYzdmMDJjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjk2MmNlM2M3NjUwMDcwMWU2NzczM2UyOTk5ZWEzODJjZmQ1N2U3YTZhZWRhNWJmYTY4ZWU1Y2Q4MzBlMjdhNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmFiY2RhOWFjNWZmNzFkMzg0YTJlZGM0N2RkNzViNjMzYmExYWU5ODA5YTMzYzAwYzAyNzcwNTQzMjQxZGI3NCJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L20-L22",
+          "version": "repo-lines-v1:sha256:794a6ef5cbcc8796a13327ae8338eb2f88ae5b5a8edc6b2b4f0ae37fb2825c9a:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODM0MDYzMjZhZjBlZmZmNmQwNDUwOWE1MGM2YmU5MGY3M2IyNjY4NWY3YjM5ZjExZDg2OGY2NmM0NTNkNTRiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjc5NmYzMzY2YTliMzU0OWNlYjg4MGJmYjg5YjM2YmNjNzdjZWZmYjg2NWNhNjE3NDlmNTYxYjQyOTYwMDhhYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjQ1NjcwMWNhYmNjMGI2MmEzYTAzYzU4NTFiNTMyNDBiMWQ2ZThkOTI5NWM2MTFiYTIxZTAxY2FlMzFlYzIxNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_94aede8fe4a8474e9a9b11f62937f4e6",
+      "statement": "Source is synced to the Apps Script project draft with clasp (clasp.cmd push on Windows PowerShell) run from the repo root, never from subfolders, because clasp targets the project per root .clasp.json and pushing from a subfolder is the common reason a fix appears not to take effect.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L62-L62",
+          "version": "repo-lines-v1:sha256:c2d63340e2be02aa50106d5178b5a4f88d58930e2f63f0afa1bc40c0b0d4c8fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJkNjMzNDBlMmJlMDJhYTUwMTA2ZDUxNzhiNWE0Zjg4ZDU4OTMwZTJmNjNmMGFmYTFiYzQwYzBiMGQ0YzhmZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJkNjMzNDBlMmJlMDJhYTUwMTA2ZDUxNzhiNWE0Zjg4ZDU4OTMwZTJmNjNmMGFmYTFiYzQwYzBiMGQ0YzhmZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWZiYjkyNTg5ZmU1OWQ3YTMzNzAyNmM2ODVhYmFmMjI1OWE1ZDFiM2VkMWY5NTAwZjQyYWZjNzY0MTZkMmMzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGY3NTc0Y2M1OGRjNzA4MTJkYWVkOGY1NjkwN2MzZjQwOWQyMmMxOWU1ZTVkOGRiNWI1MTgxYTNlN2QxNmZiZiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

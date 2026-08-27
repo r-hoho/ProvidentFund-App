@@ -71,3 +71,11 @@ Working notes for Claude Code when editing this repo. For design rationale, scal
 Pico.css v2 via CDN. Multi-step flows (enrollment wizard, beneficiary manager) use a custom `position:fixed` overlay (class `wizard-overlay`), not native `<dialog>`. Simple modals (change-plan, withdraw, feedback) use native `<dialog>`.
 
 **Ineligible-user "eligible after" message:** for probation (future `Probation_End`) and post-withdrawal cooldown (`Last_Withdrawal_Date + 6mo`, after the 1st or 2nd withdrawal), `populateUI` shows the next-eligible date in `#cooldownMessage`. That div MUST live directly in the Actions `<article>`, NOT inside `#enrolledActionsGroup` (which is `display:none` for non-enrolled users) — otherwise the message is set visible but its hidden parent keeps it invisible (a bug that was fixed). Thai/English/date are on separate `<br>` lines so the long Thai run never wraps awkwardly on mobile.
+
+<!-- OPENWIKI:START -->
+
+## OpenWiki
+
+See [AGENTS.md](AGENTS.md) for OpenWiki agent instructions.
+
+<!-- OPENWIKI:END -->

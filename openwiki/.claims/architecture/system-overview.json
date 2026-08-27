@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:0fa85d19b7946fef84ef1084d4674a2102e25411a2b95afec5aefd074d20147a",
+  "claims": [
+    {
+      "id": "claim_bbcf57365aa74723af343c77c9000f12",
+      "statement": "The app runs with zero external infrastructure: the browser SPA, the GAS backend, and Google Workspace services (Sheets, Drive, Docs, Gmail, GA4) are the only runtime domains; the backend is the sole party that touches Sheets, Drive, Docs, Gmail, and GA4.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L4-L31",
+          "version": "repo-lines-v1:sha256:14727ea529bdac5ae382cf5a855f8972a05ae0d6c4d07c650970fb38d929c7c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZTMyZjc4MjIyZWE2ZTUyOWMzZjU4ZjI2MmYwZjYyMDEwZTU0ZmM0YTAxZDM4NWNhOGM4OTRkNWEwYWFmNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNWRkNzA3MTgxOGMyNzY3Y2IxMDc1ZTIyNjM4MzVlYzNjZDlkZWEwMGVjNDAwNTNiMGRmYjBkMjRlZTZiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiM2Q2MTc5ODdkZGUxZjRiOTkzYTIxMzYyYTM5ZmY1MTMwNzUyZTY5MTA1ZGM2YzYxOTIyZmVmZjhkY2EwN2UifQ"
+        },
+        {
+          "resource": "repo://README.md#L11-L47",
+          "version": "repo-lines-v1:sha256:38ba757f36b5257ba0c8abf8e193757627d89950fbe306cdc3fbd9272b12e4c1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxMzNiYjY0ZDViYjk4NzRlYmY5N2NiZDZiYWM2Mjc0OTU2ZGUyNzNmZDE4Y2Y2OTdmZjBlMDcwMjhkOTI2OTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2YWZhMzUxOGViMGEyMzE5ZGNlZDliMDZiZWU0NDNjNmU4MjBhZTNkZjFjOGEyODg0Y2I4MmUyYmUyNTRlNGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBiNGJjM2M1ZWFiNjFhOGEyNmM2NWQ2NzY0NWRlNWI5MmUzNjQzOWExM2RkOTA5MzYxOTkxNGIxOTE1OTA1MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk5ZTJlNGVmMTM5YmM1ZDljNDc2ZGQ4MjJhYzIzOGNiYzg3N2MwMTIzODM5ZDU3Y2JkNDQ1YTM3OTlmODlkMzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e9d998c2822a4e6085f8beb54a35bf78",
+      "statement": "All client-to-server communication goes through google.script.run.withSuccessHandler/withFailureHandler.serverFunction(args) — no fetch, no REST, no external API layer; the backend is addressed by server-side function name, never URL.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L63-L63",
+          "version": "repo-lines-v1:sha256:efcc423e4ddc11e084bbd9932e8fb1160b04c682dbcb2a3d8d1603df0a7ff384:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWZjYzQyM2U0ZGRjMTFlMDg0YmJkOTkzMmU4ZmIxMTYwYjA0YzY4MmRiY2IyYTNkOGQxNjAzZGYwYTdmZjM4NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWZjYzQyM2U0ZGRjMTFlMDg0YmJkOTkzMmU4ZmIxMTYwYjA0YzY4MmRiY2IyYTNkOGQxNjAzZGYwYTdmZjM4NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjhjYmU4ZjE4MTE3NTI0ZTZiNWY4YmJiMThkMmIxMjhmMDk3YmQzOThlMDIxZjFjM2RhM2YwYzc2ZmRkNGI1ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWRjYjQ5N2M0ZDE3YTk1NmIwNTcxMGFhOTRhMGUxMmI5NjE1YTQwYjYyNWZhMTBkNTZiNDJiMjY5NTgyMWE4YSJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L7-L14",
+          "version": "repo-lines-v1:sha256:1acc757e19b8f00b0a44bc6955305bf5661850ba00756a0a99dcf567ffdd5912:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRlMDU3YmNjYmEzOGQ2NjZkN2EzZTJhY2MzZDMzNDU0NGJiNzRhNThkZDU3ZGRmZDI5ZmQwMTE5YmJiNzM1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjVmODk3ZWUxYzRmZjgyYTcxOWRlNTdhM2FmNWU5YjAxNjYxMmJjMzNmMmE5NmY0OGZlNGI3ZjJhMmNlMmFhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmY4YjhjZDhiMDJiYTJjODE3MTRhNDdlZDg3YzEwNzk4MWZmZDRmNTdmMzIwYmFkODkzZmIxM2RkMDA0ZWQ1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGZjZDM3OGU5YzA5OTIyZWNhZDYzOWNiYTFkY2MyMjcxMDA5M2ViYjI2YjYwODU5NjJhYjQ3MmM3Y2NhNjM3YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7bace3bb88c540cb9049f50b28d25194",
+      "statement": "The frontend is a vanilla JavaScript SPA styled with Pico.css v2 from CDN (no build step, no framework), composed from html/*.html partials via <?!= include('file') ?> templating scriptlets in Index.html.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L29-L47",
+          "version": "repo-lines-v1:sha256:f6b4a09b3cfdf143fa2a33af1b20ea5fb76926b2da7af74168287ed55c3d80bd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2YWZhMzUxOGViMGEyMzE5ZGNlZDliMDZiZWU0NDNjNmU4MjBhZTNkZjFjOGEyODg0Y2I4MmUyYmUyNTRlNGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNiMmU1YmU5OTg4OTU1ZTBmODkwZDBiZjk1NTNjZDJlZTkzMmE2Mjc2NTQxMmMxZDdhOTM3ZmE4N2Q3NjM0M2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk5ZTJlNGVmMTM5YmM1ZDljNDc2ZGQ4MjJhYzIzOGNiYzg3N2MwMTIzODM5ZDU3Y2JkNDQ1YTM3OTlmODlkMzQifQ"
+        },
+        {
+          "resource": "repo://html/Index.html#L160-L168",
+          "version": "repo-lines-v1:sha256:5cd6190dd263ef1aeee8dd3958d2f075a24e7f6d355430f195b5b47cc88075da:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDE4OTFkNWZlNTY2ZmY4NTBjZTY3MjA1NmVlZjYxMTMzM2UxNDBkMDk4MGY5OTZkMDE2ZGQxZDg3NzIzNTQ1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYThhYTI1YTg0OGQ2ZTNhNzZlOTEzYzg2NzZlZWE5MTljYTM0ODYyYmFhYTFiZDkwMzViYzZlNjU1ZTkxM2RkNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzkwYWIxNmVhOTExM2I3ZmU0ZTQwOTgzM2VlMGJiYjcyNTAwN2RiNzMxZDUyZWI1NzY2Y2FiZjQ3ZDQ3YmMxZiJ9"
+        },
+        {
+          "resource": "repo://html/Index.html#L8-L20",
+          "version": "repo-lines-v1:sha256:16c4c295411525a4c352c495330bcef5a280d46ee37b7ff2b11889ebc35f32c0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4Njc5YmZlMTliYzU3M2UzMzY5YWVlODU5NGE2ODFkMDk4MjA5YTc1ZjlmNTI5MjFiNzRlZjkxNDY0ZTRkYTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQzMjhkYjE2YWM3MWQwNDI2ZTI5NjM4Y2FmMmI3M2QxMmQwMmNkOTE4OTlkYzZjZWY1MjY1YjNkZWU5ZWYxMmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYjcxNDg0MTgxYWRmZTQ4YzMwMDc1N2Y4NmQ4NjE3OWZmYzJhMDIxNGE4MGMzZDIwN2ViMzcxY2ZiM2U2OGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkOWExMmE4NGYyNTEyMjQ1MmQ3YzNmZTdkN2ExMTUyNDBjY2NlMTVhMDVhOGE2MGMwMGZiMjk2MjZlMmFjNDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f5ed61f67675470cace6b28accd1afb0",
+      "statement": "include() in Main.gs returns HtmlService.createHtmlOutputFromFile(filename).getContent(), and the doGet entry point must render via HtmlService.createTemplateFromFile('html/Index').evaluate(); createHtmlOutputFromFile would silently fail to expand the include scriptlets.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L24-L39",
+          "version": "repo-lines-v1:sha256:f731f30621f1cab2a8c6c20e1abf8e715172e01728d2a67c219573c1d69cbf7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3OTUyZDJmN2QwNGE3ZjhlZDI3ZWNhYjczOWYzZTVmMGU0YTllZjE4ZjgwNTM1YTM1MWE5NDEyMmJiNDc4ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkZGU2ZmNkNzFiNTI4M2I4MjJmZmZlMTQwZmQyZGJhYTIxN2NhNjA4YTI5Y2EyNDEwYzRiYWEzZDdmZjg2YWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f63f1a61a04e46f292253cdf74134021",
+      "statement": "The backend is split by responsibility across Code/*.gs files sharing one server-side global namespace: Main.gs (doGet/include), Config.gs (constants), Profile.gs (read/eligibility), Action.gs (write handlers + cancel), Withdraw.gs, Email.gs, Letter.gs, Analytics.gs, Utils.gs, Feedback.gs, TestCases.gs.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L7-L20",
+          "version": "repo-lines-v1:sha256:2ec0d638b53c93c284b7dcba75137e7d91cc5bdd1c6973dd721066089cf528ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlMDc1NmQ3MDZiZGNjZjBiNWQ4OTJiNDA2ZTVkYTgwNjViNTJiNjcwYzhlNzUwY2JlMWJmMzBlMGJhYWNkZWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5YWIwMjBjMDA1ZTg3N2ZmMTE0ZTk0ZjNjMjA3ZDQ1M2ZlZjI4MTUwY2NkNGU3NDhiZTRmMDVjMGM3ZjAyY2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlYzkwNjg1NjgxYjQxYzI2ZjQ3Yzg1M2RmYzljM2EzMjFhMGI0NDg2MWRmNTE3ZjZkMzQwNDdkZjcyNjVlNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhYmNkYTlhYzVmZjcxZDM4NGEyZWRjNDdkZDc1YjYzM2JhMWFlOTgwOWEzM2MwMGMwMjc3MDU0MzI0MWRiNzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e63f5d7c50634d998ca37cc2991f6667",
+      "statement": "User identity is resolved server-side as Session.getActiveUser().getEmail() inside each handler (lowercased/trimmed), not passed by the client; the webapp executes as USER_DEPLOYING with DOMAIN access.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L64-L64",
+          "version": "repo-lines-v1:sha256:56a7fa8f8119319e8ec28b8ae771149dd3eb026ebb8b414f95ce13403777bf86:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZhN2ZhOGY4MTE5MzE5ZThlYzI4YjhhZTc3MTE0OWRkM2ViMDI2ZWJiOGI0MTRmOTVjZTEzNDAzNzc3YmY4NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTZhN2ZhOGY4MTE5MzE5ZThlYzI4YjhhZTc3MTE0OWRkM2ViMDI2ZWJiOGI0MTRmOTVjZTEzNDAzNzc3YmY4NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGE0MGY4M2YzNTFhODliNmU2YTkxMTM0NTUzNWMyMDBkYWZiYThjZmY1ODYyNmM5NjVlOTI5YWNmNDc4MmNjZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDY2ZGExNjZkOTAxYWMzMjM1M2UwZTU1ZjBiMzhkZGU0ZmRjYjg4NzY5ZTZjYzdkNzViZDc4MTg5ZTU0OGE1MiJ9"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L5-L8",
+          "version": "repo-lines-v1:sha256:72cfb9d71633417710099ae9f19daed5ab2dccab3fbdfb942ab806ff205a0147:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBhMWY2MTM3MDczNTcwY2UwNzYyZWI5OGFjYThlNWViNTYzNTMyMWI1NjkzZjA2NjVkNDVlZTBkN2NiNTYwYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzk2OTFlYmZhNmM2NDI3NzY1NjkyNTllMzM4NzRlMWUxOTU1MjkyNzAzMTdhNWMxZWY1ZTAwMDMzNTM4YTdkNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzEzNWFjNzU1NjIzNmI3YTU0ZGQ4ZmQwZDg3ZmYwODc3NDRiYmY1NDFlNGFhYzNiZGQ2OGYwY2ZkNTg2ZGUwNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGU3ZWZlN2ExNTFkYzVkYzMwYzJlNTEzZjcyMzE4MWY2MzBmODdkMjQzMjk2YzE3OTE5MjhhNzQxOThjZjM2ZSJ9"
+        },
+        {
+          "resource": "repo://appsscript.json#L6-L9",
+          "version": "repo-lines-v1:sha256:f1336a81b48b13fe77f52235d74122a04e104f54e3af76e35e3da21ae71c8c43:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGNjMDA0NmJlMWRkMWIzYzliOGM1ZjRkNmI1ZDk4ODc2Yjc1NzcxZjAyMWIwYWY5OWRjNzUxNDZkNGI0ZDI5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTE0OTdmYmMyYjVhNmUwMmYxZTJiODUwNzRlMmM2ZTczYjYzOWU0NzZjYTgzMzIxN2Y5YTlkMDQ1MDY4NjUyMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5f50cb6dca0b4de0a2caa07b22a00b2f",
+      "statement": "The write handlers follow a consistent contract: resolve identity, generate a transaction id up front, write business state to Sheets + append Audit_Log, then run best-effort side effects (generateLetter wrapped in try/catch since it may throw; sendActionConfirmation which never throws), then patch the audit row with patchAuditEventData.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L58-L58",
+          "version": "repo-lines-v1:sha256:dfb43123d0287d539d6a4564352d6cfc7501a816dccaf359202c61fee8566933:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZiNDMxMjNkMDI4N2Q1MzlkNmE0NTY0MzUyZDZjZmM3NTAxYTgxNmRjY2FmMzU5MjAyYzYxZmVlODU2NjkzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZiNDMxMjNkMDI4N2Q1MzlkNmE0NTY0MzUyZDZjZmM3NTAxYTgxNmRjY2FmMzU5MjAyYzYxZmVlODU2NjkzMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjM4ZDUzYzY4NTI2MjllNzU1MzI0MDc0ZjExNGEzMzhhZWNmMDE4ZDAwODI2MWU0NDg0YzdiYzUzOTc0ZGQxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWZiYjkyNTg5ZmU1OWQ3YTMzNzAyNmM2ODVhYmFmMjI1OWE1ZDFiM2VkMWY5NTAwZjQyYWZjNzY0MTZkMmMzMiJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L4-L100",
+          "version": "repo-lines-v1:sha256:a0b294d4ad72b846cc7a6179207439a17025965964506d4e9aac7c1af61d658f:eyJzZWxlY3RlZExpbmVDb3VudCI6OTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1Nzg1OTNiNDNiMDkwMjVjMDVhNmQwY2JlNzgwYmIzMDM1NjY5MmM1YWQzYTI2NjUxN2M5OWI1NWY0MTcyZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZDRlN2U0YzliNmZkYzBjMjFmMGY5YzQzZTllYzdhMjc2ODNlNGE4ZGZkNmZiYzNiNDFlYTBlNDM5NzBlMjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3OTBkYjIzYWM2ZWY3NWZhMjYyZTdjMmIzYTZjOWMyMTUzYjM5N2ZjMjZlZTk2MGEzZjZhOTQ3ZDEzYWY3M2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2MzUwYmYzZTllMmJhNTVhM2RlY2Q3OGNmODQ0NWJkYmVlMTVmNDIwZTA0MGE1ZmQxNDJjMWU4MjIwZTliMDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bbbfc673d0ca4e1bab74f6f843230217",
+      "statement": "Email and letter failure must never block or roll back an action: once sheet writes succeed the handler still returns { success: true }; email/letter code is best-effort and the audit patch stamps emailSent/emailError last.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L58-L58",
+          "version": "repo-lines-v1:sha256:dfb43123d0287d539d6a4564352d6cfc7501a816dccaf359202c61fee8566933:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZiNDMxMjNkMDI4N2Q1MzlkNmE0NTY0MzUyZDZjZmM3NTAxYTgxNmRjY2FmMzU5MjAyYzYxZmVlODU2NjkzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZiNDMxMjNkMDI4N2Q1MzlkNmE0NTY0MzUyZDZjZmM3NTAxYTgxNmRjY2FmMzU5MjAyYzYxZmVlODU2NjkzMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjM4ZDUzYzY4NTI2MjllNzU1MzI0MDc0ZjExNGEzMzhhZWNmMDE4ZDAwODI2MWU0NDg0YzdiYzUzOTc0ZGQxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWZiYjkyNTg5ZmU1OWQ3YTMzNzAyNmM2ODVhYmFmMjI1OWE1ZDFiM2VkMWY5NTAwZjQyYWZjNzY0MTZkMmMzMiJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L4-L100",
+          "version": "repo-lines-v1:sha256:a0b294d4ad72b846cc7a6179207439a17025965964506d4e9aac7c1af61d658f:eyJzZWxlY3RlZExpbmVDb3VudCI6OTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1Nzg1OTNiNDNiMDkwMjVjMDVhNmQwY2JlNzgwYmIzMDM1NjY5MmM1YWQzYTI2NjUxN2M5OWI1NWY0MTcyZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZDRlN2U0YzliNmZkYzBjMjFmMGY5YzQzZTllYzdhMjc2ODNlNGE4ZGZkNmZiYzNiNDFlYTBlNDM5NzBlMjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3OTBkYjIzYWM2ZWY3NWZhMjYyZTdjMmIzYTZjOWMyMTUzYjM5N2ZjMjZlZTk2MGEzZjZhOTQ3ZDEzYWY3M2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2MzUwYmYzZTllMmJhNTVhM2RlY2Q3OGNmODQ0NWJkYmVlMTVmNDIwZTA0MGE1ZmQxNDJjMWU4MjIwZTliMDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a9bcee22ac584b34acb1c4bb7e877462",
+      "statement": "The data store is a container-bound Google Spreadsheet; SPREADSHEET_ID is derived from SpreadsheetApp.getActiveSpreadsheet().getId(), and sheet column access is positional via headers.indexOf('ColumnName') so column order matters.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L66-L67",
+          "version": "repo-lines-v1:sha256:56a3549cda8f0fef7308777e7f390eae36d5a290c226465cc0a8ce08b1636975:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMwYWJkMWNiYzlkNTkyMmQxNGVlY2QyNmViOTBiNDlhYmE0NTYwYTdkYTU0MDViNmEzNGY1NjI3Yjg3NzY5NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjEzYWFmMjNhZThmOTlkZGEwOWZiMmIxYzBhOTg1YmM4ZWVhM2ZhMzA0YWFhMjUxMjZiYWMzZjM3YTc1YzRiOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGY3NTc0Y2M1OGRjNzA4MTJkYWVkOGY1NjkwN2MzZjQwOWQyMmMxOWU1ZTVkOGRiNWI1MTgxYTNlN2QxNmZiZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTNjOTE4YzQyNWY5ODFhZDAzMzFlYjhkMmRlNzg5MDdlN2I1ZWU1OGRiNWNjZDRkYjQ5Mjk1YThlNDhhYjI3NyJ9"
+        },
+        {
+          "resource": "repo://Code/Config.gs#L5-L5",
+          "version": "repo-lines-v1:sha256:3932497b27a1328fcc0bfd5b8524bcb075aaa7b06ee8ac1869485bc43b99a140:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzkzMjQ5N2IyN2ExMzI4ZmNjMGJmZDViODUyNGJjYjA3NWFhYTdiMDZlZThhYzE4Njk0ODViYzQzYjk5YTE0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzkzMjQ5N2IyN2ExMzI4ZmNjMGJmZDViODUyNGJjYjA3NWFhYTdiMDZlZThhYzE4Njk0ODViYzQzYjk5YTE0MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjgzNWFiMTc3NGNlZTY1N2Q4OGQyZmExNzBhYjE2NzUyNjI4NGE4MmVjMjdjYWI3OTg3ZTNhYzE2YjhiNTQxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGI0YTkxM2RlYzE4ZWJkODUxYjEzNGVmNTBmMGM2ZWYxZGYzZDZlZjY0OWRiODJhNGI1NTY1NDJlZDBjZWE5MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6203814491c94d2cb07421a7b83314b4",
+      "statement": "Operational secrets and per-environment IDs live in Script Properties, not source: MAINTENANCE_MODE, GA4_MEASUREMENT_ID, GA4_API_SECRET, GA4_USER_ID_SALT, PF_ENROLLMENT_TEMPLATE_ID, PF_BENEFICIARY_TEMPLATE_ID, PF_LETTERS_FOLDER_ID, PF_SIG_MAX_WIDTH/PF_SIG_MAX_HEIGHT, set under Project Settings.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L17-L20",
+          "version": "repo-lines-v1:sha256:23824bcac4b96255b44807b5dad9664f65b2b9e29c6bd7c02d14904f3507fb73:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTI0YjczZWUyNThkYWQ0OTVjZWVmOTAwZmNjNTE0NDBhNmUxMzEyOWFhNDExOTY2ODE4NDE1NTE1YTIzZGE5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhYjAyMGMwMDVlODc3ZmYxMTRlOTRmM2MyMDdkNDUzZmVmMjgxNTBjY2Q0ZTc0OGJlNGYwNWMwYzdmMDJjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTVhMTBkMTUyNDAzZjQ3NTJiMzljYWE0MTQxY2RlMTA0ZjJjZTRmZmNjNmExYmUxZTlhNDY3NjFhZThkMTUxZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmFiY2RhOWFjNWZmNzFkMzg0YTJlZGM0N2RkNzViNjMzYmExYWU5ODA5YTMzYzAwYzAyNzcwNTQzMjQxZGI3NCJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L6-L9",
+          "version": "repo-lines-v1:sha256:38116fb971aed7bb50c44789009b9487b455ebbff05801c07bc1a6a902c7df68:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDViOTBjOTRjNGVlNmQ0NjA1NmQ2YTVhNzczZjgyNWRkOTEyM2IzOGVlZmRhNjBhMmUyZDYzMzk5MzliNDljNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDJiMDk4MWE1ODM3MTE0YzVlNzcxNWJmMTJjZjUwMjlmZDQyMDM3ZDdmN2EyNjhkMjE1MDNkNDRlOWMxZjRkOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjM5MjY1YjkxMTNhZmU4ZGQwNWJjZTQyMjFiYzQwZjE1MzI2ZjI4M2RhYTg1ZDljOTdkZWUwNjY2OTA3YTg1YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTIzYzRhNjdjODMyYjMzMWEwZmQ0N2EzMjU2ZWMxYjg2NTEwODhlNGNiODUwNDc4NjUxYjYyNzdjNTZjOGVlZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a8c75a8abb064411b1f0073aadeada59",
+      "statement": "GA4 app_open is fired client-side on DOMContentLoaded in JS.html (not in doGet) so it can carry navigator.userAgent, because doGet cannot see the browser's User-Agent; the post-action home-reload is a soft re-render that does not re-fire it.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L20-L22",
+          "version": "repo-lines-v1:sha256:794a6ef5cbcc8796a13327ae8338eb2f88ae5b5a8edc6b2b4f0ae37fb2825c9a:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODM0MDYzMjZhZjBlZmZmNmQwNDUwOWE1MGM2YmU5MGY3M2IyNjY4NWY3YjM5ZjExZDg2OGY2NmM0NTNkNTRiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjc5NmYzMzY2YTliMzU0OWNlYjg4MGJmYjg5YjM2YmNjNzdjZWZmYjg2NWNhNjE3NDlmNTYxYjQyOTYwMDhhYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjQ1NjcwMWNhYmNjMGI2MmEzYTAzYzU4NTFiNTMyNDBiMWQ2ZThkOTI5NWM2MTFiYTIxZTAxY2FlMzFlYzIxNyJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L7-L14",
+          "version": "repo-lines-v1:sha256:1acc757e19b8f00b0a44bc6955305bf5661850ba00756a0a99dcf567ffdd5912:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRlMDU3YmNjYmEzOGQ2NjZkN2EzZTJhY2MzZDMzNDU0NGJiNzRhNThkZDU3ZGRmZDI5ZmQwMTE5YmJiNzM1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjVmODk3ZWUxYzRmZjgyYTcxOWRlNTdhM2FmNWU5YjAxNjYxMmJjMzNmMmE5NmY0OGZlNGI3ZjJhMmNlMmFhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmY4YjhjZDhiMDJiYTJjODE3MTRhNDdlZDg3YzEwNzk4MWZmZDRmNTdmMzIwYmFkODkzZmIxM2RkMDA0ZWQ1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGZjZDM3OGU5YzA5OTIyZWNhZDYzOWNiYTFkY2MyMjcxMDA5M2ViYjI2YjYwODU5NjJhYjQ3MmM3Y2NhNjM3YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ad4ef3c0c52e448c8f207fa163be8a4c",
+      "statement": "The success handler receives a JSON-serializable return value while the failure handler receives any thrown exception; handlers return { success: false, msg } rather than throwing so business-rule failures reach the success handler and only unexpected runtime errors reach the failure handler.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L4-L7",
+          "version": "repo-lines-v1:sha256:c122c3f2a49496fcde718622c3fd9805f38f5af2b87ad246c6f93157758838c3:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjU3ODU5M2I0M2IwOTAyNWMwNWE2ZDBjYmU3ODBiYjMwMzU2NjkyYzVhZDNhMjY2NTE3Yzk5YjU1ZjQxNzJmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2I3MTYyNGU1YjAxYzAwNDI0MWFmODhkNjcwYWFkYjVlNzgwYTVhN2MzYTlmNjBjYTA3MzE5ODc1ODU2MGVlYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzc5MGRiMjNhYzZlZjc1ZmEyNjJlN2MyYjNhNmM5YzIxNTNiMzk3ZmMyNmVlOTYwYTNmNmE5NDdkMTNhZjczZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJjYzg1ODM0N2Q5NmIzNThmNzg5MDllYjllNTQzNGY3NDNjMDAwMGJlMTliMWQzYTQyYzk5YThkNjI2OGRjNSJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L424-L433",
+          "version": "repo-lines-v1:sha256:520b5bed97bd6d6ce3f3f7b289bdf7a3a2ef58c567e8d66c039667470b1cebfe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3OTA0MmUxYTI1ZTE1Yjc2MGZkZWVlYWUzN2IwZDMxMjYyZTM1NWIyNDE5OWJkZmZmNWQ2Y2Y1YmJiOWI3YmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjNmI1ODg0MGRkYzIwNGVmOTA2OWZmNTZkNTk1NzkyNzNmN2Q3MzdiMWUyYTI0ZDQ3OTE5YzAzNGUwMmJkZDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxMzEzNWE4NjllYTEwMTFmMDg3NWJlNmNlYTdiMTY4ZjgwMDNkM2I1NDQ3MDk0MTMwYjZkNWY4ZTMxOTg2ZjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0NjNiZDZhNDFlZDc0NjhhZTkwMjEzYzY4OGRhYTlhN2U5ODE2YzNjZjQyOWVkMzBlNTZkODljYjNjMWIzZDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2476d05e71e74215a83569b5a5a4ab26",
+      "statement": "On page load the browser issues three google.script.run calls: getUserProfile (success handler populateUI), checkPlanChangeEligibility (success handler applyCooldownUI), and a best-effort trackAppOpen with no handlers; after a successful main action showSuccessToast re-issues the first two to soft-reload state.",
+      "evidence": [
+        {
+          "resource": "repo://html/JS.html#L25-L39",
+          "version": "repo-lines-v1:sha256:e5931ea1a251e77fabb2a9836d1840ac6dcd8bc487ff8e976476235a83c8a756:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5OTZhMjQ5YmM5YWI3MzQ5ZjhkYTUzZTk0MzZlOTdlOTYzYjQyYjBmYjczMDI1NzRiNmU2ODY2NGI2MmU0MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwMjU4YTZhYzBiMGFjMGE1ZjRkNjdjODZkZjk3YmE5YTdhNWJkOTRjZGEwZTFlZjM2YjgxNTRiMzAyNjQyZTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1YjQxZjViYmFkNjQzZmRjMmZkN2Q1ZmRjMjllYzJkYTRmNjk3YjI5NDc4MGQyNDJmMGJlNjgxN2M5ZDYwNmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxZjEyMmI1YTA4OTM2MDNkZDQ3YTU5MjNiOTEwM2Q4YTlmYWQ2NTZkM2Q4YjM4OWYzZWY2ZGI0MzdjZGYzNzUifQ"
+        },
+        {
+          "resource": "repo://html/JS.html#L7-L14",
+          "version": "repo-lines-v1:sha256:1acc757e19b8f00b0a44bc6955305bf5661850ba00756a0a99dcf567ffdd5912:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRlMDU3YmNjYmEzOGQ2NjZkN2EzZTJhY2MzZDMzNDU0NGJiNzRhNThkZDU3ZGRmZDI5ZmQwMTE5YmJiNzM1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjVmODk3ZWUxYzRmZjgyYTcxOWRlNTdhM2FmNWU5YjAxNjYxMmJjMzNmMmE5NmY0OGZlNGI3ZjJhMmNlMmFhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmY4YjhjZDhiMDJiYTJjODE3MTRhNDdlZDg3YzEwNzk4MWZmZDRmNTdmMzIwYmFkODkzZmIxM2RkMDA0ZWQ1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGZjZDM3OGU5YzA5OTIyZWNhZDYzOWNiYTFkY2MyMjcxMDA5M2ViYjI2YjYwODU5NjJhYjQ3MmM3Y2NhNjM3YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1d89d7add6e14d7daf2d37db1dcc17f9",
+      "statement": "Maintenance mode is gated in doGet: when MAINTENANCE_MODE is true, non-admins get the html/Maintenance template while emails in ADMIN_EMAILS (Config.gs) bypass the gate and see the live app with a warning banner.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Config.gs#L8-L11",
+          "version": "repo-lines-v1:sha256:a16b4aaf95e606971005075d1ff728a91aafb3cd2586d3c98e8a9209a350f256:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFmMzAzODYwNDkzYzFiYjg4NTY5OTkzNTI5MzYzNWRkMzIyMWM3MmQ2ZDZiMTkyZmE1NWVjNWNmYjk5NDZhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZDJjMGQ2ZGM1ZTc0ZDkyZmExNGI5MWRiZWEyNjQwOTBiZWIzNWZkYjkxODhkOWIzNDExODFkY2U5ZjRjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDU3NWYxYzJjNjQzMjFmZDg3NmRhYTU3ZDJjZGVmMTJkMzVlZTJjOGNhMDdmOWJlMTMwNDIxOTlkOTJjN2M1MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjFmNDNkZGIwNjdjNjU2MzliN2MzMzBhNDA4NGJjZmFlZGZmOGE4OTBjOTIyMzU0ZTNlNTVlM2EzYzcyODI2NyJ9"
+        },
+        {
+          "resource": "repo://Code/Main.gs#L4-L31",
+          "version": "repo-lines-v1:sha256:14727ea529bdac5ae382cf5a855f8972a05ae0d6c4d07c650970fb38d929c7c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZTMyZjc4MjIyZWE2ZTUyOWMzZjU4ZjI2MmYwZjYyMDEwZTU0ZmM0YTAxZDM4NWNhOGM4OTRkNWEwYWFmNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNWRkNzA3MTgxOGMyNzY3Y2IxMDc1ZTIyNjM4MzVlYzNjZDlkZWEwMGVjNDAwNTNiMGRmYjBkMjRlZTZiMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiM2Q2MTc5ODdkZGUxZjRiOTkzYTIxMzYyYTM5ZmY1MTMwNzUyZTY5MTA1ZGM2YzYxOTIyZmVmZjhkY2EwN2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cda8c6ac01dd4e0ab051d891f2186177",
+      "statement": "Multi-step flows (enrollment wizard, beneficiary manager) use a custom position:fixed wizard-overlay rather than native dialog, while simpler modals (change-plan, withdraw, feedback) use native dialog elements.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L71-L71",
+          "version": "repo-lines-v1:sha256:87ca1ffff7db4e65850679c9f30bb918945e6f7e2b0d640b860d7ce744b5e5e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODdjYTFmZmZmN2RiNGU2NTg1MDY3OWM5ZjMwYmI5MTg5NDVlNmY3ZTJiMGQ2NDBiODYwZDdjZTc0NGI1ZTVlMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODdjYTFmZmZmN2RiNGU2NTg1MDY3OWM5ZjMwYmI5MTg5NDVlNmY3ZTJiMGQ2NDBiODYwZDdjZTc0NGI1ZTVlMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTNjOTE4YzQyNWY5ODFhZDAzMzFlYjhkMmRlNzg5MDdlN2I1ZWU1OGRiNWNjZDRkYjQ5Mjk1YThlNDhhYjI3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmU3NjM0NmQ4YjYxZWMyNDMyOWM0YjRiYmZjNjY4OTljYWM0OWFmY2NiMzU2NzJjNTRhZTllZTY5NzdhMjA3YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d76639a43464450f9828ce581c1636a3",
+      "statement": "Deployment uses clasp.cmd push from the repo root to push to the GAS project draft; appsscript.json sets V8 runtime, Asia/Bangkok timezone, USER_DEPLOYING execution, DOMAIN access, and Stackdriver exception logging.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L62-L62",
+          "version": "repo-lines-v1:sha256:c2d63340e2be02aa50106d5178b5a4f88d58930e2f63f0afa1bc40c0b0d4c8fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJkNjMzNDBlMmJlMDJhYTUwMTA2ZDUxNzhiNWE0Zjg4ZDU4OTMwZTJmNjNmMGFmYTFiYzQwYzBiMGQ0YzhmZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJkNjMzNDBlMmJlMDJhYTUwMTA2ZDUxNzhiNWE0Zjg4ZDU4OTMwZTJmNjNmMGFmYTFiYzQwYzBiMGQ0YzhmZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWZiYjkyNTg5ZmU1OWQ3YTMzNzAyNmM2ODVhYmFmMjI1OWE1ZDFiM2VkMWY5NTAwZjQyYWZjNzY0MTZkMmMzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGY3NTc0Y2M1OGRjNzA4MTJkYWVkOGY1NjkwN2MzZjQwOWQyMmMxOWU1ZTVkOGRiNWI1MTgxYTNlN2QxNmZiZiJ9"
+        },
+        {
+          "resource": "repo://appsscript.json#L1-L10",
+          "version": "repo-lines-v1:sha256:f2a5f54bd6aa08bd2b718ed0abebc8a4b41e1dd70e2e482d9fa85cc12f987f19:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_341bb6eb9a6b4091ab7e06aeadc0b7ee",
+      "statement": "GA4 hits originate from Google's IP/UA via UrlFetchApp rather than the user's, so native GA4 device detection is useless; explicit low-cardinality device_category/device_os/device_browser custom dimensions parsed from navigator.userAgent are the only device signal, and user_id is a SHA-256 hash of the email (pseudonymous).",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L20-L20",
+          "version": "repo-lines-v1:sha256:f9ab020c005e877ff114e94f3c207d453fef28150ccd4e748be4f05c0c7f02ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhYjAyMGMwMDVlODc3ZmYxMTRlOTRmM2MyMDdkNDUzZmVmMjgxNTBjY2Q0ZTc0OGJlNGYwNWMwYzdmMDJjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjlhYjAyMGMwMDVlODc3ZmYxMTRlOTRmM2MyMDdkNDUzZmVmMjgxNTBjY2Q0ZTc0OGJlNGYwNWMwYzdmMDJjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjk2MmNlM2M3NjUwMDcwMWU2NzczM2UyOTk5ZWEzODJjZmQ1N2U3YTZhZWRhNWJmYTY4ZWU1Y2Q4MzBlMjdhNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmFiY2RhOWFjNWZmNzFkMzg0YTJlZGM0N2RkNzViNjMzYmExYWU5ODA5YTMzYzAwYzAyNzcwNTQzMjQxZGI3NCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

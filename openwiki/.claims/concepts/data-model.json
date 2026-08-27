@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b71fcd3a2372c884f9b54f23a69d4fe02b0886a30b4f2b5b5e1c78c45a870262",
+  "claims": [
+    {
+      "id": "claim_18a2d7edeb28456b86d9e4e60cbca374",
+      "statement": "The app persists its state in six Google Sheets inside the bound spreadsheet (SpreadsheetApp.getActiveSpreadsheet): Users, Enrollments, Beneficiaries, Audit_Log, App_Feedback, and Monthly_Reporting. Their names are held as constants in Config.gs (SHEET_USERS, SHEET_ENROLLMENTS, SHEET_BENEFICIARIES, SHEET_AUDIT, SHEET_FEEDBACK, SHEET_REPORTING). Monthly_Reporting is declared but not wired to any read or write code.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L37-L47",
+          "version": "repo-lines-v1:sha256:dc9ef502ae6288e5afe75737f39fd0dedfca3500bc0864dd8258098eade66739:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxMTMyNjRjMTJlODdjMTYzNmJhZTY0NzZlMzIzYmZmNzkyYjUxMjgxYzVjNzgyNDk4MWEzZGNiZjhlYjRjZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjMmViYTY1ZGZjZDQzN2E3YzlkOTU1NWJhMTAxZDljNTlmMzU0M2FkNjZjZjM4OGRlNzNhZTNiNGE2MGI4ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ZDNlMzVmMTgyMmNkZjQwNjk3ZTg3OWU1ZWVmMWJmNWM3N2NkZjYyNzc2YzhmZDY1ZTI3MDhiNzBkZThiMjUifQ"
+        },
+        {
+          "resource": "repo://Code/Config.gs#L12-L17",
+          "version": "repo-lines-v1:sha256:3260eeae5b5ebe875aa150d06bd5aa723fbf9eea7817bbb53fc69c219b2a5b02:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTU3YzlmM2M3MzQ0ZmRiMTBjZTc0YmFjZDRkNDQ2MmE5Y2FhZTQ4Mjk1NGUxYzM0NTY0YTMwNTQ1MWQ1YmI3OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmRhMDdjNTMxM2M0ZTY4MTBkM2U5OTRhYWFmMWQ2YmZlODdjOThkNmQ0MjJmZDUyOGRkMjlhOTc0ZjA0Nzk4MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDQzNDc2NTM2ODc0OTJkNWVjYjMzYzI0YjBhMDNhZjliY2MxZmM0MzQ3NzU5NWUwMjA4ZmVmM2IwMGI3MWI2OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2MyZmQ3MDFjZjQ1ODcwZjQ4Mzk0OWI0NzZmYTI5MmY5NmZmZmU2ODQ4OTExOGRlYmY4YWU3ZmQyMWYyMTVjMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d802fb5427c4763a8f725316e1943fa",
+      "statement": "Allstars_ID is the join key across Users, Enrollments, Beneficiaries, and Audit_Log. It must be named exactly Allstars_ID and hold the same value in all four sheets; a user is resolved by Work_Email from Users and the resulting Allstars_ID is threaded into every downstream lookup (enrollment, beneficiary, audit).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L17-L49",
+          "version": "repo-lines-v1:sha256:857a9113f79de566318a3c597bacadddad609141e49a4f07b072bbf576228e08:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkMDkwZWZhNWFhNzI4MGI4OTQ1ZDk0ZjQyOGUzZGJlNWU3YmFlNTY4MjZiY2MyOGM5M2FhYzA5ZmQyYjA2OGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4MGUyN2UzODNmNzZiMjBiZGIyMjIwYjY4NzkyMGZhNDI5OTcyOTA2Mzk4OTk5MjQ4NTU5MDZmZWVhOGM2OGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwMjYyOGMzZWVjMWRmZDNmOGEwMTllY2MyYmE3MzRhYjI1NDgyZDhiYTc5MGQxZjc5MTc1NmE1MmIzMWVhYTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1Y2Y5MzMzN2NlYTc5YzkwNWVjYTdhZTkxY2VkMGMzZDViYWRmOWE1YzQxZjJhYTY2M2M5NGI2MGQ5MDQwNmYifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L188-L206",
+          "version": "repo-lines-v1:sha256:98e2d7c31774c1ea455ca0fc58b2459b82ccc9b4b5c0e70c4e358e66ebdc2bed:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0M2Y5Mjg3NjZhODk4Y2I1NjE5MDExOWNlNTBlMjcwNGFjMzQzMzVmNDlhMzY3YjIyYmUxOGIyMDAzMGQ2NTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiNzAyZGY2NThlMzY0ZjAzNjhjZTc3ZWU2YmRhOTk3OWZkOWE3MTliYWRlMzFkMjQ3Y2VkYzAxYzhkMTg4NTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI3MmEyNGQ5MTFmYWMzNWRjZjZmZWYzNzY1NDExOTQzYTNkMTczMTQ2MGNmM2U1MTY0YTE0ZGQwYmMzY2MzZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5YTZjNDlmZTFmMGU4YzYyNzRhZWM2YTg4YjlhODk4ODYxNjlhYjc0ODczMjUwYjcyOTQ4MjEwOTFjZTRiMGMifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L22-L24",
+          "version": "repo-lines-v1:sha256:a7ff7e6387fbd1df7ccdff003c9b7ac3fd83075d19991dd86171b57f3425de25:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWQ3MDRlOWEzMzIwYTZmYjYxODFiNDhkMWVmNTQxODEyNjQ5NzM1ZmI1N2NiNDVkMGQ3ZjFlYzNmOWNiODZlYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmJjOTdiMzhmZDc2NWU2YTRkNGI2OGRlNGJlODI2NGMzYzVjZjA1MDkwYWFlODNhZjAyMWEwYWVmYTliNmJjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWIzMGQ0ZjUxN2ZjNjZjMmM2OGVmMDZmM2E0ODE3OGJjZjA4MmQ0NzkyYTYxOGRkNzU4NWM1OWNmOTk0NjE4MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5c33ffad3bf04590b3315e0969c64a93",
+      "statement": "Columns are read by headers.indexOf('ColumnName') against the header row, so a typo, extra space, trailing space, or wrong wording returns -1 and silently breaks that field (treated as blank/no-value rather than throwing). Column ORDER does not matter. appendRowToSheet maps object keys to header indices on write, making writes order-independent too.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L14-L22",
+          "version": "repo-lines-v1:sha256:fbf1124019ad04b8fdd15d92a21e46ab0bd57a196fa570b12754edf4ad1ae9e1:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGZhNTg4ZTIyMzE0ZDI2ODA1ZjhkMGQ0NzEzMWZkMmU5YjIyZjNiYWVjMjMxMmY5MGJhYjY0ZTk2YzAyMTNiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFjZTc3ODFkMzE2Y2NlMmQ1OTdlMWZkZTg5NzM1ZjAxNWQzYWY3MzhlMWVlNmE2NWI5ZjY4NzFhY2VjN2RiYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2M3YmE2MWY5MDNlMTA3YTExOTVlNWI2YjU3N2FlOWVmZmU0ZGViZjU2NTY2YzZkZTNjNmZkNjhiMmNkNGEyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGM5ZThmYmZhNTMzYTk1YTBhNWMzZWIwZGIxM2UwZjM3YmU3YTVlMDRmMGI2OWRhYjk5YjY5NTg3NzJlYjg3ZCJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L213-L225",
+          "version": "repo-lines-v1:sha256:72ecfa6ab1d341642b6a90fb640e6cf3ed16e63b9aa81ab013e8979cb4e236d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmZDQ4ZjA4YWQ0ZWZiOGRkMGY1ZDY0NWUxZmY1ODU5MTYwN2ExNTBlZjZkOTdiYmE4ODg1NGFhMDc5MDg5OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlOTNhODFjYjJlNzQ1NTg1Mjc3YTkxNzgzMWQ2ODc5MjMzOTY2ZTQ0MGVlYjdkMWM3MzA4YTI0MjRkYTI2NTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5MTg4MTViZTNjOThjOTYxNTYwYTczZjM4MGU3N2Q4ODVmYzQzYTg2NDA1OWI4NjZkNDYwOThlOWNjYzhhY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L9-L14",
+          "version": "repo-lines-v1:sha256:9f5e4a04b3d54238b39547501eeda62432bbb4d4eb73117b04e0290e0bddf70c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNhNWZjNmU5NjBhMWQyMDU0NjU5OWRhODc0YTE4MTc5NGNkYjNiOGRkMTBmOTE2OTk5MjJkZjA5ZTFiZTkxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmUwNmYzMWRmYTFkOWU3MTlkZmJjZTc1OTI5ZmNhMzU2OGVjMTBjOWIyNzhlMjkxZDIxMjlkYjdmZWNhOGVhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDg2ZDVhNzhkYzFjZTk3ZTM5YzM4OTc2MGMxM2YwZDg4YmRmNzdlNTE1MzUxOGExNjI3ODMyMjgzNzU0Y2M0YyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a734a15b32a04e3ca4f3b16b2ef13cd6",
+      "statement": "Date cells must be real Google Sheets Date objects, not text. The code checks instanceof Date before using a date for math (probation, cooldown, tenure, plan-change lock); a string like '2024-01-15' is treated as no date and silently skips cooldown/tenure/lock logic. Withdrawal_Count must be numeric (0/1/2/3), not a string.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L296-L298",
+          "version": "repo-lines-v1:sha256:578daf923766ca433c78fc328ff0b81f943400e98b098cf547f1270dce717283:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGE1YWNhNWRiYmEwNmQyMWM5YThiYjUyZjJlMTMxMDE1NDExYTExZjgzNGYwNTA2MjQxMWU3OWVhNDQyMWE3OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGFmNzI3ZTRmZGZhMDEwZDc0ZDBkY2UwMWRkMzU3NTIxZTk1Y2NjODE4ZTQzZjE3NWYzN2NjZTk3MDg1OTA0NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTNjYjY4YWZjNGJiZjNiYzNlMjQzMDk5MTU5N2M0ODVjMjZiNzRjMDZkOTVkYjRjNjNjYmE0NDY0NmIyY2IyYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjQyMzQyZDdiYmJhNTUwMjAzNDUzNWRkZDRlNDJjMzc3ODhkNmY1NDYyOTM3NGRkYTJhYThiNTlkNTg2NTUzZCJ9"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L105-L123",
+          "version": "repo-lines-v1:sha256:3e585691b51c2c0105d66b5b1ad005b680e84dd6702e39399ddbce7a8117f977:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2NTliMWEwOTIxZWViYzBiMGVlNjMzYTZjOTQ3ZDBiNTU2YTBiYjZjYWFkYjE0NzNjN2Y3NDc2MWRlZTllM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0ZmVhMDZiYjkzM2JhNDRiYTI4YTYwNTRmMTEzZmQ0YjEzM2ZkNjExOWU0NzE3MDc1NzA1NmVjZWIxMWM1ZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwNDUxZTk2NDk1MGUxYjEyNjcxYTIwMmYwYzA2ZDNjOTc3M2U2NzFmZTU4NzllYjFmZmQ4NjNhZjNkZDBjZWEifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L15-L19",
+          "version": "repo-lines-v1:sha256:8077252dd6da7242ccb68abadf8790c349aa39ec96bff1c98ece68b62187e8c8:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjcxZjFkZGQ3N2ZkY2JmYjIwYmU5OTc2MzkxZjM3Y2RlMjIyZmYxMzFkM2IyMDBkOGMyMGQ2YWFiOGUyNzM5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjcwMGY1NzgxOWJkZDVkZGViZjA2NTk0MDhjMTQ2NjRhMmZmZDNmYWY5OGVjYzEzYjk0OTllMDViZTFkMDYwOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzZhNDk5NmVhZDc5MjI4YmQ3MWRjNzQyY2JjYTc1ZTNjNjIxZDg5ZGI4ZmU2NTBlYzFiNTIzMGMyZDFkNGRkYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTRmYWFiMWFiYTUyZmZmZjQ1YWE3MGQzYzRlY2MzZjhiNDgzMmI4YmRmYjRkNWQwZmQxZmVhNzdiYjgxNzBkMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d228532c7e504443b10f692d01e4831c",
+      "statement": "The Enrollments sheet holds the current cycle state in one row per employee, updated in place (not append-only). First_Enrolled_Date is set once on first enrollment and never overwritten; its emptiness drives the wasFirstEnrollment flag. Current_Enrolled_Date drives tenure/match-tier/vesting when Withdrawal_Count >= 1 (re-enrollment restarts tenure there). Current_Plan is a decimal that doubles as the enrolled flag (set = enrolled, blank = not enrolled); Investment_Plan must exist as a column or processEnrollment errors.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L56-L91",
+          "version": "repo-lines-v1:sha256:1402559985b753d8936975f377655f39af39875f0ec0460b53af1fb6a290102d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlOTE2YWJlOGIyY2Y2YzlmZGIyYmMxNjliNGU3ZmQ2Njc3NGVjZDM2ZTMzOWVkZTE0YmJkYjQ5NTZmYjVjZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwNDQ3Y2FkZmM4MDVmMjdmNGY1OGRlZThiNjE4N2Y3YTIxMDFiOWY4ZDQ4ZmMzNDUwZjc2NTAxODdhODA3OGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmMzEyNzgyY2ZlNzgyMTYyYjMxMDRmNWRlMGI3NDllZjVjYjJhNjIyNzFkNGRiYmZkODkwNTQ0ZWY0ZGMyNzEifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L125-L137",
+          "version": "repo-lines-v1:sha256:7459f7cb2a6cc3b58fcec697fda344ec99070272babd43860546ac4d4bfb3cd4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0ZjIwMmNiMzI5OWY5NTU4ODVlMDVmYzIxMDMzNWYxMWU0MDBiOGY2NmJiYzRiNDA2MzJiNTdhZGE4MTY3MTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwNmE2YWVkYzQ5MjAwYzRhZGEyZTVlNGZjNWY4OTJmMDIyMGM4N2RkYjdhYWFlNDJmZmRhMzllYmMxOTMyYTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNzVjYTg4OThhNTZhOTZmZDI3NjY2OGEwMjc1N2UwZmNhY2I5MWY5OTAyYjZkZThmZGY5MTYzZTRkZTQ4ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMjY5ZTY2NDQ4N2RhYmI4MGI5M2RiODY3MmFkZGM4YjFkYTY3NDIwNjNkZDI2YmU4ZDM1M2YxOGExYzNmOGIifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L95-L108",
+          "version": "repo-lines-v1:sha256:b6a182a9eb80a7a17b8e1b336aa50ac7fdd5f8a7bbe7b9de3fa9bb308d34a818:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlOWViNDJlYjFmYmNkM2I0MTcyMjM4OWRhNjk0MDI2MTk3NDY5MGQyMGQ1YzAwODQzNGM3NTFiNmQzZjY4ZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkNGM0MzEzYTNmOGQzM2U0NGFhOGU0MTM0NDY5MmE3YjUzN2U1ZWZjMWJjODY5OTA2NGNjNjI4MjQ1ZWNmYTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI0MWZhNGZiNDFhNmU4ZDQxNTg4Y2QzZjNlZmQ1M2E4ZTQ4YmZiZDcwNWRjYWRiYzg4ZWMzYTM1YzQxMjY5Y2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlMDcwMTU5M2M3N2RkNzY4YTk4MGFmMTI5MWU0ZTlhMzY2ZWFmOGZiMDNhNzY1YTZiYzUzNWQwZTFlNzllYWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_29901da822ec450d9e04c8526923eb1f",
+      "statement": "Beneficiaries is an append-only ledger: each update appends a row {Timestamp, Allstars_ID, Work_Email, Beneficiary_Data(JSON)} and no row is ever edited or deleted. The current active set is the newest matching row, read bottom-up by getUserProfile; every match is also pushed into beneficiaryHistory so full history is preserved. The prior state is the previous matching row, so the beneficiary audit event carries no priorValues.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L409-L414",
+          "version": "repo-lines-v1:sha256:870a7c79f1f97df1653cd3d4e21529540923ce5c50d0927747326697194e6b4c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjhkMjliYWU3OGIwNzNlZTA1NTE0ZGI0MzkyMzhiZjczMzIxZTBjMmEyYzljMmFkOWU0OGU4MzJmODYwNGI0YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2MxN2YzMzkyNjY1ZTE5ZTk1Nzc3N2QwYTg3YzlkOGFmZGE5ZmUxNjE3MDJhMzA0NDA0NDM1OTAwYTUwYWViNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzYyMDU4YmM0YmQwYjE0MTY0MDBiMmZlZTU3MDQxZjllNmZlODE4NjEzNzRjYWUxMGQ0OTRmM2MzMTc2NGRlYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzIyNjU2Zjg4YzUxYzE1NGZkYWY5MTI0Mzk2MDE2YTc5ZDkxNmVkMDU1ZWIxMmEzMjY3ZjU5OTY3MTUyYWJhYyJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L93-L98",
+          "version": "repo-lines-v1:sha256:4a149950e2cec53cf2f41e0e3f950d5d178b0d768cf4758b835d34147fa056dd:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTIzNmQ5NGVhMzM0ZmFlNzI3OWVlYTAyMzMxZDViNDIzOWU4NjBlNWUzNDQ0ZGM1ZDMxZDE5OGE4MjA0MDBkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2MxN2YzMzkyNjY1ZTE5ZTk1Nzc3N2QwYTg3YzlkOGFmZGE5ZmUxNjE3MDJhMzA0NDA0NDM1OTAwYTUwYWViNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTcwMDM4ZjM5ZWM1YjA0ZjYxYWQzYjcyNDgzOWEwYzVkYTI3ZTkwZWRkODhmOGMzZDg4ODYxNDk5MzEzZjAzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGM4NDQ2YjI2N2JkNGFhZmY3MzJkYWY4NTQzMmJkNGJhZWQyY2M3NjIzZjBiY2RlODIxMGYwODgxMjc0ZTdlMiJ9"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L65-L94",
+          "version": "repo-lines-v1:sha256:776e0d5cd3316553dcd0468d3fe6554e53d8158bb56afee54ce3674f372c1788:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5ZTAyNTIwYzMwNTA1MWU0M2JmMTUwZTk2MGE3NTRhYjQ2M2MzYjEyNzIxMTliNzY5OGFmOTE4OTNmMzg4NmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNzVjYTg4OThhNTZhOTZmZDI3NjY2OGEwMjc1N2UwZmNhY2I5MWY5OTAyYjZkZThmZGY5MTYzZTRkZTQ4ZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMWZjMGQ3ZmEzYjE4NzU4YWIxNzFiOWZjYWIxMjJhNmE4Mzc3YzdlNzJmNWY3YmE2NmMzMmRjN2VmNWUyNDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b96452ea1714067ba88c1df2fb96df5",
+      "statement": "Beneficiary_Data is a JSON-stringified array of {name, rel, pct, address} objects stored in a single cell. name includes a title prefix baked in at the front (นาย/นาง/นางสาว/ด.ช./ด.ญ. or Mr./Ms./Mrs.); rel is the English key (Parent/Spouse/Child/Sibling/Relative/Friend); each pct >= 1 and all pct sum to exactly 100; name, rel, address all required. Audit_Log.Event_Data is a JSON object (not array) with priorValues/newValues plus post-commit stamps.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L174-L204",
+          "version": "repo-lines-v1:sha256:67720e930cc0e49a1b30ed622a8a420997f2bd4febcf9c0ea7ba9611d4621b4d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0ZWNiNDg0MjUwN2Y3NGM3YWQzMjdmYzVkZjI5NmE1ZWUzOWRhMjJkMDg1MDVjOTQ2ZTFiMzJkZTllOTJkOTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMzU0NmY4NTIwMTZkOGNiYjU3MTQxOGZiMzZmZWJjNTA2ZDQyZGFiNGVkODExYWM1ZGVmNzkwMDE1YmMyNjgifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L421-L439",
+          "version": "repo-lines-v1:sha256:7ceb57dca482e0cb8fe4e98b8614f9dffc69fa21992576ec334543609c88ad94:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NzU4ZDBmZTI1NWIwMTg3YjM5Y2M5ZDA4MTI4NjA3OWRiZWJkMTBmMjQ4MmViYzEwZGY5MzNiZDk1ZmU1ZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwOTQ5ZjhkY2MzZjBkMGE1MzRkYmRlYmZhZTkyMDMwNTY5NDA0ODA4MzEzN2QyOGFhNmQ2NTA5ZGZhNjIxMTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzYjAwMzU1MDdmODdmMjkzNTMwYzM2Y2U5ZmYyYzk2MmYzOTY1OWYzZDgwMGY2NzM4MzU0ODYzZWM1ZmI5NTQifQ"
+        },
+        {
+          "resource": "repo://MIGRATION.md#L140-L150",
+          "version": "repo-lines-v1:sha256:4c3b6f4aeae61d500e169a0db082e9abe864a3a55efe8beec200da637160d641:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4ZmRhNjFlNDZkZmNlZjA2MWM5YjIyZmFhYTkwZjU0NTU3ODQwNDcyN2U2YWViOGIxZGUwMTk1YWUyOTc0YzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxNWNiMWYzOWI1NGZlYmUwNzJmZjBmMmRlZmYzNzBjZjc3MjU0NDI5NjY5NWNjNWY1Yzc1M2JiMGZlZDg0MWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_69ffa17c32644920aad54dfb84d9f10b",
+      "statement": "Audit_Log is an append-only audit trail. Each action appends a SUBMITTED row keyed by Transaction_ID + Event_Type; cancelTransaction appends a separate CANCELLED row with the same Transaction_ID for continuity. getPendingTransactions deduplicates by keeping the latest event per Transaction_ID (compared by Timestamp).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L546-L629",
+          "version": "repo-lines-v1:sha256:9b95378e882666a7e2158ea823dc0d86371fed09dab0a14726453a55b3cc3619:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlYmM4YTQyNWIwYmQ5OGQyNGY2OGEwYWYyM2JlNjRiMTk4NDRiZjM2YmZiZjE0MWI4ZjBjZDg4NGVmZmZhODUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkY2E3OWY3NWQxYmExMmQ0YWIyNzI4ZGE4ZDE3ZmU4MDg0OTk5MTBiMjA5MTk0ZTRhYmY3ZTg4MzBlMGM2NzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhMDdiODdmZGFhMjcyMjA2NTI4MDUxMmFiMGQ1YzY5ZGFmYmNhZmE1ZWU4YTM1NmUwZDk4YWE4Mzg2M2M0ZGMifQ"
+        },
+        {
+          "resource": "repo://Code/Profile.gs#L188-L214",
+          "version": "repo-lines-v1:sha256:a933b562adbe72e8fa3331bbdcda819c82105fd7c0c18755ce868c7dd4675b2f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0M2Y5Mjg3NjZhODk4Y2I1NjE5MDExOWNlNTBlMjcwNGFjMzQzMzVmNDlhMzY3YjIyYmUxOGIyMDAzMGQ2NTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI3MmEyNGQ5MTFmYWMzNWRjZjZmZWYzNzY1NDExOTQzYTNkMTczMTQ2MGNmM2U1MTY0YTE0ZGQwYmMzY2MzZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliYTQ4NGQ2MDkxMWRmNDk1OTI0ZDlhOThiM2I3Mjc1NjQ2NTQ3NzExNjI2YjRjNjI2ZTlmMTlkYjRjNzg2YmIifQ"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L67-L91",
+          "version": "repo-lines-v1:sha256:d48d9281550f0dded331b7c19909c8668eb7c3c6dcce774cbe70dec4ab9b8633:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4MTE3MWJmYzY5MzRiMTA2ZDYwNTE5ZGVlOTc2YmQ3OTAyZjg1ZWQ3Y2JlYjRkNzRjZTFhNjMyNDYzMTQ5YzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlN2U0MTJhMjE0M2NkYzE4YTRiODAxNDllYTUwYTYyNzU0MWE5M2IzZWU3YWZlY2Y3MzQxZmI0ODBhN2I4OTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwMTkyYjVkZDYxMWFiMTA4N2MxNTgyNDZlNGY3YTk1YjJmN2U2YzQzMGU2ODU3YmJkNDEyNTQ2MDk0Y2VmYTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5cc370be75774bc6a957293295f286c1",
+      "statement": "patchAuditEventData(txId, eventType, extraFields) re-finds an existing audit row by Transaction_ID + Event_Type (scanning bottom-up), JSON.parses its Event_Data, merges the extra fields in, and writes the stringified result back. It is wrapped in try/catch and never throws because it runs after the action already succeeded; a failed patch must not surface as an action failure. It is how post-commit outcomes (emailSent, emailError, letterFileId, letterError, signedAt) are stamped onto the audit row.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L148-L154",
+          "version": "repo-lines-v1:sha256:584974a52ef6f348658aa2dd997ec72d5df7adcc1b6dd24b3e5ab6cd3150cbfb:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDg3NTQ0ZTE2NjJkMjkxYWRkNGFiOTUwZjgxNjI3OGEzYWYyNTU1MGM1YWRhZjYyNjQwMTI3MDI0MzE3M2E2NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWMyYjcyOTViYTYxNjJlMWU5OTE0MjlhMTg0MzIwZDdhNGQ4MGIzNWU1NjRlMTFjYjI1NDAyMjgyYTM5OWJmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTNlOTcwNzc1M2YxMWFiYTFkMDJkOTMwZWI4MmNlNDJlYTk2ZTZkODkxNWNlZDBhNTU4ZmQxNzlkYWNjMTZhNCJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L60-L91",
+          "version": "repo-lines-v1:sha256:271cef2a808a681f57347600c8f48ef6e86e85f161be33d19fc5fa45e2065a63:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNiODg5OTMyNzRkNDZmNmIyMDNiN2U3ZmEzOTk2YjI2MTQ0ZDcwMzIwNTZkZDE2MGU0N2VhN2RiY2YxZDBlYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwMTkyYjVkZDYxMWFiMTA4N2MxNTgyNDZlNGY3YTk1YjJmN2U2YzQzMGU2ODU3YmJkNDEyNTQ2MDk0Y2VmYTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e6d8dac0cbdf48bdb3b5a3c8f6a21edf",
+      "statement": "App_Feedback stores post-action 1-5 star ratings and must be created manually with headers in row 1 (the app does not create it). submitFeedback resolves Allstars_ID from Users inside a try/catch and leaves it blank if not found; rating is validated server-side (1-5, else rejected). It is best-effort by design because it is called after the action already succeeded, so a feedback failure must never imply the action failed.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L45-L45",
+          "version": "repo-lines-v1:sha256:2becf700cb9f21d91c85ac27e7eb6f6dd322a348ff1c34637cd3739d2c339747:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJlY2Y3MDBjYjlmMjFkOTFjODVhYzI3ZTdlYjZmNmRkMzIyYTM0OGZmMWMzNDYzN2NkMzczOWQyYzMzOTc0NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJlY2Y3MDBjYjlmMjFkOTFjODVhYzI3ZTdlYjZmNmRkMzIyYTM0OGZmMWMzNDYzN2NkMzczOWQyYzMzOTc0NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODY4M2JkZDhlMzA3YjQ4YjJjZWY1MTQ3YmE3MTVlY2I1MjVhYThkYThjYjMxYjU5MzlhY2M0ZmE5ZjNjZDEzNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzg3ZGM2ZWNlYWEyZWE4YmM0MDQ5Y2FmNzNjOGE2ZmUyYzliNDgwYTJiNTliNmU1Y2MwNzIyODY1YWQzNGZmMCJ9"
+        },
+        {
+          "resource": "repo://Code/Feedback.gs#L16-L57",
+          "version": "repo-lines-v1:sha256:90e732858039506143327835617735c21c83fd351476e9e3709dce5f69afa0ea:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ODc4ZTlhZTdjZDQ2MmZhODRjNDNhYTI5YmMyOGQ3OTY5MTc3MWUxYjViNGViNWU4M2E3ZGU0MGUzNzI4ZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIyNmRhYmE4YTc4NzYyZjMzOTQxZWM1ZDEwMTE1MTJkMjY1ZGM0YTc0NjAwZjU2ZmYxNWY0NjFkMWY2NzE2YjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f8b2fff6c30e4e85b5cdae8ef3ff329a",
+      "statement": "getPendingTransactions reads Audit_Log and keeps only the latest row per Transaction_ID for the user's Allstars_ID, then filters to cancellable actions (Enroll, Change Plan, Withdraw) whose latest event is SUBMITTED or EDITED and isWithinEditableWindow(submittedAt). Beneficiary and investment-plan actions log SUBMITTED rows but are deliberately excluded because they are effective immediately with no cancel state.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Profile.gs#L188-L255",
+          "version": "repo-lines-v1:sha256:a9d2c98a01c98848306a6cfcf43523e7f2dc01d04a09195067d45400a1b54435:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0M2Y5Mjg3NjZhODk4Y2I1NjE5MDExOWNlNTBlMjcwNGFjMzQzMzVmNDlhMzY3YjIyYmUxOGIyMDAzMGQ2NTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI3MmEyNGQ5MTFmYWMzNWRjZjZmZWYzNzY1NDExOTQzYTNkMTczMTQ2MGNmM2U1MTY0YTE0ZGQwYmMzY2MzZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}

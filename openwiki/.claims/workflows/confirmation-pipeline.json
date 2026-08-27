@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:829272b3f7a13d637b065faf748948f3c642fcee382e1457d9eb3c29f1ce2af2",
+  "claims": [
+    {
+      "id": "claim_af5cb4964a7e4713ac6469c93d16f484",
+      "statement": "After an action handler's sheet writes succeed, it runs a fixed best-effort post-commit pipeline — generateLetter, sendActionConfirmation, patchAuditEventData, (conditionally) sendLetterFailureAlert, and trackFeatureAction — and none of these side-effects may throw or roll back the action; the handler returns success even when the email, letter, or analytics call fails.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L100-L166",
+          "version": "repo-lines-v1:sha256:42017376d5274616d4315994053633b3e032a6b50f828cab19a4151284fea87a:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZDRlN2U0YzliNmZkYzBjMjFmMGY5YzQzZTllYzdhMjc2ODNlNGE4ZGZkNmZiYzNiNDFlYTBlNDM5NzBlMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkZTE3N2FhN2U3Y2M3OGUxNzcwNDU5NGNkNmIzOGY5ZDhiN2ExMTQ5N2Q4ZmUxMmIxYWYyMzk2MWI0ZjRkZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmM2I0MTNhYTAzNDMwNDVhYjExNzNhNGMwNDVjNWYyY2MwZjg5OTVlMzJmODVlYTI0NTcxMTc0M2FhZDkxNjQifQ"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L1-L26",
+          "version": "repo-lines-v1:sha256:5836074799ee31901d004aa4991fe22d6a8f24165b2477791a67244db20bab6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiMWU3MTJmYTBkYmFjN2VjZjMzNDQ5Mjg5ZjNkMDA4MDQxZjY2MDI1NDBhYzVlMTdhYWNlYTAyMDFjNWZiZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjZjBjMDYyYmQxOTUwZGYzMWNlOTgzZmUyNTNlYTZkMjZkOGI0ZGQ3Y2ZlMTFiNTgwNWVlMDJlNmE2MjI4ODUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1Mzc1ZGIzODY2NDhkM2ZjNmViZGUwNDk0YWY5YzY2NWE5NzJmOWFmZjgyOGNiMGMyOTE2ZGUwMjc1YTA3YzIifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L11-L24",
+          "version": "repo-lines-v1:sha256:f0abab149b8a6a829c5aa4c89a37a013c05a1e0a7b1ad0b3a1b31f68942c88da:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MmE0MjkzODJiMmUxNDcxOGUwZTM3YjA1NzBhOGExNzAyOTkxZmNkODQ5OGNkODQwNjBhOGJmNGYwNTAxN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzZWFmZjRiOTUwOGZjYjI4NjJkZmU5YmUwYzBkNWQ1MmI3M2EzZDk3Y2RkMGNlZjZkYmE0ZDE1OThhMzc1MDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4NzU2ODg0NTU0ODI5M2JlODBhODJiY2FiMDE4OTU2MDdmODBlY2VhNzIwZTI1M2U1MGNhYzU4OGVkZTc0OTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1d71ba9684c54fbea7b864b96ce847c3",
+      "statement": "The handler owns the transactionId (generated up front via generateTransactionId, e.g. EN-YYYYMMDD-xxxx) and threads it through the audit row, the letter context, the email details, and the audit patch so the post-commit outcomes can be matched back to the row it appended.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L121-L154",
+          "version": "repo-lines-v1:sha256:fc45b3bcd5ab3039ea115b6ac8429ff16433357107f670d7d5058ee236ed15d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlOGYzNzkwYzlkNGYwNjYyZjZmOGFlMGQ0YTBkODJhMDI0YjNkZDM3NzQ1YmQyOWI1MTkwMTQ0MzVmZTY5MmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczN2ZlMTNmYTBmOTRlYTVhMGMzYTg5MThkNzQyMWNjMWUzMzM0MDhmMWU2NTFmN2FmNGRhZTdlMGM3MWRhMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzZTk3MDc3NTNmMTFhYmExZDAyZDkzMGViODJjZTQyZWE5NmU2ZDg5MTVjZWQwYTU1OGZkMTc5ZGFjYzE2YTQifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L36-L37",
+          "version": "repo-lines-v1:sha256:7672ae573f42b208a23c5190a7cbe62b71e82c05aca21510d1148add6c678cd2:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU1OTU1NjEyM2ZjZDNhOWRhMzY3MmU5YTM0ZWFkYTIyNTQ2YTJlODhiZThmNDY1OTY2YzgwZDE4MTViN2IyMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmNiNTM2OTAyY2Q4ODFmODk0NTYyMzNiZmFiZDIyNTYyMTViZTQ1OTQ2ZWZiYWRjMzhlODE1ZWNhNDIwNjI1OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzYyMDU4YmM0YmQwYjE0MTY0MDBiMmZlZTU3MDQxZjllNmZlODE4NjEzNzRjYWUxMGQ0OTRmM2MzMTc2NGRlYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiZTIyZTI1ZDdmMDQzNDQ1ZGI1YmNlYjFmOWUxYmVmOTQ5ZWIwYzk4ZmMzODY0YTA4NDRkOGNjZjRmMmI1ZSJ9"
+        },
+        {
+          "resource": "repo://Code/Utils.gs#L48-L58",
+          "version": "repo-lines-v1:sha256:cd4645a32318811f7e49a7847ca1e76dfb1895bb6f553d68cfb2068f5ddf6a80:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg5YjRiZjZiN2YxNTI1NTM4MmUyOGNlMTUyNTZhMGY1NWJkNmEzYjRmMWRmZDg4YjFjODIwNTg4YWI3YzRmMTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0NjkzN2QzYTYzNGJhZTAxMjlhZTM3ZjE0NWIyODJjY2JkNDg5ZDZhMWMyODliYjkyZThjZTJlMDc3Nzk0MzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_23ce1cf096de4953888f0b6e5e33049a",
+      "statement": "patchAuditEventData re-finds the Audit_Log row by Transaction_ID + Event_Type scanning bottom-up, parses the existing Event_Data JSON, merges the extraFields keys in, writes the merged JSON back, and never throws — a failed patch is swallowed because the action is already committed.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Utils.gs#L60-L91",
+          "version": "repo-lines-v1:sha256:271cef2a808a681f57347600c8f48ef6e86e85f161be33d19fc5fa45e2065a63:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNiODg5OTMyNzRkNDZmNmIyMDNiN2U3ZmEzOTk2YjI2MTQ0ZDcwMzIwNTZkZDE2MGU0N2VhN2RiY2YxZDBlYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwMTkyYjVkZDYxMWFiMTA4N2MxNTgyNDZlNGY3YTk1YjJmN2U2YzQzMGU2ODU3YmJkNDEyNTQ2MDk0Y2VmYTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_105704ffba1940259d247e86788d204b",
+      "statement": "The patched post-commit outcome fields are letterFileId, letterError, emailSent, emailError, and signedAt; actions without a letter (Change Plan, Withdraw, Cancel) patch only emailSent and emailError.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L148-L154",
+          "version": "repo-lines-v1:sha256:584974a52ef6f348658aa2dd997ec72d5df7adcc1b6dd24b3e5ab6cd3150cbfb:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDg3NTQ0ZTE2NjJkMjkxYWRkNGFiOTUwZjgxNjI3OGEzYWYyNTU1MGM1YWRhZjYyNjQwMTI3MDI0MzE3M2E2NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWMyYjcyOTViYTYxNjJlMWU5OTE0MjlhMTg0MzIwZDdhNGQ4MGIzNWU1NjRlMTFjYjI1NDAyMjgyYTM5OWJmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTNlOTcwNzc1M2YxMWFiYTFkMDJkOTMwZWI4MmNlNDJlYTk2ZTZkODkxNWNlZDBhNTU4ZmQxNzlkYWNjMTZhNCJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L357-L360",
+          "version": "repo-lines-v1:sha256:b65006d89855462b5bf0f45a531495511db14c95d3cef77830d743154526bb98:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDg3NTQ0ZTE2NjJkMjkxYWRkNGFiOTUwZjgxNjI3OGEzYWYyNTU1MGM1YWRhZjYyNjQwMTI3MDI0MzE3M2E2NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTJiYWRhODgwMzcxMGYxMGY5ZGY1YWQwYmY1YTI4ZGRlMGE3NGU0ZGM4NTZjOTUyMjRmYmI4ZDUxMjI4ZmZkMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTkyMjM0NTQ4NDA1MTZjZWUwNTI4MmNmMDAxNDU5MWMyNzg4ZTE5ZjUzOWQ3NWE0NzYwYTVmNGNkYjBhNGEzMSJ9"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L650-L653",
+          "version": "repo-lines-v1:sha256:4401cf8a759b3c73c6c3a53c0ffd16e2636f52f23afd2cbf5ae5dffb697cfc3f:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzgzNjk5NDUzMTlkNzkwNDc1NzMwMGUyZjkxZGIxMWY3OTI0ZDg4ZDQ5MzdlYTNlYmU5NzVkZGRjMmNhNGNmOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGVkMzQyYjM2YzA1NGZjZjY5N2NmZDBjYTQ2NGFhMGE5Y2YzZWE2Mzc4MTdjZTliZmMzZThhMjk2NzI0MzAzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTJiMjZjMGEyOTg5ZGY0YjcxMWNlZjRjN2VjMWM0OWM1NjE2MjA2NTcxZGU2ZTI3ZDljMmYwYzYwMjhjMDIwMyJ9"
+        },
+        {
+          "resource": "repo://Code/Withdraw.gs#L99-L102",
+          "version": "repo-lines-v1:sha256:b65006d89855462b5bf0f45a531495511db14c95d3cef77830d743154526bb98:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDg3NTQ0ZTE2NjJkMjkxYWRkNGFiOTUwZjgxNjI3OGEzYWYyNTU1MGM1YWRhZjYyNjQwMTI3MDI0MzE3M2E2NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTJiYWRhODgwMzcxMGYxMGY5ZGY1YWQwYmY1YTI4ZGRlMGE3NGU0ZGM4NTZjOTUyMjRmYmI4ZDUxMjI4ZmZkMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmRjNjgwZWM1ODdhZjZlNWYyYThkZDFmMmU5ODQwNDg2YTBmZTVmODUxZWJlODAyODc3NzhlNzA2YTQ0ZWVlNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4eb4fcadf9604cad8f2671e5e3649dce",
+      "statement": "generateLetter is the only pipeline component allowed to throw; the handler wraps it in try/catch to capture letterError, and a letter failure triggers a separate sendLetterFailureAlert to the admin (CC'ing the user) so a document is followed up — the action itself still succeeds.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L126-L163",
+          "version": "repo-lines-v1:sha256:880b2bedf1ffdd3bcfd3a729d63ffcff53ce864c36fe697e70c8a426b68189b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmMGU4ODBmMmQ4NDM2NTI0NDY1YjE4M2MwMzBkNWZlZWQwMTI1MzQ1YzBhNWRmMjRkNDhlYjZlZjgzOGNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmOGU3MDJmOGUwYTY1NmQxZDhlZDEyMTQ2YzhkYTYyNTZmMTRjNGMzYWUxZDMxOWQ1Yzk3YzU1Mzg3MWViOGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmMGE0N2VjZTE4YjA5ZDcwNjgzMmM0ODIxZDFhNGEwYTM0NDA5NjkyZDdjYzc5MmU5NmRlMzQ1ZDlmY2U2NjIifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L494-L501",
+          "version": "repo-lines-v1:sha256:1a04ff668d26c0e7783c633100af7b2943ec61a888d46304e24d772333b6180a:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdjY2E2ODRjYTIzMjFjZjc1ZjEyMTI3NTdiODNlNjIxYzA1NTg0OTVmNmVmNjI3OTIzZjY2OGI0OGViNThhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGE1MWUwMDMxZDI2Y2RlNDZkODg4YjBiMjYwYjFmYjVhMDdhZWJlNzRiYzc5MjZmYzJiMTEyNjZiOGE4YzdjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmJhNjAyNDI2YTU4ZTUzYTAxZGViMzgyNTcyOTZkNzI2MGFhMzQ3ZGY0NmU4YTQyNzJjZTJiMWZhYTYzZWRhNSJ9"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L8-L12",
+          "version": "repo-lines-v1:sha256:98d38b7a71f98265d3a65745c89a7c4bdf585dd008713e7e551e1acc836d5220:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWViOTgzNjNiNmY0ZjRhNzhlMDcxMDZkMjlmYjFiNmY1Y2I1NjBiODk3M2M5MjJmYzNjMjM3NTlmZjM2OWJkMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTAxZWFkOTM2YTIyODFkNTNkY2MwNjRiN2UyYTJhYjBkNTNiOTJlZjNlZjdiMzRiNjY4NjczMDA3ODk1Yzg2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTVmMjgzZWE0OTdlNzcxMWY1MDhkYjQxNTc4N2NmZjdiNDc0NzZmY2Y2MDEzY2RmMDIzZjJkODYyNTZkYzNmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzRmMjIwNWM2NzBlOWZhNTJkMzgxNTE4ZTA0OWZiZDk2YmMzYjkzODNmY2EyY2ZmYThmNDFmMGIyYjlkZjNkOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2c6c49b1f83f4056ab6a2d4139778bcc",
+      "statement": "generateLetter copies a Google Docs template, fills {{placeholders}} and {{beneficiary_table}}, inserts the signature PNG scaled to a 220x80 point box (aspect preserved, never upscaled), exports the Doc as a PDF, and trashes the intermediate Doc in a finally block so orphan Docs never survive an export failure; it returns {fileId, fileUrl, fileName} for the email attachment.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Letter.gs#L182-L209",
+          "version": "repo-lines-v1:sha256:df376e1b620079669b8f09eeb2a80093b2a7bf15574eb45e7d11fd8254e115b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjMTg0YTIyYmNkZTczMDk5ZTUwYWE1NTRmN2M0MDM3ZGEwMTFhMjJlZjhlOWNkNzI5NTE0ODI1MjU2YTVkNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYzFiZGUxYjA2ZmE2ZDJhZTA2MWEwZjY0ZDZjYTk1NTljMDMwYWY3NTZiZGVjOTJiMDk2ZDQyN2QzODIxNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkMDIyZmI2N2RmZjBmZDNmMDk4NzFiZTRiZWU1OTZjYzQwZTI2ZGJlODE4NmY5ODA2NjY5ZjRiMThkNWMyOWEifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L49-L103",
+          "version": "repo-lines-v1:sha256:b6aa3c9d56fa9792742f9c5e79e02abf0c6bd7e8710bd317a3b50fe590186571:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNjA3ZmIzYmFmNTk2ZTFiYmY0NmI4NGQ4NjIxODgzNDIyODMyOGYwMzU5YmYwOTRiZGI5MjYwMGIzNWVhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2MmY0ZWU3YTI0ZDU3NmU3Nzc1YjRlMDg1MjJlNDA4YTFhNTcyMjYzZDI1NmU3ODRlNDIxODIyMTJmMDI1MTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4ZGNhZDNhMGU4ZjIxMjJhZTQ3YzVhYThmNGU4ZTg5Mzg1YjFiN2MzMWVjMjNmNjcxMTJkZjljMjAwNjc0ZjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cb185833841944d48d98b7443ad529ee",
+      "statement": "The BENEFICIARY letter type falls back to PF_ENROLLMENT_TEMPLATE_ID when PF_BENEFICIARY_TEMPLATE_ID is unset, and the enrollment-only placeholders (rate/match/investment/member-since) render blank for a beneficiary letter.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L442-L463",
+          "version": "repo-lines-v1:sha256:5f91be0c1bf4558f8afd0d11437bfb660662d1f65a661baa768731574cb139d8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZDRlN2U0YzliNmZkYzBjMjFmMGY5YzQzZTllYzdhMjc2ODNlNGE4ZGZkNmZiYzNiNDFlYTBlNDM5NzBlMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMTAzNWE1NzI2NzM4Mjc5ZGFiN2EyMjc0MDMzYWExMWVkNThmYWMwYzFiNWQyZTIxNTEwNmYxNmQxYzIzNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZhMjI3Y2YxMTBkN2JkYzVjYjJkNjU5Y2JlMWUyYzM2NGI5NWU0OTdlNjQ5YjI4MjQ3NDkxYzNiMTg0MmNiNTQifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L50-L57",
+          "version": "repo-lines-v1:sha256:b30e4793817b66eb09fe720835212f0c7b0c7804eb19ebb7bb306dc0b017b403:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODg5NjlhMDI1MjdmMjA4YjllNzE4YmMzNWM4M2JkZmIwZWIxMjA5MzljZDcwYjgzOGE1MmI0ZTk4YjNiNzY2MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDkxNTNhYzYwMTI2MzRjNTllMmVhY2EwOGQ2ZmU0ODA1Njk0NzFkMzgxNmU0YTI3ZGRjNDY4ZmZmNWMxZWI0YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2UyZDczMGQ1ZjQ1MjVmYjlkZWMzMzUxYjNhNDhkZWZiNzEyZjQxZmIzMjQ4YzZjMzJjODk1NTI3ZGRiODc5MCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_937dcaf6aa354b6b80e1de9e2b70b5a6",
+      "statement": "sendActionConfirmation sends a bilingual (Thai-first, then English) plain-text + HTML confirmation email to the acting user, attaches the PDF when attachmentFileId is set, and never throws — it returns {sent, error?} so the caller can patch emailError.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L25-L91",
+          "version": "repo-lines-v1:sha256:b71a37ca0a1986f8b03858dd53c2b10bebef1f1753e87a4f6bdc2e1483f8342e:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlNzBhNGFlOTdlOWY5YmIwZmZiZGMwNGQyOGRmZTc4MjUyYzdhOGIxZmE5OWNlYmZlYzQ0ZGI4MmE4YzcxZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZlZGM0MDBkZDA5MjgxOTg0Mzg3NTIzZTdkNjVhNDFjOGY5YThhOTBiZjMwZGFiZGZjNWU2Zjk4N2MwZTNlNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyODIwZDI1NzdjNzQwOGJjOTcwMTgxZGU3YTdhOGYyNGE1NDI3ZjUxZjc5MTg2YmU4NjdiMDRhMjUyMzk5NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b50f5217b744f719ac20b4f118ea496",
+      "statement": "The email cancel-line ('To cancel this request, please visit the application.') is shown ONLY for SUBMITTED events of cancellable actions [Enroll, Change Plan, Withdraw]; Update Beneficiaries SUBMITTED is excluded because beneficiary changes are effective immediately with no cancel state, and CANCELLED events never show it.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L30-L34",
+          "version": "repo-lines-v1:sha256:dc486ec63d8e4b7b9918987f901e862884792847a530ae85b7a273900414e2d1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2ViYmQ4ZGQ0Y2M2MTZmOGQ1MWJjZDI3MDM2MDkyZGY3ZTU5NThjMTQ3ZWM1ZDliMjAzMmU1NjUwNjU0MGQwNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmEyYTA1MThkNTc2N2Q1NWRhZDIxYzFhNDQwZWVjYjU5MzMxZjc1NTRmNjAwZWZhZTY3ZWFmZDE5MjNjN2NlMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTBlNGUzOGMyMjhhMWE2ZmZiZjU4NjcyYTlmYmYxOWM4ODFjNTBlYzE0ZWQ4ZGM2Njg1NDQwYThlZWRiZmU4ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzA5ODcxZmE3YWM4YjkwNmIwYjk5ZTlhNjJhMjI5NDA3ODFlYTkzMWQxNTRiMWRiMTVhYjZmY2UwNDQ0MzZkYiJ9"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L52-L67",
+          "version": "repo-lines-v1:sha256:3c5b243284a59ca7170df7be1d730dab7e16bf3a92cc22b8ff7e02fba891c341:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxMDIyNjhkN2FjZDBhZWQ1NGVkOGQ2YzkwNmRjYzY3MjEwODEyMmY0YmEzZTg2Mzg3NTcyNDAxNWE5MTYwMzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJmZmE1YTM5NDRkYjY2MDg3Y2ZhNjljYjUyODQwMmIyYjA4YjI2NDY2MzdmNGVmZmNkZmM1MTU3ODU2MmM3NmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyMWE4OTlhZGU0NjhjM2YwOGY5MjlkNGQ2NmZlZjgyNmM2MWQwMjFkNzljNmVkYzAxN2UzNjJiNjA2NGY2NjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ1NDI3NmVlMzAxODNhOTU3MTI4N2ViZTA2Yjk4NTI1YzI5ODRlYWE0NDg2ZjA0NDM3Yzg2NjQwNjNiMDYyZmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_91ccf22185b74492a60ec23f04b2796c",
+      "statement": "buildEmailContent supplies per-action bilingual subject + detail lines for each action/event pair (Enroll/Change Plan/Withdraw SUBMITTED, any cancellable action CANCELLED, Update Beneficiaries SUBMITTED), with a generic fallback for unwired actions.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L169-L280",
+          "version": "repo-lines-v1:sha256:5d9efe388b48e799deead64bd3a95c3a4e22bcf2932f59963234b6090e222707:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkY2ExMmNkMWNkOWE2ODczNmM2YzI2OWI0ZjRjZDhjYTU3YTBkZGZjYmVlMDRmYTc4YjhhNDY1MzgwNzlkNTlmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5NDYxYjYyOWQ5ZWRmMDk1ZjE1NzdmZWUzMDNjZDU5ZjYyOWIyYzdmZjQ4YzU3OTNkNzM1OTQwZWQ0NGY1MDY3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIxMjI1NGEwMTNiZDAwNGFiOTI4OGY3ZDdlYTE2OGZlMzJkMzIxNmI5NmNhYWE0NzM2OTY1OWFhNmJlZjFlYWM1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_1c0154480bf545adb30b797d389d785a",
+      "statement": "The CANCELLED confirmation email reuses the original Transaction_ID for continuity with the SUBMITTED email, references the cancelled action type, and states no changes were applied; vesting is intentionally omitted (acknowledged in the pre-submit modal).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L620-L653",
+          "version": "repo-lines-v1:sha256:fe3d3c9c854a2164930cac432f36f19123cdd1d7fc3d860911d23eaa46ce3432:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExMjgxMDIzYjhlMjc4NTU1ZmMxMmUxNjZkYjM1ZmUzY2JjYWRkMWRlMzE0OGQ3MjRjZjVhMjFmZmM0OTVlYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyZDExY2FmNDNlOTdlZjM2OWU2YmVlZDFhMjY4YmQwNTgzOGYyOWI5ZGQyNTRiZjY5YmE2NDg4NDE0NzIzNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmYmU3NzFiNzJmYzA0MjY1YThlMDgyZmU4MmFmNDY1MjViYmQwMmJkYTdhZDJmNjVlODZlODI5ODkzNzMyNGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyYjI2YzBhMjk4OWRmNGI3MTFjZWY0YzdlYzFjNDljNTYxNjIwNjU3MWRlNmUyN2Q5YzJmMGM2MDI4YzAyMDMifQ"
+        },
+        {
+          "resource": "repo://Code/Email.gs#L201-L217",
+          "version": "repo-lines-v1:sha256:ebfffda2c7f58046eec7f3ddb468388d4ebb0b50c6409fc294fad6081f0565b1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzNjNiN2QxNDk1ZDg0ZWYwODhhMzYzZjFlZmVkNjEyODNiN2Y3ZjA3N2IwZGZjYmRmNzQ2YTk5OTdiZWZlYTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZWVmZGQ1MTEzZDk5MDU2ZjFlMTlkZTFiN2Q1YmVkZTZlMGEzMDFmOWU4ZjdiZTRlYWQzZjhmOGRhODY2YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2MTcyYjI1YTQ4ZTE0NmIzMzZiMjk1YTVhMWM5NWVjN2M5YzdhNzY0OTI2ZjhlODRjYmQ4MmFlNjkwZTRmMmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3c22bb2e48a14841917007553f1e2c4c",
+      "statement": "sendLetterFailureAlert emails the admin (navananyeamsiri@airasia.com) and CCs the acting user when a letter failed but the action succeeded, stating the action was recorded normally and only the PDF failed, with the transaction id/action/time/error for diagnostics; it never throws and its result is discarded.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Email.gs#L93-L162",
+          "version": "repo-lines-v1:sha256:48cbc3c302868468819c9821de17c6c99a2037e74b3ccbf43aa10b1766694fe0:eyJzZWxlY3RlZExpbmVDb3VudCI6NzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzOGRjNDU2Y2Y3ZjAzNmNmNGI4NTdlYzQzYzA2ZGFkNjI4ZTY2MmQyZTY3MjZjZTRmNzdlZmM0ZjU1OGNlYzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4aad39d40ce6406ca179ecb5a9995185",
+      "statement": "trackFeatureAction and trackAppOpen send server-side GA4 Measurement Protocol events because the GAS web app renders in a sandboxed googleusercontent.com iframe where GA third-party cookies are blocked, so client-side gtag.js cannot reliably track users/sessions/returning; server-side knows the user and sets a stable hashed user_id.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L1-L11",
+          "version": "repo-lines-v1:sha256:36db8e8b233c0ab14bbf2de319c4b75bd65e315c7b45956d8fa7712c1ca2f556:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiMWU3MTJmYTBkYmFjN2VjZjMzNDQ5Mjg5ZjNkMDA4MDQxZjY2MDI1NDBhYzVlMTdhYWNlYTAyMDFjNWZiZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwMWVhZDkzNmEyMjgxZDUzZGNjMDY0YjdlMmEyYWIwZDUzYjkyZWYzZWY3YjM0YjY2ODY3MzAwNzg5NWM4NjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3YTE4MGY5NzhhMWZlNjA5MzUwZjIzMzYzOTViZDdhMTU5MjNiNzIyMzQyNjMxODcyOTA1YWU3ZWU0NmNlMTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c51fbf0d6dd64c1f92f784c68cf112f4",
+      "statement": "The GA4 user_id is SHA-256(salt + email) via hashUserId_, never the raw email or Allstars_ID (PDPA); an optional GA4_USER_ID_SALT makes the hash non-reversible by rainbow table, and any hash-to-identity mapping is kept internal; currentUserHash_ resolves the email defensively and never throws.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L13-L15",
+          "version": "repo-lines-v1:sha256:6a20412f7febd1a746a6f8739f70ba0910ce39b3c305dc935512f7e98fa82331:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjU2M2JjNjQ5YmJlNWQ1ZjEzZjA1NmY0NjM3MzYzY2EzNzUxYWIxZDllYWQ5MmI2YjQxODZmODA3ZmRjYmE1MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTAxZWFkOTM2YTIyODFkNTNkY2MwNjRiN2UyYTJhYjBkNTNiOTJlZjNlZjdiMzRiNjY4NjczMDA3ODk1Yzg2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2EzNGNlMGNmYWFmZTBkMzQ5MTdlZWMzMTE5NGUxZDUwNWZlOWU4NWY4NjJmMzFhM2RmNmIwODU4YTIyYmM0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGRlOTE1Zjc5MjdiMjk3OTAyOWQyYzBlZDg1YzE4MDI4ODFjNjQxMDU1NTQ2MGI0YTVhMjI2Y2EyMmIwMmU3NCJ9"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L41-L68",
+          "version": "repo-lines-v1:sha256:83f6da55e24f99a8581741530e0955030c6fe24bff05ed75d5dfa649c8559ea1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMDQwZTA5NWE5NGUyYWRhNzRlNDIxZjM3MTg3NTFhOTFhODEwYmZkNjZmNDhmNGU5MzljN2I3NDgwZWI2NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0MTcyNjJiNzJjZWEzNGViOGFmYjA0NDllN2MwNTQ4NzZhNzhiMjk4ZTBhNWE1ZjBhYTAxNWIwYWMxZTgyY2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f84c89c0f6c7481eb3124834edb2b4a3",
+      "statement": "parseDevice_ reduces the raw navigator.userAgent into low-cardinality buckets device_category (desktop/mobile/tablet), device_os (iOS/Android/Windows/macOS/Linux/Other), and device_browser (Edge/Opera/Samsung/Firefox/Chrome/Safari/Other), which must be registered as GA4 custom dimensions; the raw UA is never sent and the ' | WxH' screen suffix is ignored.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L70-L116",
+          "version": "repo-lines-v1:sha256:1aca71cb06d0867429eed14574821791929f3e691e21f6e683fc60d2fcbef1ee:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMwZmE2MGY1ZjU5YWE2N2U3OWM5ZmI1OGNhN2RlYzUxOGYwODdlNjgwZDQwMWI1ZGU2NjUxNjIwNGRkODJmYzUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8510fe0860934ddb921bf303d11a5c1d",
+      "statement": "Native GA4 device detection is useless for this app because the hits are sent server-side via UrlFetchApp, so GA4 sees Google's datacenter UA/IP rather than the user's; the explicit device_* params from parseDevice_ are the only reliable device signal.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L75-L81",
+          "version": "repo-lines-v1:sha256:b5ca68898abe4adcbc80c14cd4c699abcc4ed442726bc64310d59caea4d6a16c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjIzY2I0YzEzZDY3NzU5ZDU0Zjc2NzFkNDQwMzQ5NzJkMDkwM2EzOWQwOGFmYWU3M2JiOTgxZWI5YWIwZGNmMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzEwNWZiNjkzOWI5YzU1NjczMGVhMjM2NDEzNmJiZjcwYTYxYjliZWUwMjgxMTU2NGFhNDlmZDkwY2MyN2VjMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmE0YTQyMWJmOGVhZThmNTUyZDMzNmVjY2Q0Mzc0ODMxM2Y4ZjFiZmM1ZDFmNmJiNjFjZDBkNWQ2M2U2ZWRmMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDlmNDIwNTliOWFiZWZiZTQ3NjY0YmU4YWMwNWI4ODliOGEwZTE4YjcyY2UwOTAzODYxMWFhYTU5YmU0Y2FmYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_12bf53b3359548eaa4f0866112153f7a",
+      "statement": "trackAppOpen is fired client-side from html/JS.html DOMContentLoaded (not from doGet, which cannot see the browser User-Agent) with navigator.userAgent + ' | ' + screen.width + 'x' + screen.height; DOMContentLoaded fires once per real page load so the post-action soft re-render does not double-count visits.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Main.gs#L20-L22",
+          "version": "repo-lines-v1:sha256:794a6ef5cbcc8796a13327ae8338eb2f88ae5b5a8edc6b2b4f0ae37fb2825c9a:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODM0MDYzMjZhZjBlZmZmNmQwNDUwOWE1MGM2YmU5MGY3M2IyNjY4NWY3YjM5ZjExZDg2OGY2NmM0NTNkNTRiYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjc5NmYzMzY2YTliMzU0OWNlYjg4MGJmYjg5YjM2YmNjNzdjZWZmYjg2NWNhNjE3NDlmNTYxYjQyOTYwMDhhYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjQ1NjcwMWNhYmNjMGI2MmEzYTAzYzU4NTFiNTMyNDBiMWQ2ZThkOTI5NWM2MTFiYTIxZTAxY2FlMzFlYzIxNyJ9"
+        },
+        {
+          "resource": "repo://html/JS.html#L7-L15",
+          "version": "repo-lines-v1:sha256:0a3b92544bae1deaad7d0bee8321395317a09389d95c292364a125fdde91da2c:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRlMDU3YmNjYmEzOGQ2NjZkN2EzZTJhY2MzZDMzNDU0NGJiNzRhNThkZDU3ZGRmZDI5ZmQwMTE5YmJiNzM1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmY4YjhjZDhiMDJiYTJjODE3MTRhNDdlZDg3YzEwNzk4MWZmZDRmNTdmMzIwYmFkODkzZmIxM2RkMDA0ZWQ1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjFkYjVlNWMyYWFmNmFjMWQwYjk3NDY2NmU0NGEwYjFkYjM2YTIyM2IzNGJkMDU1ZjFjZTQ3ZjRjMWQ5ZDQzZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_43cb89185455471dbe0728bfbeb1b966",
+      "statement": "trackEvent adds engagement_time_msec and session_id so the hit registers as an active GA4 session (a common MP gotcha: without them server events often don't count), reuses the hashed user_id as client_id (no reliable browser id in the iframe), and sets user_id when resolvable to enable returning-vs-new; if GA4_MEASUREMENT_ID or GA4_API_SECRET is unset, trackEvent is a silent no-op.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L126-L158",
+          "version": "repo-lines-v1:sha256:754246da3c3fa9f5dfcebccf87950d772305237bfa5aa4ec12ec6ddd132d9446:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5YzA0ZGFjMDYyNThhMzk3MTgzYmZjNzAyZDdhNjRiMTNkM2M0YzgwMTFlODI1ZmYwNGRmOTQ3YjY4MjA4OTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjYzljZWFlNjZmNzBmNDE1ZGIwN2FiZTliMWI4ZTZkODMyYjdmNjI5YzhkNmVjZjVmZjMxZDAxYzU5ZTgyMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzY2I3ZWQ2ZjNlMDY1ZGE5OGVlMWJjMmU0OTVhZDk4NDBiYmU0ZmViYTdhN2M5MWUwNDljNmZmMjM5YzBlNDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9902caed1a08470a828c6d23d39e00c3",
+      "statement": "trackFeatureAction is called with feature in {enroll, change_plan, withdraw, beneficiary, cancel} and outcome in {success, fail}; the 'fail' call lives in each handler's outer catch so a handler-level failure is still reported even though the pipeline was never reached.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L165-L171",
+          "version": "repo-lines-v1:sha256:47976bfc364611ddc87ed468e96fb33545396813ca942ad9ce81dc1f0a797075:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzg5ZWM3Njc4ODFjMDQ0OTI5YWJiMjk5Nzg5ZmFlZGQ0NTg4ODg2MmY0NjVhMDE5YTM2ODdmYmI0YTNmYjhmMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzA2M2JmMmU3OWYwMGMwOWJmZTA0YTEzNWRmZGM2Zjg1OTVmNTI4NTYyYjMxYWU0MjNjZmQ3YzE0YjYwOWE1YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmUwZjRiMzM2Yzc0NzBkMGI2MjViY2UyNWY3NzIyOTQ3YzNhZTA3ODJmM2MzZTAyOGYxMWRhOTA1M2E4NWJiZSJ9"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L172-L188",
+          "version": "repo-lines-v1:sha256:2c05fbfadeda8a03d2a5ccb92717bd8162a29c3e2ea3f77a9bde5aff2cfb4341:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjOTBmNGRhNjIwMGJhNjIyNjEwN2I4ZTNjNGQ3NzQ2ZDkzYzdjNTg2YjEyOGViNmM3OWRhZDEzYzMxY2ZiMmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4ZTM1Y2I3NGE2YzFjY2MyNDFhY2ExNzM5OTlhZjY1NmEzZTEzYjRjNzkxN2YxNThmZGNhMmNjZWM4NjAxNTkifQ"
+        },
+        {
+          "resource": "repo://Code/Withdraw.gs#L104-L106",
+          "version": "repo-lines-v1:sha256:0955e8f0a07a92b2431bdf1a2f9c82a27146fda11927e0b4f1aed9ca15cdf972:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmZlMTg2MWEyOWZmYmM5MGZkNTViNmJhYTNiNmQ0MjI1NzFkMTA0OTIyYzU4YTdhMmQ5OGMxNTFhZjQ3MDNlNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWY1OWM4ZDdjNTkyODJhODM1N2VmN2JhNjgxNjcxMmY0Y2UyYTU1YzY1NmQ0YTcwMzk3MTA3ZDE0OTcyNDM1OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTQwYTFiZWUwZTUzNzQ4MmJlY2NhN2MxZTAyZTEwMGVkZmE0ODM1MTQ0YTg0MzY5MTVlMTQ1Mjc1ZjBkNjI0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7a9125b6b85e4821aa0f2d9589ec6f65",
+      "statement": "All pipeline configuration lives in Script Properties rather than source: PF_ENROLLMENT_TEMPLATE_ID (required by generateLetter, which throws if unset), PF_BENEFICIARY_TEMPLATE_ID (optional, falls back to enrollment), PF_LETTERS_FOLDER_ID (optional, falls back to the template's parent folder), GA4_MEASUREMENT_ID, GA4_API_SECRET (trackEvent no-ops if either unset), and GA4_USER_ID_SALT (optional).",
+      "evidence": [
+        {
+          "resource": "repo://Code/Analytics.gs#L128-L129",
+          "version": "repo-lines-v1:sha256:2b2b52334f55f17722d9dc7e4b1e8686af88ab525eefe0fb3fc52f8aaa34c6cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2Y1MGUyMWZjOWU5MTIxMzg1N2VhMDAwNDgxNTFlNDljZmU4OTllYWZkZGM2MjVjN2FiYjcxOWE4MmQ3M2RlZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGE5ZTRlNWE4NDYwYWY1ZGVjOTg5ODMwNDJkNGY0MWExYjg0ZmI0ZDVkYjU5ZWJlZjVhZWE0NDNmNTQ0NDBlYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmFlYmQwY2Y2ZDg4YmIxZjNiMDU2ZWU2OGI3MzJlYjJjZGFmY2U1ZGQ0YjFlNWVmZWM3YzZmNDIyYWZkY2JkMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWRjYTQ2ZjlkYTA1ZGIwNTNhOTMwOTgwNjMxMmZmN2VjZGFmNjlhM2Q5NmYwM2Q1MGMxYzdiZTViNmIzY2U5MyJ9"
+        },
+        {
+          "resource": "repo://Code/Analytics.gs#L16-L26",
+          "version": "repo-lines-v1:sha256:909d39375455dfe0a3badccef28202e979eec931dc67cbb0b437a1d531e3f417:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiOGE5MmE0YTdhNmU0ZmExYzdkMTY1ZTc1MjQxNDA2MDI2NDgzZDEyMTc0ZWM1NDE4NzdiNTI3OGZhM2RlNjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjZjBjMDYyYmQxOTUwZGYzMWNlOTgzZmUyNTNlYTZkMjZkOGI0ZGQ3Y2ZlMTFiNTgwNWVlMDJlNmE2MjI4ODUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhMjA0MTJmN2ZlYmQxYTc0NmE2Zjg3MzlmNzBiYTA5MTBjZTM5YjNjMzA1ZGM5MzU1MTJmN2U5OGZhODIzMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1Mzc1ZGIzODY2NDhkM2ZjNmViZGUwNDk0YWY5YzY2NWE5NzJmOWFmZjgyOGNiMGMyOTE2ZGUwMjc1YTA3YzIifQ"
+        },
+        {
+          "resource": "repo://Code/Letter.gs#L13-L25",
+          "version": "repo-lines-v1:sha256:49bdeb1802a2de2bbf204f2f3ec5a664ba1193a58dda66b4211a5d73d45bf17d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjMmNkMTI5YmY2MmZlNzIyNzMxNjZlNDkxMWRkN2IyN2JiNTQ5ZjdiZmNiZTU4ZmQ5M2Y4MjcxYjg2YzViYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQzYjAwNjMxZTE3NDdhOWZhYzQ5NTZmMTljMjBiM2I3MDNmOGU3NjhiNjc2Y2I0NWRhYzRmNWM3NGUwMmY3MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2MWRlMGNiZDg0MzlkMTA2MjBiMDYzODVhYjcyMjRkODBjMjI0MDc4NTBkNzIzZGMwYzRmYmM2OTBhMGZkODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a37e74b9094b4e4abc9f01711fb5af9a",
+      "statement": "The per-handler pipeline varies by action: Enroll and Update Beneficiaries produce a letter and patch letter+email+signedAt; Change Plan, Withdraw, and Cancel send no letter, patch only email, and never trigger sendLetterFailureAlert.",
+      "evidence": [
+        {
+          "resource": "repo://Code/Action.gs#L126-L165",
+          "version": "repo-lines-v1:sha256:c4aa55cd0f1f15c36877cb026e868b8450e70b194e847006d9cf38cb6b203855:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmMGU4ODBmMmQ4NDM2NTI0NDY1YjE4M2MwMzBkNWZlZWQwMTI1MzQ1YzBhNWRmMjRkNDhlYjZlZjgzOGNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4OWVjNzY3ODgxYzA0NDkyOWFiYjI5OTc4OWZhZWRkNDU4ODg4NjJmNDY1YTAxOWEzNjg3ZmJiNGEzZmI4ZjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmOGU3MDJmOGUwYTY1NmQxZDhlZDEyMTQ2YzhkYTYyNTZmMTRjNGMzYWUxZDMxOWQ1Yzk3YzU1Mzg3MWViOGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmMTE4MmI0MDM3YmQ1ZWRlMzFkM2Q1NzdhMmUyOGM1NmM2NWVmM2ZiMGM5NzFmMGQ5NTg4Y2VhOGY5MTc2NTcifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L344-L363",
+          "version": "repo-lines-v1:sha256:72e4f0666c223dadc443fd8d1e5273992fc9255f3806cea75fb5d678449ebc42:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NDllNjdiOTg0MWU3ZjZkYTc2NzRkNjc5YmM4Y2YwNGZiOTgxOGQwNDM5NTM2ZmU1MTExZTM1ZDY3ZDZjZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMTAzNWE1NzI2NzM4Mjc5ZGFiN2EyMjc0MDMzYWExMWVkNThmYWMwYzFiNWQyZTIxNTEwNmYxNmQxYzIzNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA0NmNlODNhMDdhMjA2NDE0MjBjOTNlZjNjMzEzNGJmYmRjNmVlYjg3MmU5MTAzN2QwMzAwYWVkMTY3MzU1ZGUifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L466-L504",
+          "version": "repo-lines-v1:sha256:bdc24eb2f7b7034a72eecac69154c60bdba0386bcb8c7ea6695b12224344a2b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmMGU4ODBmMmQ4NDM2NTI0NDY1YjE4M2MwMzBkNWZlZWQwMTI1MzQ1YzBhNWRmMjRkNDhlYjZlZjgzOGNkOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2MGRjOWJjMGI2YjBkN2MwYTQ5MDdlYTJjN2ExOTExNGE4MzdkYzNkZGJlNDM1ZjYwZWI2Y2E4YjBiOWEzNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmOGU3MDJmOGUwYTY1NmQxZDhlZDEyMTQ2YzhkYTYyNTZmMTRjNGMzYWUxZDMxOWQ1Yzk3YzU1Mzg3MWViOGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU4MmU5ODMxMjJjMDQwYTM3MTg0ZTVkMTY5MGJlZjFlOWMxNTVhZTgwOTMyYjk2ZTZjYzJmOGM1N2Y3YzViMjgifQ"
+        },
+        {
+          "resource": "repo://Code/Action.gs#L631-L656",
+          "version": "repo-lines-v1:sha256:dce76303e06616391dfee46cd008134f95a0d48e41a3aa74d035fdda416c9407:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhZjBlM2VkNzA3ZmU1N2U5MTBiZmExMWQ0ZDc5YTY5M2VkMzVjYTgyM2FlOGRhMjRiNDQ1ZmQ1ZDk0YmViNDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0NmNmNTNhYWE3MjFlZDJmNWVhOTA5Y2U4NTg3ZjllNzZhMWVlMjUzZDUyZWQwZjRjNTQwMjI5MjAyYmNjYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5ZWVmNjg0MjI3NDZkMzM1MTVmMzY3YTM1YmFlMTljY2U2MDUyOTAzZDIyNjIyNjkwYTUzNzgwZmM2ODhmOWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0NzU4Y2UzODc3NDY4ZDZlYmQ0NzY5Y2U3NjE4YmViNDFmZjNkZTNhZjAwN2RhMDc0ODk4YjAyNGQyZjJkYzcifQ"
+        },
+        {
+          "resource": "repo://Code/Withdraw.gs#L88-L106",
+          "version": "repo-lines-v1:sha256:b16a67b027b00fb00e2beb039e479741c525ab465427155d6ee43199de68683b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NDllNjdiOTg0MWU3ZjZkYTc2NzRkNjc5YmM4Y2YwNGZiOTgxOGQwNDM5NTM2ZmU1MTExZTM1ZDY3ZDZjZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmNTljOGQ3YzU5MjgyYTgzNTdlZjdiYTY4MTY3MTJmNGNlMmE1NWM2NTZkNGE3MDM5NzEwN2QxNDk3MjQzNTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwMTAzNWE1NzI2NzM4Mjc5ZGFiN2EyMjc0MDMzYWExMWVkNThmYWMwYzFiNWQyZTIxNTEwNmYxNmQxYzIzNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.3",
+    "at": "2026-08-27T08:53:10.517Z"
+  }
+}
