@@ -166,4 +166,45 @@
   #pendingTxBox {
     background-color: #FFF8E1 !important;
   }
+
+  /* ========================================== */
+  /* WITHDRAWAL TIMELINE STEPPER                */
+  /* ========================================== */
+  .wd-tracker { display: flex; flex-direction: column; margin-top: 0.85rem; }
+  .wd-step { display: flex; gap: 0.8rem; }
+  .wd-rail { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .wd-dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #ffffff; border: 2px solid #cbd5e1;
+    box-sizing: border-box; position: relative; z-index: 1; flex-shrink: 0;
+  }
+  .wd-line { width: 2px; flex: 1; background: #e2e8f0; margin: 2px 0; min-height: 12px; }
+  .wd-body { padding-bottom: 1rem; line-height: 1.5; }
+  .wd-body strong { display: block; margin-bottom: 0.15rem; }
+  .wd-step:last-child .wd-body { padding-bottom: 0; }
+  .wd-step:last-child .wd-line { display: none; }
+
+  .wd-step.is-done .wd-dot { background: #2e7d32; border-color: #2e7d32; }
+  .wd-step.is-done .wd-dot::after {
+    content: '✓'; color: #ffffff; font-size: 10px; line-height: 1;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  }
+  .wd-step.is-done .wd-body { color: var(--pico-muted-color) !important; }
+  .wd-step.is-done .wd-body strong { color: var(--pico-muted-color) !important; }
+
+  .wd-step.is-active .wd-dot {
+    background: var(--pico-primary); border-color: var(--pico-primary);
+    animation: wdPulse 2s infinite;
+  }
+  .wd-step.is-active .wd-body strong { color: var(--pico-primary) !important; }
+
+  .wd-step.is-upcoming .wd-dot { background: #ffffff; border-color: #cbd5e1; }
+  .wd-step.is-upcoming .wd-body { color: var(--pico-muted-color) !important; }
+  .wd-step.is-upcoming .wd-body strong { color: var(--pico-muted-color) !important; }
+
+  @keyframes wdPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(52, 66, 147, 0.35); }
+    70%  { box-shadow: 0 0 0 8px rgba(52, 66, 147, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(52, 66, 147, 0); }
+  }
 </style>

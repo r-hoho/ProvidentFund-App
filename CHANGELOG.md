@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 While in BETA the app stays in the `0.x` range; it graduates to `1.0.0` when stable
 and the BETA badge is dropped.
 
+## [1.1.0] - 2026-08-27
+
+### Added
+- Withdrawal progress timeline (`html/JS.html` + `html/CSS.html`): a delivery-style vertical stepper showing the current stage (done / active / upcoming) computed from the Bangkok date at sign-in, for the on-time and past-cut-off branches.
+- `todayBangkok` field in `getUserProfile()` (`Code/Profile.gs`) so the timeline's active stage is timezone-correct regardless of the script or browser clock.
+- `lastWithdrawalDate` now returned to the frontend (`Code/Profile.gs`), fixing the missing withdrawal date / payout-estimate lines.
+
+### Changed
+- Refactored the withdrawal message into a single `showWithdrawalMessage()` helper; the "Re-enroll on" line now breaks onto its own line and keeps the danger-red accent while the rest of the message is neutral.
+- Corrected month-rollover math for the payout-estimate window (Oct/Nov withdrawals no longer produce a blank month).
+- Bumped client-facing version string in `html/Index.html` to `v1.1.0`.
+
 ## [1.0.0] - 2026-08-01
 
 ### Added

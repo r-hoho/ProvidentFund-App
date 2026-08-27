@@ -115,6 +115,7 @@
 
       if (response.enrollment.withdrawalCount >= 3) {
         statusPill.innerHTML = "หมดสิทธิ์ถาวร / Locked"; statusPill.style.setProperty('color', 'var(--pico-del-color)', 'important');
+        showWithdrawalMessage(response);
       } else if (response.isOnProbation) {
         statusPill.innerHTML = "ระหว่างทดลองงาน / Probation"; statusPill.style.setProperty('color', '#ffb74d', 'important');
         if (response.probationEndDate) {
@@ -124,9 +125,7 @@
         }
       } else if (response.isCoolingDown) {
         statusPill.innerHTML = "ระงับสิทธิ์ชั่วคราว / Cooldown"; statusPill.style.setProperty('color', '#ba68c8', 'important');
-        const unlockDate = new Date(response.cooldownEndDate);
-        messageDiv.innerHTML = `* สามารถสมัครใหม่ได้ในวันที่<br>Eligible to re-enroll on:<br><strong>${unlockDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</strong>`;
-        messageDiv.style.display = 'block';
+        showWithdrawalMessage(response);
       } 
       
       
@@ -551,6 +550,81 @@
         errorBox.style.display = 'block';
       })
       .cancelTransaction(txId, deviceInfo);
+  }
+
+  function showWithdrawalMessage(response) {
+    const wdDate = response.enrollment.lastWithdrawalDate ? new Date(response.enrollment.lastWithdrawalDate) : null;
+    const isLocked = response.enrollment.withdrawalCount >= 3;
+
+    let timelineHtml = '';
+    if (wdDate) {
+      const MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const y = wdDate.getFullYear();
+      const m = wdDate.getMonth();
+      const day = wdDate.getDate();
+      const dmy = (dd, mm, yy) => dd + ' ' + MONTHS_EN[mm] + ' ' + yy;
+      const lastOf = (mm, yy) => new Date(yy, mm + 1, 0).getDate();
+      const next = (mm, yy) => (mm + 1 > 11 ? [0, yy + 1] : [mm + 1, yy]);
+      const utc = (yy, mm, dd) => Date.UTC(yy, mm, dd);
+
+      const tb = (response.todayBangkok || '').split('-').map(Number);
+      let todayNum;
+      if (tb.length === 3 && tb[0] && tb[1]) {
+        todayNum = utc(tb[0], tb[1] - 1, tb[2]);
+      } else {
+        const n = new Date();
+        todayNum = utc(n.getFullYear(), n.getMonth(), n.getDate());
+      }
+
+      const steps = [];
+      steps.push({ dateLabel: dmy(day, m, y), th: 'ยื่นคำขอลาออก', en: 'Withdrawal Submission', to: utc(y, m, day) });
+
+      if (day <= 15) {
+        steps.push({ dateLabel: dmy(15, m, y), th: 'วันตัดรอบ', en: 'Cut-Off Period', to: utc(y, m, 15) });
+        steps.push({ dateLabel: dmy(lastOf(m, y), m, y), th: 'หักเงินงวดสุดท้าย', en: 'Last Deduction', to: utc(y, m, lastOf(m, y)) });
+        const [pm, py] = next(m, y);
+        steps.push({ dateLabel: '1–' + lastOf(pm, py) + ' ' + MONTHS_EN[pm] + ' ' + py, th: 'อยู่ระหว่างดำเนินการ', en: 'Processing', to: utc(py, pm, lastOf(pm, py)) });
+        const [rm, ry] = next(pm, py);
+        steps.push({ dateLabel: '1–7 ' + MONTHS_EN[rm] + ' ' + ry, th: 'คาดว่าได้รับเงิน', en: 'Expected Payout', to: utc(ry, rm, 7) });
+      } else {
+        steps.push({ dateLabel: dmy(lastOf(m, y), m, y), th: 'หักเงินตามปกติ', en: 'Normal Deduction', to: utc(y, m, lastOf(m, y)) });
+        const [cm, cy] = next(m, y);
+        steps.push({ dateLabel: dmy(15, cm, cy), th: 'วันตัดรอบ', en: 'Cut-Off Period', to: utc(cy, cm, 15) });
+        steps.push({ dateLabel: dmy(lastOf(cm, cy), cm, cy), th: 'หักเงินงวดสุดท้าย', en: 'Last Deduction', to: utc(cy, cm, lastOf(cm, cy)) });
+        const [pm, py] = next(cm, cy);
+        steps.push({ dateLabel: '1–' + lastOf(pm, py) + ' ' + MONTHS_EN[pm] + ' ' + py, th: 'อยู่ระหว่างดำเนินการ', en: 'Processing', to: utc(py, pm, lastOf(pm, py)) });
+        const [rm, ry] = next(pm, py);
+        steps.push({ dateLabel: '1–7 ' + MONTHS_EN[rm] + ' ' + ry, th: 'คาดว่าได้รับเงิน', en: 'Expected Payout', to: utc(ry, rm, 7) });
+      }
+
+      let activeSeen = false;
+      const rows = steps.map((s) => {
+        let status;
+        if (todayNum > s.to) { status = 'is-done'; }
+        else if (!activeSeen) { status = 'is-active'; activeSeen = true; }
+        else { status = 'is-upcoming'; }
+        return '<div class="wd-step ' + status + '">' +
+          '<div class="wd-rail"><div class="wd-dot"></div><div class="wd-line"></div></div>' +
+          '<div class="wd-body"><strong>' + s.dateLabel + '</strong><div>' + s.th + ' / ' + s.en + '</div></div>' +
+          '</div>';
+      });
+
+      timelineHtml = '<div class="wd-tracker">' + rows.join('') + '</div>';
+    }
+
+    const footerHtml = isLocked
+      ? ''
+      : '<span style="color: var(--pico-del-color);">* สามารถสมัครใหม่ได้ในวันที่ / Re-enroll on:<br><strong>' + new Date(response.cooldownEndDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) + '</strong></span>';
+
+    const div = document.getElementById('cooldownMessage');
+    div.style.color = 'var(--pico-color)';
+    div.style.textAlign = 'left';
+    div.style.fontSize = '0.85rem';
+    div.innerHTML =
+      '<strong>การลาออกกำลังดำเนินการ / Withdrawal in progress</strong>' +
+      timelineHtml +
+      (footerHtml ? '<br>' + footerHtml : '');
+    div.style.display = 'block';
   }
 
 </script>

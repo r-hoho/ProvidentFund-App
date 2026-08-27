@@ -159,7 +159,8 @@ function getUserProfile() {
             investmentPlan: enrollmentData.investmentPlan,
             beneficiariesJSON: enrollmentData.beneficiariesJSON,
             beneficiaryHistory: enrollmentData.beneficiaryHistory, 
-            enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null
+            enrolledDate: enrollmentData.enrolledDate ? String(enrollmentData.enrolledDate) : null,
+            lastWithdrawalDate: enrollmentData.lastWithdrawalDate instanceof Date ? String(enrollmentData.lastWithdrawalDate) : null
           },
           pendingTransactions: pendingTransactions,
           isOnProbation: isOnProbation,
@@ -170,7 +171,8 @@ function getUserProfile() {
           memberSinceDate: startDateForMath instanceof Date ? String(startDateForMath) : null,
           tenureYears: tenureYears.toFixed(2),
           tenureY: tenureY,
-          tenureM: tenureM
+          tenureM: tenureM,
+          todayBangkok: Utilities.formatDate(today, "Asia/Bangkok", "yyyy-MM-dd")
         };
       }
     }
